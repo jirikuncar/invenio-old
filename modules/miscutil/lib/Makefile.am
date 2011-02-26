@@ -110,6 +110,7 @@ pylib_DATA = __init__.py \
              sequtils_model.py \
              sequtils_regression_tests.py \
              crossrefutils.py \
+             containerutils.py \
              flaskshell.py \
              wtforms_utils.py \
              sherpa_romeo.py \
