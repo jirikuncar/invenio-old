@@ -115,6 +115,8 @@ class SimulatedModPythonRequest(object):
         self.__replace_https = False
         self.track_writings = False
         self.__what_was_written = ""
+        self.__cookies_out = {}
+        self.g = {} ## global dictionary in case it's needed
         for key, value in environ.iteritems():
             if key.startswith('HTTP_'):
                 self.__headers_in[key[len('HTTP_'):].replace('_', '-')] = value
