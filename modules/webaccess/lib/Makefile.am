@@ -33,8 +33,8 @@ pylib_DATA = access_control_engine.py \
              external_authentication_robot.py \
              external_authentication_oauth1.py \
              external_authentication_oauth2.py \
-             external_authentication_openid.py
-	     webaccess_model.py \
+             external_authentication_openid.py \
+             webaccess_model.py \
              webaccess_admin_blueprint.py \
              webaccess_regression_tests.py
 
