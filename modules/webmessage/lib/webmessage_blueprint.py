@@ -59,7 +59,8 @@ class MessagesMenu(object):
         out = '<i class="icon-envelope icon-white"></i>'#_('Messages')
         if unread:
             out += ' <span class="badge badge-important">%d</span>' % unread
-        out += """
+        out2 = ""
+        out2 += """
     <script id="menu_msg">
       $(function() {
         var menu_a = $('#menu_msg').parent();
