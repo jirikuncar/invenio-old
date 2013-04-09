@@ -19,3 +19,67 @@
 
 notifications:
   email: false
+
+services:
+  - mysql # will start mysqld
+  - rabbitmq # will start rabbitmq-server
+  - redis # will start memcached
+
+python:
+  - "2.7"
+  - "2.6"
+
+install:
+  - "sudo apt-get update"
+  - "sudo apt-get install apache2 libapache2-mod-wsgi ssl-cert poppler-utils --fix-missing"
+  - "sudo a2enmod actions"
+  - "sudo a2enmod rewrite"
+  - "sudo mkdir /etc/apache2/ssl"
+  - "sudo /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem"
+  - "sudo pip install -r requirements.txt"
+  - "sudo pip install -r requirements-extras.txt"
+  - "sudo pip install -r requirements-flask.txt"
+  - "sudo pip install -r requirements-flask-ext.txt"
+  - "sudo pip install nose==1.2.1"
+  - "aclocal"
+  - "automake --add-missing"
+  - "autoconf"
+  - "./configure"
+  - "make"
+  - mysql -u root -e "DROP DATABASE IF EXISTS invenio"
+  - mysql -u root -e "CREATE DATABASE IF NOT EXISTS invenio DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci"
+  - "sudo mkdir -p /opt/invenio/lib/python/invenio"
+  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/local/lib/python2.7/dist-packages/invenio || echo 'not 2.7'"
+  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/lib/python2.7/dist-packages/invenio || echo 'not 2.7'"
+  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/local/lib/python2.6/dist-packages/invenio || echo 'not 2.6'"
+  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/lib/python2.6/dist-packages/invenio || echo 'not 2.6'"
+  - "sudo chown -R www-data:www-data /opt/invenio"
+  - "sudo -u www-data make install"
+  - "sudo -u www-data make install-hogan-plugin || echo ':('"
+  - "sudo -u www-data make install-mathjax-plugin || echo ':('"
+  - "sudo -u www-data make install-ckeditor-plugin || echo ':('"
+  - "sudo -u www-data make install-pdfa-helper-files || echo ':('"
+  - "sudo -u www-data make install-jquery-plugins || echo ':('"
+  - "sudo -u www-data make install-bootstrap || echo ':('"
+  - echo -e "[Invenio]\nCFG_DATABASE_USER = root\nCFG_DATABASE_PASS = \nCFG_EMAIL_BACKEND = flask.ext.email.backends.console.Mail\nCFG_SITE_SECRET_KEY = 12wderfg8hyuji5kybvfd3xc\nCFG_FLASK_CACHE_TYPE = redis\n" | sudo tee -a /opt/invenio/etc/invenio-local.conf
+
+before_script:
+  - "sudo -u www-data /opt/invenio/bin/inveniocfg --update-all"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage bibfield config load"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage apache create-config"
+  - "sudo -u www-data /opt/invenio/bin/inveniocfg --update-all"
+  - "sudo ln -s /opt/invenio/etc/apache/invenio-apache-vhost.conf /etc/apache2/sites-available/invenio"
+  - "sudo ln -s /opt/invenio/etc/apache/invenio-apache-vhost-ssl.conf /etc/apache2/sites-available/invenio-ssl"
+  - "sudo /usr/sbin/a2dissite default || echo ':('"
+  - "sudo /usr/sbin/a2ensite invenio" # enable Invenio web site
+  - "sudo /usr/sbin/a2ensite invenio-ssl" # enable Invenio secure web site
+  - "sudo /usr/sbin/a2enmod ssl" # enable SSL module
+  - "sudo /usr/sbin/a2enmod xsendfile || echo ':('"
+  - "sudo apachectl configtest && sudo service apache2 restart || echo 'Apache failed ...'"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage database create"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage demosite create"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage demosite populate"
+
+script:
+  - "sudo -u www-data nosetests /opt/invenio/lib/python/invenio/*_unit_tests.py"
+  - "sudo -u www-data nosetests /opt/invenio/lib/python/invenio/*_regression_tests.py"
