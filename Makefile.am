@@ -304,7 +304,7 @@ install-bootstrap:
 	rm -rf /tmp/invenio-bootstrap
 	mkdir /tmp/invenio-bootstrap
 	(cd /tmp/invenio-bootstrap && \
-	wget -O bootstrap.zip 'http://invenio-software.org/download/bootstrap/bootstrap-${BOOTSTRAPV}.zip' && \
+	wget -O bootstrap.zip http://twitter.github.io/bootstrap/assets/bootstrap.zip && \
 	unzip -u bootstrap.zip && \
 	cp bootstrap/css/bootstrap-responsive.css ${prefix}/var/www/css/bootstrap-responsive.css && \
 	cp bootstrap/css/bootstrap-responsive.min.css ${prefix}/var/www/css/bootstrap-responsive.min.css && \
