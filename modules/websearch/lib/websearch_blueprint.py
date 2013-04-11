@@ -39,7 +39,7 @@ from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.sqlalchemyutils import db
 from invenio.websearch_forms import EasySearchForm
 from invenio.websearch_model import Collection, Format, Tag
-from invenio.websearch_webinterface import wash_search_urlargd
+from invenio.websearch_utils import wash_search_urlargd
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint, \
                                   register_template_context_processor
 from invenio.webuser_flask import current_user

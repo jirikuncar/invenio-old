@@ -135,6 +135,7 @@ from invenio.bibmerge_webinterface import WebInterfaceMergePages
 from invenio.bibdocfile_webinterface import WebInterfaceManageDocFilesPages, WebInterfaceFilesPages
 from invenio.search_engine import get_record
 from invenio.shellutils import mymkdir
+from invenio.websearch_utils import wash_search_urlargd
 
 import invenio.template
 websearch_templates = invenio.template.load('websearch')
@@ -148,43 +149,6 @@ except KeyError:
     output_formats = ['xd', 'xm', 'hd', 'hb', 'hs', 'hx']
 output_formats.extend(['hm', 't', 'h'])
 
-def wash_search_urlargd(form):
-    """
-    Create canonical search arguments from those passed via web form.
-    """
-
-    argd = wash_urlargd(form, search_results_default_urlargd)
-    if argd.has_key('as'):
-        argd['aas'] = argd['as']
-        del argd['as']
-    if argd.get('aas', CFG_WEBSEARCH_DEFAULT_SEARCH_INTERFACE) not in CFG_WEBSEARCH_ENABLED_SEARCH_INTERFACES:
-        argd['aas'] = CFG_WEBSEARCH_DEFAULT_SEARCH_INTERFACE
-
-    # Sometimes, users pass ot=245,700 instead of
-    # ot=245&ot=700. Normalize that.
-    ots = []
-    for ot in argd['ot']:
-        ots += ot.split(',')
-    argd['ot'] = ots
-
-    # We can either get the mode of function as
-    # action=<browse|search>, or by setting action_browse or
-    # action_search.
-    if argd['action_browse']:
-        argd['action'] = 'browse'
-    elif argd['action_search']:
-        argd['action'] = 'search'
-    else:
-        if argd['action'] not in ('browse', 'search'):
-            argd['action'] = 'search'
-
-    del argd['action_browse']
-    del argd['action_search']
-
-    if argd['em'] != "":
-        argd['em'] = argd['em'].split(",")
-
-    return argd
 
 class WebInterfaceUnAPIPages(WebInterfaceDirectory):
     """ Handle /unapi set of pages."""
