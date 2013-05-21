@@ -34,6 +34,7 @@ install:
   - "sudo pip install -r requirements-extras.txt"
   - "sudo pip install -r requirements-flask.txt"
   - "sudo pip install -r requirements-flask-ext.txt"
+  - "sudo pip install nose==1.2.1"
   - "aclocal"
   - "automake --add-missing"
   - "autoconf"
@@ -52,9 +53,10 @@ install:
 
 before_script:
   - "sudo -u www-data /opt/invenio/bin/inveniocfg --update-all"
-  - "sudo -u www-data /opt/invenio/bin/inveniocfg --create-tables"
-  - "sudo -u www-data /opt/invenio/bin/inveniocfg --create-demo-site"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage database create"
+  - "sudo -u www-data /opt/invenio/bin/inveniomanage database demosite"
   - "sudo -u www-data /opt/invenio/bin/inveniocfg --load-demo-records"
 
 script:
   - "sudo -u www-data /opt/invenio/bin/inveniocfg --run-unit-tests"
+  - "sudo -u www-data nosetests /opt/invenio/lib/python/invenio/webmessage_regression_tests.py"
