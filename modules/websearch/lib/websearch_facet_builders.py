@@ -17,11 +17,17 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-from flask import g, url_for, request, abort
+import os
+from operator import itemgetter
+from itertools import groupby
+from werkzeug.utils import cached_property
+from flask import g, url_for, request, abort, current_app
+
 from invenio.websearch_cache import search_results_cache, \
                                     get_search_results_cache_key_from_qid
 from invenio.intbitset import intbitset as HitSet
-from invenio.config import CFG_WEBSEARCH_SEARCH_CACHE_TIMEOUT
+from invenio.config import CFG_WEBSEARCH_SEARCH_CACHE_TIMEOUT, CFG_PYLIBDIR
+from invenio.pluginutils import PluginContainer
 from invenio.webuser_flask import current_user
 from invenio.websearch_model import Collection
 from invenio.search_engine import search_pattern, \
@@ -49,6 +55,85 @@ def get_current_user_records_that_can_be_displayed(qid):
                                                  HitSet().fastload(data), cc)
     # Simplifies API
     return get_records_for_user(qid, current_user.get_id())
+
+
+def faceted_results_filter(recids, filter_data, facets):
+    """
+    Returns records that match selected filter data.
+
+    @param recids: found records
+    @param filter_date: selected facet filters
+    @param facet_config: facet configuration
+
+    @return: filtered records
+    """
+
+    ## Group filter data by operator and then by facet key.
+    sortkeytype = itemgetter(0)
+    sortfacet = itemgetter(1)
+    data = sorted(filter_data, key=sortkeytype)
+    out = {}
+    for t, vs in groupby(data, key=sortkeytype):
+        out[t] = {}
+        for v, k in groupby(sorted(vs, key=sortfacet), key=sortfacet):
+            out[t][v] = map(lambda i: i[2], k)
+
+    filter_data = out
+
+    ## Intersect and diff records with selected facets.
+    output = recids
+
+    if '+' in filter_data:
+        values = filter_data['+']
+        for key, facet in facets.iteritems():
+            if key in values:
+                output.intersection_update(facet.get_facet_recids(values[key]))
+
+    if '-' in filter_data:
+        values = filter_data['-']
+        for key, facet in facets.iteritems():
+            if key in values:
+                output.difference_update(facet.get_facet_recids(values[key]))
+
+    return output
+
+
+def _facet_plugin_builder(plugin_name, plugin_code):
+    """
+    Handy function to bridge pluginutils with (Invenio) facets.
+    """
+    if 'facet' in dir(plugin_code):
+        candidate = getattr(plugin_code, 'facet')
+        if isinstance(candidate, FacetBuilder):
+            return candidate
+    raise ValueError('%s is not a valid facet plugin' % plugin_name)
+
+
+class FacetLoader(object):
+
+    @cached_property
+    def plugins(self):
+        """Loaded facet plugins."""
+        return PluginContainer(os.path.join(
+            CFG_PYLIBDIR, 'invenio', 'websearch_facets', 'facet_*.py'),
+            plugin_builder=_facet_plugin_builder)
+
+    @cached_property
+    def elements(self):
+        """Dict with `FacetBuilder` instances accesible by facet name."""
+        return dict((f.name, f) for f in self.plugins.values())
+
+    def __getitem__(self, key):
+        return self.elements[key]
+
+    @cached_property
+    def sorted_list(self):
+        """List of sorted facets by their order property."""
+        return sorted(self.elements.values(), key=lambda x: x.order)
+
+    def config(self, *args, **kwargs):
+        """Returns facet config for all loaded plugins."""
+        return map(lambda x: x.get_conf(*args, **kwargs), self.sorted_list)
 
 
 class FacetBuilder(object):
