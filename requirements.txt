@@ -11,7 +11,7 @@ mechanize==0.2.5
 python-Levenshtein==0.10.2
 pyPdf==1.13
 PyStemmer==1.3.0
-https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
+#https://py-editdist.googlecode.com/files/py-editdist-0.3.tar.gz
 feedparser==5.1.3
 BeautifulSoup==3.2.1
 beautifulsoup4==4.1.3
