@@ -28,6 +28,7 @@ from flask import make_response, g, request, flash, jsonify, \
 
 from invenio import bibindex_model as BibIndex
 from invenio.bibindex_engine import get_index_id_from_index_name
+from invenio.bibfield import get_record
 from invenio.bibformat import get_output_format_content_type, print_records
 from invenio.websearch_cache import \
     get_search_query_id, get_collection_name_from_cache
@@ -113,7 +114,7 @@ def index():
     def index_context():
         return dict(
             easy_search_form=EasySearchForm(csrf_enabled=False),
-            format_record=print_record,
+            format_record=print_record, get_record=get_record,
             get_creation_date=get_creation_date
         )
     return dict(collection=collection)
@@ -123,13 +124,13 @@ def index():
 @blueprint.invenio_templated('websearch_collection.html')
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
-    b = [(_('Home'), '')] + collection.breadcrumbs(ln=g.ln)
+    b = [(_('Home'), '.index')] + collection.breadcrumbs(ln=g.ln)[1:]
     current_app.config['breadcrumbs_map'][request.endpoint] = b
 
     @register_template_context_processor
     def index_context():
         return dict(
-            format_record=print_record,
+            format_record=print_record, get_record=get_record,
             easy_search_form=EasySearchForm(csrf_enabled=False),
             get_creation_date=get_creation_date)
     return dict(collection=collection)
@@ -221,12 +222,12 @@ def crumb_builder(url):
 def collection_breadcrumbs(collection, endpoint=None):
     b = []
     if endpoint is None:
-        endpoint = request.blueprint + '.' + request.endpoint
+        endpoint = request.endpoint
     if collection.id > 1:
         qargs = request.args.to_dict()
-        qargs['cc'] = Collection.query.get_or_404(1).name
+        del qargs['cc']
         b = [(_('Home'), endpoint, qargs)] + collection.breadcrumbs(
-            builder=crumb_builder(endpoint), ln=g.ln)
+            builder=crumb_builder(endpoint), ln=g.ln)[1:]
     current_app.config['breadcrumbs_map'][request.endpoint] = b
 
 
