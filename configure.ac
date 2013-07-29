@@ -953,6 +953,10 @@ AC_CONFIG_FILES([config.nice  \
      modules/webtag/lib/Makefile \
      modules/webtag/lib/template_context_functions/Makefile \
      modules/webtag/web/Makefile \
+     modules/webvisualize/Makefile \
+     modules/webvisualize/etc/Makefile \
+     modules/webvisualize/etc/templates/Makefile \
+     modules/webvisualize/lib/Makefile \
      ])
 
 ## Finally, write output files:

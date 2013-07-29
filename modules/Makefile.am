@@ -58,6 +58,7 @@ SUBDIRS = bibauthorid \
           webstyle \
           websubmit \
           webtag \
+	  webvisualize \
           docextract
 
 CLEANFILES = *~
