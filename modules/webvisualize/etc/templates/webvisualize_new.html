@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-##
+{#
 ## This file is part of Invenio.
 ## Copyright (C) 2013 CERN.
 ##
@@ -16,11 +15,28 @@
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+#}
+{% extends "page.html" %}
+{% from "_formhelpers.html" import render_field with context %}
+{% set title = _("Add a visualization") %}
+{% block body %}
+<form name="write_message"
+      action="{{ url_for('webvisualize.new') }}"
+      style=""
+      method="post" class="form-horizontal">
+  <div class="">
+    {{ form.csrf_token }}
+    {{ render_field(form.name) }}
+    {{ render_field(form.title) }}
+    {{ render_field(form.description) }}
+    {{ render_field(form.graph_type) }}
+    {{ render_field(form.csv_file) }}
 
-"""WebVisualize Graph Visualizer Plugin"""
-
-class Visualizer(object):
-  """docstring for Visualizer"""
-  graph_type = 'graph'
-  template = 'webvisualize_graph_view.html'
-    
+    <p>{{ form.id_user }}</p>
+  </div>
+  <div class="">
+     <input type="submit" name="send_button" value="{{ _("Send") }}" class="btn btn-primary"/>
+     <a class="btn" data-dismiss="modal">Close</a>
+  </div>
+</form>
+{% endblock %}

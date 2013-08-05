@@ -54,7 +54,8 @@
 <script type="text/javascript">
 (function($) {
   var vconfig = {{ visualize_config.config|safe }};
-  var fields = {{ visualize_config.fields | safe}}
+  var fields = {{ visualize_config.fields|safe}};
+  var csv_url = '{{ visualize_config.get_url_csv}}';
 
   //var fields_json = vconfig.resources[0].schema.fields;
   //var fields = [];
@@ -62,7 +63,7 @@
   //  fields.push(fields_json[i].id);
   //}
   var data = {
-    url: vconfig.resources[0].url,
+    url: csv_url,
     backend: vconfig.resources[0].format
   }
   var dataset = new recline.Model.Dataset(data);
