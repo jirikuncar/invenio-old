@@ -34,12 +34,15 @@ from invenio.webvisualize_forms import AddVisualizationForm
 from invenio.webvisualize_model import VslConfig
 from invenio.websession_model import User
 
+# TEMPORAL
+from invenio.websearch_model import Collection
+
 
 blueprint = InvenioBlueprint('webvisualize', __name__,
                              url_prefix="/visualize",
                              #config='invenio.webcomment_config',
-                             breadcrumbs=[(_('Comments'),
-                                           'webcomment.subscribtions')],
+                             breadcrumbs=[(_('Visualizations'),
+                                           'webvisualize.index')],
                              menubuilder=[('personalize.comment_subscriptions',
                                            _('Your comment subscriptions'),
                                            'webvisualize.index', 20)])
@@ -51,23 +54,23 @@ from invenio.importutils import autodiscover_modules
 _VISUALIZERS = dict(map(lambda v: (v.Visualizer.graph_type, v.Visualizer),
                         autodiscover_modules(['invenio'], related_name_re=".+_webvisualizer\.py")))
 
-
+@blueprint.invenio_set_breadcrumb(_("View"))
 @blueprint.route('/view/<cid>', methods=['GET'])
-def view(cid):
+#@blueprint.invenio_authenticated
+def view(cid): 
     vc = VslConfig.query.get(cid)
-    if vc.graph_type in _VISUALIZERS:
+    if vc and vc.graph_type in _VISUALIZERS and (current_user.get_id() == vc.id_creator 
+                                                 or vc.is_public):
         visualizer = _VISUALIZERS[vc.graph_type]()
-    else:
-        abort(500) # log error unknown type
-    return render_template(visualizer.template, visualize_config=vc, 
-                           visualizer=visualizer)
-    #return render_template('webvisualize_view.html', visualize_config=cid)
+        return render_template(visualizer.template, visualize_config=vc, 
+                               visualizer=visualizer)
+    #No visualizer or not creator of the visualization        
+    return redirect(url_for('webvisualize.index'))
 
 @blueprint.route('/dataset/<name>.json', methods=['GET'])
 def dataset(name):
-    vc = VslConfig.query.filter_by(name=name).one()
+    vc = VslConfig.query.filter_by(name=name).first()
     return jsonify(vc.json_config)
-
 
 @blueprint.route('/', methods=['GET'])
 @blueprint.invenio_authenticated
@@ -92,3 +95,29 @@ def new():
             db.session.rollback()
 
     return render_template('webvisualize_new.html', form=form)
+
+@blueprint.route('/temp', methods=['GET'])
+def temp():
+    import json
+    def generate_tree(root, level=0):
+        if level < 4:
+            tree = {
+                'id': 'collection-bubble-' + str(root.id),
+                'name': root.name,
+                'label': root.name,
+                'amount': root.nbrecs,
+                'color': '#119ce2', # "invenio" blue as default color
+                'children': [generate_tree(node, level+1) for node in root.collection_children]}
+            if not len(tree['children']) or not tree['amount']:
+                del(tree['children'])
+            return tree
+
+    tree = generate_tree(Collection.query.get(1)) # id=1 is the root of all collections
+    return render_template('webvisualize_bubbletree_view.html', ds_tree=tree)
+
+"""
+@blueprint.route('/temp#/~/<node>', methods=['GET'])
+def map_update():
+    return redirect(url_for('websearch.collection',
+                                        name=node))
+"""

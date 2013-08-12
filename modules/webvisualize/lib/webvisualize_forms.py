@@ -22,7 +22,7 @@ Webvisualize forms.
 """
 from invenio.webinterface_handler_flask_utils import _
 from invenio.wtforms_utils import InvenioBaseForm
-from wtforms import validators, TextField, TextAreaField, SelectField
+from wtforms import validators, TextField, TextAreaField, SelectField, RadioField
 
 class AddVisualizationForm(InvenioBaseForm):
 	name = TextField(_('Name'), [validators.Required()])
@@ -31,6 +31,8 @@ class AddVisualizationForm(InvenioBaseForm):
 	graph_type = SelectField(_('Graph type'), choices=[('grid', 'Grid'),
 													   ('graph', 'Graph'), 
 													   ('map', 'Map')])
+	visibility = RadioField(_('Visibility'), choices=[('public','Public'), 
+													  ('private','Private')])
 	csv_file = TextField(_('CSV_file'), [validators.Required(), validators.URL(require_tld=False)])
 
 	"""def validate_csv_field(form, field):

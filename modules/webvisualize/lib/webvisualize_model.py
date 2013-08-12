@@ -41,6 +41,8 @@ class VslConfig(db.Model):
 				           db.ForeignKey(User.id), nullable=True)
 	graph_type = db.Column(db.String(255), nullable=False,
                      server_default='', index=True)
+	visibility = db.Column(db.String(255), nullable=False, 
+					 server_default='private', index=True)
 	description = db.Column(db.Text)
 	config = db.Column(db.Text)
 
@@ -61,6 +63,10 @@ class VslConfig(db.Model):
 		import json
 		return json.dumps([str(field['id']) for field in 
 									self.json_config['resources'][0]['schema']['fields']])
+
+	@property
+	def is_public(self):
+	    return self.visibility == 'public'
 
 	@property
 	def get_url_csv(self):
@@ -85,10 +91,10 @@ class VslConfig(db.Model):
 				formatted_fields.append({'id': field,
 										'type': 'string'})
 			config['resources'] = [{'url': csv_url,
-						  'path': '???',
-						  'format':'csv',
-						  'schema': {'fields': formatted_fields}
-						  }]
+						  			'path': '???',
+						  			'format':'csv',
+						  			'schema': {'fields': formatted_fields}
+						  		   }]
 
 			return json.dumps(config)
 
@@ -97,17 +103,5 @@ class VslConfig(db.Model):
 		self.id_creator = id_user
 		self.graph_type = data['graph_type']
 		self.description = data['description']
-		self.cfg = generate_config(csv_url=data['csv_file'])
-
-		
-"""
-	@property
-	def type(self):
-		import json
-		return self.json_config.get('type', 'grid')
-
-	@property
-	def dataset(self):
-		import json
-		return self.json_config.get('dataset', {})
-"""
+		self.visibility = data['visibility']
+		self.config = generate_config(csv_url=data['csv_file'])

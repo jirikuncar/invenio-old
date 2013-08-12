@@ -30,9 +30,9 @@
     {{ render_field(form.title) }}
     {{ render_field(form.description) }}
     {{ render_field(form.graph_type) }}
+    {{ render_field(form.visibility) }}
     {{ render_field(form.csv_file) }}
 
-    <p>{{ form.id_user }}</p>
   </div>
   <div class="">
      <input type="submit" name="send_button" value="{{ _("Send") }}" class="btn btn-primary"/>
