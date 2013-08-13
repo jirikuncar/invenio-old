@@ -142,26 +142,46 @@ def _prepare_objects_helper(obj, workflow_object):
     elif obj.version == CFG_OBJECT_VERSION.RUNNING:
         # object shuld be deleted restart from INITIAL
         obj.log_debug("State: Running")
-        obj.log_info("""WARNING! You want to restart from temporary object.
+
+        if obj.id_workflow is not None:
+            obj.log_info("""WARNING! You want to restart from temporary object.
 We can't guaranty that data object is not corrupted.
 Workflow will start from associated INITIAL object
 and RUNNING object will be deleted.""")
 
-        parent_obj = BibWorkflowObject.query.filter(
-            BibWorkflowObject.id == obj.id_parent).first()
-        new_initial = parent_obj._create_version_obj(
-            id_workflow=workflow_object.uuid,
-            version=CFG_OBJECT_VERSION.INITIAL,
-            no_update=True)
-        new_id = parent_obj._create_version_obj(
-            id_workflow=workflow_object.uuid,
-            version=CFG_OBJECT_VERSION.RUNNING,
-            id_parent=new_initial,
-            no_update=True)
-        db.session.delete(obj)
+            parent_obj = BibWorkflowObject.query.filter(
+                BibWorkflowObject.id == obj.id_parent).first()
+            new_initial = parent_obj._create_version_obj(
+                id_workflow=workflow_object.uuid,
+                version=CFG_OBJECT_VERSION.INITIAL,
+                no_update=True)
+            new_id = parent_obj._create_version_obj(
+                id_workflow=workflow_object.uuid,
+                version=CFG_OBJECT_VERSION.RUNNING,
+                id_parent=new_initial,
+                no_update=True)
+            db.session.delete(obj)
 
-        return BibWorkflowObject.query.filter(BibWorkflowObject.id ==
-                                              new_id).first()
+            return BibWorkflowObject.query.filter(BibWorkflowObject.id ==
+                                                  new_id).first()
+        else:
+            obj.log_info("""You are running workflow on a object created manualy
+outside of the workflow. Workflow will execute on THIS object (it will change
+its state and/or data) but it would also create INITIAL version of the object to
+ keep its oryginal state.""")
+
+            # We assume that there is no parent object, so we create a new
+            # INITIAL object, which will become a parent.
+            new_parent = obj._create_version_obj(
+                id_workflow=workflow_object.uuid,
+                version=CFG_OBJECT_VERSION.INITIAL,
+                no_update=True)
+            # We add an id_workflow to our object
+            obj.id_workflow = workflow_object.uuid
+            obj.id_parent = new_parent
+            obj._update_db()
+
+            return obj
     else:
         raise InvenioBibWorkflowValueError("Object version is unknown: %s" %
                                            (obj.version,))

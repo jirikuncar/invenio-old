@@ -353,6 +353,7 @@ BibWorkflowEngine
                     continue
                 except HaltProcessing:
                     self.increase_counter_halted()
+                    obj.extra_data['redis_search']['halt_processing'] = self.getCurrTaskName()
                     if DEBUG:
                         self.log_info('Processing was halted at step: %s' % i)
                         # reraise the exception,
@@ -360,11 +361,13 @@ BibWorkflowEngine
                         # stopped
                         obj.log_info("Object proccesing is halted")
                     raise
+
                 except Exception, e:
                     self.log_info(message="Unexpected error: %r" % (e,),
                                   error_msg=traceback.format_exc())
                     obj.log_error("Something terribly wrong"
                                   " happen to this object")
+                    obj.extra_data['redis_search']['error'] = self.getCurrTaskName()
                     raise
             # We save the object once it is fully run through
             obj.save(CFG_OBJECT_VERSION.FINAL)
@@ -377,6 +380,9 @@ BibWorkflowEngine
             #obj.get_log().info('Success!')
             self.log_info("Done saving object: %i" % (obj.id, ))
         self.after_processing(objects, self)
+
+    def getCurrTaskName(self):
+        return self._callbacks['*'][0][self.getCurrTaskId()[-1]].func_name
 
     def execute_callback(self, callback, obj):
         """Executes the callback - override this method to implement logging"""

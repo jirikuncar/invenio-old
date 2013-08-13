@@ -480,6 +480,36 @@ distances from it.
     def test_redis_for_finished(self):
         pass
 
+    def test_data_object_created_outside(self):
+        from invenio.bibworkflow_model import BibWorkflowObject
+        from invenio.bibworkflow_api import start
+        obj = BibWorkflowObject()
+        initial_data = {'data': 20}
+        obj.set_data(initial_data)
+        obj._update_db()
+
+        final_data = {'data': 41}
+
+        workflow = start(workflow_name="test_workflow",
+                         data=[obj], module_name="unit_tests")
+        # Keep id for cleanup after
+        self.id_workflows.append(workflow.uuid)
+
+        # Get parent object of the workflow we just ran
+        initial_object = BibWorkflowObject.query.filter(
+            BibWorkflowObject.id_workflow == workflow.uuid,
+            BibWorkflowObject.id_parent == None)  # noqa E711
+        all_objects = BibWorkflowObject.query.filter(
+            BibWorkflowObject.id_workflow == workflow.uuid)
+
+        # There should only be 2 objects (initial, final)
+        self.assertEqual(all_objects.count(), 2)
+        self.assertEqual(obj.get_data(),final_data)
+        self.assertEqual(obj.version, CFG_OBJECT_VERSION.FINAL)
+        self.assertEqual(obj.id_parent, initial_object[0].id)
+        self.assertEqual(initial_object[0].get_data(), initial_data)
+
+
     def _check_workflow_execution(self, objects, initial_data, final_data):
         # Let's check that we found anything. There should only be one object
         self.assertEqual(objects.count(), 1)

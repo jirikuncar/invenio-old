@@ -296,7 +296,7 @@ class BibWorkflowObject(db.Model):
                                                     "widget": None,
                                                     "redis_search": {}})
     id_workflow = db.Column(db.String(36),
-                            db.ForeignKey("bwlWORKFLOW.uuid"), nullable=False)
+                            db.ForeignKey("bwlWORKFLOW.uuid"), nullable=True)
     version = db.Column(db.Integer(3),
                         default=CFG_OBJECT_VERSION.RUNNING, nullable=False)
     id_parent = db.Column(db.Integer, db.ForeignKey("bwlOBJECT.id"),
