@@ -957,6 +957,8 @@ AC_CONFIG_FILES([config.nice  \
      modules/webvisualize/etc/Makefile \
      modules/webvisualize/etc/templates/Makefile \
      modules/webvisualize/lib/Makefile \
+     modules/filemanager/Makefile \
+     modules/filemanager/lib/Makefile \
      ])
 
 ## Finally, write output files:
