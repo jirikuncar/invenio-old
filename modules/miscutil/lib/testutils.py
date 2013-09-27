@@ -137,9 +137,9 @@ from invenio.dbquery import CFG_DATABASE_HOST, \
     CFG_DATABASE_PASS, \
     CFG_DATABASE_TYPE, \
     CFG_DATABASE_SLAVE
-from invenio.webinterface_handler_flask import create_invenio_flask_app, \
+from invenio.base.factory import create_app, \
     with_app_context
-from invenio.urlutils import rewrite_to_secure_url
+from invenio.utils.url import rewrite_to_secure_url
 import pyparsing  # pylint: disable=W0611
                   # pyparsinf needed to import here before flask.ext.testing
                   # in order to avoid pyparsing troubles due to twill
@@ -187,7 +187,7 @@ class InvenioTestCase(TestCase, unittest2.TestCase):
                    )
 
     def create_app(self):
-        app = create_invenio_flask_app(CFG_DATABASE_TYPE=self.engine,
+        app = create_app(CFG_DATABASE_TYPE=self.engine,
                                        SQLALCHEMY_DATABASE_URI=self.SQLALCHEMY_DATABASE_URI)
         app.testing = True
         return app
@@ -208,11 +208,11 @@ class InvenioTestCase(TestCase, unittest2.TestCase):
 class FlaskSQLAlchemyTest(InvenioTestCase):
 
     def setUp(self):
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         db.create_all()
 
     def tearDown(self):
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         db.session.expunge_all()
         db.session.rollback()
         db.drop_all()
@@ -331,7 +331,6 @@ def make_pdf_fixture(filename, text=None):
 
 
 class InvenioTestUtilsBrowserException(Exception):
-
     """Helper exception for the regression test suite browser."""
     pass
 
@@ -696,7 +695,6 @@ def build_and_run_web_test_suite():
 
 
 class InvenioWebTestCase(InvenioTestCase):
-
     """ Helper library of useful web test functions
     for web tests creation.
     """
@@ -1104,7 +1102,6 @@ class InvenioWebTestCase(InvenioTestCase):
 
 
 class InvenioWebTestCaseException(Exception):
-
     """This exception is thrown if the element
     we are looking for is not found after a set time period.
     The element is not found because the page needs more

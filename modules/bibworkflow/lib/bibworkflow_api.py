@@ -180,7 +180,7 @@ def start_by_oids_delayed(workflow_name, oids, **kwargs):
 
     @return: BibWorkflowEngine that ran the workflow.
     """
-    from invenio.bibworkflow_model import BibWorkflowObject
+    from invenio.modules.workflows.models import BibWorkflowObject
     objects = BibWorkflowObject.query.filter(BibWorkflowObject.id.in_(list(oids))).all()
 
     return start_delayed(workflow_name, objects, **kwargs)

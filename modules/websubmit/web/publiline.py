@@ -49,13 +49,13 @@ from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_get_role_users, acc_get_role_id
 from invenio.webpage import page, error_page
 from invenio.webuser import getUid, get_email, page_not_authorized, collect_user_info
-from invenio.messages import gettext_set_language, wash_language
+from invenio.base.i18n import gettext_set_language, wash_language
 #from invenio.websubmit_config import *
 from invenio.search_engine import search_pattern, check_user_can_view_record
 from invenio.search_engine_utils import get_fieldvalues
 from invenio.websubmit_functions.Retrieve_Data import Get_Field
-from invenio.mailutils import send_email
-from invenio.urlutils import wash_url_argument
+from invenio.ext.email import send_email
+from invenio.utils.url import wash_url_argument
 from invenio.webgroup_dblayer import get_group_infos, insert_new_group, insert_new_member, delete_member
 from invenio.webaccessadmin_lib import cleanstring_email
 from invenio.access_control_config import MAXSELECTUSERS

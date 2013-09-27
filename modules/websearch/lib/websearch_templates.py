@@ -68,8 +68,8 @@ from invenio.config import \
 from invenio.search_engine_config import CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT
 
 from invenio.dbquery import run_sql
-from invenio.messages import gettext_set_language
-from invenio.urlutils import make_canonical_urlargd, drop_default_urlargd, create_html_link, create_url
+from invenio.base.i18n import gettext_set_language
+from invenio.utils.url import make_canonical_urlargd, drop_default_urlargd, create_html_link, create_url
 from invenio.htmlutils import nmtoken_from_string
 from invenio.webinterface_handler import wash_urlargd
 from invenio.bibrank_citation_searcher import get_cited_by_count
@@ -1356,7 +1356,7 @@ class Template:
             # the following prints the "external collection" arrow just after the name and
             # number of records of the hosted collection
             # 1) we might want to make the arrow work as an anchor to the hosted collection as well.
-            # That would probably require a new separate function under invenio.urlutils
+            # That would probably require a new separate function under invenio.utils.url
             # 2) we might want to place the arrow between the name and the number of records of the hosted collection
             # That would require to edit/separate the above out += ...
             if type == 'r':
@@ -3376,8 +3376,8 @@ class Template:
 
           - 'recID' *int* - The record id
         """
-        from invenio.jinja2utils import render_template_to_string
-        tpl = """{%- from "websearch_helpers.html" import record_brief_links with context -%}
+        from invenio.ext.template import render_template_to_string
+        tpl = """{%- from "search/helpers.html" import record_brief_links with context -%}
         {{ record_brief_links(get_record(recid)) }}"""
         return render_template_to_string(tpl, recid=recID, _from_string=True).encode('utf-8')
 

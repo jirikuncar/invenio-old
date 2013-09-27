@@ -37,15 +37,15 @@ import gc
 import os
 import string
 import time
-import marshal
 import re
 import atexit
-from zlib import compress, decompress
 from thread import get_ident
 from invenio import config
 from invenio.config import CFG_ACCESS_CONTROL_LEVEL_SITE, \
     CFG_MISCUTIL_SQL_USE_SQLALCHEMY, \
     CFG_MISCUTIL_SQL_RUN_SQL_MANY_LIMIT
+from invenio.utils.serializers import serialize_via_marshal, \
+    deserialize_via_marshal
 
 if CFG_MISCUTIL_SQL_USE_SQLALCHEMY:
     try:
@@ -336,7 +336,7 @@ def log_sql_query(dbhost, sql, param=None):
     """
     from flask import current_app
     from invenio.config import CFG_LOGDIR
-    from invenio.dateutils import convert_datestruct_to_datetext
+    from invenio.utils.date import convert_datestruct_to_datetext
     from invenio.textutils import indent_text
     date_of_log = convert_datestruct_to_datetext(time.localtime())
     message = date_of_log + '-->\n'
@@ -409,14 +409,6 @@ def get_table_status_info(tablename, run_on_slave=False):
             table_status_info['Create_time'] = row[10]
             table_status_info['Update_time'] = row[11]
     return table_status_info
-
-def serialize_via_marshal(obj):
-    """Serialize Python object via marshal into a compressed string."""
-    return compress(marshal.dumps(obj))
-
-def deserialize_via_marshal(astring):
-    """Decompress and deserialize string into a Python object via marshal."""
-    return marshal.loads(decompress(astring))
 
 def wash_table_column_name(colname):
     """

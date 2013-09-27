@@ -36,9 +36,9 @@ from invenio.config import CFG_SITE_LANG, CFG_LOGDIR, \
     CFG_SITE_EMERGENCY_EMAIL_ADDRESSES, \
     CFG_SITE_ADMIN_EMAIL_EXCEPTIONS, \
     CFG_ERRORLIB_RESET_EXCEPTION_NOTIFICATION_COUNTER_AFTER
-from invenio.urlutils import wash_url_argument
-from invenio.messages import wash_language, gettext_set_language
-from invenio.dateutils import convert_datestruct_to_datetext
+from invenio.utils.url import wash_url_argument
+from invenio.base.i18n import wash_language, gettext_set_language
+from invenio.utils.date import convert_datestruct_to_datetext
 from invenio.dbquery import run_sql
 
 
@@ -121,7 +121,7 @@ def register_emergency(msg, recipients=None):
     get_emergency_recipients() which loads settings from
     CFG_SITE_EMERGENCY_EMAIL_ADDRESSES
     """
-    from invenio.mailutils import send_email
+    from invenio.ext.email import send_email
     if not recipients:
         recipients = get_emergency_recipients()
     recipients = set(recipients)
@@ -143,7 +143,7 @@ def get_emergency_recipients(recipient_cfg=CFG_SITE_EMERGENCY_EMAIL_ADDRESSES):
         '*': 'john.doe.phone@foo.com'}
     """
 
-    from invenio.dateutils import parse_runtime_limit
+    from invenio.utils.date import parse_runtime_limit
 
     recipients = set()
     for time_condition, address_str in recipient_cfg.items():
@@ -425,7 +425,7 @@ def register_exception(stream='error',
                 (alert_admin and CFG_SITE_ADMIN_EMAIL_EXCEPTIONS > 0) or
                 not written_to_log):
                 ## If requested or if it's impossible to write in the log
-                from invenio.mailutils import send_email
+                from invenio.ext.email import send_email
                 if not subject:
                     subject = 'Exception (%s:%s:%s)' % (filename, line_no, function_name)
                 subject = '%s at %s' % (subject, CFG_SITE_URL)
@@ -534,7 +534,7 @@ Please see the %(logdir)s/invenio.err for traceback details.""" % {
         'logdir': CFG_LOGDIR,
         'contact': "Please contact %s quoting the following information:" %
             (CFG_SITE_SUPPORT_EMAIL, )}
-    from invenio.mailutils import send_email
+    from invenio.ext.email import send_email
     send_email(from_addr, to_addr, subject="Error notification", content=body)
 
 def _get_filename_and_line(exc_info):

@@ -62,7 +62,7 @@ from invenio.config import CFG_BIBEDIT_LOCKLEVEL, \
     CFG_BIBUPLOAD_EXTERNAL_SYSNO_TAG as SYSNO_TAG, \
     CFG_BIBEDIT_QUEUE_CHECK_METHOD, \
     CFG_BIBEDIT_EXTEND_RECORD_WITH_COLLECTION_TEMPLATE, CFG_INSPIRE_SITE
-from invenio.dateutils import convert_datetext_to_dategui
+from invenio.utils.date import convert_datetext_to_dategui
 from invenio.textutils import wash_for_xml
 from invenio.bibedit_dblayer import get_bibupload_task_opts, \
     get_marcxml_of_record_revision, get_record_revisions, \

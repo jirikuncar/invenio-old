@@ -41,11 +41,11 @@ from invenio.config import \
      CFG_WEBSEARCH_ENABLED_SEARCH_INTERFACES, \
      CFG_WEBSEARCH_DEFAULT_SEARCH_INTERFACE, \
      CFG_WEBSEARCH_DEF_RECORDS_IN_GROUPS
-from invenio.messages import gettext_set_language, language_list_long
+from invenio.base.i18n import gettext_set_language, language_list_long
 from invenio.search_engine import search_pattern_parenthesised, get_creation_date, get_field_i18nname, collection_restricted_p, sort_records, EM_REPOSITORY
 from invenio.dbquery import run_sql, Error, get_table_update_time
 from invenio.bibrank_record_sorter import get_bibrank_methods
-from invenio.dateutils import convert_datestruct_to_dategui, strftime
+from invenio.utils.date import convert_datestruct_to_dategui, strftime
 from invenio.bibformat import format_record
 from invenio.shellutils import mymkdir
 from invenio.intbitset import intbitset
@@ -63,7 +63,7 @@ from invenio.websearch_external_collections_searcher import external_collections
 from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_TIMEOUT
 from invenio.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_NBRECS
 
-from invenio.signalutils import webcoll_after_webpage_cache_update
+from invenio.base.signals import webcoll_after_webpage_cache_update
 
 ## global vars
 COLLECTION_HOUSE = {} # will hold collections we treat in this run of the program; a dict of {collname2, collobject1}, ...

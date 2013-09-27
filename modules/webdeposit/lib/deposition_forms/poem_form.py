@@ -18,7 +18,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA
 
 from wtforms.validators import Required
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from invenio.webdeposit_form import WebDepositForm as Form
 from invenio.webdeposit_field_widgets import bootstrap_submit
 

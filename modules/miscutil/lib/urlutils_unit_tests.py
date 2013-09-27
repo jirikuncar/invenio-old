@@ -26,17 +26,17 @@ from invenio.config import CFG_SITE_URL
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
-HASHLIB_IMPORTED = lazy_import('invenio.urlutils:HASHLIB_IMPORTED')
-create_AWS_request_url = lazy_import('invenio.urlutils:create_AWS_request_url')
-create_Indico_request_url = lazy_import('invenio.urlutils:create_Indico_request_url')
-create_html_link = lazy_import('invenio.urlutils:create_html_link')
-create_html_mailto = lazy_import('invenio.urlutils:create_html_mailto')
-create_url = lazy_import('invenio.urlutils:create_url')
-make_canonical_urlargd = lazy_import('invenio.urlutils:make_canonical_urlargd')
-rewrite_to_secure_url = lazy_import('invenio.urlutils:rewrite_to_secure_url')
-same_urls_p = lazy_import('invenio.urlutils:same_urls_p')
-string_to_numeric_char_reference = lazy_import('invenio.urlutils:string_to_numeric_char_reference')
-wash_url_argument = lazy_import('invenio.urlutils:wash_url_argument')
+HASHLIB_IMPORTED = lazy_import('invenio.utils.url:HASHLIB_IMPORTED')
+create_AWS_request_url = lazy_import('invenio.utils.url:create_AWS_request_url')
+create_Indico_request_url = lazy_import('invenio.utils.url:create_Indico_request_url')
+create_html_link = lazy_import('invenio.utils.url:create_html_link')
+create_html_mailto = lazy_import('invenio.utils.url:create_html_mailto')
+create_url = lazy_import('invenio.utils.url:create_url')
+make_canonical_urlargd = lazy_import('invenio.utils.url:make_canonical_urlargd')
+rewrite_to_secure_url = lazy_import('invenio.utils.url:rewrite_to_secure_url')
+same_urls_p = lazy_import('invenio.utils.url:same_urls_p')
+string_to_numeric_char_reference = lazy_import('invenio.utils.url:string_to_numeric_char_reference')
+wash_url_argument = lazy_import('invenio.utils.url:wash_url_argument')
 
 
 class TestWashUrlArgument(InvenioTestCase):

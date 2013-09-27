@@ -24,8 +24,8 @@ from invenio.testutils import make_test_suite, run_test_suite, \
 class TestWebDepositUtils(InvenioTestCase):
 
     def clear_tables(self):
-        from invenio.bibworkflow_model import Workflow, BibWorkflowObject
-        from invenio.sqlalchemyutils import db
+        from invenio.modules.workflows.models import Workflow, BibWorkflowObject
+        from invenio.ext.sqlalchemy import db
 
         dep_workflows = Workflow.get(
             Workflow.module_name == "webdeposit"
@@ -103,7 +103,7 @@ class TestWebDepositUtils(InvenioTestCase):
     def test_workflow_creation(self):
         from invenio.webdeposit_load_deposition_types import \
             deposition_metadata
-        from invenio.bibworkflow_model import Workflow
+        from invenio.modules.workflows.models import Workflow
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.webdeposit_utils import get_latest_or_new_workflow, \
             get_workflow, delete_workflow, InvenioWebDepositNoDepositionType

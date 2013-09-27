@@ -44,19 +44,19 @@ from invenio.config import \
     CFG_SITE_SECURE_URL
 import invenio.access_control_engine as acce
 import invenio.access_control_admin as acca
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.errorlib import register_exception
 from invenio.bibrankadminlib import addadminbox, tupletotable, \
         tupletotable_onlyselected, addcheckboxes, createhiddenform
 from invenio.access_control_firerole import compile_role_definition, \
     repair_role_definitions, serialize
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.dbquery import run_sql, OperationalError, wash_table_column_name
 from invenio.webpage import page
 from invenio.webuser import getUid, isGuestUser, page_not_authorized, collect_user_info
 from invenio.webuser import email_valid_p, get_user_preferences, \
     set_user_preferences, update_Uid
-from invenio.urlutils import redirect_to_url, wash_url_argument
+from invenio.utils.url import redirect_to_url, wash_url_argument
 from invenio.access_control_config import DEF_DEMO_USER_ROLES, \
     DEF_DEMO_ROLES, DEF_DEMO_AUTHS, WEBACCESSACTION, MAXPAGEUSERS, \
     SUPERADMINROLE, CFG_EXTERNAL_AUTHENTICATION, DELEGATEADDUSERROLE, \

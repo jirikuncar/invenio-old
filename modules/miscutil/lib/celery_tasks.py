@@ -19,7 +19,7 @@
 
 from invenio.celery import celery
 from invenio.config import CFG_VERSION
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 
 
 @celery.task

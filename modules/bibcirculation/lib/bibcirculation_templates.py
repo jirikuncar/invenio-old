@@ -24,14 +24,14 @@ __revision__ = "$Id$"
 import datetime
 import cgi
 from time import localtime
-import invenio.dateutils as dateutils
-from invenio.urlutils import create_html_link
-from invenio.messages import gettext_set_language
+import invenio.utils.date as dateutils
+from invenio.utils.url import create_html_link
+from invenio.base.i18n import gettext_set_language
 from invenio.search_engine import get_fieldvalues
 from invenio.config import CFG_SITE_URL, CFG_SITE_LANG, \
      CFG_CERN_SITE, CFG_SITE_SECURE_URL, CFG_SITE_RECORD, \
      CFG_SITE_NAME
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 
 import invenio.bibcirculation_dblayer as db
 from invenio.bibcirculation_utils import get_book_cover, \

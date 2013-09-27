@@ -28,7 +28,7 @@ js_DATA = bibworkflow_workflows.js \
           bibworkflow_hp_details.js
 
 
-pylib_DATA = bibworkflow_admin_blueprint.py \
+pylib_DATA = \
 			 bibworkflow_hp_blueprint.py \
 			 bibworkflow_api.py \
 			 bibworkflow_client.py \
@@ -37,7 +37,6 @@ pylib_DATA = bibworkflow_admin_blueprint.py \
 			 bibworkflow_hp_container.py \
 			 bibworkflow_hp_field_widgets.py \
 			 bibworkflow_hp_load_widgets.py \
-			 bibworkflow_model.py \
 			 bibworkflow_regression_tests.py \
 			 bibworkflow_utils.py \
 			 bibworkflow_worker_engine.py \

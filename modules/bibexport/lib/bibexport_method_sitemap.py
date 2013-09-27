@@ -40,7 +40,7 @@ from invenio.intbitset import intbitset
 from invenio.websearch_webcoll import Collection
 from invenio.bibtask import write_message, task_update_progress, task_sleep_now_if_required
 from invenio.textutils import encode_for_xml
-from invenio.urlutils import get_canonical_and_alternates_urls
+from invenio.utils.url import get_canonical_and_alternates_urls
 
 
 DEFAULT_TIMEZONE = '+01:00'

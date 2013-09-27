@@ -34,10 +34,10 @@ from pprint import pformat
 from werkzeug import import_string
 
 from invenio.config import CFG_PYLIBDIR, CFG_LOGDIR
-from invenio.datastructures import LaziestDict
+from invenio.utils.datastructures import LaziestDict
 from invenio.dbquery import run_sql
 from invenio.errorlib import register_exception
-from invenio.signalutils import record_after_update
+from invenio.base.signals import record_after_update
 
 from invenio.bibfield_jsonreader import JsonReader
 from invenio.bibfield_utils import BlobWrapper, BibFieldDict

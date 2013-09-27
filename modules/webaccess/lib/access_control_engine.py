@@ -38,9 +38,9 @@ from invenio.access_control_admin import \
 from invenio.access_control_config import CFG_WEBACCESS_WARNING_MSGS, CFG_WEBACCESS_MSGS
 from invenio.webuser import collect_user_info
 from invenio.access_control_firerole import deserialize, load_role_definition, acc_firerole_extract_emails
-from invenio.urlutils import make_canonical_urlargd
-from invenio.cache import cache
-from invenio.webuser_flask import current_user
+from invenio.utils.url import make_canonical_urlargd
+from invenio.ext.cache import cache
+from flask.ext.login import current_user
 
 
 #@cache.memoize(3600)
@@ -53,7 +53,7 @@ def acc_authorize_action(req, name_action, authorized_if_no_roles=False, **argum
     authorization will be granted.
     Returns (0, msg) when the authorization is granted, (1, msg) when it's not.
     """
-    from invenio.webuser_flask import UserInfo
+    from invenio.ext.login import UserInfo
     if isinstance(req, UserInfo):
         user_info = req
         uid = user_info.get_id()

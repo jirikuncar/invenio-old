@@ -34,7 +34,12 @@ from functools import wraps
 from flask import request, abort
 from invenio.config import CFG_WEB_API_KEY_ALLOWED_URL
 from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
-from invenio.web_api_key_model import WebAPIKey
+from invenio.modules.api_keys.models import WebAPIKey
+
+_CFG_WEB_API_KEY_ALLOWED_URL = [(re.compile(_url), _authorized_time,
+                                _need_timestamp)
+                                for _url, _authorized_time, _need_timestamp
+                                in CFG_WEB_API_KEY_ALLOWED_URL]
 
 _CFG_WEB_API_KEY_ALLOWED_URL = [(re.compile(_url), _authorized_time,
                                 _need_timestamp)

@@ -19,19 +19,15 @@
 
 """Unit tests for REST like authentication API."""
 
-import sys
 import re
 import hmac
 import urllib
 import time
 
+from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
+from invenio.utils.hash import sha1
 from invenio.testutils import InvenioTestCase, make_test_suite, \
     run_test_suite
-if sys.version_info < (2, 5):
-    import sha as sha1
-else:
-    from hashlib import sha1
-from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
 
 
 def build_web_request(path, params, api_key=None, secret_key=None):
@@ -53,8 +49,8 @@ class APIKeyTest(InvenioTestCase):
     """ Test functions related to the REST authentication API """
     def setUp(self):
         from invenio import web_api_key
-        from invenio.websession_model import User
-        from invenio.web_api_key_model import WebAPIKey
+        from invenio.modules.account.models import User
+        from invenio.modules.api_keys.models import WebAPIKey
         self.model = WebAPIKey
         self.web_api_key = web_api_key
         self.web_api_key.CFG_WEB_API_KEY_ALLOWED_URL = [('/search\?*', 0, True),
@@ -96,8 +92,8 @@ class APIKeyTest(InvenioTestCase):
         self.assertEqual(5, len(self.web_api_key.show_web_api_keys(uid=self.id_admin, diff_status='')))
 
     def test_acc_get_uid_from_request(self):
-        from flask import current_app
         """webapikey - Login user from request using REST key"""
+        from flask import current_app
         path = '/search'
         params = 'ln=es&sc=1&c=Articles & Preprints&action_search=Buscar&p=ellis'
 

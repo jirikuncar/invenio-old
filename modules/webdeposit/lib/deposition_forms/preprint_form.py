@@ -19,6 +19,7 @@
 
 from wtforms.validators import Required
 from invenio.webdeposit_form import WebDepositForm as Form
+from invenio.base.i18n import _
 from invenio.webinterface_handler_flask_utils import _
 from invenio.webdeposit_field_widgets import plupload_widget, date_widget, \
                                              bootstrap_submit

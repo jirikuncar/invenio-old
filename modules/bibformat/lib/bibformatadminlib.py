@@ -36,9 +36,9 @@ from invenio.bibformat_config import \
      CFG_BIBFORMAT_ELEMENTS_PATH, \
      CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION, \
      InvenioBibFormatError
-from invenio.urlutils import wash_url_argument
+from invenio.utils.url import wash_url_argument
 from invenio.errorlib import register_exception
-from invenio.messages import gettext_set_language, wash_language, language_list_long
+from invenio.base.i18n import gettext_set_language, wash_language, language_list_long
 from invenio.search_engine import perform_request_search
 from invenio import bibformat_dblayer
 from invenio import bibformat_engine

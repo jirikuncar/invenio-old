@@ -23,7 +23,6 @@ pylib_DATA = __init__.py \
              webdeposit_api_blueprint.py \
              webdeposit_api_regression_tests.py \
              webdeposit_autocomplete_utils.py \
-             webdeposit_blueprint.py \
              webdeposit_field.py \
              webdeposit_field_widgets.py \
              webdeposit_filter_utils.py \

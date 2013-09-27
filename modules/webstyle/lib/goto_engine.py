@@ -24,7 +24,7 @@ import optparse
 
 from invenio.config import CFG_PYLIBDIR
 from invenio.dbquery import run_sql, IntegrityError
-from invenio.jsonutils import json, json_unicode_to_utf8
+from invenio.utils.json import json, json_unicode_to_utf8
 from invenio.pluginutils import PluginContainer, get_callable_documentation
 from invenio.textutils import wait_for_user
 

@@ -21,7 +21,7 @@
 Test unit for the miscutil/datastructures module.
 """
 
-from invenio.datastructures import LazyDict, LaziestDict
+from invenio.utils.datastructures import LazyDict, LaziestDict
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 class CallCounter(object):

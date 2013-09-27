@@ -27,7 +27,7 @@ from base64 import encodestring
 from StringIO import StringIO
 from flask import current_app
 
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 
@@ -86,7 +86,7 @@ To: to@example.com"""
         """
         Test email text template engine.
         """
-        from invenio.jinja2utils import render_template_to_string
+        from invenio.ext.template import render_template_to_string
 
         contexts = {
             'ctx1': {'content': 'Content 1'},
@@ -115,7 +115,7 @@ To: to@example.com"""
         """
         Test email html template engine.
         """
-        from invenio.jinja2utils import render_template_to_string
+        from invenio.ext.template import render_template_to_string
 
         contexts = {
             'ctx1': {'html_content': '<b>Content 1</b>'},
@@ -209,7 +209,7 @@ To: Undisclosed.Recipients:"""
 
 class TestAdminMailBackend(MailTestCase):
 
-    EMAIL_BACKEND = 'invenio.mailutils_backend_adminonly.ConsoleMail'
+    EMAIL_BACKEND = 'invenio.ext.email.backend_adminonly.ConsoleMail'
     ADMIN_MESSAGE = "This message would have been sent to the following recipients"
 
     def test_simple_email_header(self):
@@ -217,7 +217,7 @@ class TestAdminMailBackend(MailTestCase):
         Test simple email header.
         """
         from invenio.config import CFG_SITE_ADMIN_EMAIL
-        from invenio.jinja2utils import render_template_to_string
+        from invenio.ext.template import render_template_to_string
 
         msg_content = """Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0

@@ -52,7 +52,7 @@ from invenio.config import \
 from invenio.bibformat_config import \
      CFG_BIBFORMAT_USE_OLD_BIBFORMAT
 from invenio.access_control_engine import acc_authorize_action
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 import getopt
 import sys
 
@@ -527,8 +527,8 @@ def print_records(recIDs, of='hb', ln=CFG_SITE_LANG, verbose=0,
     from math import ceil
     from flask import request
     from invenio.bibformat_engine import format_record
-    from invenio.websearch_model import Format
-    from invenio.paginationutils import Pagination
+    from invenio.modules.search.models import Format
+    from invenio.utils.pagination import Pagination
     from invenio.bibformat_engine import TEMPLATE_CONTEXT_FUNCTIONS_CACHE
 
     of = of.lower()

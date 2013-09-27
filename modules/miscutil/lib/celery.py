@@ -63,9 +63,9 @@ class InvenioLoader(BaseLoader):
             if current_app:
                 self.flask_app = current_app
             else:
-                from invenio.webinterface_handler_flask import create_invenio_flask_app
-                self.flask_app = create_invenio_flask_app()
-                from invenio.sqlalchemyutils import db
+                from invenio.base.factory import create_app
+                self.flask_app = create_app()
+                from invenio.ext.sqlalchemy import db
                 self.db = db
 
     def on_task_init(self, task_id, task):
@@ -132,7 +132,7 @@ class InvenioLoader(BaseLoader):
         """
         Discover task modules named 'invenio.*_tasks'
         """
-        self.task_modules.update(mod.__name__ for mod in autodiscover_modules(['invenio'], related_name_re='.+_tasks\.py') or ())
+        self.task_modules.update(mod.__name__ for mod in autodiscover_modules(['invenio'], related_name_re='.+_tasks') or ())
 
 
 #

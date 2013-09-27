@@ -41,12 +41,12 @@ import os
 import gc
 
 from flask import current_app, session
-from invenio import webinterface_handler_config as apache
+from invenio.utils import apache
 from invenio import config
 from invenio.config import CFG_SITE_URL, CFG_SITE_SECURE_URL, CFG_TMPDIR, \
     CFG_SITE_RECORD, CFG_ACCESS_CONTROL_LEVEL_SITE
-from invenio.messages import wash_language
-from invenio.urlutils import redirect_to_url
+from invenio.base.i18n import wash_language
+from invenio.utils.url import redirect_to_url
 from invenio.errorlib import register_exception
 from invenio.webuser import get_preferred_user_language, isGuestUser, \
     getUid, isUserSuperAdmin, collect_user_info, setUid

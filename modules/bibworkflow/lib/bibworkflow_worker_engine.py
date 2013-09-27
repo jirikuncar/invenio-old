@@ -19,7 +19,7 @@
 from invenio.sqlalchemyutils import db
 from invenio.bibworkflow_client import run_workflow, continue_execution
 from invenio.bibworkflow_engine import BibWorkflowEngine
-from invenio.bibworkflow_model import BibWorkflowObject, Workflow
+from invenio.modules.workflows.models import BibWorkflowObject, Workflow
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION
 
 

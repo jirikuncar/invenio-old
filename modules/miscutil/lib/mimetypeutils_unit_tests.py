@@ -21,7 +21,7 @@
 Test unit for the miscutil/importutils module.
 """
 
-from invenio.mimetypeutils import file_strip_ext
+from invenio.utils.mimetype import file_strip_ext
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 

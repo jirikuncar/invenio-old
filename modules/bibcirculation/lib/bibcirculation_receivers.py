@@ -20,7 +20,7 @@
 from datetime import datetime, timedelta
 from fixture import DataSet
 
-from invenio.webinterface_handler_flask import with_app_context
+from invenio.base.factory import with_app_context
 
 
 @with_app_context(new_context=True)
@@ -505,7 +505,7 @@ def post_handler_demosite_populate(sender, default_data='', *args, **kwargs):
                 CrcLOANREQUESTData]
 
     try:
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         from fixture import SQLAlchemyFixture
         from invenio import bibcirculation_model
 

@@ -39,8 +39,8 @@ from invenio.config import \
      CFG_TMPSHAREDDIR, \
      CFG_SITE_SUPPORT_EMAIL, \
      CFG_SITE_RECORD
-from invenio.messages import gettext_set_language
-from invenio.mailutils import send_email
+from invenio.base.i18n import gettext_set_language
+from invenio.ext.email import send_email
 from invenio.access_control_engine import acc_authorize_action
 from invenio.webjournal_config import \
      InvenioWebJournalJournalIdNotFoundDBError, \

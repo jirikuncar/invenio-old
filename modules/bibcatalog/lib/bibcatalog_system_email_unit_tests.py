@@ -22,7 +22,7 @@
 
 from invenio.config import CFG_SITE_SUPPORT_EMAIL
 from invenio.testutils import make_test_suite, run_test_suite
-from invenio.mailutils_unit_tests import MailTestCase
+from invenio.ext.email_unit_tests import MailTestCase
 
 
 class BibCatalogSystemEmailTest(MailTestCase):
