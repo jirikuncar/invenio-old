@@ -336,7 +336,7 @@ def log_sql_query(dbhost, sql, param=None):
     """
     from flask import current_app
     from invenio.config import CFG_LOGDIR
-    from invenio.dateutils import convert_datestruct_to_datetext
+    from invenio.utils.date import convert_datestruct_to_datetext
     from invenio.textutils import indent_text
     date_of_log = convert_datestruct_to_datetext(time.localtime())
     message = date_of_log + '-->\n'

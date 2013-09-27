@@ -25,7 +25,7 @@ import cgi
 import random
 import time
 import sys
-from invenio.dateutils import strftime
+from invenio.utils.date import strftime
 
 if sys.hexversion < 0x2040000:
     # pylint: disable=W0622

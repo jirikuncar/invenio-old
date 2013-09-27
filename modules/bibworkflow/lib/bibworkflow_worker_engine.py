@@ -35,11 +35,11 @@ def set_db_context(f):
         # instead of using import *
 
         # STEP 1 - Import Invenio Flask Application constructor and database object.
-        from invenio.webinterface_handler_flask import create_invenio_flask_app
+        from invenio.base.factory import create_app
         from invenio.sqlalchemyutils import db
 
         # STEP 2 - Create application object and initialize database.
-        app = create_invenio_flask_app()
+        app = create_app()
         db.init_invenio()
         db.init_cfg(app)
         db.init_app(app)

@@ -28,7 +28,7 @@ from invenio.config import \
 from invenio.dbquery import run_sql, OperationalError
 from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE, \
                                       CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA
-from invenio.dateutils import datetext_default, \
+from invenio.utils.date import datetext_default, \
                               convert_datestruct_to_datetext
 from invenio.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
 

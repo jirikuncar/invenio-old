@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2012 CERN.
+## Copyright (C) 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -32,9 +32,10 @@ from invenio.bibformat import format_record, get_output_format_content_type
 from invenio.websearch_model import Collection
 from invenio.websession_model import User
 from invenio.bibedit_model import Bibrec
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint, \
+from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.ext.template.context_processor import \
     register_template_context_processor
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 
 from invenio.search_engine import guess_primary_collection_of_a_record, \
     check_user_can_view_record, print_record

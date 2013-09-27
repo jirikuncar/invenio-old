@@ -16,50 +16,12 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-"""
-Flask-Admin support in Invenio
+from flask.ext.admin import BaseView as FlaskBaseView, \
+    AdminIndexView as FlaskAdminIndexView
+from flask.ext.admin.contrib.sqlamodel import ModelView as FlaskModelView
+from flask.ext.login import current_user
 
-Please see http://flask-admin.readthedocs.org/en/latest/quickstart/ prior to
-reading this documentation, to understand how Flask-Admin works.
-
-Flask admin allows you to easily create web administration interfaces for your
-SQLAlchemy models. This extension takes care of using InvenioBlueprint as
-base class for the admin views.
-
-By default this extension will look for invenio.<name>_admin modules and call
-the method register_admin(app, admin) in each module to allow to register its
-administration views.
-
-By default all view are restricted to super users only. This can be changed via
-the acc_<action>_action class variables.
-
-Usage example - create a file called <module>_admin.py::
-
-    from invenio.adminutils import InvenioModelView
-    from invenio.sqlalchemyutils import db
-    from invenio.<module>_models import MyModel
-
-    class MyModelAdmin(InvenioModelView):
-        acc_edit_action = 'cfgmymodel'
-
-        _can_create = False
-        _can_edit = True
-        _can_delete = False
-
-        # ... Flaks-Admin options ...
-        # column_list = ( ... )
-
-        def __init__(self, model, session, **kwargs):
-            super(MyModelAdmin, self).__init__(model, session, **kwargs)
-
-    def register_admin(app, admin):
-        admin.add_view(MyModelAdmin(MyModel, db.session, name='My model', category="My Category"))
-"""
-
-from flask.ext.admin import Admin, BaseView, AdminIndexView
-from flask.ext.admin.contrib.sqlamodel import ModelView
 from invenio.webinterface_handler_flask_utils import InvenioBlueprint
-from invenio.webuser_flask import current_user
 
 
 def can_acc_action(action):
@@ -81,7 +43,7 @@ def can_acc_action(action):
 #
 # Base classes
 #
-class InvenioBaseView(BaseView):
+class BaseView(FlaskBaseView):
     """
     BaseView for administration interfaces
     """
@@ -114,8 +76,8 @@ class InvenioBaseView(BaseView):
         """
         Create Flask blueprint.
 
-        Copy/pasted from  from flask.ext.admin.BaseView, with minor edits needed
-        to ensure InvenioBlueprint is being used.
+        Copy/pasted from flask.ext.admin.BaseView, with minor edits needed to
+        ensure InvenioBlueprint is being used.
         """
         # Store admin instance
         self.admin = admin
@@ -171,7 +133,7 @@ class InvenioBaseView(BaseView):
         return self.blueprint
 
 
-class InvenioModelView(ModelView, InvenioBaseView):
+class ModelView(FlaskModelView, BaseView):
     """
     Invenio Admin base view for SQL alchemy models
     """
@@ -184,39 +146,9 @@ class InvenioModelView(ModelView, InvenioBaseView):
     can_create = property(*can_acc_action('create'))
 
 
-class InvenioAdminIndexView(AdminIndexView, InvenioBaseView):
+class AdminIndexView(FlaskAdminIndexView, BaseView):
     """
     Invenio admin index view that ensures InvenioBlueprint is being used.
     """
     # Ensures that templates and static files can be found
     import_name = 'flask_admin'
-
-
-#
-# Utility method
-#
-def register_admin(app):
-    """
-    Register all administration views with the Flask application
-    """
-    from invenio.errorlib import register_exception
-    from invenio.importutils import autodiscover_modules
-
-    # Initialize app
-    admin = Admin(
-        name="Invenio",
-        index_view=InvenioAdminIndexView(),
-        base_template="admin_base.html"
-    )
-    admin.init_app(app)
-
-    # Call register() in admin module to register views.
-    modules = autodiscover_modules(['invenio'],
-                                   '(?!oai_harvest_admin).+_admin\.py')
-    for m in modules:
-        register_func = getattr(m, 'register_admin', None)
-        if register_func and callable(register_func):
-            try:
-                register_func(app, admin)
-            except Exception:
-                register_exception()

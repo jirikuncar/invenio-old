@@ -643,8 +643,8 @@ def wsgi_handler_test(port=80):
     Simple WSGI testing environment based on wsgiref.
     """
     check_wsgiref_testing_feasability()
-    from invenio.webinterface_handler_flask import create_invenio_flask_app
-    app = create_invenio_flask_app(wsgi_serve_static_files=True)
+    from invenio.base.factory import create_app
+    app = create_app(wsgi_serve_static_files=True)
     app.run(debug=True, port=port)
 
 def main():

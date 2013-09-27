@@ -31,7 +31,7 @@ from invenio.webmessage_model import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 
 from sqlalchemy.sql import operators
 

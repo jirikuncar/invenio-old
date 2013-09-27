@@ -52,7 +52,7 @@ from invenio.bibencode_profiles import (
                     )
 from invenio.bibencode_utils import check_ffmpeg_configuration
 
-from invenio.jsonutils import json, json_decode_file
+from invenio.utils.json import json, json_decode_file
 import invenio.textutils
 import invenio.bibencode_encode
 import invenio.bibencode_extract

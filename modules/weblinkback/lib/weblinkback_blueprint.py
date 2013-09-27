@@ -28,12 +28,12 @@ from datetime import datetime
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app, \
                   Response
-from invenio.cache import cache
-from invenio.hashutils import md5
+from invenio.ext.cache import cache
+from invenio.utils.hash import md5
 from invenio.intbitset import intbitset as HitSet
 from invenio.sqlalchemyutils import db
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.weblinkback_model import LnkENTRY
 from invenio.weblinkback import perform_sendtrackback, perform_sendtrackback_disabled
 from invenio.access_control_engine import acc_authorize_action

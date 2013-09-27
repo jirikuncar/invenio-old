@@ -31,7 +31,7 @@ from invenio.webcomment_model import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
 from invenio.webcomment_forms import AddCmtRECORDCOMMENTForm, \
                                      AddCmtRECORDCOMMENTFormReview
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.config import CFG_PREFIX, \
     CFG_SITE_LANG, \
     CFG_WEBALERT_ALERT_ENGINE_EMAIL,\

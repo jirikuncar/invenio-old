@@ -30,7 +30,7 @@ from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE, \
 from invenio.config import CFG_SITE_LANG, \
      CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 from invenio.messages import gettext_set_language
-from invenio.dateutils import datetext_default, get_datetext
+from invenio.utils.date import datetext_default, get_datetext
 from invenio.htmlutils import escape_html
 from invenio.webuser import collect_user_info, list_users_in_roles
 from invenio.access_control_admin import acc_get_role_id, acc_is_user_in_role

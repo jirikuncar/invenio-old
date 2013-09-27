@@ -56,7 +56,7 @@ from invenio.webmessage_mailutils import \
      email_quoted_txt2html
 from invenio.htmlutils import tidy_html
 from invenio.webuser import get_user_info, get_email, collect_user_info
-from invenio.dateutils import convert_datetext_to_dategui, \
+from invenio.utils.date import convert_datetext_to_dategui, \
                               datetext_default, \
                               convert_datestruct_to_datetext
 from invenio.mailutils import send_email

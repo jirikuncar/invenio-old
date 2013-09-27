@@ -442,7 +442,7 @@ def get_month(date, ln=CFG_SITE_LANG, default=""):
     @param default: a default value to return if year not fount
     """
     import re
-    from invenio.dateutils import get_i18n_month_name
+    from invenio.utils.date import get_i18n_month_name
     from invenio.messages import language_list_long
 
     #Look for textual month like "Jan" or "sep" or "November" or "novem"

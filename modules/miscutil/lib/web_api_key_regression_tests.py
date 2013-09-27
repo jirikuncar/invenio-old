@@ -28,7 +28,7 @@ import sys
 from flask import current_app
 
 from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
-from invenio.hashutils import sha1
+from invenio.utils.hash import sha1
 from invenio.testutils import InvenioTestCase, make_test_suite, \
     run_test_suite
 

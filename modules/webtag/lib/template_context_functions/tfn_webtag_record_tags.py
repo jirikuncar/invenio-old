@@ -21,7 +21,7 @@
 
 # Flask
 from flask import url_for
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 
 # Models
 from invenio.webtag_model import \

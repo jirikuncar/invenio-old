@@ -3376,7 +3376,7 @@ class Template:
 
           - 'recID' *int* - The record id
         """
-        from invenio.jinja2utils import render_template_to_string
+        from invenio.ext.template import render_template_to_string
         tpl = """{%- from "websearch_helpers.html" import record_brief_links with context -%}
         {{ record_brief_links(get_record(recid)) }}"""
         return render_template_to_string(tpl, recid=recID, _from_string=True).encode('utf-8')

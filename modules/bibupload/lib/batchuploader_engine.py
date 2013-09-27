@@ -236,7 +236,7 @@ def document_upload(req=None, folder="", matching="", mode="", exec_date="", exe
     """
     import sys
     from invenio.bibdocfile import BibRecDocs, file_strip_ext
-    from invenio.hashutils import md5
+    from invenio.utils.hash import md5
     import shutil
     from invenio.search_engine import perform_request_search, \
                                       search_pattern, \

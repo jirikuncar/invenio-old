@@ -30,7 +30,7 @@ from invenio.webdeposit_model import WebDepositDraft
 from invenio.bibworkflow_model import Workflow
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 from invenio.webdeposit_load_forms import forms
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.webdeposit_load_deposition_types import deposition_metadata
 from invenio.webdeposit_workflow import DepositionWorkflow
 from invenio.config import CFG_WEBDEPOSIT_UPLOAD_FOLDER

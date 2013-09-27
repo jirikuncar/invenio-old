@@ -23,17 +23,17 @@ from invenio.config import CFG_SITE_SECRET_KEY
 from invenio.scriptutils import Manager, change_command_name, \
     generate_secret_key, register_manager
 from invenio.sqlalchemyutils import db
-from invenio.webinterface_handler_flask import create_invenio_flask_app
+from invenio.base.factory import create_app
 
 
 # Fixes problems with empty secret key in config manager.
 if 'config' in sys.argv and \
         (not CFG_SITE_SECRET_KEY or CFG_SITE_SECRET_KEY == ''):
-    create_invenio_flask_app = create_invenio_flask_app(
+    create_app = create_app(
         SECRET_KEY=generate_secret_key())
 
 
-manager = Manager(create_invenio_flask_app, with_default_commands=False)
+manager = Manager(create_app, with_default_commands=False)
 register_manager(manager)
 
 

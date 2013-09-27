@@ -40,7 +40,7 @@ from invenio.config import \
      CFG_WEBBASKET_USE_RICH_TEXT_EDITOR, \
      CFG_SITE_RECORD
 from invenio.webuser import get_user_info
-from invenio.dateutils import convert_datetext_to_dategui
+from invenio.utils.date import convert_datetext_to_dategui
 from invenio.webbasket_dblayer import get_basket_ids_and_names
 
 ICON_BACK = 'icon-arrow-left'

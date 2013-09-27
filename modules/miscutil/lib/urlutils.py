@@ -43,7 +43,7 @@ try:
 except ImportError:
     BEAUTIFUL_SOUP_IMPORTED = False
 
-from invenio.hashutils import sha1, md5, HASHLIB_IMPORTED
+from invenio.utils.hash import sha1, md5, HASHLIB_IMPORTED
 
 from invenio import webinterface_handler_config as apache
 from invenio.config import \
@@ -816,7 +816,7 @@ class _MyHashlibAlgo(object):
             return setattr(self._obj, name, value)
 
 if HASHLIB_IMPORTED:
-    from invenio.hashutils import sha256
+    from invenio.utils.hash import sha256
 
 
     class _MySHA256(_MyHashlibAlgo):

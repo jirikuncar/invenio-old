@@ -42,7 +42,7 @@ from invenio.config import CFG_WEBAUTHORPROFILE_USE_BIBAUTHORID
 from invenio.webpage import pageheaderonly
 from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
 from invenio.urlutils import redirect_to_url
-from invenio.jsonutils import json_unicode_to_utf8
+from invenio.utils.json import json_unicode_to_utf8
 
 import datetime
 

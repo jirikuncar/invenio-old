@@ -27,7 +27,7 @@ import cgi
 # Invenio imports
 from invenio.urlutils import create_html_link, create_url
 from invenio.webuser import get_user_info, collect_user_info, isGuestUser, get_email
-from invenio.dateutils import convert_datetext_to_dategui
+from invenio.utils.date import convert_datetext_to_dategui
 from invenio.webmessage_mailutils import email_quoted_txt2html
 from invenio.config import CFG_SITE_URL, \
                            CFG_SITE_SECURE_URL, \

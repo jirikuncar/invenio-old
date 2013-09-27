@@ -18,9 +18,9 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from werkzeug.utils import import_string
-from invenio.cache import cache
+from invenio.ext.cache import cache
 from invenio.sqlalchemyutils import db
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.webdeposit_model import WebDepositDraft
 from invenio.webdeposit_cook_json_utils import cook_to_recjson
 from invenio.bibworkflow_model import Workflow

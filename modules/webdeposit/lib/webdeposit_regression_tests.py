@@ -48,7 +48,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.webdeposit_utils import get_latest_or_new_workflow, \
             get_workflow, delete_workflow
         from invenio.sqlalchemyutils import db
-        from invenio.webuser_flask import login_user
+        from invenio.ext.login import login_user
 
         login_user(1)
 
@@ -108,14 +108,14 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.sqlalchemyutils import db
         from invenio.webdeposit_workflow_utils import render_form, \
             wait_for_submission
-        from invenio.cache import cache
+        from invenio.ext.cache import cache
 
         for metadata in deposition_metadata.values():
             for wf_function in metadata['workflow']:
                 if 'render_form' == wf_function.func_name:
                     break
 
-        from invenio.webuser_flask import login_user
+        from invenio.ext.login import login_user
         login_user(1)
 
 
@@ -180,7 +180,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.webdeposit_workflow_utils import render_form
         from invenio.webdeposit_utils import draft_field_get
         from invenio.webdeposit_deposition_forms.article_form import ArticleForm
-        from invenio.cache import cache
+        from invenio.ext.cache import cache
 
 
         wf = [render_form(ArticleForm)]

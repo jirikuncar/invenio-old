@@ -50,7 +50,7 @@ from invenio.bibcirculation_utils import book_title_from_MARC, \
 from invenio.bibcirculation_dblayer import get_id_bibrec, \
     get_borrower_data
 from invenio.websearch_webcoll import CFG_CACHE_LAST_UPDATED_TIMESTAMP_FILE
-from invenio.dateutils import convert_datetext_to_datestruct, convert_datestruct_to_dategui
+from invenio.utils.date import convert_datetext_to_datestruct, convert_datestruct_to_dategui
 
 
 WEBSTAT_SESSION_LENGTH = 48 * 60 * 60 # seconds

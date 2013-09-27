@@ -124,10 +124,10 @@ def secret_key(key=None):
 
 def main():
     from invenio.config import CFG_SITE_SECRET_KEY
-    from invenio.webinterface_handler_flask import create_invenio_flask_app
+    from invenio.base.factory import create_app
     if not CFG_SITE_SECRET_KEY or CFG_SITE_SECRET_KEY == '':
         CFG_SITE_SECRET_KEY = generate_secret_key()
-    app = create_invenio_flask_app(SECRET_KEY=CFG_SITE_SECRET_KEY)
+    app = create_app(SECRET_KEY=CFG_SITE_SECRET_KEY)
     manager.app = app
     manager.run()
 

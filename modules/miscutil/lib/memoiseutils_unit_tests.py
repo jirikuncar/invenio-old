@@ -24,7 +24,7 @@ Unit tests for the memoise facility.
 import unittest
 from invenio.testutils import make_test_suite, run_test_suite
 
-from invenio.memoiseutils import Memoise
+from invenio.utils.memoise import Memoise
 
 
 class MemoiseTest(unittest.TestCase):

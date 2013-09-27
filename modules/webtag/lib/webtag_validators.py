@@ -28,7 +28,7 @@ from invenio.webtag_config import \
 from invenio.webinterface_handler_flask_utils import _
 
 from invenio.wtforms_utils import InvenioBaseForm
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 
 from wtforms import IntegerField, HiddenField, TextField, validators
 

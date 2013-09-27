@@ -34,7 +34,7 @@ from flask import current_app, \
 from werkzeug.utils import secure_filename
 from uuid import uuid1 as new_uuid
 
-from invenio.cache import cache
+from invenio.ext.cache import cache
 from invenio.webdeposit_load_deposition_types import deposition_types, \
     deposition_metadata
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
@@ -55,7 +55,7 @@ from invenio.webdeposit_utils import get_current_form, \
     CFG_DRAFT_STATUS, \
     url_upload,\
     get_all_drafts
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 
 blueprint = InvenioBlueprint('webdeposit', __name__,

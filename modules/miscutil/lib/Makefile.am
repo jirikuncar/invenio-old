@@ -20,16 +20,13 @@ SUBDIRS = upgrades
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
-             adminutils.py \
              apache_manager.py \
-             cache.py \
              cache_manager.py \
              celery.py \
              celery_config.py \
              celery_tasks.py \
              celery_unit_tests.py \
              config_manager.py \
-             containerutils.py \
              crossrefutils.py \
              data_cacher.py \
              database_manager.py \
@@ -37,7 +34,6 @@ pylib_DATA = __init__.py \
              dataciteutils_tester.py \
              datastructures.py \
              datastructures_unit_tests.py \
-             dateutils.py \
              dateutils_unit_tests.py \
              dbdump.py \
              dbquery.py \
@@ -51,7 +47,6 @@ pylib_DATA = __init__.py \
              errorlib_webinterface.py \
              flask_sslify.py \
              flaskshell.py \
-             hashutils.py \
              hashutils_unit_tests.py \
              htmlutils.py \
              htmlutils_unit_tests.py \
@@ -68,24 +63,19 @@ pylib_DATA = __init__.py \
              inveniocfg_upgrader_unit_tests.py \
              inveniomanage.py \
              inveniomanage_unit_tests.py \
-             jinja2utils.py \
-             jsonutils.py \
+             jinja2utils_unit_tests.py \
              jsonutils_unit_tests.py \
-             logicutils.py \
              logicutils_unit_tests.py \
              mailutils.py \
              mailutils_backend_adminonly.py \
              mailutils_unit_tests.py \
-             memoiseutils.py \
              memoiseutils_unit_tests.py \
              messages.py \
              messages_unit_tests.py \
-             mimetypeutils.py \
              mimetypeutils_unit_tests.py \
              miscutil_config.py \
              miscutil_model.py \
              orcid.py \
-             paginationutils.py \
              paginationutils_unit_tests.py \
              pidutils.py \
              pidutils_unit_tests.py \
@@ -111,7 +101,6 @@ pylib_DATA = __init__.py \
              shellutils_unit_tests.py \
              sherpa_romeo.py \
              sherpa_romeo_testing.py \
-             signalutils.py \
              solrutils_bibindex_indexer.py \
              solrutils_bibindex_searcher.py \
              solrutils_bibrank_indexer.py \

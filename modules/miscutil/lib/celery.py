@@ -63,8 +63,8 @@ class InvenioLoader(BaseLoader):
             if current_app:
                 self.flask_app = current_app
             else:
-                from invenio.webinterface_handler_flask import create_invenio_flask_app
-                self.flask_app = create_invenio_flask_app()
+                from invenio.base.factory import create_app
+                self.flask_app = create_app()
                 from invenio.sqlalchemyutils import db
                 self.db = db
 

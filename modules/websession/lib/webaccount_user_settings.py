@@ -23,8 +23,8 @@ from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
 from invenio.websession_model import User
 from invenio.webinterface_handler_flask_utils import _
-from invenio.webuser_flask import current_user
-from invenio.jinja2utils import render_template_to_string
+from flask.ext.login import current_user
+from invenio.ext.template import render_template_to_string
 from invenio.settings import Settings, UserSettingsStorage, \
                              ModelSettingsStorageBuilder
 from invenio.websession_model import User

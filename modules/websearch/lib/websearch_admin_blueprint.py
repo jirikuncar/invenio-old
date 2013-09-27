@@ -22,12 +22,12 @@
 from flask import Blueprint, session, make_response, g, render_template, \
         request, flash, jsonify, redirect, url_for, current_app, \
         abort
-from invenio.cache import cache
+from invenio.ext.cache import cache
 from invenio.sqlalchemyutils import db
 from invenio.websearch_model import Collection, CollectionCollection, \
         Collectionname, CollectionPortalbox
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.messages import language_list_long
 from sqlalchemy.ext.orderinglist import ordering_list
 

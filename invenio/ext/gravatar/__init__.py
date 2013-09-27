@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2013 CERN.
+## Copyright (C) 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -18,19 +18,22 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 """
-Invenio hash functions.
+    invenio.ext.gravatar
+    --------------------
 
-Usage example:
-  >>> from invenio.hashutils import md5
-  >>> print md5('MyPa$$')
-
-Simplifies imports of hash functions depending on Python version.
+    This module provides initialization and configuration for
+    `flask.ext.gravatar` module.
 """
 
-try:
-    from hashlib import sha256, sha1, md5
-    HASHLIB_IMPORTED = True
-except ImportError:
-    from md5 import md5
-    from sha import sha as sha1
-    HASHLIB_IMPORTED = False
+
+def setup_app(app):
+    """Initialize Gravatar extension."""
+    from flask.ext.gravatar import Gravatar
+    gravatar = Gravatar(app,
+                        size=app.config.get('GRAVATAR_SIZE', 100),
+                        rating=app.config.get('GRAVATAR_RATING', 'g'),
+                        default=app.config.get('GRAVATAR_DEFAULT', 'retro'),
+                        force_default=False,
+                        force_lower=False)
+    del gravatar
+    return app

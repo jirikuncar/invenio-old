@@ -25,7 +25,7 @@ from invenio.config import CFG_SITE_LANG
 # Flask
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 
 # Models
 from invenio.sqlalchemyutils import db

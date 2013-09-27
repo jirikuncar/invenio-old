@@ -21,7 +21,7 @@
 Test unit for the miscutil/paginationutils module.
 """
 
-from invenio.paginationutils import Pagination
+from invenio.utils.pagination import Pagination
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 

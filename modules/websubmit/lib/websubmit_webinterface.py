@@ -56,7 +56,7 @@ from invenio.ckeditor_invenio_connector import process_CKEditor_upload, send_res
 import invenio.template
 websubmit_templates = invenio.template.load('websubmit')
 from invenio.websearchadminlib import get_detailed_page_tabs
-from invenio.jsonutils import json, CFG_JSON_AVAILABLE
+from invenio.utils.json import json, CFG_JSON_AVAILABLE
 import invenio.template
 from flask import session
 

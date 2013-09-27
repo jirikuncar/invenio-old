@@ -30,12 +30,12 @@ from invenio.webmessage_config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
                                       CFG_WEBMESSAGE_EMAIL_ALERT
 
 from invenio.sqlalchemyutils import db
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 from invenio.settings import Settings, UserSettingsStorage, \
                              ModelSettingsStorageBuilder
 from invenio.webmessage_model import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webmessage_forms import WebMessageUserSettingsForm
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 
 class WebMessageSettings(Settings):
 
