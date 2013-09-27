@@ -60,8 +60,8 @@ except:
 import sys
 sys.stdout = sys.stderr
 
-from invenio.webinterface_handler_flask import create_invenio_flask_app
-application = create_invenio_flask_app()
+from invenio.base.factory import create_app
+application = create_app()
 
 if 'werkzeug-debugger' in getattr(config, 'CFG_DEVEL_TOOLS', []):
     from werkzeug.debug import DebuggedApplication

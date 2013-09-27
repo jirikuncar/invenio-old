@@ -29,7 +29,7 @@ from pprint import pformat
 from operator import itemgetter
 
 try:
-    from invenio.jsonutils import json, CFG_JSON_AVAILABLE
+    from invenio.utils.json import json, CFG_JSON_AVAILABLE
 except:
     CFG_JSON_AVAILABLE = False
     json = None

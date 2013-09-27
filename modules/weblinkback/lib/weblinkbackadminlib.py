@@ -37,7 +37,7 @@ from invenio.weblinkback_config import CFG_WEBLINKBACK_ORDER_BY_INSERTION_TIME, 
                                        CFG_WEBLINKBACK_ACTION_RETURN_CODE
 from invenio.bibrankadminlib import addadminbox, \
                                     tupletotable
-from invenio.dateutils import convert_datetext_to_dategui
+from invenio.utils.date import convert_datetext_to_dategui
 from invenio.bibformat import format_record
 
 import cgi

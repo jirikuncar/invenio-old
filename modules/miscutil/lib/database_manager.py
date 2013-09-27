@@ -43,7 +43,7 @@ def drop(yes_i_know=False):
     print ">>> Going to drop tables and related data on filesystem ..."
 
     from sqlalchemy import event
-    from invenio.dateutils import get_time_estimator
+    from invenio.utils.date import get_time_estimator
     from invenio.textutils import wrap_text_in_a_box, wait_for_user
     from invenio.webstat import destroy_customevents
     from invenio.inveniocfg import test_db_connection
@@ -116,7 +116,7 @@ def create(default_data=True):
     print ">>> Going to create tables..."
 
     from sqlalchemy import event
-    from invenio.dateutils import get_time_estimator
+    from invenio.utils.date import get_time_estimator
     from invenio.inveniocfg import test_db_connection
     from invenio.sqlalchemyutils import db, autodiscover_models
 
@@ -319,8 +319,8 @@ def mysql_info(separator=None, line_format=None):
 
 
 def main():
-    from invenio.webinterface_handler_flask import create_invenio_flask_app
-    app = create_invenio_flask_app()
+    from invenio.base.factory import create_app
+    app = create_app()
     manager.app = app
     manager.run()
 

@@ -133,7 +133,7 @@ from invenio.dbquery import CFG_DATABASE_HOST, \
     CFG_DATABASE_PASS, \
     CFG_DATABASE_TYPE, \
     CFG_DATABASE_SLAVE
-from invenio.webinterface_handler_flask import create_invenio_flask_app, \
+from invenio.base.factory import create_app, \
     with_app_context
 from invenio.urlutils import rewrite_to_secure_url
 import pyparsing  # needed to import here before flask.ext.testing in
@@ -182,7 +182,7 @@ class InvenioTestCase(TestCase, unittest2.TestCase):
                    )
 
     def create_app(self):
-        app = create_invenio_flask_app(CFG_DATABASE_TYPE=self.engine,
+        app = create_app(CFG_DATABASE_TYPE=self.engine,
                                        SQLALCHEMY_DATABASE_URI=self.SQLALCHEMY_DATABASE_URI)
         app.testing = True
         return app

@@ -172,7 +172,7 @@ TESTS = [BibRankWebPagesAvailabilityTest,
          BibRankCitationRankingTest,
          BibRankExtCitesTest]
 
-from invenio.webinterface_handler_flask import with_app_context
+from invenio.base.factory import with_app_context
 
 @with_app_context()
 def create_external_word_similarity_ranker_tests():

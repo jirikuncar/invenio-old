@@ -113,7 +113,7 @@ class DepositionWorkflow(object):
         if user_id is not None:
             self.user_id = user_id
         else:
-            from invenio.webuser_flask import current_user
+            from flask.ext.login import current_user
             self.user_id = current_user.get_id()
 
         self.obj['user_id'] = self.user_id

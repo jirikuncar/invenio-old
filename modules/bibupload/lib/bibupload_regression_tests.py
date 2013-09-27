@@ -47,12 +47,12 @@ from invenio.config import CFG_OAI_ID_FIELD, CFG_PREFIX, CFG_SITE_URL, CFG_TMPDI
      CFG_DEVEL_SITE, \
      CFG_BIBUPLOAD_REFERENCE_TAG, \
      CFG_BIBUPLOAD_SERIALIZE_RECORD_STRUCTURE
-from invenio.jsonutils import json
+from invenio.utils.json import json
 from invenio.dbquery import run_sql, get_table_status_info
 from invenio.testutils import InvenioTestCase, make_test_suite, run_test_suite, test_web_page_content
 
 from invenio.importutils import lazy_import
-from invenio.hashutils import md5
+from invenio.utils.hash import md5
 from invenio.shellutils import run_shell_command
 
 BibRecDocs = lazy_import('invenio.bibdocfile:BibRecDocs')
@@ -1529,7 +1529,7 @@ class BibUploadAppendModeTest(GenericBibUploadTest):
 
     def test_update_modification_record_date(self):
         """bibupload - append mode, checking the update of the modification date"""
-        from invenio.dateutils import convert_datestruct_to_datetext
+        from invenio.utils.date import convert_datestruct_to_datetext
         # Initialize the global variable
         # We create create the record out of the xml marc
         recs = bibupload.xml_marc_to_records(self.test_existing)

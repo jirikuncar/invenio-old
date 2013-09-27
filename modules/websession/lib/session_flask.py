@@ -37,7 +37,7 @@ from warnings import warn
 
 from invenio.sqlalchemyutils import db
 from invenio.websession_model import Session
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.config import \
     CFG_SITE_SECURE_URL, \
     CFG_FLASK_CACHE_TYPE
@@ -51,7 +51,7 @@ CFG_SESSION_IN_CACHE = CFG_FLASK_CACHE_TYPE not in [None, 'null']
 # Session key prefix for storing in db.
 CFG_CACHE_KEY_PREFIX_SESSION = 'session::'
 
-from invenio.cache import cache
+from invenio.ext.cache import cache
 
 class InvenioSession(dict, SessionMixin):
     """

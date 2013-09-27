@@ -30,7 +30,7 @@ from invenio.bibedit_model import Bibrec
 from invenio.bibcirculation_receivers import \
     post_handler_demosite_populate
 from invenio.demosite_manager import populate as demosite_populate
-from invenio.signalutils import post_command
+from invenio.base.signals import post_command
 
 post_command.connect(post_handler_demosite_populate, sender=demosite_populate)
 

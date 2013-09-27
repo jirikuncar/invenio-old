@@ -20,7 +20,7 @@
 from datetime import datetime, timedelta
 from fixture import DataSet
 
-from invenio.webinterface_handler_flask import with_app_context
+from invenio.base.factory import with_app_context
 
 
 @with_app_context(new_context=True)

@@ -28,7 +28,7 @@ from invenio.websearch_cache import search_results_cache, \
 from invenio.intbitset import intbitset
 from invenio.config import CFG_WEBSEARCH_SEARCH_CACHE_TIMEOUT, CFG_PYLIBDIR
 from invenio.importutils import autodiscover_modules
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.websearch_model import Collection
 from invenio.search_engine import search_pattern, \
                                   get_field_tags, \

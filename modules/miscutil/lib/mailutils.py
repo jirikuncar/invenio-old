@@ -64,10 +64,11 @@ except ImportError:
 
 from invenio.errorlib import register_exception
 from invenio.miscutil_config import InvenioMiscUtilError
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 from invenio.webinterface_handler_flask_utils import unicodifier
 
-def initialize_email_backend(app):
+
+def setup_app(app):
     """
     Prepare application config from Invenio configuration.
 
@@ -93,6 +94,7 @@ def initialize_email_backend(app):
     # app.config['EMAIL_USE_SSL']: defaults to False
 
     app.config['EMAIL_FILE_PATH'] = CFG_LOGDIR
+    return app
 
 
 def scheduled_send_email(fromaddr,

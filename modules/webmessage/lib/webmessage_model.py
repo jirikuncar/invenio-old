@@ -157,12 +157,12 @@ class MsgMESSAGE(db.Model):
 
 from invenio.webmessage_config import CFG_WEBMESSAGE_EMAIL_ALERT
 from invenio.config import CFG_WEBCOMMENT_ALERT_ENGINE_EMAIL
-from invenio.dateutils import datetext_format
+from invenio.utils.date import datetext_format
 from datetime import datetime
 
 def email_alert(mapper, connection, target):
     """ Sends email alerts to message recipients. """
-    from invenio.jinja2utils import render_template_to_string
+    from invenio.ext.template import render_template_to_string
     from invenio.mailutils import send_email, scheduled_send_email
     m = target
     is_reminder =  m.received_date is not None \

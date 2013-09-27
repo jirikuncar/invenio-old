@@ -25,7 +25,7 @@
 
 __revision__ = "$Id$"
 
-from invenio.webinterface_handler_flask import with_app_context
+from invenio.base.factory import with_app_context
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, nottest, InvenioTestCase
 

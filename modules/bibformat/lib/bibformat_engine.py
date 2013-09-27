@@ -91,7 +91,7 @@ from invenio.htmlutils import \
 from invenio.webuser import collect_user_info
 from invenio.bibknowledge import get_kbr_values
 from invenio.importutils import autodiscover_modules
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 from HTMLParser import HTMLParseError
 from invenio.shellutils import escape_shell_arg
 
@@ -563,7 +563,7 @@ def format_with_format_template(format_template_filename, bfo,
             create_record as bibfield_create_record, \
             get_record as bibfield_get_record
         from invenio.search_engine import print_record
-        from invenio.webuser_flask import current_user
+        from flask.ext.login import current_user
         from invenio.webinterface_handler_flask_utils import unicodifier
 
         def _format_record(recid, of='hb', user_info=current_user, *args, **kwargs):

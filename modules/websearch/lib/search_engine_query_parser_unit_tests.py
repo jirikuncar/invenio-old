@@ -23,9 +23,9 @@
 import datetime
 
 from invenio.config import CFG_WEBSEARCH_SPIRES_SYNTAX
-from invenio.dateutils import GOT_DATEUTIL as DATEUTIL_AVAILABLE
+from invenio.utils.date import GOT_DATEUTIL as DATEUTIL_AVAILABLE
 if DATEUTIL_AVAILABLE:
-    from invenio.dateutils import dateutil, du_delta
+    from invenio.utils.date import dateutil, du_delta
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 

@@ -37,7 +37,7 @@ from invenio.config import \
         CFG_WEBDIR, \
         CFG_TMPDIR, \
         CFG_PATH_MD5SUM
-from invenio.mimetypeutils import CFG_HAS_MAGIC
+from invenio.utils.mimetype import CFG_HAS_MAGIC
 
 MoreInfo = lazy_import('invenio.bibdocfile:MoreInfo')
 Md5Folder = lazy_import('invenio.bibdocfile:Md5Folder')

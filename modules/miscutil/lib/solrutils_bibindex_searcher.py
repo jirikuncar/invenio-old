@@ -26,7 +26,7 @@ import urllib
 import mimetools
 from invenio import intbitset
 from invenio.urlutils import make_invenio_opener
-from invenio.jsonutils import json
+from invenio.utils.json import json
 from invenio.config import CFG_SOLR_URL, \
                            CFG_WEBSEARCH_FULLTEXT_SNIPPETS, \
                            CFG_WEBSEARCH_FULLTEXT_SNIPPETS_CHARS

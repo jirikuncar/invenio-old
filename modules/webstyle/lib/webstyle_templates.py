@@ -28,7 +28,7 @@ import sys
 import string
 
 from flask import g, current_app
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 from invenio.config import \
      CFG_SITE_RECORD, \
      CFG_SITE_LANG, \
@@ -45,7 +45,7 @@ from invenio.config import \
 from invenio.messages import gettext_set_language, language_list_long, is_language_rtl
 from invenio.urlutils import make_canonical_urlargd, create_html_link, \
                              get_canonical_and_alternates_urls
-from invenio.dateutils import convert_datecvs_to_datestruct, \
+from invenio.utils.date import convert_datecvs_to_datestruct, \
                               convert_datestruct_to_dategui
 from invenio.bibformat import format_record
 from bs4 import BeautifulSoup

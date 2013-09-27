@@ -46,7 +46,7 @@ def authorize_user(user_id=None):
         if user_id is not None:
             obj.data['user_id'] = user_id
         else:
-            from invenio.webuser_flask import current_user
+            from flask.ext.login import current_user
             obj.data['user_id'] = current_user.get_id()
     return user_auth
 

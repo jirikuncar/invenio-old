@@ -24,7 +24,7 @@ __revision__ = "$Id$"
 import datetime
 import cgi
 from time import localtime
-import invenio.dateutils as dateutils
+import invenio.utils.date as dateutils
 from invenio.urlutils import create_html_link
 from invenio.messages import gettext_set_language
 from invenio.search_engine import get_fieldvalues

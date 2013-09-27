@@ -36,8 +36,8 @@ from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
       InvenioWebSessionWarning
 
 from invenio.sqlalchemyutils import db
-from invenio.jinja2utils import render_template_to_string
-from invenio.webuser_flask import current_user
+from invenio.ext.template import render_template_to_string
+from flask.ext.login import current_user
 from invenio.settings import Settings
 
 class WebGroupSettings(Settings):

@@ -24,7 +24,7 @@ import functools
 from functools import wraps
 from flask import flash
 from flask.ext.script import Manager as FlaskExtManager
-from invenio.signalutils import pre_command, post_command
+from invenio.base.signals import pre_command, post_command
 
 
 def change_command_name(method=None, new_name=None):

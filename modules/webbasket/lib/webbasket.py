@@ -39,7 +39,7 @@ import re
 from invenio.config import CFG_SITE_LANG, CFG_SITE_URL, \
      CFG_WEBBASKET_MAX_NUMBER_OF_DISPLAYED_BASKETS
 from invenio.messages import gettext_set_language
-from invenio.dateutils import convert_datetext_to_dategui, \
+from invenio.utils.date import convert_datetext_to_dategui, \
                               convert_datetext_to_datestruct,\
                               convert_datestruct_to_dategui
 from invenio.bibformat import format_record

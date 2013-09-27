@@ -44,7 +44,7 @@ from invenio.webaccount_forms import LoginForm, RegisterForm
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.websession_model import User
 from invenio.websession_webinterface import wash_login_method
-from invenio.webuser_flask import login_user, logout_user, current_user, UserInfo
+from invenio.ext.login import login_user, logout_user, current_user, UserInfo
 
 
 CFG_HAS_HTTPS_SUPPORT = CFG_SITE_SECURE_URL.startswith("https://")

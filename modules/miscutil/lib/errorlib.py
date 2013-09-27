@@ -38,7 +38,7 @@ from invenio.config import CFG_SITE_LANG, CFG_LOGDIR, \
     CFG_ERRORLIB_RESET_EXCEPTION_NOTIFICATION_COUNTER_AFTER
 from invenio.urlutils import wash_url_argument
 from invenio.messages import wash_language, gettext_set_language
-from invenio.dateutils import convert_datestruct_to_datetext
+from invenio.utils.date import convert_datestruct_to_datetext
 from invenio.dbquery import run_sql
 
 
@@ -143,7 +143,7 @@ def get_emergency_recipients(recipient_cfg=CFG_SITE_EMERGENCY_EMAIL_ADDRESSES):
         '*': 'john.doe.phone@foo.com'}
     """
 
-    from invenio.dateutils import parse_runtime_limit
+    from invenio.utils.date import parse_runtime_limit
 
     recipients = set()
     for time_condition, address_str in recipient_cfg.items():

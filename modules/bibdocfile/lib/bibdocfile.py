@@ -114,7 +114,7 @@ from invenio.config import CFG_SITE_URL, \
 from invenio.bibdocfile_config import CFG_BIBDOCFILE_ICON_SUBFORMAT_RE, \
     CFG_BIBDOCFILE_DEFAULT_ICON_SUBFORMAT
 from invenio.pluginutils import PluginContainer
-from invenio.hashutils import md5
+from invenio.utils.hash import md5
 
 import invenio.template
 

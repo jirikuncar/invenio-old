@@ -31,28 +31,28 @@ from invenio import bibindex_model as BibIndex
 from invenio import websearch_receivers
 from invenio.bibindex_engine import get_index_id_from_index_name
 from invenio.bibformat import get_output_format_content_type, print_records
-from invenio.cache import cache
-from invenio.config import CFG_WEBSEARCH_RSS_TTL, \
-    CFG_WEBSEARCH_PREV_NEXT_HIT_LIMIT
+from invenio.ext.cache import cache
+from invenio.config import CFG_WEBSEARCH_RSS_TTL
 from invenio.websearch_cache import \
     get_search_query_id, get_collection_name_from_cache
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.intbitset import intbitset
-from invenio.signalutils import websearch_before_browse, websearch_before_search
+from invenio.base.signals import websearch_before_browse, websearch_before_search
 from invenio.websearch_forms import EasySearchForm
 from invenio.websearch_model import Collection
 from invenio.websearch_webinterface import wash_search_urlargd
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint, \
+from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.ext.template.context_processor import \
     register_template_context_processor
-from invenio.webuser_flask import current_user
+from flask.ext.login import current_user
 from invenio.websearch_facet_builders import \
     get_current_user_records_that_can_be_displayed, faceted_results_filter, \
     FacetLoader
 from invenio.search_engine import get_creation_date, perform_request_search,\
     print_record, create_nearest_terms_box, browse_pattern_phrases
-from invenio.paginationutils import Pagination
-    
+from invenio.utils.pagination import Pagination
+
 blueprint = InvenioBlueprint('search', __name__, url_prefix="",
                              config='invenio.search_engine_config',
                              breadcrumbs=[],

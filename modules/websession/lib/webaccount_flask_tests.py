@@ -18,7 +18,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from invenio.sqlalchemyutils import db
-from invenio.webuser_flask import current_user, login_user, logout_user
+from invenio.ext.login import current_user, login_user, logout_user
 from invenio.testutils import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture
 from fixture import SQLAlchemyFixture
