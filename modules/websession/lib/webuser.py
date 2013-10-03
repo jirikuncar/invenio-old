@@ -74,7 +74,7 @@ from invenio.access_control_mailcookie import mail_cookie_create_mail_activation
 from invenio.access_control_firerole import acc_firerole_check_user, load_role_definition
 from invenio.access_control_config import SUPERADMINROLE, CFG_EXTERNAL_AUTH_USING_SSO
 from invenio.messages import gettext_set_language, wash_languages, wash_language
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.errorlib import register_exception
 from invenio.webgroup_dblayer import get_groups
 from invenio.external_authentication import InvenioWebAccessExternalAuthError

@@ -163,7 +163,7 @@ from datetime import datetime
 def email_alert(mapper, connection, target):
     """ Sends email alerts to message recipients. """
     from invenio.ext.template import render_template_to_string
-    from invenio.mailutils import send_email, scheduled_send_email
+    from invenio.ext.email import send_email, scheduled_send_email
     m = target
     is_reminder =  m.received_date is not None \
                    and m.received_date > datetime.now()

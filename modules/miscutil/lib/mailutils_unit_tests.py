@@ -27,7 +27,7 @@ from base64 import encodestring
 from StringIO import StringIO
 from flask import current_app
 
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 
@@ -209,7 +209,7 @@ To: Undisclosed.Recipients:"""
 
 class TestAdminMailBackend(MailTestCase):
 
-    EMAIL_BACKEND = 'invenio.mailutils_backend_adminonly.ConsoleMail'
+    EMAIL_BACKEND = 'invenio.ext.email.backend_adminonly.ConsoleMail'
     ADMIN_MESSAGE = "This message would have been sent to the following recipients"
 
     def test_simple_email_header(self):

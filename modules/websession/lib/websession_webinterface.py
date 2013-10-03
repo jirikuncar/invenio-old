@@ -55,7 +55,7 @@ from invenio.urlutils import redirect_to_url, make_canonical_urlargd
 from invenio import webgroup
 from invenio import webgroup_dblayer
 from invenio.messages import gettext_set_language, wash_language
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.errorlib import register_exception
 from invenio.access_control_mailcookie import mail_cookie_retrieve_kind, \
     mail_cookie_check_pw_reset, mail_cookie_delete_cookie, \
