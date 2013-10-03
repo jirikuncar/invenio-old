@@ -33,7 +33,7 @@ from invenio.config import \
      CFG_CERN_SITE, \
      CFG_SITE_URL
 from invenio.webuser import collect_user_info
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.messages import gettext_set_language
 from invenio.bibrecord import record_get_field_value
 from invenio.search_engine import get_record

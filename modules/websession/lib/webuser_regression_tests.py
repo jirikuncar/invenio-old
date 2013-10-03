@@ -28,7 +28,7 @@ from mechanize import Browser
 
 from invenio.dbquery import run_sql
 from invenio.config import CFG_SITE_SECURE_URL
-from invenio.mailutils_unit_tests import MailTestCase
+from invenio.ext.email_unit_tests import MailTestCase
 from invenio.importutils import lazy_import
 from invenio.testutils import InvenioTestCase, make_test_suite, run_test_suite
 

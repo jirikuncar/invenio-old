@@ -66,8 +66,6 @@ pylib_DATA = __init__.py \
              jinja2utils_unit_tests.py \
              jsonutils_unit_tests.py \
              logicutils_unit_tests.py \
-             mailutils.py \
-             mailutils_backend_adminonly.py \
              mailutils_unit_tests.py \
              memoiseutils_unit_tests.py \
              messages.py \

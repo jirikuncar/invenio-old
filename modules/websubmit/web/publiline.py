@@ -54,7 +54,7 @@ from invenio.messages import gettext_set_language, wash_language
 from invenio.search_engine import search_pattern, check_user_can_view_record
 from invenio.search_engine_utils import get_fieldvalues
 from invenio.websubmit_functions.Retrieve_Data import Get_Field
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.urlutils import wash_url_argument
 from invenio.webgroup_dblayer import get_group_infos, insert_new_group, insert_new_member, delete_member
 from invenio.webaccessadmin_lib import cleanstring_email

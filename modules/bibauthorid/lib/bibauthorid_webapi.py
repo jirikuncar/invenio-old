@@ -41,7 +41,7 @@ from invenio.external_authentication_robot import ExternalAuthRobot
 from invenio.external_authentication_robot import load_robot_keys
 from invenio.config import CFG_BIBAUTHORID_AUTHOR_TICKET_ADMIN_EMAIL
 from invenio.config import CFG_SITE_URL
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 
 from operator import add
 

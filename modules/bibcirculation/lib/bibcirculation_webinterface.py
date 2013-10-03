@@ -39,7 +39,7 @@ from invenio.config import CFG_SITE_LANG, \
 from invenio.webuser import getUid, page_not_authorized, isGuestUser, \
                             collect_user_info
 from invenio.webpage import page, pageheaderonly, pagefooteronly
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.search_engine import create_navtrail_links, \
      guess_primary_collection_of_a_record, \
      get_colID, check_user_can_view_record, \

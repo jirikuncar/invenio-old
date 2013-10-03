@@ -59,7 +59,7 @@ from invenio.webuser import get_user_info, get_email, collect_user_info
 from invenio.utils.date import convert_datetext_to_dategui, \
                               datetext_default, \
                               convert_datestruct_to_datetext
-from invenio.mailutils import send_email
+from invenio.ext.email import send_email
 from invenio.errorlib import register_exception
 from invenio.messages import wash_language, gettext_set_language
 from invenio.urlutils import wash_url_argument
