@@ -25,6 +25,7 @@
 
 
 import types
+from .bccache import BytecodeCacheWithConfig
 from .context_processor import setup_app as context_processor_setup_app
 from flask import g, request, current_app, _request_ctx_stack, url_for
 
@@ -151,6 +152,13 @@ def setup_app(app):
 
     context_processor_setup_app(app)
     app.context_processor(inject_utils)
+
+    if app.config.get('JINJA2_BCCACHE', False):
+        app.jinja_options = dict(
+            app.jinja_options,
+            auto_reload=app.config.get('JINJA2_BCCACHE_AUTO_RELOAD', False),
+            cache_size=app.config.get('JINJA2_BCCACHE_SIZE', -1),
+            bytecode_cache=BytecodeCacheWithConfig(app))
 
     for ext in app.config.get('JINJA2_EXTENSIONS', []):
         try:
