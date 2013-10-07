@@ -192,6 +192,9 @@ class UserInfo(CombinedMultiDict, UserMixin):
 
         FIXME: compatibility layer only !!!
         """
+
+        CFG_BIBAUTHORID_ENABLED = current_app.config.get(
+            'CFG_BIBAUTHORID_ENABLED', False)
         # get autorization key
         acc_key = self.get_acc_key()
         acc = cache.get(acc_key)

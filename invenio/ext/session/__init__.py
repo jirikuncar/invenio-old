@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-##
+
 ## This file is part of Invenio.
-## Copyright (C) 2012, 2013 CERN.
+## Copyright (C) 2011, 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -16,24 +16,24 @@
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+
 """
-    invenio.ext.cache
-    -----------------
+    invenio.ext.session
+    -------------------
 
-    This module provides initialization and configuration for `flask.ext.cache`
-    module.
+    Session management adapted from Flask Session class.
+
+    Just use L{get_session} to obtain a session object (with a dictionary
+    interface, which will let you store permanent information).
 """
 
-from flask.ext.cache import Cache
-cache = Cache()
-
-__all__ = ['cache', 'setup_app']
+from .interface import SessionInterface
 
 
 def setup_app(app):
-    """Setup cache extension."""
+    """Creates custom session interface."""
 
-    app.config.setdefault('CACHE_TYPE',
-                          app.config.get('CFG_FLASK_CACHE_TYPE', 'null'))
-    cache.init_app(app)
+    ## Let's attach our session handling, which is bridging with the native
+    ## session handling.
+    app.session_interface = SessionInterface()
     return app
