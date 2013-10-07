@@ -28,25 +28,21 @@ except:
 
 import os
 from os.path import join
-from pprint import pformat
 from functools import wraps
 from flask import Flask, current_app
 from flask.ext.login import current_user
-from jinja2 import FileSystemLoader, MemcachedBytecodeCache
+from jinja2 import FileSystemLoader
 
 from invenio import config
 from invenio.errorlib import register_exception
-from invenio.config import CFG_PYLIBDIR, \
-    CFG_WEBSESSION_EXPIRY_LIMIT_REMEMBER, \
+from invenio.config import \
     CFG_BIBDOCFILE_USE_XSENDFILE, \
-    CFG_LOGDIR, CFG_SITE_LANG, CFG_WEBDIR, \
+    CFG_WEBDIR, \
     CFG_ETCDIR, CFG_DEVEL_SITE, \
-    CFG_FLASK_CACHE_TYPE, CFG_FLASK_DISABLED_BLUEPRINTS, \
-    CFG_SITE_URL, CFG_SITE_SECURE_URL, CFG_FLASK_SERVE_STATIC_FILES, \
+    CFG_FLASK_DISABLED_BLUEPRINTS, \
+    CFG_SITE_URL, CFG_SITE_SECURE_URL, \
     CFG_SITE_SECRET_KEY, CFG_BINDIR
 from invenio.importutils import autodiscover_modules
-from invenio.websession_config import CFG_WEBSESSION_COOKIE_NAME, \
-    CFG_WEBSESSION_ONE_DAY
 
 from werkzeug.utils import import_string
 
@@ -276,9 +272,6 @@ def create_app(**kwargs_config):
     ## Set custom request class was here.
 
     ## ... and map certain common parameters
-    _app.config['SESSION_COOKIE_NAME'] = CFG_WEBSESSION_COOKIE_NAME
-    _app.config['PERMANENT_SESSION_LIFETIME'] = \
-        CFG_WEBSESSION_EXPIRY_LIMIT_REMEMBER * CFG_WEBSESSION_ONE_DAY
     _app.config['USE_X_SENDFILE'] = CFG_BIBDOCFILE_USE_XSENDFILE
     _app.config['DEBUG'] = CFG_DEVEL_SITE > 0
     _app.debug = CFG_DEVEL_SITE > 0
