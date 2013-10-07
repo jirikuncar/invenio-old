@@ -265,13 +265,7 @@ def create_app(**kwargs_config):
 
     # Legacy was here
 
-    if CFG_FLASK_CACHE_TYPE not in [None, 'null']:
-        _app.jinja_options = dict(_app.jinja_options,
-            auto_reload=False,
-            cache_size=-1,
-            bytecode_cache=MemcachedBytecodeCache(
-                                cache, prefix="jinja::",
-                                timeout=3600))
+    # Jinja2 Memcache Bytecode Cache was here.
 
     ## Let's customize the template loader to first look into
     ## /opt/invenio/etc-local/templates and then into
@@ -334,14 +328,14 @@ def create_app(**kwargs_config):
         """
         if plugin.__name__ in CFG_FLASK_DISABLED_BLUEPRINTS or \
            plugin.__name__.split('.')[-1] in CFG_FLASK_DISABLED_BLUEPRINTS:
-            _app.logger.info('%s is excluded by CFG_FLASK_DISABLED_BLUEPRINTS' % plugin_name)
+            _app.logger.info('%s is excluded by CFG_FLASK_DISABLED_BLUEPRINTS' % plugin.__name__)
             return
         from invenio.webinterface_handler_flask_utils import InvenioBlueprint
         if 'blueprint' in dir(plugin):
             candidate = getattr(plugin, 'blueprint')
             if isinstance(candidate, InvenioBlueprint):
                 return candidate
-        _app.logger.error('%s is not a valid blueprint plugin' % plugin_name)
+        _app.logger.error('%s is not a valid blueprint plugin' % plugin.__name__)
 
 
     ## Let's load all the blueprints that are composing this Invenio instance
