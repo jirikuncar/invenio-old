@@ -116,7 +116,7 @@ class FacetLoader(object):
         """Loaded facet plugins."""
         return map(_facet_plugin_checker,
                    autodiscover_modules(['invenio.websearch_facets'],
-                                        'facet_.+\.py'))
+                                        'facet_.+'))
 
     @cached_property
     def elements(self):

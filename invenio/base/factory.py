@@ -341,7 +341,7 @@ def create_app(**kwargs_config):
     ## Let's load all the blueprints that are composing this Invenio instance
     _BLUEPRINTS = [m for m in map(_invenio_blueprint_plugin_builder,
                       autodiscover_modules(['invenio'],
-                                           related_name_re='.+_blueprint.py',
+                                           related_name_re='.+_blueprint',
                                            ignore_exceptions=True))
                    if m is not None]
 

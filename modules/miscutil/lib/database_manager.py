@@ -184,9 +184,9 @@ def load_fixtures(suffix='', truncate_tables_first=False):
     from invenio.importutils import autodiscover_modules
 
     if len(suffix) > 0:
-        related_name_re = ".+_fixtures_%s\.py" % (suffix, )
+        related_name_re = ".+_fixtures_%s" % (suffix, )
     else:
-        related_name_re = ".+_fixtures\.py"
+        related_name_re = ".+_fixtures"
 
     fixture_modules = autodiscover_modules(['invenio'],
                                            related_name_re=related_name_re)

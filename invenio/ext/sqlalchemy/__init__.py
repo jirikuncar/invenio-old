@@ -197,6 +197,6 @@ def setup_app(app):
 
     ## Make sure that all tables are loaded in `db.metadata.tables`.
     from invenio.importutils import autodiscover_modules
-    autodiscover_modules(['invenio'], related_name_re=".+_model\.py")
+    autodiscover_modules(['invenio'], related_name_re=".+_model")
 
     return app

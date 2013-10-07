@@ -21,7 +21,7 @@
 Invenio import helper functions.
 
 Usage example:
-  autodiscover_modules(['invenio'], '.+_tasks\.py')
+  autodiscover_modules(['invenio'], '.+_tasks')
 
 An import difference from pluginutils is that modules are imported in their
 package hierarchy, contrary to pluginutils where modules are imported as

@@ -132,7 +132,7 @@ class InvenioLoader(BaseLoader):
         """
         Discover task modules named 'invenio.*_tasks'
         """
-        self.task_modules.update(mod.__name__ for mod in autodiscover_modules(['invenio'], related_name_re='.+_tasks\.py') or ())
+        self.task_modules.update(mod.__name__ for mod in autodiscover_modules(['invenio'], related_name_re='.+_tasks') or ())
 
 
 #

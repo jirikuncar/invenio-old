@@ -209,7 +209,7 @@ def load_user_settings():
     """
     from invenio.settings import Settings
     modules = autodiscover_modules(['invenio'],
-                                   related_name_re='.+_user_settings\.py')
+                                   related_name_re='.+_user_settings')
     user_settings = {}
     for module in modules:
         candidate = getattr(module, 'settings')
