@@ -33,8 +33,7 @@ pylib_DATA = session.py webuser.py webuser_unit_tests.py \
 	webgroup_regression_tests.py webuser_regression_tests.py \
 	webgroup_unit_tests.py inveniogc.py webuser_config.py \
 	websession_web_tests.py \
-	dashboard_user_settings.py \
-	session_flask.py
+	dashboard_user_settings.py
 
 noinst_DATA = password_migration_kit.py
 

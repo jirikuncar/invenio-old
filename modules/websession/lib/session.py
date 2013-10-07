@@ -45,7 +45,7 @@ from invenio.config import CFG_WEBSESSION_EXPIRY_LIMIT_REMEMBER, \
 from invenio.websession_config import CFG_WEBSESSION_COOKIE_NAME, \
     CFG_WEBSESSION_ONE_DAY, CFG_WEBSESSION_CLEANUP_CHANCE, \
     CFG_WEBSESSION_ENABLE_LOCKING
-from invenio.session_flask import InvenioSession as FlaskInvenioSession
+#from invenio.session_flask import InvenioSession as FlaskInvenioSession
 from invenio.utils.hash import md5
 
 CFG_FULL_HTTPS = CFG_SITE_URL.lower().startswith("https://")

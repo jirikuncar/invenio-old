@@ -225,10 +225,7 @@ def create_app(**kwargs_config):
     from invenio.bibtask import check_running_process_user
     check_running_process_user()
 
-    from invenio.pluginutils import PluginContainer
-    from invenio.session_flask import InvenioSessionInterface
     from invenio.messages import language_list_long
-    from invenio.ext.cache import cache
     from invenio.webinterface_handler_flask_utils import unicodifier
 
     # Jinja2 hacks were here.
@@ -274,9 +271,7 @@ def create_app(**kwargs_config):
                                                'templates'),
                                           join(CFG_ETCDIR, 'templates')])
 
-    ## Let's attach our session handling (which is bridging with the native
-    ## Invenio session handling
-    _app.session_interface = InvenioSessionInterface()
+    # SessionInterface was here.
 
     ## Set custom request class was here.
 
