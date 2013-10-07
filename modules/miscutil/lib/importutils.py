@@ -89,7 +89,7 @@ def find_related_modules(package, related_name_re='.+', ignore_exceptions=False)
 
     for name in find_modules(package, include_packages=True):
         if p.match(name):
-            modules.append(import_string(name))
+            modules.append(import_string(name, silent=ignore_exceptions))
 
     return modules
 
