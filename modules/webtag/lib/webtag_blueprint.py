@@ -53,6 +53,8 @@ from invenio.webtag_forms import \
 
 from invenio.websearch_blueprint import response_formated_records
 
+from invenio.ext.menu import MenuAlchemy
+
 blueprint = InvenioBlueprint('webtag',
                              __name__,
                              url_prefix='/yourtags',
@@ -69,6 +71,8 @@ blueprint = InvenioBlueprint('webtag',
 @blueprint.route('/display/cloud', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_templated('webtag_display_cloud.html')
+@MenuAlchemy.register_menu(blueprint, 'main.tags', _('Tags'))
+@MenuAlchemy.register_menu(blueprint, 'main.tags.cloud', _('Cloud'))
 def display_cloud():
     """ List of user's private/group/public tags """
     user = User.query.get(current_user.get_id())
@@ -106,6 +110,7 @@ def display_cloud():
 @blueprint.invenio_templated('webtag_display_list.html')
 @blueprint.invenio_wash_urlargd({'sort_by': (unicode, 'name'),
                                  'order': (unicode, '')})
+@MenuAlchemy.register_menu(blueprint, 'main.tags.list', _('List'))
 def display_list(sort_by, order):
     """ List of user's private/group/public tags """
     tags = User.query.get(current_user.get_id()).tags_query
