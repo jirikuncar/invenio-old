@@ -165,9 +165,9 @@ def setup_app(app):
     ## /opt/invenio/etc-local/templates and then into
     ## /opt/invenio/etc/templates
     CFG_ETCDIR = app.config.get('CFG_ETCDIR', 'etc')
-    app.jinja_loader = FileSystemLoader([os.join(CFG_ETCDIR + '-local',
-                                                 'templates'),
-                                         os.join(CFG_ETCDIR, 'templates')])
+    app.jinja_loader = FileSystemLoader([os.path.join(CFG_ETCDIR + '-local',
+                                                      'templates'),
+                                         os.path.join(CFG_ETCDIR, 'templates')])
 
 
     for ext in app.config.get('JINJA2_EXTENSIONS', []):
