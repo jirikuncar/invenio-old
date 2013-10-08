@@ -23,6 +23,7 @@ from datetime import datetime
 from flask import render_template, request, flash, redirect, url_for
 from invenio import webmessage_dblayer as dbplayer
 from invenio.config import CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES
+from invenio.ext.menu import register_menu
 from invenio.sqlalchemyutils import db
 from invenio.webmessage import is_no_quota_user
 from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE
@@ -57,12 +58,6 @@ not_guest = lambda: not current_user.is_guest
 
 blueprint = InvenioBlueprint('webmessage', __name__, url_prefix="/yourmessages",
                              config='invenio.webmessage_config',
-                             menubuilder=[('personalize.messages',
-                                           _('Your messages'),
-                                           'webmessage.index', 10),
-                                          ('main.messages', MessagesMenu(),
-                                           'webmessage.index', -3, [],
-                                           not_guest)],
                              breadcrumbs=[(_("Your Account"), 'youraccount.edit'),
                                           ('Your Messages', 'webmessage.index')])
 
@@ -99,6 +94,9 @@ def menu():
     'user_from.nickname': operators.contains_op},
     form=FilterMsgMESSAGEForm)
 @blueprint.invenio_templated('webmessage_index.html')
+@register_menu(blueprint, 'personalize.messages', _('Your messages'), order=10)
+@register_menu(blueprint, 'main.messages', MessagesMenu(), order=-3,
+               visible_when=not_guest)
 def index(sort=False, filter=None):
     uid = current_user.get_id()
 

@@ -32,6 +32,7 @@ from invenio import websearch_receivers
 from invenio.bibindex_engine import get_index_id_from_index_name
 from invenio.bibformat import get_output_format_content_type, print_records
 from invenio.ext.cache import cache
+from invenio.ext.menu import register_menu
 from invenio.config import CFG_WEBSEARCH_RSS_TTL
 from invenio.websearch_cache import \
     get_search_query_id, get_collection_name_from_cache
@@ -54,10 +55,7 @@ from invenio.search_engine import get_creation_date, perform_request_search,\
 from invenio.utils.pagination import Pagination
 
 blueprint = InvenioBlueprint('search', __name__, url_prefix="",
-                             config='invenio.search_engine_config',
-                             breadcrumbs=[],
-                             menubuilder=[('main.search', _('Search'),
-                                           'search.index', 1)])
+                             config='invenio.search_engine_config')
 
 
 FACETS = FacetLoader()
@@ -340,6 +338,7 @@ def rss(collection, p, jrec, so, rm):
 
 @blueprint.route('/search', methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_('Search results'))
+@register_menu(blueprint, 'main.search', _('Search'), order=1)
 @blueprint.invenio_wash_urlargd({'p': (unicode, ''),
                                  'of': (unicode, 'hb'),
                                  'so': (unicode, None),

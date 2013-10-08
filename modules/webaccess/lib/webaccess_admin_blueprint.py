@@ -23,7 +23,7 @@ from flask import redirect, url_for
 from invenio.webaccess_model import AccACTION, AccROLE
 from invenio.websession_model import User
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-
+from invenio.ext.menu import register_menu
 from invenio.access_control_config import \
     WEBACCESSACTION
 
@@ -31,16 +31,15 @@ blueprint = InvenioBlueprint('webaccess_admin', __name__,
                              url_prefix="/admin/webaccess",
                              config='invenio.access_control_config',
                              breadcrumbs=[(_('Administration'), 'help.admin'),
-                                          (_('WebAccess'), 'webaccesss_admin.index')],
-                             menubuilder=[('main.admin.webaccess',
-                                          _('Configure WebAccess'),
-                                          'webaccess_admin.index', 90)])
+                                          (_('WebAccess'),
+                                           'webaccesss_admin.index')])
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_templated('webaccess_admin_index.html')
+@register_menu(blueprint, 'main.admin.webaccess', _('Configure WebAccess'))
 def index():
     actions = [
         dict(url=url_for('.rolearea'),

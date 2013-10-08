@@ -32,6 +32,7 @@ from invenio.webcomment_forms import AddCmtRECORDCOMMENTForm, \
                                      AddCmtRECORDCOMMENTFormReview
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from flask.ext.login import current_user
+from invenio.ext.menu import register_menu
 from invenio.config import CFG_PREFIX, \
     CFG_SITE_LANG, \
     CFG_WEBALERT_ALERT_ENGINE_EMAIL,\
@@ -58,10 +59,7 @@ blueprint = InvenioBlueprint('webcomment', __name__,
                              url_prefix="/" + CFG_SITE_RECORD,
                              config='invenio.webcomment_config',
                              breadcrumbs=[(_('Comments'),
-                                           'webcomment.subscribtions')],
-                             menubuilder=[('personalize.comment_subscriptions',
-                                           _('Your comment subscriptions'),
-                                           'webcomment.subscriptions', 20)])
+                                           'webcomment.subscribtions')])
 
 from invenio.record_blueprint import request_record
 
@@ -346,6 +344,8 @@ def unsubscribe(recid=None):
 @blueprint.route('/comments/subscriptions', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_templated('webcomment_subscriptions.html')
+@register_menu(blueprint, 'personalize.comment_subscriptions',
+               _('Your comment subscriptions'), order=20)
 def subscriptions():
     uid = current_user.get_id()
     subscriptions = CmtSUBSCRIPTION.query.filter(

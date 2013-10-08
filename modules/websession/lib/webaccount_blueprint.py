@@ -45,6 +45,7 @@ from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.websession_model import User
 from invenio.websession_webinterface import wash_login_method
 from invenio.ext.login import login_user, logout_user, current_user, UserInfo
+from invenio.ext.menu import register_menu
 
 
 CFG_HAS_HTTPS_SUPPORT = CFG_SITE_SECURE_URL.startswith("https://")
@@ -53,8 +54,6 @@ CFG_FULL_HTTPS = CFG_SITE_URL.lower().startswith("https://")
 blueprint = InvenioBlueprint('webaccount', __name__,
                              url_prefix="/youraccount",
                              breadcrumbs=[(_("Your Account"),
-                                           'webaccount.index')],
-                             menubuilder=[('personalize', _('Personalize'),
                                            'webaccount.index')])
 
 
@@ -231,6 +230,7 @@ _USER_SETTINGS = LazyDict(load_user_settings)
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/display', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
+@register_menu(blueprint, 'personalize', _('Personalize'))
 def index():
     # load plugins
     plugins = filter(lambda x: x.is_authorized and x.widget,

@@ -35,6 +35,7 @@ from werkzeug.utils import secure_filename
 from uuid import uuid1 as new_uuid
 
 from invenio.ext.cache import cache
+from invenio.ext.menu import register_menu
 from invenio.webdeposit_load_deposition_types import deposition_types, \
     deposition_metadata
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
@@ -61,10 +62,6 @@ from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 blueprint = InvenioBlueprint('webdeposit', __name__,
                              url_prefix='/deposit',
                              config='invenio.websubmit_config',
-                             menubuilder=[('main.webdeposit',
-                                          _('Deposit'),
-                                          'webdeposit.index_deposition_types',
-                                          2)],
                              breadcrumbs=[(_('Deposit'),
                                            'webdeposit.index_deposition_types')])
 
@@ -277,6 +274,7 @@ def create_new(deposition_type):
 
 
 @blueprint.route('/')
+@register_menu(blueprint, 'main.webdeposit', _('Deposit'), order=2)
 def index_deposition_types():
     """ Renders the deposition types (workflows) list """
     current_app.config['breadcrumbs_map'][request.endpoint] = [

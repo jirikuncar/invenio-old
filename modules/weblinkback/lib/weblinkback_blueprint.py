@@ -29,7 +29,6 @@ from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app, \
                   Response
 from invenio.ext.cache import cache
-from invenio.utils.hash import md5
 from invenio.intbitset import intbitset as HitSet
 from invenio.sqlalchemyutils import db
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
@@ -54,11 +53,6 @@ from invenio.weblinkback_config import CFG_WEBLINKBACK_TYPE, \
 
 blueprint = InvenioBlueprint('weblinkback', __name__,
                             url_prefix="/"+CFG_SITE_RECORD,
-                            #breadcrumbs=[(_('Comments'),
-                            #              'webcomment.subscribtions')],
-                            #menubuilder=[('main.personalize.subscriptions',
-                            #              _('Subscriptions'),
-                            #              'webcomment.subscriptions', 20)]
                             )
 
 from invenio.record_blueprint import request_record

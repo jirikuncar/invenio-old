@@ -23,6 +23,7 @@ from flask import Blueprint, session, make_response, g, render_template, \
         request, flash, jsonify, redirect, url_for, current_app, \
         abort
 from invenio.ext.cache import cache
+from invenio.ext.menu import register_menu
 from invenio.sqlalchemyutils import db
 from invenio.websearch_model import Collection, CollectionCollection, \
         Collectionname, CollectionPortalbox
@@ -40,10 +41,7 @@ blueprint = InvenioBlueprint(
         'websearch_admin',
         __name__,
         url_prefix="/admin/websearch",
-        config=[],
-        breadcrumbs=[(_('Configure WebSearch'), 'websearch_admin.index')],
-        menubuilder=[('main.admin.websearch', _('Configure WebSearch'),
-            'websearch_admin.index', 50)])
+        breadcrumbs=[(_('Configure WebSearch'), 'websearch_admin.index')])
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
@@ -51,6 +49,8 @@ blueprint = InvenioBlueprint(
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized('cfgwebsearch')
 @blueprint.invenio_templated('websearch_admin_index.html')
+@register_menu(blueprint, 'main.admin.websearch', _('Configure WebSearch'),
+               order=50)
 def index():
     """
     WebSearch admin interface with editable collection tree.
