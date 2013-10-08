@@ -303,7 +303,10 @@ def create_app(**kwargs_config):
     ## Let's attach all the blueprints
     from invenio.webinterface_handler_flask_utils import _
     for plugin in _BLUEPRINTS:
-        _app.register_blueprint(plugin)
+        _app.register_blueprint(plugin,
+                                url_prefix=_app.config.get(
+                                    'BLUEPRINTS_URL_PREFIXES',
+                                    {}).get(plugin.name))
         if plugin.config:
             ## Let's include the configuration parameters of the config file.
             ## E.g. if the blueprint specify the config string
