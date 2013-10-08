@@ -55,7 +55,7 @@ blueprint = InvenioBlueprint('weblinkback', __name__,
                             url_prefix="/"+CFG_SITE_RECORD,
                             )
 
-from invenio.record_blueprint import request_record
+from invenio.modules.records.blueprint import request_record
 
 
 @blueprint.route('/<int:recid>/linkbacks2', methods=['GET', 'POST'])

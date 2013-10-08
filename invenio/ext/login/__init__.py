@@ -48,7 +48,7 @@ def setup_app(app):
         if request.is_xhr:
             return _("Authorization failure"), 401
         flash(_("Authorization failure"), 'error')
-        from invenio.webaccount_blueprint import login
+        from invenio.modules.account.blueprint import login
         return login(referer=request.url), 401
 
     # Let's create login manager.

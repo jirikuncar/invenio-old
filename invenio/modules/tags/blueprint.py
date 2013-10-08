@@ -51,7 +51,7 @@ from invenio.webtag_forms import \
     validators
 
 
-from invenio.websearch_blueprint import response_formated_records
+from invenio.modules.search.blueprint import response_formated_records
 
 from invenio.ext.menu import register_menu
 

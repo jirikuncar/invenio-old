@@ -61,7 +61,7 @@ blueprint = InvenioBlueprint('webcomment', __name__,
                              breadcrumbs=[(_('Comments'),
                                            'webcomment.subscribtions')])
 
-from invenio.record_blueprint import request_record
+from invenio.modules.records.blueprint import request_record
 
 
 def log_comment_action(action_code, id, recid, uid=None):
