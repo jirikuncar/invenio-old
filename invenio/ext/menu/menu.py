@@ -147,9 +147,13 @@ class MenuEntryMixin(object):
         self._visible_when = CONDITION_FALSE
 
     @property
+    def order(self):
+        return self._order
+
+    @property
     def children(self):
         return sorted(self._child_entries.values(),
-                      key=(lambda entry: getattr(entry, 'order', 0)))
+                      key=lambda entry: getattr(entry, 'order', 0))
 
     @property
     def text(self):

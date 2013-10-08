@@ -117,6 +117,7 @@ def response_formated_records(recids, collection, of, **kwargs):
 @blueprint.route('/index.py', methods=['GET', 'POST'])
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.invenio_templated('websearch_index.html')
+@register_menu(blueprint, 'main.search', _('Search'), order=1)
 def index():
     """ Renders homepage. """
 
@@ -338,7 +339,6 @@ def rss(collection, p, jrec, so, rm):
 
 @blueprint.route('/search', methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_('Search results'))
-@register_menu(blueprint, 'main.search', _('Search'), order=1)
 @blueprint.invenio_wash_urlargd({'p': (unicode, ''),
                                  'of': (unicode, 'hb'),
                                  'so': (unicode, None),
