@@ -25,7 +25,7 @@ from flask.ext.wtf import Form, Required, validators
 from wtforms.fields import SubmitField, BooleanField, TextField, \
     TextAreaField, PasswordField, \
     HiddenField
-from invenio.websession_model import User
+from invenio.modules.account.models import User
 from invenio.webuser import email_valid_p, nickname_valid_p
 from sqlalchemy.exc import SQLAlchemyError
 from websession_webinterface import wash_login_method

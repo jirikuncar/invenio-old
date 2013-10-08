@@ -29,16 +29,16 @@ from flask.ext.login import current_user
 
 # Models
 from invenio.sqlalchemyutils import db
-from invenio.webtag_model import \
+from invenio.modules.tags.models import \
     WtgTAG, \
     WtgTAGRecord, \
     WtgTAGUsergroup, \
     wash_tag
 
 # Related models
-from invenio.websession_model import User
-from invenio.bibedit_model import Bibrec
-from invenio.websearch_model import Collection
+from invenio.modules.account.models import User
+from invenio.modules.record_editor.models import Bibrec
+from invenio.modules.search.models import Collection
 
 # Forms
 from invenio.webtag_forms import \

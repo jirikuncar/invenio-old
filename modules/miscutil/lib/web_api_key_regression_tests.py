@@ -52,8 +52,8 @@ class APIKeyTest(InvenioTestCase):
     """ Test functions related to the REST authentication API """
     def setUp(self):
         from invenio import web_api_key
-        from invenio.websession_model import User
-        from invenio.web_api_key_model import WebAPIKey
+        from invenio.modules.account.models import User
+        from invenio.modules.api_keys.models import WebAPIKey
         self.model = WebAPIKey
         self.web_api_key = web_api_key
         self.web_api_key.CFG_WEB_API_KEY_ALLOWED_URL = [('/search\?*', 0, True),

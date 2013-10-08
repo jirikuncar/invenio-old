@@ -72,7 +72,7 @@ def create(data='demosite'):
 
     from invenio.sqlalchemyutils import db
     from invenio.config import CFG_PREFIX
-    from invenio.websession_model import User
+    from invenio.modules.account.models import User
     from invenio.config_manager import get_conf
 
     print ">>> Going to create demo site..."

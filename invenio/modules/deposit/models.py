@@ -23,7 +23,7 @@ WebDeposit database models.
 
 # General imports.
 from invenio.sqlalchemyutils import db
-from invenio.bibworkflow_model import Workflow
+from invenio.modules.workflows.models import Workflow
 
 # Create your models here.
 

@@ -24,13 +24,13 @@ from flask import url_for
 from invenio.ext.template import render_template_to_string
 
 # Models
-from invenio.webtag_model import \
+from invenio.modules.tags.models import \
     WtgTAG, \
     WtgTAGRecord
 
 # Related models
-from invenio.websession_model import User
-from invenio.bibedit_model import Bibrec
+from invenio.modules.account.models import User
+from invenio.modules.record_editor.models import Bibrec
 
 def template_context_function(id_bibrec, id_user):
     """

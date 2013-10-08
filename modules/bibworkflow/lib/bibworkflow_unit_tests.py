@@ -72,7 +72,7 @@ distances from it.
 
     def tearDown(self):
         """ Clean up created objects """
-        from invenio.bibworkflow_model import WfeObject, Workflow
+        from invenio.modules.workflows.models import WfeObject, Workflow
         for wid in self.workflow_ids:
             WfeObject.query.filter(WfeObject.workflow_id == wid).delete()
             Workflow.query.filter(Workflow.uuid == wid).delete()
@@ -81,7 +81,7 @@ distances from it.
 
     def test_workflow_basic_run(self):
         """Tests running workflow with one data object"""
-        from invenio.bibworkflow_model import WfeObject
+        from invenio.modules.workflows.models import WfeObject
 
         self.test_data = {'data': 20}
         initial_data = self.test_data
@@ -104,7 +104,7 @@ distances from it.
 
     def test_workflow_complex_run(self):
         """Tests running workflow with several data objects"""
-        from invenio.bibworkflow_model import WfeObject
+        from invenio.modules.workflows.models import WfeObject
 
         self.test_data = [{"data": 1}, {"data": "wwww"}, {"data": 20}]
         final_data = [{"data": 19}, {"data": "wwww"}, {"data": 38}]
@@ -135,7 +135,7 @@ distances from it.
 
     def test_workflow_recordxml(self):
         """Tests runnning a record ingestion workflow"""
-        from invenio.bibworkflow_model import WfeObject
+        from invenio.modules.workflows.models import WfeObject
 
         initial_data = {"data": self.recxml, 'type': "text/xml"}
         workflow = run(wname="marcxml_workflow",

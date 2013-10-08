@@ -21,7 +21,7 @@
 
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
-from invenio.websession_model import User, Usergroup, UserUsergroup
+from invenio.modules.account.models import User, Usergroup, UserUsergroup
 from invenio.webinterface_handler_flask_utils import _
 from invenio.webinterface_handler import wash_urlargd
 from invenio.config import CFG_SITE_LANG

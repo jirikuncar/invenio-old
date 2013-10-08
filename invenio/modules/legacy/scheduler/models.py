@@ -25,7 +25,7 @@ bibsched database models.
 from invenio.sqlalchemyutils import db
 
 # Create your models here.
-from invenio.sequtils_model import SeqSTORE
+from invenio.modules.sequence_generator.models import SeqSTORE
 
 class HstTASK(db.Model):
     """Represents a HstTASK record."""

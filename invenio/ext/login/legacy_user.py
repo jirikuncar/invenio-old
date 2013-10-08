@@ -146,7 +146,7 @@ class UserInfo(CombinedMultiDict, UserMixin):
 
         if current_app.config.get('CFG_WEBSESSION_DIFFERENTIATE_BETWEEN_GUESTS', False):
             from invenio.sqlalchemyutils import db
-            from invenio.websession_model import User
+            from invenio.modules.account.models import User
             note = '1' if current_app.config.get('CFG_ACCESS_CONTROL_LEVEL_GUESTS', 0) == 0 else '0'
             u = User(email='', note=note, password='guest')
             db.session.add(u)
@@ -168,7 +168,7 @@ class UserInfo(CombinedMultiDict, UserMixin):
         if not force and data is not None:
             return data
 
-        from invenio.websession_model import User
+        from invenio.modules.account.models import User
         data = {}
 
         try:

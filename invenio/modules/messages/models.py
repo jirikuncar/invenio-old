@@ -26,7 +26,7 @@ from invenio.sqlalchemyutils import db
 
 # Create your models here.
 from string import strip
-from invenio.websession_model import User, Usergroup
+from invenio.modules.account.models import User, Usergroup
 from invenio.webmessage_config import CFG_WEBMESSAGE_SEPARATOR
 
 from sqlalchemy.ext.associationproxy import association_proxy

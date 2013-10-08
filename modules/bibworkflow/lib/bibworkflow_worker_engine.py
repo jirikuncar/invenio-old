@@ -19,7 +19,7 @@ from functools import wraps
 from invenio.bibworkflow_client import run_workflow, restart_workflow
 from invenio.bibworkflow_engine import BibWorkflowEngine
 from invenio.bibworkflow_object import BibWorkflowObject
-from invenio.bibworkflow_model import Workflow, WfeObject
+from invenio.modules.workflows.models import Workflow, WfeObject
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION
 
 

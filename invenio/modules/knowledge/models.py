@@ -26,7 +26,7 @@ from invenio.sqlalchemyutils import db
 
 # Create your models here.
 
-from invenio.websearch_model import Collection
+from invenio.modules.search.models import Collection
 
 class KnwKB(db.Model):
     """Represents a KnwKB record."""

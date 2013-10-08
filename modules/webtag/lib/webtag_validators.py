@@ -34,5 +34,5 @@ from wtforms import IntegerField, HiddenField, TextField, validators
 
 # Models
 from invenio.sqlalchemyutils import db
-from invenio.webtag_model import WtgTAG, wash_tag_silent, wash_tag_blocking
+from invenio.modules.tags.models import WtgTAG, wash_tag_silent, wash_tag_blocking
 

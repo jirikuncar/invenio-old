@@ -28,11 +28,11 @@ from invenio.settings import Settings, UserSettingsStorage
 
 # Models
 from invenio.sqlalchemyutils import db
-from invenio.webtag_model import WtgTAG, WtgTAGRecord
+from invenio.modules.tags.models import WtgTAG, WtgTAGRecord
 
 # Related models
-from invenio.websession_model import User
-from invenio.bibedit_model import Bibrec
+from invenio.modules.account.models import User
+from invenio.modules.record_editor.models import Bibrec
 
 class WebTagSettings(Settings):
 

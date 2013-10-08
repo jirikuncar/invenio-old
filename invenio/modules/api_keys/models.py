@@ -46,7 +46,7 @@ _CFG_WEB_API_KEY_ALLOWED_URL = [(re.compile(_url), _authorized_time, _need_times
                                 for _url, _authorized_time, _need_timestamp in CFG_WEB_API_KEY_ALLOWED_URL]
 
 # Create your models here.
-from invenio.websession_model import User
+from invenio.modules.account.models import User
 
 
 class WebAPIKey(db.Model):

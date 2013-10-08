@@ -26,8 +26,8 @@ from uuid import uuid1 as new_uuid
 from urllib2 import urlopen, URLError
 
 from invenio.sqlalchemyutils import db
-from invenio.webdeposit_model import WebDepositDraft
-from invenio.bibworkflow_model import Workflow
+from invenio.modules.deposit.models import WebDepositDraft
+from invenio.modules.workflows.models import Workflow
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 from invenio.webdeposit_load_forms import forms
 from flask.ext.login import current_user

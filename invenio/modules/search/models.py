@@ -40,7 +40,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 
 # Create your models here.
 
-from invenio.websession_model import User
+from invenio.modules.account.models import User
 
 
 class IntbitsetPickle(object):

@@ -59,7 +59,7 @@ class EasySearchForm(InvenioBaseForm):
 
 class GetCollections(object):
     def __iter__(self):
-        from invenio.websearch_model import Collection
+        from invenio.modules.search.models import Collection
         collections = Collection.query.all()
 
         for coll in collections:

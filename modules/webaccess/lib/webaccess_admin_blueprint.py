@@ -20,8 +20,8 @@
 """WebAccess Admin Flask Blueprint"""
 
 from flask import redirect, url_for
-from invenio.webaccess_model import AccACTION, AccROLE
-from invenio.websession_model import User
+from invenio.modules.access.models import AccACTION, AccROLE
+from invenio.modules.account.models import User
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.ext.menu import register_menu
 from invenio.access_control_config import \

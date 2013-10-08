@@ -23,8 +23,8 @@ from string import strip
 from datetime import datetime
 
 from invenio.sqlalchemyutils import db
-from invenio.websession_model import User, Usergroup
-from invenio.webmessage_model import MsgMESSAGE, UserMsgMESSAGE
+from invenio.modules.account.models import User, Usergroup
+from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webinterface_handler_flask_utils import _
 from flask.ext.wtf import Form
 from invenio.wtforms_utils import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField

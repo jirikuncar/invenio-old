@@ -41,7 +41,7 @@ from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.intbitset import intbitset
 from invenio.base.signals import websearch_before_browse, websearch_before_search
 from invenio.websearch_forms import EasySearchForm
-from invenio.websearch_model import Collection
+from invenio.modules.search.models import Collection
 from invenio.websearch_webinterface import wash_search_urlargd
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.ext.template.context_processor import \

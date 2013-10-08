@@ -22,8 +22,8 @@ import time
 from sqlalchemy import func
 from invenio.sqlalchemyutils import db
 from invenio.webdeposit_config_utils import WebDepositConfiguration
-from invenio.webdeposit_model import WebDepositDraft
-from invenio.bibworkflow_model import Workflow
+from invenio.modules.deposit.models import WebDepositDraft
+from invenio.modules.workflows.models import Workflow
 from invenio.bibfield_jsonreader import JsonReader
 from tempfile import mkstemp
 from invenio.bibtask import task_low_level_submission

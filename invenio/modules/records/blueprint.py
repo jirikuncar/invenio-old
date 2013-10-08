@@ -29,9 +29,9 @@ from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.access_control_mailcookie import \
     mail_cookie_create_authorize_action
 from invenio.bibformat import format_record, get_output_format_content_type
-from invenio.websearch_model import Collection
-from invenio.websession_model import User
-from invenio.bibedit_model import Bibrec
+from invenio.modules.search.models import Collection
+from invenio.modules.account.models import User
+from invenio.modules.record_editor.models import Bibrec
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.ext.template.context_processor import \
     register_template_context_processor

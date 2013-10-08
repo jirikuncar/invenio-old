@@ -30,7 +30,7 @@ from invenio.config import CFG_SITE_LANG, \
 
 from invenio.sqlalchemyutils import db
 from invenio.webinterface_handler_flask_utils import _
-from invenio.websearch_model import get_pbx_pos
+from invenio.modules.search.models import get_pbx_pos
 from flask.ext.wtf import Form
 from invenio.wtforms_utils import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
 from wtforms import DateTimeField, BooleanField, TextField, TextAreaField, \

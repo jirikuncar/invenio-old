@@ -21,9 +21,9 @@ from werkzeug.utils import import_string
 from invenio.ext.cache import cache
 from invenio.sqlalchemyutils import db
 from flask.ext.login import current_user
-from invenio.webdeposit_model import WebDepositDraft
+from invenio.modules.deposit.models import WebDepositDraft
 from invenio.webdeposit_cook_json_utils import cook_to_recjson
-from invenio.bibworkflow_model import Workflow
+from invenio.modules.workflows.models import Workflow
 from invenio.webinterface_handler_flask_utils import _
 from invenio.webdeposit_cook_json_utils import cook_to_recjson
 

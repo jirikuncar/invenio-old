@@ -26,9 +26,9 @@ from invenio.sqlalchemyutils import db
 
 # Create your models here.
 
-from invenio.websession_model import User
-from invenio.bibedit_model import Bibrec, Bibdoc
-from invenio.websearch_model import Collection
+from invenio.modules.account.models import User
+from invenio.modules.record_editor.models import Bibrec, Bibdoc
+from invenio.modules.search.models import Collection
 
 from flask import g
 

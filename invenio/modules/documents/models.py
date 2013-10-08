@@ -25,7 +25,7 @@ BibDoc Filesystem database model.
 from invenio.sqlalchemyutils import db
 
 # Create your models here.
-from invenio.bibedit_model import Bibdoc
+from invenio.modules.record_editor.models import Bibdoc
 
 
 class Bibdocfsinfo(db.Model):

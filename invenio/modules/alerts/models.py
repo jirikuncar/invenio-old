@@ -26,9 +26,9 @@ from invenio.sqlalchemyutils import db
 
 # Create your models here.
 
-from invenio.websession_model import User
-from invenio.webbasket_model import BskBASKET
-from invenio.websearch_model import WebQuery
+from invenio.modules.account.models import User
+from invenio.modules.baskets.models import BskBASKET
+from invenio.modules.search.models import WebQuery
 
 
 class UserQueryBasket(db.Model):

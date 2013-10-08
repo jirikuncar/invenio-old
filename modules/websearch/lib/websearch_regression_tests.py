@@ -4630,7 +4630,7 @@ class WebSearchUserSettingsTest(InvenioTestCase):
     def test_multiple_collection_settings(self):
         """websearch - check webaccount settings multiple collection manipulation"""
         from invenio.sqlalchemyutils import db
-        from invenio.websession_model import User
+        from invenio.modules.account.models import User
         edit_url = url_for("webaccount.edit", name="WebSearchSettings", _external=True, _scheme='https')
         admin = User.query.get(1)
         settings = dict(admin.settings)
@@ -4652,7 +4652,7 @@ class WebSearchUserSettingsTest(InvenioTestCase):
     def test_single_collection_settings(self):
         """websearch - check webaccount settings single collection manipulation"""
         from invenio.sqlalchemyutils import db
-        from invenio.websession_model import User
+        from invenio.modules.account.models import User
         edit_url = url_for("webaccount.edit", name="WebSearchSettings", _external=True, _scheme='https')
         admin = User.query.get(1)
         settings = dict(admin.settings)

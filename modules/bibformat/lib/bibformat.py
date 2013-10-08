@@ -527,7 +527,7 @@ def print_records(recIDs, of='hb', ln=CFG_SITE_LANG, verbose=0,
     from math import ceil
     from flask import request
     from invenio.bibformat_engine import format_record
-    from invenio.websearch_model import Format
+    from invenio.modules.search.models import Format
     from invenio.utils.pagination import Pagination
     from invenio.bibformat_engine import TEMPLATE_CONTEXT_FUNCTIONS_CACHE
 

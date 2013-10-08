@@ -265,7 +265,7 @@ class LazyTemplateContextFunctionsCache(object):
         bfe_from_tags = {}
         if has_app_context():
             from invenio.sqlalchemyutils import db
-            from invenio.websearch_model import Tag
+            from invenio.modules.search.models import Tag
 
             # get functions from tag table
             bfe_from_tags = dict(('bfe_'+fix_tag_name(name),

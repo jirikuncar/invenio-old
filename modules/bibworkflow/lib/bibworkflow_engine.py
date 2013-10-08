@@ -18,7 +18,7 @@
 import os
 import cPickle
 
-from invenio.bibworkflow_model import Workflow
+from invenio.modules.workflows.models import Workflow
 from workflow.engine import GenericWorkflowEngine, \
     ContinueNextToken, \
     HaltProcessing, \

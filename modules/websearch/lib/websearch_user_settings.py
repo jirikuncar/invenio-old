@@ -23,7 +23,7 @@ from flask import url_for
 from invenio.webinterface_handler_flask_utils import _
 from invenio.sqlalchemyutils import db
 from invenio.ext.template import render_template_to_string
-from invenio.websearch_model import UserQuery
+from invenio.modules.search.models import UserQuery
 from invenio.websearch_forms import WebSearchUserSettingsForm
 from flask.ext.login import current_user
 from invenio.settings import Settings, UserSettingsStorage

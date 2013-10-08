@@ -21,7 +21,7 @@
 Invenio utilities to perform a REST like authentication.
 """
 from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
-from invenio.web_api_key_model import WebAPIKey
+from invenio.modules.api_keys.models import WebAPIKey
 
 
 def create_new_web_api_key(uid, key_description=None):

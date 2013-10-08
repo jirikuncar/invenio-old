@@ -23,8 +23,8 @@ from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 class TestWebDepositUtils(InvenioTestCase):
 
     def clear_tables(self):
-        from invenio.bibworkflow_model import Workflow, WfeObject
-        from invenio.webdeposit_model import WebDepositDraft
+        from invenio.modules.workflows.models import Workflow, WfeObject
+        from invenio.modules.deposit.models import WebDepositDraft
         from invenio.sqlalchemyutils import db
 
         Workflow.query.delete()
@@ -43,7 +43,7 @@ class TestWebDepositUtils(InvenioTestCase):
     def test_workflow_creation(self):
         from invenio.webdeposit_load_deposition_types import \
             deposition_metadata
-        from invenio.bibworkflow_model import Workflow
+        from invenio.modules.workflows.models import Workflow
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.webdeposit_utils import get_latest_or_new_workflow, \
             get_workflow, delete_workflow
@@ -101,7 +101,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.webdeposit_load_deposition_types import \
             deposition_metadata
         from invenio.webdeposit_load_forms import forms
-        from invenio.webdeposit_model import WebDepositDraft
+        from invenio.modules.deposit.models import WebDepositDraft
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.webdeposit_utils import get_current_form, get_form, \
             get_form_status, CFG_DRAFT_STATUS
@@ -176,7 +176,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from datetime import datetime
         from invenio.sqlalchemyutils import db
         from invenio.webdeposit_workflow import DepositionWorkflow
-        from invenio.webdeposit_model import WebDepositDraft
+        from invenio.modules.deposit.models import WebDepositDraft
         from invenio.webdeposit_workflow_utils import render_form
         from invenio.webdeposit_utils import draft_field_get
         from invenio.webdeposit_deposition_forms.article_form import ArticleForm

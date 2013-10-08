@@ -28,7 +28,7 @@ from invenio.sqlalchemyutils import db
 from invenio.webmessage import is_no_quota_user
 from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE
 from invenio.webmessage_mailutils import email_quote_txt
-from invenio.webmessage_model import MsgMESSAGE, UserMsgMESSAGE
+from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint

@@ -41,7 +41,7 @@ from invenio.access_control_firerole import compile_role_definition, \
     acc_firerole_check_user, serialize, deserialize, load_role_definition
 from invenio.intbitset import intbitset
 from invenio.sqlalchemyutils import db
-from invenio.webaccess_model import AccAuthorization, AccACTION, \
+from invenio.modules.access.models import AccAuthorization, AccACTION, \
                                     AccARGUMENT, UserAccROLE
 
 CFG_SUPERADMINROLE_ID = 0
@@ -1175,7 +1175,7 @@ def acc_get_role_users(id_role):
 
 
 def acc_get_roles_emails(id_roles):
-    from invenio.websession_model import User
+    from invenio.modules.account.models import User
     return set(map(lambda u: u.email.lower().strip(),
         db.session.query(User.email).join(User.roles).filter(db.and_(
             UserAccROLE.expiration >= db.func.now(),

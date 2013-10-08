@@ -25,7 +25,7 @@ from invenio import webgroup_dblayer as dbplayer
 from invenio.sqlalchemyutils import db
 from flask.ext.login import current_user
 from invenio.config import CFG_SITE_LANG
-from invenio.websession_model import User, Usergroup, UserUsergroup
+from invenio.modules.account.models import User, Usergroup, UserUsergroup
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.webinterface_handler import wash_urlargd
 from invenio.dbquery import run_sql

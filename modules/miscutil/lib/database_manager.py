@@ -81,7 +81,7 @@ def drop(yes_i_know=False):
         db.session.commit()
         print ">>> Data has been removed."
 
-    from invenio.bibedit_model import Bibdoc
+    from invenio.modules.record_editor.models import Bibdoc
     event.listen(Bibdoc.__table__, "before_drop", bibdoc_before_drop)
 
     tables = list(reversed(db.metadata.sorted_tables))
@@ -132,7 +132,7 @@ def create(default_data=True):
         run_sql('ALTER TABLE collection_field_fieldvalue CHANGE id_fieldvalue id_fieldvalue mediumint(9) unsigned')
         #print run_sql('SHOW CREATE TABLE collection_field_fieldvalue')
 
-    from invenio.websearch_model import CollectionFieldFieldvalue
+    from invenio.modules.search.models import CollectionFieldFieldvalue
     event.listen(CollectionFieldFieldvalue.__table__, "after_create", cfv_after_create)
 
     tables = db.metadata.sorted_tables

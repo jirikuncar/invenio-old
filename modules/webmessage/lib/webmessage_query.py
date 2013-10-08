@@ -33,8 +33,8 @@ from invenio.utils.date import datetext_default, \
 from invenio.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
 
 from invenio.sqlalchemyutils import db
-from invenio.webmessage_model import MsgMESSAGE, UserMsgMESSAGE
-from invenio.websession_model import User
+from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
+from invenio.modules.account.models import User
 
 def filter_messages_from_user_with_status(uid, status):
     """

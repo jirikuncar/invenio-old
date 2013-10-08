@@ -38,8 +38,8 @@ from invenio.sqlalchemyutils import db
 from sqlalchemy.ext.associationproxy import association_proxy
 
 # Related models
-from invenio.bibedit_model import Bibrec
-from invenio.websession_model import User, Usergroup
+from invenio.modules.record_editor.models import Bibrec
+from invenio.modules.account.models import User, Usergroup
 
 # Functions
 from invenio.textutils import wash_for_xml

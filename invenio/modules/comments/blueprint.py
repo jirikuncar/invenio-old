@@ -26,7 +26,7 @@ from flask import g, render_template, request, flash, redirect, url_for, \
     current_app, abort
 from invenio.sqlalchemyutils import db
 from invenio.webmessage_mailutils import email_quote_txt
-from invenio.webcomment_model import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
+from invenio.modules.comments.models import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
                                      CmtACTIONHISTORY
 from invenio.webcomment_forms import AddCmtRECORDCOMMENTForm, \
                                      AddCmtRECORDCOMMENTFormReview

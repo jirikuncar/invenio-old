@@ -33,7 +33,7 @@ from invenio.intbitset import intbitset as HitSet
 from invenio.sqlalchemyutils import db
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from flask.ext.login import current_user
-from invenio.weblinkback_model import LnkENTRY
+from invenio.modules.linkbacks.models import LnkENTRY
 from invenio.weblinkback import perform_sendtrackback, perform_sendtrackback_disabled
 from invenio.access_control_engine import acc_authorize_action
 from invenio.config import CFG_SITE_URL, \

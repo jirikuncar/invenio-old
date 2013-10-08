@@ -18,7 +18,7 @@
 import os
 import tempfile
 
-from invenio.bibworkflow_model import WfeObject
+from invenio.modules.workflows.models import WfeObject
 from datetime import datetime
 from invenio.sqlalchemyutils import db
 from invenio.bibworkflow_utils import dictproperty

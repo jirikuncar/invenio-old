@@ -97,7 +97,7 @@ def run_by_oid(oid, start_point="beginning", task_queue=USE_TASK_QUEUE, external
     Runs workflow asociated with object given by object id (oid). It can start
     from beginning, prev, next and continue.
     """
-    from invenio.bibworkflow_model import WfeObject
+    from invenio.modules.workflows.models import WfeObject
     from invenio.bibworkflow_worker_engine import restartit
 
     wf_object = WfeObject.query.filter(WfeObject.id == oid).first()

@@ -26,7 +26,7 @@ from invenio.sqlalchemyutils import db
 
 # Create your models here.
 
-from invenio.websession_model import User
+from invenio.modules.account.models import User
 
 class AccACTION(db.Model):
     """Represents a AccACTION record."""

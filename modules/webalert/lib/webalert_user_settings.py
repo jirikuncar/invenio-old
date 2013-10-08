@@ -21,7 +21,7 @@
 
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
-from invenio.websession_model import User, Usergroup, UserUsergroup
+from invenio.modules.account.models import User, Usergroup, UserUsergroup
 from invenio.webinterface_handler_flask_utils import _
 from invenio.webinterface_handler import wash_urlargd
 from invenio.config import CFG_SITE_LANG
@@ -42,7 +42,7 @@ from invenio.webmessage_config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
 
 from invenio.sqlalchemyutils import db
 from invenio.ext.template import render_template_to_string
-from invenio.webalert_model import UserQueryBasket
+from invenio.modules.alerts.models import UserQueryBasket
 from flask.ext.login import current_user
 from invenio.settings import Settings, UserSettingsStorage, \
                              ModelSettingsStorageBuilder
