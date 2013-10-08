@@ -28,17 +28,13 @@ except:
 
 import os
 from flask import current_app
-from flask.ext.login import current_user
 
 from invenio import config
 from invenio.errorlib import register_exception
 from invenio.config import \
     CFG_WEBDIR, \
-    CFG_ETCDIR, CFG_DEVEL_SITE, \
     CFG_FLASK_DISABLED_BLUEPRINTS, \
-    CFG_SITE_URL, CFG_SITE_SECURE_URL, \
     CFG_SITE_SECRET_KEY, CFG_BINDIR
-from invenio.importutils import autodiscover_modules
 
 from werkzeug.utils import import_string
 
@@ -160,7 +156,7 @@ def create_app(**kwargs_config):
     """
 
     ## The Flask application instance
-    _app = Flask(__name__.split('.')[0],
+    _app = Flask(__name__, #FIXME .split('.')[0],
         ## Static files are usually handled directly by the webserver (e.g. Apache)
         ## However in case WSGI is required to handle static files too (such
         ## as when running simple server), then this flag can be
@@ -252,16 +248,7 @@ def create_app(**kwargs_config):
 
     # Login manager was here.
 
-    # Let's create main menu.
-    class Menu(object):
-        def __init__(self, id='', title='', url='', order=None, children=None,
-                     display=lambda: True):
-            self.id = id
-            self.title = title
-            self.url = url
-            self.children = children or {}
-            self.order = order or 100
-            self.display = display
+    # Main menu was here.
 
     # Jinja2 extensions loading was here.
 
@@ -279,14 +266,13 @@ def create_app(**kwargs_config):
         """
         Handy function to bridge pluginutils with (Invenio) blueprints.
         """
-        if plugin.__name__ in CFG_FLASK_DISABLED_BLUEPRINTS or \
-           plugin.__name__.split('.')[-1] in CFG_FLASK_DISABLED_BLUEPRINTS:
-            _app.logger.info('%s is excluded by CFG_FLASK_DISABLED_BLUEPRINTS' % plugin.__name__)
-            return
         from invenio.webinterface_handler_flask_utils import InvenioBlueprint
         if 'blueprint' in dir(plugin):
             candidate = getattr(plugin, 'blueprint')
             if isinstance(candidate, InvenioBlueprint):
+                if candidate.name in CFG_FLASK_DISABLED_BLUEPRINTS:
+                    _app.logger.info('%s is excluded by CFG_FLASK_DISABLED_BLUEPRINTS' % candidate.name)
+                    return
                 return candidate
         _app.logger.error('%s is not a valid blueprint plugin' % plugin.__name__)
 
@@ -297,7 +283,6 @@ def create_app(**kwargs_config):
                    if m is not None]
 
     _app.config['breadcrumbs_map'] = {}
-    _app.config['menubuilder_map'] = {}
 
     ## Let's attach all the blueprints
     from invenio.webinterface_handler_flask_utils import _
@@ -315,44 +300,6 @@ def create_app(**kwargs_config):
         if plugin.breadcrumbs:
             _app.config['breadcrumbs_map'][plugin.name] = plugin.breadcrumbs
         _app.config['breadcrumbs_map'].update(plugin.breadcrumbs_map)
-
-        ## Let's build global menu. Each blueprint can plug its own menu items.
-        if plugin.menubuilder:
-            _app.config['menubuilder_map'].update((m[0],
-                Menu(*m)) for m in plugin.menubuilder)
-        _app.config['menubuilder_map'].update(plugin.menubuilder_map)
-
-    _app.config['menubuilder_map'].update({
-            'main.admin': Menu('main.admin', _('Administration'),
-                                'help.admin', 9998, [],
-                                lambda: current_user.is_admin if current_user else False),
-            'main.help': Menu('main.help', _('Help'), 'help', 9999)})
-
-    menu = {'main': Menu('main', '', ''),
-            'personalize': Menu('personalize', '', '')}
-    for key, item in _app.config['menubuilder_map'].iteritems():
-        start = menu
-
-        if '.' not in key:
-            if key in menu:
-                menu[key] = item.children.update(menu[key].children)
-            else:
-                menu[key] = item
-            continue
-
-        keys = key.split('.')
-        for k in keys[:-1]:
-            try:
-                start = start[k].children
-            except:
-                start[k] = Menu()
-                start = start[k].children
-
-        if keys[-1] in start:
-            item.children.update(start[keys[-1]].children)
-        start[keys[-1]] = item
-
-    _app.config['menubuilder_map'] = menu
 
     # Flask-Admin was here.
 
