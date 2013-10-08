@@ -27,7 +27,7 @@ from math import ceil
 from flask import make_response, g, request, flash, jsonify, \
     redirect, url_for, current_app, abort, session
 
-from invenio import bibindex_model as BibIndex
+from invenio.modules.index import models as BibIndex
 from invenio import websearch_receivers
 from invenio.bibindex_engine import get_index_id_from_index_name
 from invenio.bibformat import get_output_format_content_type, print_records

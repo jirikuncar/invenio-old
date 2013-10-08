@@ -120,8 +120,9 @@ def import_module_from_packages(name, app=None, packages=None):
             for module in find_modules(package[:-2], include_packages=True):
                 try:
                     yield import_string(module + '.' + name)
-                except:
-                    app.logger.error('Could not import: "%s.%s', module, name)
+                except Exception as e:
+                    app.logger.error('Could not import: "%s.%s: %s',
+                                     module, name, str(e))
                     pass
             continue
         try:
@@ -190,8 +191,8 @@ def create_app(**kwargs_config):
     ## Database was here.
 
     ## First check that you have all rights to logs
-    from invenio.bibtask import check_running_process_user
-    check_running_process_user()
+    #from invenio.bibtask import check_running_process_user
+    #check_running_process_user()
 
     from invenio.messages import language_list_long
     from invenio.webinterface_handler_flask_utils import unicodifier
@@ -292,9 +293,7 @@ def create_app(**kwargs_config):
 
     ## Let's load all the blueprints that are composing this Invenio instance
     _BLUEPRINTS = [m for m in map(_invenio_blueprint_plugin_builder,
-                      autodiscover_modules(['invenio'],
-                                           related_name_re='.+_blueprint',
-                                           ignore_exceptions=True))
+                                  collect_blueprints(app=_app))
                    if m is not None]
 
     _app.config['breadcrumbs_map'] = {}
