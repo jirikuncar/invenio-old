@@ -25,8 +25,7 @@ js_DATA = bibworkflow_workflows.js \
           bibworkflow_index.js \
           bibworkflow_entry_details.js
 
-pylib_DATA = bibworkflow_admin_blueprint.py \
-			 bibworkflow_api.py \
+pylib_DATA = bibworkflow_api.py \
 			 bibworkflow_client.py \
 			 bibworkflow_config.py \
 			 bibworkflow_engine.py \

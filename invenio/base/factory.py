@@ -101,6 +101,7 @@ def register_extensions(app):
 from flask import has_app_context, current_app
 from werkzeug.utils import import_string, find_modules
 from functools import partial
+from itertools import chain
 
 
 def import_module_from_packages(name, app=None, packages=None):
@@ -116,6 +117,8 @@ def import_module_from_packages(name, app=None, packages=None):
             for module in find_modules(package[:-2], include_packages=True):
                 try:
                     yield import_string(module + '.' + name)
+                except ImportError:
+                    pass
                 except Exception as e:
                     app.logger.error('Could not import: "%s.%s: %s',
                                      module, name, str(e))
@@ -123,12 +126,18 @@ def import_module_from_packages(name, app=None, packages=None):
             continue
         try:
             yield import_string(package + '.' + name)
-        except:
-            app.logger.error('Could not import: "%s.%s', package, name)
+        except ImportError:
+            pass
+        except Exception as e:
+            app.logger.error('Could not import: "%s.%s: %s',
+                             package, name, str(e))
             pass
 
 
-collect_blueprints = partial(import_module_from_packages, 'blueprint')
+collect_blueprints = lambda app: chain(
+    partial(import_module_from_packages, 'blueprint')(app),
+    partial(import_module_from_packages, 'admin_blueprint')(app)
+    )
 collect_models = partial(import_module_from_packages, 'model')
 collect_user_settings = partial(import_module_from_packages, 'user_settings')
 

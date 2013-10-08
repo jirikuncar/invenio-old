@@ -52,7 +52,6 @@ pylib_DATA = \
 	websearch_external_collections_templates.py \
 	websearch_external_collections_unit_tests.py \
 	websearch_external_collections_utils.py \
-	websearch_admin_blueprint.py \
 	websearch_admin_forms.py
 
 
