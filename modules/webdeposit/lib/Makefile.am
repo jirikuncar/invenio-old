@@ -20,13 +20,11 @@ SUBDIRS = deposition_forms deposition_fields deposition_types
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
-             webdeposit_blueprint.py \
              webdeposit_utils.py \
              webdeposit_load_fields.py \
              webdeposit_load_forms.py \
              webdeposit_load_deposition_types.py \
              webdeposit_field_widgets.py \
-             webdeposit_model.py \
              webdeposit_workflow.py \
              webdeposit_workflow_utils.py \
              webdeposit_field.py \

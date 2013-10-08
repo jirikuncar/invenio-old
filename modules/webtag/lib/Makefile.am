@@ -20,10 +20,8 @@ SUBDIRS = template_context_functions
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = \
-    webtag_blueprint.py \
     webtag_config.py \
     webtag_forms.py \
-    webtag_model.py \
     webtag_regression_tests.py \
     webtag_unit_tests.py \
     webtag_user_settings.py \

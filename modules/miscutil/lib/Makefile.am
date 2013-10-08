@@ -41,7 +41,6 @@ pylib_DATA = __init__.py \
              dbquery_unit_tests.py \
              demosite_manager.py \
              errorlib.py \
-             errorlib_model.py \
              errorlib_regression_tests.py \
              errorlib_unit_tests.py \
              errorlib_webinterface.py \
@@ -59,7 +58,6 @@ pylib_DATA = __init__.py \
              inveniocfg.py \
              inveniocfg_unit_tests.py \
              inveniocfg_upgrader.py \
-             inveniocfg_upgrader_model.py \
              inveniocfg_upgrader_unit_tests.py \
              inveniomanage.py \
              inveniomanage_unit_tests.py \
@@ -92,7 +90,6 @@ pylib_DATA = __init__.py \
              scriptutils.py \
              sequtils.py \
              sequtils_cnum.py \
-             sequtils_model.py \
              sequtils_regression_tests.py \
              settings.py \
              shellutils.py \
@@ -117,7 +114,6 @@ pylib_DATA = __init__.py \
              urlutils_unit_tests.py \
              w3c_validator.py \
              web_api_key.py \
-             web_api_key_model.py \
              web_api_key_unit_tests.py \
              wtforms_utils.py \
              xapianutils_bibindex_indexer.py \

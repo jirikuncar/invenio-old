@@ -20,7 +20,6 @@ pylibdir = $(libdir)/python/invenio
 pylib_DATA = webbasket.py \
              webbasket_config.py \
              webbasket_dblayer.py \
-             webbasket_model.py \
              webbasket_templates.py \
              webbasket_user_settings.py \
              webbasket_webinterface.py \

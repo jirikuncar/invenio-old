@@ -30,7 +30,6 @@ pylib_DATA = bibworkflow_admin_blueprint.py \
 			 bibworkflow_client.py \
 			 bibworkflow_config.py \
 			 bibworkflow_engine.py \
-			 bibworkflow_model.py \
 			 bibworkflow_object.py \
 			 bibworkflow_unit_tests.py \
 			 bibworkflow_utils.py \
