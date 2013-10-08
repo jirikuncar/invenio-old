@@ -20,17 +20,15 @@
 """ WebTag database models. """
 
 # Configs
-from invenio.webtag_config import \
-    CFG_WEBTAG_LAST_MYSQL_CHARACTER
-
-from invenio.webtag_config import \
+from .config import \
     CFG_WEBTAG_NAME_MAX_LENGTH, \
     CFG_WEBTAG_ACCESS_NAMES, \
     CFG_WEBTAG_ACCESS_LEVELS, \
     CFG_WEBTAG_ACCESS_RIGHTS, \
     CFG_WEBTAG_ACCESS_OWNER_DEFAULT, \
     CFG_WEBTAG_NAME_REPLACEMENTS_SILENT, \
-    CFG_WEBTAG_NAME_REPLACEMENTS_BLOCKING
+    CFG_WEBTAG_NAME_REPLACEMENTS_BLOCKING, \
+    CFG_WEBTAG_LAST_MYSQL_CHARACTER
 
 
 # Database

@@ -19,11 +19,9 @@
 
 """WebTag Forms"""
 
-from invenio.webtag_config import \
+from .config import \
+    CFG_WEBTAG_NAME_MAX_LENGTH, \
     CFG_WEBTAG_LAST_MYSQL_CHARACTER
-
-from invenio.webtag_config import \
-    CFG_WEBTAG_NAME_MAX_LENGTH
 
 from invenio.webinterface_handler_flask_utils import _
 
@@ -37,16 +35,18 @@ from wtforms import \
     SelectMultipleField, \
     validators
 
-# Models
+from invenio.search_engine import check_user_can_view_record
+
+#Models
+from invenio.modules.record_editor.models import Bibrec
+
+# Internal
 from invenio.sqlalchemyutils import db
-from invenio.modules.tags.models import \
+from .models import \
     WtgTAG, \
     WtgTAGRecord, \
     wash_tag_silent, \
     wash_tag_blocking
-from invenio.modules.record_editor.models import Bibrec
-
-from invenio.search_engine import check_user_can_view_record
 
 
 def validate_tag_name(dummy_form, field):

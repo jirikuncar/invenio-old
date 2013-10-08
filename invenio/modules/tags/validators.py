@@ -18,21 +18,3 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 """WebTag Forms"""
-
-from invenio.webtag_config import \
-    CFG_WEBTAG_LAST_MYSQL_CHARACTER
-
-from invenio.webtag_config import \
-    CFG_WEBTAG_NAME_MAX_LENGTH
-
-from invenio.webinterface_handler_flask_utils import _
-
-from invenio.wtforms_utils import InvenioBaseForm
-from flask.ext.login import current_user
-
-from wtforms import IntegerField, HiddenField, TextField, validators
-
-# Models
-from invenio.sqlalchemyutils import db
-from invenio.modules.tags.models import WtgTAG, wash_tag_silent, wash_tag_blocking
-

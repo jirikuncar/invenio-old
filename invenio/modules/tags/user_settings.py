@@ -25,14 +25,15 @@ from invenio.ext.template import render_template_to_string
 from invenio.webinterface_handler_flask_utils import _
 from flask.ext.login import current_user
 from invenio.settings import Settings, UserSettingsStorage
-
-# Models
 from invenio.sqlalchemyutils import db
-from invenio.modules.tags.models import WtgTAG, WtgTAGRecord
 
 # Related models
 from invenio.modules.account.models import User
 from invenio.modules.record_editor.models import Bibrec
+
+# Models
+from .models import WtgTAG, WtgTAGRecord
+
 
 class WebTagSettings(Settings):
 
@@ -51,9 +52,10 @@ class WebTagSettings(Settings):
         tag_count = user.tags_query.count()
 
         record_count = Bibrec.query.join(WtgTAGRecord).join(WtgTAG)\
-                       .filter(WtgTAG.user == user).count()
+            .filter(WtgTAG.user == user).count()
 
-        return render_template_to_string('webtag_user_settings.html',
+        return render_template_to_string(
+            'webtag_user_settings.html',
             tag_count=tag_count,
             record_count=record_count)
 

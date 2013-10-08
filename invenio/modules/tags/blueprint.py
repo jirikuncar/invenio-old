@@ -26,22 +26,24 @@ from invenio.config import CFG_SITE_LANG
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from flask.ext.login import current_user
-
-# Models
 from invenio.sqlalchemyutils import db
-from invenio.modules.tags.models import \
+
+# External imports
+from invenio.modules.account.models import User
+from invenio.modules.record_editor.models import Bibrec
+from invenio.modules.search.models import Collection
+from invenio.modules.search.blueprint import response_formated_records
+from invenio.ext.menu import register_menu
+
+# Internal imports
+from .models import \
     WtgTAG, \
     WtgTAGRecord, \
     WtgTAGUsergroup, \
     wash_tag
 
-# Related models
-from invenio.modules.account.models import User
-from invenio.modules.record_editor.models import Bibrec
-from invenio.modules.search.models import Collection
-
 # Forms
-from invenio.webtag_forms import \
+from .forms import \
     CreateTagForm, \
     AttachTagForm, \
     DetachTagForm, \
@@ -50,10 +52,6 @@ from invenio.webtag_forms import \
     validate_user_owns_tag, \
     validators
 
-
-from invenio.modules.search.blueprint import response_formated_records
-
-from invenio.ext.menu import register_menu
 
 blueprint = InvenioBlueprint('webtag',
                              __name__,
