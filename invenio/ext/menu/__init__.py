@@ -21,11 +21,10 @@
 """
 
 
-from .menu import MenuAlchemy
+from .menu import MenuAlchemy, register_menu
 
 
 def setup_app(app):
-    # Create an instance attached to the application
+    """Creates a menu instance attached to the application."""
     MenuAlchemy(app)
-
     return app

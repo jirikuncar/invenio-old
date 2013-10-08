@@ -30,14 +30,10 @@ from werkzeug import LocalProxy
 CONDITION_TRUE = (lambda: True)
 CONDITION_FALSE = (lambda: False)
 
-# Menu root:
-current_menu = LocalProxy(lambda: current_app.extensions['menualchemy'])
-
 
 class MenuAlchemy(object):
-    """
-        Extension object for invenio.ext.menualchemy
-    """
+    """Extension object for invenio.ext.menualchemy"""
+
     def __init__(self, app=None):
         self.app = app
         if app is not None:
@@ -51,33 +47,28 @@ class MenuAlchemy(object):
     @staticmethod
     def root():
         """
-            :return: Root entry of current application's menu.
+        :return: Root entry of current application's menu.
         """
-        return current_menu
+        return current_app.extensions['menualchemy']
 
     @staticmethod
-    def register_menu(
-            blueprint,
-            path,
-            text,
-            order=0,
-            endpoint_arguments_constructor=None,
-            active_when=CONDITION_FALSE,
-            visible_when=CONDITION_TRUE):
-        """
-            Decorate endpoints that should be displayed in a menu.
+    def register_menu(blueprint, path, text, order=0,
+                      endpoint_arguments_constructor=None,
+                      active_when=CONDITION_FALSE,
+                      visible_when=CONDITION_TRUE):
+        """Decorate endpoints that should be displayed in a menu.
 
-            :param blueprint: Blueprint which owns the function.
-            :param path: Path to this item in menu hierarchy,
-                for example 'main.category.item'.
-            :param text: Text displayed as link.
-            :param order: Index of item among other items in the same menu.
-            :param endpoint_arguments_constructor: Function returning dict of
-                arguments passed to url_for when creating the link.
-            :param active_when: Function returning True when the item
-                should be displayed as active.
-            :param visible_when: Function returning True when this item
-                should be displayed.
+        :param blueprint: Blueprint which owns the function.
+        :param path: Path to this item in menu hierarchy,
+            for example 'main.category.item'.
+        :param text: Text displayed as link.
+        :param order: Index of item among other items in the same menu.
+        :param endpoint_arguments_constructor: Function returning dict of
+            arguments passed to url_for when creating the link.
+        :param active_when: Function returning True when the item
+            should be displayed as active.
+        :param visible_when: Function returning True when this item
+            should be displayed.
         """
 
         #Decorator function
@@ -87,50 +78,36 @@ class MenuAlchemy(object):
             @blueprint.before_app_first_request
             def _register_menu_item():
                 item = current_menu.submenu(path)
-                item.register(
-                    endpoint,
-                    text,
-                    order,
-                    endpoint_arguments_constructor,
-                    active_when,
-                    visible_when)
-
+                item.register(endpoint, text, order,
+                              endpoint_arguments_constructor,
+                              active_when, visible_when)
             return f
 
         return menu_decorator
 
 
 class MenuEntryMixin(object):
-    """
-        A node in the menu tree.
-        Provides information for displaying links (text, url, visible, active).
-        Navigate the hierarchy using :meth:`children` and :meth:`submenu`.
+    """Represents a entry node in the menu tree.
+
+    Provides information for displaying links (text, url, visible, active).
+    Navigate the hierarchy using :meth:`children` and :meth:`submenu`.
     """
 
     def __init__(self, name):
         self.name = name
-
         self._child_entries = dict()
-
-        self._endpoint = ''
+        self._endpoint = None
         self._text = None
         self._order = 0
         self._endpoint_arguments_constructor = None
         self._active_when = CONDITION_FALSE
         self._visible_when = CONDITION_TRUE
 
-    def register(
-            self,
-            endpoint,
-            text,
-            order=0,
-            endpoint_arguments_constructor=None,
-            active_when=CONDITION_FALSE,
-            visible_when=CONDITION_TRUE):
-        """
-            Assign endpoint and display values.
-        """
-
+    def register(self, endpoint, text, order=0,
+                 endpoint_arguments_constructor=None,
+                 active_when=CONDITION_FALSE,
+                 visible_when=CONDITION_TRUE):
+        """Assigns endpoint and display values."""
         self._endpoint = endpoint
         self._text = text
         self._order = order
@@ -139,13 +116,13 @@ class MenuEntryMixin(object):
         self._visible_when = visible_when or CONDITION_TRUE
 
     def submenu(self, path):
-        """
-            Returns submenu placed at the given path in the hierarchy.
-            If it does not exist, a new one is created.
-            Returns None if path string is invalid.
+        """Returns submenu placed at the given path in the hierarchy.
 
-            :param path: Path to submenu as a string 'qua.bua.cua'
-            :return: Submenu placed at the given path in the hierarchy.
+        If it does not exist, a new one is created.
+        Returns None if path string is invalid.
+
+        :param path: Path to submenu as a string 'qua.bua.cua'
+        :return: Submenu placed at the given path in the hierarchy.
         """
 
         if not path:
@@ -166,16 +143,13 @@ class MenuEntryMixin(object):
             return next_entry
 
     def hide(self):
-        """
-            Makes the entry always hidden.
-        """
+        """Makes the entry always hidden."""
         self._visible_when = CONDITION_FALSE
 
     @property
     def children(self):
-        return sorted(
-            self._child_entries.values(),
-            key=(lambda entry: getattr(entry, 'order', 0)))
+        return sorted(self._child_entries.values(),
+                      key=(lambda entry: getattr(entry, 'order', 0)))
 
     @property
     def text(self):
@@ -186,11 +160,10 @@ class MenuEntryMixin(object):
         if not self._endpoint:
             return '#'
 
-        args = dict()
         if self._endpoint_arguments_constructor:
-            args = self._endpoint_arguments_constructor()
-
-        return url_for(self._endpoint, **args)
+            return url_for(self._endpoint,
+                           **self._endpoint_arguments_constructor())
+        return url_for(self._endpoint)
 
     @property
     def active(self):
@@ -199,3 +172,12 @@ class MenuEntryMixin(object):
     @property
     def visible(self):
         return self._text is not None and self._visible_when()
+
+
+## Global object that is proxy to the current application menu.
+current_menu = LocalProxy(MenuAlchemy.root)
+
+## Decorator for menu item registration.
+register_menu = MenuAlchemy.register_menu
+
+__all__ = ['current_menu', 'register_menu', 'MenuAlchemy']
