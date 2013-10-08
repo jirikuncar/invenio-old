@@ -27,16 +27,12 @@ except:
     remote_debugger = None
 
 import os
-from os.path import join
-from functools import wraps
-from flask import Flask, current_app
+from flask import current_app
 from flask.ext.login import current_user
-from jinja2 import FileSystemLoader
 
 from invenio import config
 from invenio.errorlib import register_exception
 from invenio.config import \
-    CFG_BIBDOCFILE_USE_XSENDFILE, \
     CFG_WEBDIR, \
     CFG_ETCDIR, CFG_DEVEL_SITE, \
     CFG_FLASK_DISABLED_BLUEPRINTS, \
@@ -47,7 +43,7 @@ from invenio.importutils import autodiscover_modules
 from werkzeug.utils import import_string
 
 from .helpers import with_app_context
-
+from .wrappers import Flask
 
 def import_extension(directories, extension_name):
     """
@@ -162,32 +158,8 @@ def create_app(**kwargs_config):
        request with a 404 error.
     """
 
-    def decorate_build(f):
-        @wraps(f)
-        def decorator(*args, **kwargs):
-            scheme_url = {
-                'http': current_app.config['CFG_SITE_URL'],
-                'https': current_app.config['CFG_SITE_SECURE_URL']
-            }
-            force_external = kwargs.get('force_external', True)
-            url_scheme = getattr(f.im_self, 'url_scheme', 'http')
-            kwargs['force_external'] = False
-            url = f(*args, **kwargs)
-            if force_external:
-                url = scheme_url.get(url_scheme) + url
-            return url
-        return decorator
-
-    class InvenioFlask(Flask):
-
-        def create_url_adapter(self, request):
-            url_adapter = super(self.__class__, self).create_url_adapter(request)
-            if url_adapter is not None and hasattr(url_adapter, 'build'):
-                url_adapter.build = decorate_build(url_adapter.build)
-            return url_adapter
-
     ## The Flask application instance
-    _app = InvenioFlask(__name__,
+    _app = Flask(__name__.split('.')[0],
         ## Static files are usually handled directly by the webserver (e.g. Apache)
         ## However in case WSGI is required to handle static files too (such
         ## as when running simple server), then this flag can be
@@ -260,21 +232,13 @@ def create_app(**kwargs_config):
 
     # Jinja2 Memcache Bytecode Cache was here.
 
-    ## Let's customize the template loader to first look into
-    ## /opt/invenio/etc-local/templates and then into
-    ## /opt/invenio/etc/templates
-    _app.jinja_loader = FileSystemLoader([join(CFG_ETCDIR + '-local',
-                                               'templates'),
-                                          join(CFG_ETCDIR, 'templates')])
+    # Jinja2 custom loader was here.
 
     # SessionInterface was here.
 
     ## Set custom request class was here.
 
     ## ... and map certain common parameters
-    _app.config['USE_X_SENDFILE'] = CFG_BIBDOCFILE_USE_XSENDFILE
-    _app.config['DEBUG'] = CFG_DEVEL_SITE > 0
-    _app.debug = CFG_DEVEL_SITE > 0
     _app.config['CFG_LANGUAGE_LIST_LONG'] = [(lang, longname.decode('utf-8'))
         for (lang, longname) in language_list_long()]
 
