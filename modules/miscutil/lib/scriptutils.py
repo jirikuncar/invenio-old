@@ -140,7 +140,7 @@ def register_manager(manager):
 
     # Call add_command() in inveniomanage module to register managers.
     modules = autodiscover_modules(['invenio'],
-                                   '.+_manager\.py')
+                                   '.+_manager')
     for m in modules:
         name = m.__name__[len('invenio.'):-len('_manager')]
         if 'manager' in dir(m):
