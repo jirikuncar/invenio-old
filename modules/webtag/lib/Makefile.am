@@ -18,12 +18,8 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = \
-    webtag_config.py \
-    webtag_forms.py \
     webtag_regression_tests.py \
-    webtag_unit_tests.py \
-    webtag_user_settings.py \
-    webtag_validators.py
+    webtag_unit_tests.py
 
 jsdir=$(localstatedir)/www/js
 

@@ -28,7 +28,6 @@ pylib_DATA = \
 	websearch_fixtures.py \
 	websearch_fixtures_demosite.py \
 	websearch_templates.py \
-	websearch_user_settings.py \
 	websearch_webinterface.py \
 	websearch_receivers.py \
 	websearch_regression_tests.py \
