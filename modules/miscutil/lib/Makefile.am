@@ -59,7 +59,6 @@ pylib_DATA = __init__.py \
              inveniocfg_unit_tests.py \
              inveniocfg_upgrader.py \
              inveniocfg_upgrader_unit_tests.py \
-             inveniomanage.py \
              inveniomanage_unit_tests.py \
              jinja2utils_unit_tests.py \
              jsonutils_unit_tests.py \

@@ -85,6 +85,11 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
+    entry_points={
+        'console_scripts': [
+            'inveniomanage = invenio.base.manage:main',
+        ],
+    },
     install_requires=install_requires,
     dependency_links=dependency_links,
     classifiers=[

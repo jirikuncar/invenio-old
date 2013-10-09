@@ -1014,7 +1014,7 @@ def cli_cmd_detect_system_details(conf):
     Detect and print system details such as Apache/Python/MySQL
     versions etc.  Useful for debugging problems on various OS.
     """
-    from invenio.inveniomanage import main
+    from invenio.base.manage import main
 
     warn('inveniocfg --detect-system-name is deprecated. Using instead: inveniomanage detect-system-name')
 
@@ -1236,11 +1236,11 @@ def main(*cmd_args):
     (options, dummy_args) = parser.parse_args(list(cmd_args))
 
     if getattr(options, 'version', False):
-        from invenio import inveniomanage
+        from invenio.base import manage
         warn('inveniocfg --version is deprecated. Using instead: inveniomanage version')
         sys_argv = sys.argv
         sys.argv = 'inveniomanage.py version'.split()
-        inveniomanage.main()
+        manage.main()
         sys.argv = sys_argv
     else:
         # Read configuration
