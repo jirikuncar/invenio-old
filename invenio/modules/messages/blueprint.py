@@ -32,7 +32,7 @@ from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.base.decorators import templated
+from invenio.base.decorators import templated, sorted_by, filtered_by
 from flask.ext.login import current_user
 
 from sqlalchemy.sql import operators
@@ -89,8 +89,8 @@ def menu():
 @blueprint.route('/display', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized('usemessages')
-@blueprint.invenio_sorted(MsgMESSAGE)
-@blueprint.invenio_filtered(MsgMESSAGE, columns={
+@sorted_by(MsgMESSAGE)
+@filtered_by(MsgMESSAGE, columns={
     'subject': operators.startswith_op,
     'user_from.nickname': operators.contains_op},
     form=FilterMsgMESSAGEForm)

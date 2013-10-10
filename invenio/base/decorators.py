@@ -39,7 +39,7 @@ from invenio.ext.template.context_processor import \
     register_template_context_processor
 
 
-def templated(self, template=None, stream=False, mimetype='text/html'):
+def templated(template=None, stream=False, mimetype='text/html'):
     """
     The idea of this decorator is that you return a dictionary with the
     values passed to the template from the view function and the template
@@ -107,7 +107,7 @@ def templated(self, template=None, stream=False, mimetype='text/html'):
     return decorator
 
 
-def sorted(self, model=None, cols=None):
+def sorted_by(model=None, cols=None):
     """
     This decorator fills `sort` argument with `ORDER BY` expression used by
     sqlalchemy for defined URL arguments `sort_by` and `order`.
@@ -136,7 +136,7 @@ def sorted(self, model=None, cols=None):
     return decorator
 
 
-def filtered(self, model=None, columns=None, form=None, filter_empty=False):
+def filtered_by(model=None, columns=None, form=None, filter_empty=False):
     """
     This decorator adds `filter` argument with 'WHERE' exression.
     The `filter_form` is also injected to template context.
