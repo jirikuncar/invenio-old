@@ -88,7 +88,6 @@ def inject_utils():
     from werkzeug.routing import BuildError
 
     from invenio.messages import is_language_rtl
-    from invenio.webinterface_handler_flask_utils import _, guess_language
     from flask.ext.login import current_user
     from invenio.urlutils import create_url, get_canonical_and_alternates_urls
 
@@ -102,20 +101,11 @@ def inject_utils():
                 endpoint = request.blueprint + endpoint
             return create_url('/' + '/'.join(endpoint.split('.')), values, False).decode('utf-8')
 
-    if request.endpoint in current_app.config['breadcrumbs_map']:
-        breadcrumbs = current_app.config['breadcrumbs_map'][request.endpoint]
-    elif request.endpoint:
-        breadcrumbs = [(_('Home'), '')] + current_app.config['breadcrumbs_map'].get(request.endpoint.split('.')[0], [])
-    else:
-        breadcrumbs = [(_('Home'), '')]
-
     user = current_user._get_current_object()
     canonical_url, alternate_urls = get_canonical_and_alternates_urls(
         request.environ['PATH_INFO'])
     alternate_urls = dict((ln.replace('_', '-'), alternate_url)
                           for ln, alternate_url in alternate_urls.iteritems())
-
-    guess_language()
 
     from invenio.bibfield import get_record  # should not be global due to bibfield_config
     return dict(_=lambda *args, **kwargs: g._(*args, **kwargs),
@@ -127,7 +117,7 @@ def inject_utils():
                 alternate_urls=alternate_urls,
                 get_record=get_record,
                 url_for=invenio_url_for,
-                breadcrumbs=breadcrumbs,
+                breadcrumbs=[],
                 **TEMPLATE_CONTEXT_FILTERS
                 )
 
