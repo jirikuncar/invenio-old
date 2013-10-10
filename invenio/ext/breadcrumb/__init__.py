@@ -19,44 +19,49 @@
 
 """
     invenio.ext.breadcrumb
+    ----------------------
+
+    Depends on `invenio.ext.menu` extension.
 """
+
+from werkzeug import LocalProxy
 
 from invenio.base.globals import current_function, current_blueprint
 from invenio.ext.menu import MenuAlchemy, current_menu
 
 
-def setup_app(app):
-    app.context_processor(breadcrumbs_context_processor)
-    return app
+def _current_path():
+    """Determines current location in menu hierarchy."""
+    return getattr(current_function, '__breadcrumb__', None) \
+        or getattr(current_blueprint, '__breadcrumb__', None)
+
+current_path = LocalProxy(_current_path)
+
+
+def _breadcrumbs():
+    """Returns list with breadcrumbs."""
+    print current_menu
+    return current_menu.list_path('breadcrumbs', current_path) or []
+
+breadcrumbs = LocalProxy(_breadcrumbs)
 
 
 def breadcrumbs_context_processor():
-    """
-        Adds variable 'breadcrumbs' to template context.
-        It contains the list of menu entries to render as breadcrumbs.
-    """
-    # Determine current location in menu hierarchy
-    current_path = getattr(current_function, '__breadcrumb__', None) \
-        or getattr(current_blueprint, '__breadcrumb__', None)
+    """Adds variable 'breadcrumbs' to template context.
 
-    if path:
-        # List entries on route from 'breadcrumbs' to current path
-        breadcrumbs = current_menu.list_path('breadcrumbs', current_path) or []
-    else:
-        breadcrumbs = []
-
+    It contains the list of menu entries to render as breadcrumbs.
+    """
     return dict(breadcrumbs=breadcrumbs)
 
 
 def default_breadcrumb(blueprint, text, path=None):
-    """
-        Registers the default breadcrumb for all endpoints in this blueprint.
+    """Registers the default breadcrumb for all endpoints in this blueprint.
 
-        :param text: Text to display in the breadcrumb.
-        :param path: Path in the menu hierarchy. If not specified,
-            defaults to 'breadcrumbs.blueprint_name'.
+    :param text: Text to display in the breadcrumb.
+    :param path: Path in the menu hierarchy. If not specified,
+        defaults to 'breadcrumbs.blueprint_name'.
     """
-
+    return
     if not path:
         path = 'breadcrumbs.' + blueprint.name
 
@@ -67,11 +72,8 @@ def default_breadcrumb(blueprint, text, path=None):
     blueprint.__breadcrumb__ = path
 
 
-def register_breadcrumb(
-        blueprint,
-        path,
-        text,
-        endpoint_arguments_constructor=None):
+def register_breadcrumb(blueprint, path, text,
+                        endpoint_arguments_constructor=None):
     """Decorate endpoints that should be displayed as a breadcrumb.
 
     :param blueprint: Blueprint which owns the function.
@@ -99,17 +101,18 @@ def register_breadcrumb(
         path = (blueprint_path + path).strip('.')
 
     # Get standard menu decorator
-    menu_decorator = MenuAlchemy.register_menu(
-        blueprint,
-        path,
-        text,
-        0,
-        endpoint_arguments_constructor)
+    menu_decorator = MenuAlchemy.register_menu(blueprint, path, text, 0,
+                                               endpoint_arguments_constructor)
 
-    # Apply standard menu decorator and assign breadcrumb
     def breadcrumb_decorator(f):
+        """Applies standard menu decorator and assign breadcrumb."""
         f.__breadcrumb__ = path
 
         return menu_decorator(f)
 
     return breadcrumb_decorator
+
+
+def setup_app(app):
+    app.context_processor(breadcrumbs_context_processor)
+    return app

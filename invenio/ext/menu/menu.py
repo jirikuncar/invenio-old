@@ -152,7 +152,7 @@ class MenuEntryMixin(object):
             # that was the last part of the path
             return next_entry
 
-    def list_path(from_path, to_path):
+    def list_path(self, from_path, to_path):
         """
             Lists all items on path between two specified entries,
             if one of them is an ancestor of the other.
@@ -171,10 +171,7 @@ class MenuEntryMixin(object):
             # Incorrect paths
             return None
 
-        path_list = []
-
         branch_list = [child_entry]
-
         while (child_entry.parent is not None) \
                 and (child_entry != ancestor_entry):
             child_entry = child_entry.parent
@@ -182,7 +179,7 @@ class MenuEntryMixin(object):
 
         # This means the search reached root, but the ancestor
         # was not encountered. Therefore, entries are on different branches.
-        if branch_list[0] != ancestor_entry:
+        if branch_list[-1] != ancestor_entry:
             return None
         else:
             branch_list.reverse()

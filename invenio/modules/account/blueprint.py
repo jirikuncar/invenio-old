@@ -46,6 +46,7 @@ from invenio.modules.account.models import User
 from invenio.websession_webinterface import wash_login_method
 from invenio.ext.login import login_user, logout_user, UserInfo
 from invenio.ext.menu import register_menu
+from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.ext.sslify import ssl_required
 
 
@@ -74,7 +75,7 @@ def update_login(nickname, password=None, remember_me=False):
                                  'action': (unicode, ''),
                                  'remember_me': (bool, False),
                                  'referer': (unicode, None)})
-@blueprint.invenio_set_breadcrumb(_("Login"))
+@register_breadcrumb(blueprint, '.login', _('Login'))
 @ssl_required
 def login(nickname=None, password=None, login_method=None, action='',
           remember_me=False, referer=None):
@@ -140,7 +141,7 @@ def login(nickname=None, password=None, login_method=None, action='',
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_("Register"))
+@register_breadcrumb(blueprint, '.register', _('Register'))
 @ssl_required
 def register():
     req = request.get_legacy_request()
@@ -198,7 +199,7 @@ def register():
 
 
 @blueprint.route('/logout', methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_("Logout"))
+@register_breadcrumb(blueprint, '.logout', _('Logout'))
 @login_required
 def logout():
     logout_user()
@@ -271,7 +272,7 @@ def index():
 
 
 @blueprint.route('/edit/<name>', methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_("Edit"))
+@register_breadcrumb(blueprint, '.edit', _('Edit'))
 @login_required
 def edit(name):
     if name not in _USER_SETTINGS:

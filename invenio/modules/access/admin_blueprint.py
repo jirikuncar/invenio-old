@@ -24,7 +24,7 @@ from flask.ext.login import login_required
 from invenio.modules.access.models import AccACTION, AccROLE
 from invenio.modules.account.models import User
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.base.decorators import templated
+from invenio.base.decorators import templated, sorted_by
 from invenio.ext.menu import register_menu
 from invenio.access_control_config import \
     WEBACCESSACTION
@@ -72,7 +72,7 @@ def index():
 @blueprint.route('/actionarea', methods=['GET', 'POST'])
 @login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
-@blueprint.invenio_sorted(AccACTION)
+@sorted_by(AccACTION)
 @templated('webaccess_admin_actionarea.html')
 def actionarea(sort=False, filter=None):
     if sort is False:
@@ -84,7 +84,7 @@ def actionarea(sort=False, filter=None):
 @blueprint.route('/rolearea', methods=['GET', 'POST'])
 @login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
-@blueprint.invenio_sorted(AccROLE)
+@sorted_by(AccROLE)
 @templated('webaccess_admin_rolearea.html')
 def rolearea(sort=False, filter=None):
     if sort is False:
@@ -104,7 +104,7 @@ def showroledetails(id_role):
 @blueprint.route('/userarea', methods=['GET', 'POST'])
 @login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
-@blueprint.invenio_sorted(User)
+@sorted_by(User)
 @templated('webaccess_admin_userarea.html')
 def userarea(sort=False, filter=None):
     if sort is False:

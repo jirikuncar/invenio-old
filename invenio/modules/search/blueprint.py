@@ -45,6 +45,7 @@ from invenio.modules.search.models import Collection
 from invenio.websearch_webinterface import wash_search_urlargd
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
+from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.ext.template.context_processor import \
     register_template_context_processor
 from flask.ext.login import current_user
@@ -119,6 +120,7 @@ def response_formated_records(recids, collection, of, **kwargs):
 @blueprint.route('/', methods=['GET', 'POST'])
 @templated('websearch_index.html')
 @register_menu(blueprint, 'main.search', _('Search'), order=1)
+@register_breadcrumb(blueprint, 'breadcrumbs', _('Home'))
 def index():
     """ Renders homepage. """
 
@@ -264,7 +266,7 @@ def collection_breadcrumbs(collection, endpoint=None):
 
 
 @blueprint.route('/browse', methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_('Browse results'))
+@register_breadcrumb(blueprint, '.browse', _('Browse results'))
 @templated('websearch_browse.html')
 @blueprint.invenio_wash_urlargd({'p': (unicode, ''),
                                  'f': (unicode, None),
@@ -339,7 +341,7 @@ def rss(collection, p, jrec, so, rm):
 
 
 @blueprint.route('/search', methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_('Search results'))
+@register_breadcrumb(blueprint, '.browse', _('Search results'))
 @blueprint.invenio_wash_urlargd({'p': (unicode, ''),
                                  'of': (unicode, 'hb'),
                                  'so': (unicode, None),

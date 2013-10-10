@@ -58,9 +58,7 @@ from .forms import \
 blueprint = InvenioBlueprint('webtag',
                              __name__,
                              url_prefix='/yourtags',
-                             config='invenio.webtag_config',
-                             breadcrumbs=[(_('Your Account'), 'youraccount.edit'),
-                                          (_('Your Tags'), 'webtag.display_cloud')])
+                             config='invenio.webtag_config')
 
 default_breadcrumb(blueprint, _('Yous tags'))
 
@@ -71,7 +69,7 @@ default_breadcrumb(blueprint, _('Yous tags'))
 @login_required
 @templated('webtag_display_cloud.html')
 @register_menu(blueprint, 'personalize.tags', _('Your Tags'))
-@register_breadcrumb(blueprint, '.cloud', _('Display as Cloud'))
+@register_breadcrumb(blueprint, '.', _('Display as Cloud'))
 def display_cloud():
     """ List of user's private/group/public tags """
     user = User.query.get(current_user.get_id())
@@ -133,7 +131,7 @@ def display_list(sort_by, order):
 
 @blueprint.route('/tag/<int:id_tag>/records', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_set_breadcrumb(_('Associated Records'))
+@register_breadcrumb(blueprint, '.tags_details', _('Associated Records'))
 def tag_details(id_tag):
     """ List of documents attached to this tag """
 
@@ -263,7 +261,7 @@ def delete():
 
 @blueprint.route('/create', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_set_breadcrumb(_("New tag"))
+@register_breadcrumb(blueprint, '.create', _('New tag'))
 @templated('webtag_create.html')
 def create():
     """ Create a new tag """

@@ -34,6 +34,7 @@ from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated, sorted_by, filtered_by
 from flask.ext.login import current_user, login_required
+from invenio.ext.breadcrumb import register_breadcrumb
 
 from sqlalchemy.sql import operators
 
@@ -117,7 +118,7 @@ def index(sort=False, filter=None):
 
 @blueprint.route("/add", methods=['GET', 'POST'])
 @blueprint.route("/write", methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_("Write a message"))
+@register_breadcrumb(blueprint, '.add', _('Write a message'))
 @login_required
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'msg_reply_id': (int, 0)})
@@ -186,7 +187,7 @@ def add(msg_reply_id):
 
 @blueprint.route("/view")
 @blueprint.route("/display_msg")
-@blueprint.invenio_set_breadcrumb(_("Read a message"))
+@register_breadcrumb(blueprint, '.view', _('View a message'))
 @login_required
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'msgid': (int, 0)})
@@ -237,7 +238,7 @@ def delete():
 
 
 @blueprint.route("/delete_all", methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_("Delete all messages"))
+@register_breadcrumb(blueprint, '.delete', _('Delete all messages'))
 @login_required
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'confirmed': (int, 0)})
