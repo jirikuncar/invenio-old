@@ -21,7 +21,7 @@
 """
 
 
-from .menu import MenuAlchemy, register_menu
+from .menu import MenuAlchemy, register_menu, current_menu
 
 
 def setup_app(app):

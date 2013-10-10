@@ -40,7 +40,7 @@ class MenuAlchemy(object):
             self.init_app(app)
 
     def init_app(self, app):
-        app.extensions['menualchemy'] = MenuEntryMixin('')
+        app.extensions['menualchemy'] = MenuEntryMixin('', None)
         app.context_processor(lambda: dict(
             current_menu=current_menu))
 
@@ -93,8 +93,10 @@ class MenuEntryMixin(object):
     Navigate the hierarchy using :meth:`children` and :meth:`submenu`.
     """
 
-    def __init__(self, name):
+    def __init__(self, name, parent):
         self.name = name
+        self.parent = parent
+
         self._child_entries = dict()
         self._endpoint = None
         self._text = None
@@ -115,13 +117,15 @@ class MenuEntryMixin(object):
         self._active_when = active_when or CONDITION_FALSE
         self._visible_when = visible_when or CONDITION_TRUE
 
-    def submenu(self, path):
+    def submenu(self, path, auto_create=True):
         """Returns submenu placed at the given path in the hierarchy.
 
         If it does not exist, a new one is created.
         Returns None if path string is invalid.
 
         :param path: Path to submenu as a string 'qua.bua.cua'
+        :param auto_create: If True, missing entries will be created
+            to satisfy the given path.
         :return: Submenu placed at the given path in the hierarchy.
         """
 
@@ -132,15 +136,57 @@ class MenuEntryMixin(object):
 
         # Create the entry if it does not exist
         if path_head not in self._child_entries:
-            self._child_entries[path_head] = MenuEntryMixin(path_head)
+            if auto_create:
+                # The entry was not found so create a new one
+                self._child_entries[path_head] = \
+                    MenuEntryMixin(path_head, self)
+            else:
+                # The entry was not found, but we are forbidden to create
+                return None
 
         next_entry = self._child_entries[path_head]
 
         if path_tail:
-            return next_entry.submenu(path_tail)
+            return next_entry.submenu(path_tail, auto_create)
         else:
             # that was the last part of the path
             return next_entry
+
+    def list_path(from_path, to_path):
+        """
+            Lists all items on path between two specified entries,
+            if one of them is an ancestor of the other.
+
+            :param from_path: The ancestor entry.
+            :param to_path: The child entry.
+
+            :return: List of entries between those items or None if
+                they are on different branches.
+        """
+
+        ancestor_entry = self.submenu(from_path)
+        child_entry = self.submenu(to_path)
+
+        if not (ancestor_entry and child_entry):
+            # Incorrect paths
+            return None
+
+        path_list = []
+
+        branch_list = [child_entry]
+
+        while (child_entry.parent is not None) \
+                and (child_entry != ancestor_entry):
+            child_entry = child_entry.parent
+            branch_list.append(child_entry)
+
+        # This means the search reached root, but the ancestor
+        # was not encountered. Therefore, entries are on different branches.
+        if branch_list[0] != ancestor_entry:
+            return None
+        else:
+            branch_list.reverse()
+            return branch_list
 
     def hide(self):
         """Makes the entry always hidden."""
