@@ -29,7 +29,7 @@ from invenio.modules.search.models import Collection, CollectionCollection, \
         Collectionname, CollectionPortalbox
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 from invenio.messages import language_list_long
 from sqlalchemy.ext.orderinglist import ordering_list
 
@@ -47,7 +47,7 @@ blueprint = InvenioBlueprint(
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
 @templated('websearch_admin_index.html')
 @register_menu(blueprint, 'main.admin.websearch', _('Configure WebSearch'),
@@ -67,7 +67,7 @@ def index():
 
 
 @blueprint.route('/modifycollectiontree', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
 def modifycollectiontree():
     """
@@ -128,7 +128,7 @@ def modifycollectiontree():
 
 
 @blueprint.route('/collectiontree', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
 def managecollectiontree():
     """
@@ -145,7 +145,7 @@ def managecollectiontree():
 
 @blueprint.route('/collection/<name>', methods=['GET', 'POST'])
 @blueprint.route('/collection/view/<name>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
 def manage_collection(name):
     collection = Collection.query.filter(Collection.name==name).first_or_404()
@@ -168,7 +168,7 @@ def manage_collection(name):
 
 
 @blueprint.route('/collection/update/<id>', methods=['POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
 def update(id):
     form = CollectionForm(request.form)
@@ -182,7 +182,7 @@ def update(id):
 
 @blueprint.route('/collection/new', methods=['GET', 'POST'])
 @blueprint.route('/collection/add', methods=['GET', 'POST'])
-#@blueprint.invenio_authenticated
+#@login_required
 @templated('websearch_admin_collection.html')
 def create_collection():
     form = CollectionForm()
@@ -192,9 +192,9 @@ def create_collection():
 
 
 @blueprint.route('/collection/update_translations<id>', methods=['POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
-#@blueprint.invenio_authenticated
+#@login_required
 def update_translations(id):
     """
     updates translations if the value is altered or not void
@@ -224,7 +224,7 @@ def update_translations(id):
 
 
 @blueprint.route('/collection/manage_portalboxes_order', methods=['GET', 'POST'])
-#@blueprint.invenio_authenticated
+#@login_required
 def manage_portalboxes_order():
     id_p = request.args.get('id', 0 , type=int)
     collection_id = request.args.get('id_collection', 0 , type=int)
@@ -252,7 +252,7 @@ def manage_portalboxes_order():
 
 
 @blueprint.route('/collection/edit_portalbox', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('cfgwebsearch')
 def edit_portalbox():
     portalbox = Portalbox.query.get(request.args.get_or_404('id', 0, type=int))

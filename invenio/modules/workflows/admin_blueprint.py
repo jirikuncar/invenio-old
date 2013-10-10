@@ -46,7 +46,7 @@ blueprint = InvenioBlueprint('bibworkflow', __name__,
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @templated('bibworkflow_index.html')
 def index():
     """
@@ -57,7 +57,7 @@ def index():
 
 
 @blueprint.route('/entry_details', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_wash_urlargd({'entry_id': (int, 0)})
 def entry_details(entry_id):
     """
@@ -80,7 +80,7 @@ def entry_details(entry_id):
 
 
 @blueprint.route('/workflow_details', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_wash_urlargd({'workflow_id': (unicode, "")})
 def workflow_details(workflow_id):
     w_metadata = Workflow.query.filter(Workflow.uuid == workflow_id).first()
@@ -99,7 +99,7 @@ def workflow_details(workflow_id):
 
 
 @blueprint.route('/workflows', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @templated('bibworkflow_workflows.html')
 def workflows():
     loaded_workflows = PluginContainer(os.path.join(CFG_PYLIBDIR, 'invenio',
@@ -112,7 +112,7 @@ def workflows():
 
 
 @blueprint.route('/run_workflow', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_wash_urlargd({'workflow_name': (unicode, "")})
 def run_workflow(workflow_name, data=10):
     try:
@@ -125,7 +125,7 @@ def run_workflow(workflow_name, data=10):
 
 
 @blueprint.route('/entry_data_preview', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_wash_urlargd({'oid': (int, 0),
                                 'of': (unicode, 'default')})
 def entry_data_preview(oid, of):

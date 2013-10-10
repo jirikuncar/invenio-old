@@ -33,7 +33,7 @@ from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated, sorted_by, filtered_by
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 
 from sqlalchemy.sql import operators
 
@@ -65,7 +65,7 @@ blueprint = InvenioBlueprint('webmessage', __name__, url_prefix="/yourmessages",
 
 @blueprint.route('/menu', methods=['GET'])
 #FIXME if request is_xhr then do not return 401
-#@blueprint.invenio_authenticated
+#@login_required
 #@blueprint.invenio_authorized('usemessages')
 #@templated('webmessage_menu.html')
 def menu():
@@ -87,7 +87,7 @@ def menu():
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @blueprint.route('/display', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('usemessages')
 @sorted_by(MsgMESSAGE)
 @filtered_by(MsgMESSAGE, columns={
@@ -118,7 +118,7 @@ def index(sort=False, filter=None):
 @blueprint.route("/add", methods=['GET', 'POST'])
 @blueprint.route("/write", methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_("Write a message"))
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'msg_reply_id': (int, 0)})
 def add(msg_reply_id):
@@ -187,7 +187,7 @@ def add(msg_reply_id):
 @blueprint.route("/view")
 @blueprint.route("/display_msg")
 @blueprint.invenio_set_breadcrumb(_("Read a message"))
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'msgid': (int, 0)})
 @templated('webmessage_view.html')
@@ -215,7 +215,7 @@ def view(msgid):
 
 
 @blueprint.route("/delete", methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('usemessages')
 def delete():
     """
@@ -238,7 +238,7 @@ def delete():
 
 @blueprint.route("/delete_all", methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_("Delete all messages"))
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'confirmed': (int, 0)})
 def delete_all(confirmed=0):

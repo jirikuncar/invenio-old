@@ -37,7 +37,7 @@ blueprint = InvenioBlueprint('webaccess_admin', __name__,
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @templated('webaccess_admin_index.html')
 @register_menu(blueprint, 'main.admin.webaccess', _('Configure WebAccess'))
@@ -69,7 +69,7 @@ def index():
 
 
 @blueprint.route('/actionarea', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_sorted(AccACTION)
 @templated('webaccess_admin_actionarea.html')
@@ -81,7 +81,7 @@ def actionarea(sort=False, filter=None):
 
 
 @blueprint.route('/rolearea', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_sorted(AccROLE)
 @templated('webaccess_admin_rolearea.html')
@@ -93,7 +93,7 @@ def rolearea(sort=False, filter=None):
 
 
 @blueprint.route('/showroledetails/<int:id_role>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @templated('webaccess_admin_showroledetails.html')
 def showroledetails(id_role):
@@ -101,7 +101,7 @@ def showroledetails(id_role):
 
 
 @blueprint.route('/userarea', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_sorted(User)
 @templated('webaccess_admin_userarea.html')

@@ -32,7 +32,7 @@ from invenio.webcomment_forms import AddCmtRECORDCOMMENTForm, \
                                      AddCmtRECORDCOMMENTFormReview
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 from invenio.ext.menu import register_menu
 from invenio.config import CFG_PREFIX, \
     CFG_SITE_LANG, \
@@ -123,7 +123,7 @@ class CommentRights(object):
 
 @blueprint.route('/<int:recid>/comments/add', methods=['GET', 'POST'])
 @request_record
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('sendcomment',
                               authorized_if_no_roles=True,
                               collection=lambda: g.collection.id)
@@ -165,7 +165,7 @@ def add_comment(recid):
 
 @blueprint.route('/<int:recid>/reviews/add', methods=['GET', 'POST'])
 @request_record
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_authorized('sendcomment',
                               authorized_if_no_roles=True,
                               collection=lambda: g.collection.id)
@@ -279,7 +279,7 @@ def vote(recid, id, value):
 
 
 @blueprint.route('/<int:recid>/toggle/<int:id>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @request_record
 def toggle(recid, id, show=None):
     uid = current_user.get_id()
@@ -301,7 +301,7 @@ def toggle(recid, id, show=None):
 
 
 @blueprint.route('/<int:recid>/comments/subscribe', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @request_record
 def subscribe(recid):
     uid = current_user.get_id()
@@ -318,7 +318,7 @@ def subscribe(recid):
 
 @blueprint.route('/<int:recid>/comments/unsubscribe', methods=['GET', 'POST'])
 @blueprint.route('/comments/unsubscribe', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def unsubscribe(recid=None):
     uid = current_user.get_id()
     if recid is None:
@@ -343,7 +343,7 @@ def unsubscribe(recid=None):
 
 @blueprint.invenio_set_breadcrumb(_("Your comment subscriptions"))
 @blueprint.route('/comments/subscriptions', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @templated('webcomment_subscriptions.html')
 @register_menu(blueprint, 'personalize.comment_subscriptions',
                _('Your comment subscriptions'), order=20)

@@ -19,9 +19,10 @@
 
 """WebAccount Flask Blueprint"""
 
-from werkzeug import CombinedMultiDict, ImmutableMultiDict, MultiDict
+from werkzeug import CombinedMultiDict, ImmutableMultiDict
 from flask import render_template, request, flash, redirect, url_for, \
     g, abort, current_app
+from flask.ext.login import current_user, login_required
 
 from invenio import websession_config
 from invenio import webuser
@@ -38,13 +39,12 @@ from invenio.config import \
     CFG_ACCESS_CONTROL_NOTIFY_USER_ABOUT_NEW_ACCOUNT, \
     CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS
 from invenio.datastructures import LazyDict, flatten_multidict
-from invenio.importutils import autodiscover_modules
 from invenio.sqlalchemyutils import db
 from invenio.webaccount_forms import LoginForm, RegisterForm
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.modules.account.models import User
 from invenio.websession_webinterface import wash_login_method
-from invenio.ext.login import login_user, logout_user, current_user, UserInfo
+from invenio.ext.login import login_user, logout_user, UserInfo
 from invenio.ext.menu import register_menu
 
 
@@ -198,7 +198,7 @@ def register():
 
 @blueprint.route('/logout', methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_("Logout"))
-@blueprint.invenio_authenticated
+@login_required
 def logout():
     logout_user()
 
@@ -229,7 +229,7 @@ _USER_SETTINGS = LazyDict(load_user_settings)
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/display', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @register_menu(blueprint, 'personalize', _('Personalize'))
 def index():
     # load plugins
@@ -271,7 +271,7 @@ def index():
 
 @blueprint.route('/edit/<name>', methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_("Edit"))
-@blueprint.invenio_authenticated
+@login_required
 def edit(name):
     if name not in _USER_SETTINGS:
         flash(_('Invalid plugin name'), 'error')
@@ -308,7 +308,7 @@ def edit(name):
 
 
 @blueprint.route('/view', methods=['GET'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_wash_urlargd({'name': (unicode, "")})
 def view(name):
     if name not in _USER_SETTINGS:

@@ -26,7 +26,7 @@ from invenio.config import CFG_SITE_LANG
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 from invenio.sqlalchemyutils import db
 
 # External imports
@@ -65,7 +65,7 @@ blueprint = InvenioBlueprint('webtag',
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/display', methods=['GET', 'POST'])
 @blueprint.route('/display/cloud', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @templated('webtag_display_cloud.html')
 @register_menu(blueprint, 'personalize.tags', _('Your Tags'))
 def display_cloud():
@@ -101,7 +101,7 @@ def display_cloud():
                 display_mode='cloud')
 
 @blueprint.route('/display/list', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @templated('webtag_display_list.html')
 @blueprint.invenio_wash_urlargd({'sort_by': (unicode, 'name'),
                                  'order': (unicode, '')})
@@ -127,7 +127,7 @@ def display_list(sort_by, order):
 
 
 @blueprint.route('/tag/<int:id_tag>/records', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_set_breadcrumb(_('Associated Records'))
 def tag_details(id_tag):
     """ List of documents attached to this tag """
@@ -155,7 +155,7 @@ def tag_details(id_tag):
                               'hb')
 
 @blueprint.route('/tokenize/<int:id_bibrec>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_wash_urlargd({'q': (unicode, '')})
 def tokenize(id_bibrec, q):
     """ Data for tokeninput """
@@ -192,7 +192,7 @@ def tokenize(id_bibrec, q):
     return jsonify(dict(results=response_tags, query=q))
 
 @blueprint.route('/record/<int:id_bibrec>/edit', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def editor(id_bibrec):
     user = db.session.query(User).get(current_user.get_id())
     record = db.session.query(Bibrec).get(id_bibrec)
@@ -218,7 +218,7 @@ class Field(object):
         setattr(self, attr, value)
 
 @blueprint.route('/delete', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def delete():
     """ Delete a tag """
     response = {}
@@ -257,7 +257,7 @@ def delete():
 #       errors = dict of errors from form
 
 @blueprint.route('/create', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 @blueprint.invenio_set_breadcrumb(_("New tag"))
 @templated('webtag_create.html')
 def create():
@@ -305,7 +305,7 @@ def create():
             return dict(form=form)
 
 @blueprint.route('/attach', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def attach():
     """ Attach a tag to a record """
     response = {}
@@ -333,7 +333,7 @@ def attach():
     return jsonify(response)
 
 @blueprint.route('/detach', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def detach():
     """ Detach a tag from a record """
     response = {}

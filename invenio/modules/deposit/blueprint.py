@@ -56,7 +56,7 @@ from invenio.webdeposit_utils import get_current_form, \
     CFG_DRAFT_STATUS, \
     url_upload,\
     get_all_drafts
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_required
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 
 blueprint = InvenioBlueprint('webdeposit', __name__,
@@ -67,7 +67,7 @@ blueprint = InvenioBlueprint('webdeposit', __name__,
 
 
 @blueprint.route('/upload_from_url/<deposition_type>/<uuid>', methods=['POST'])
-@blueprint.invenio_authenticated
+@login_required
 def upload_from_url(deposition_type, uuid):
     if request.method == 'POST':
         url = request.form['url']
@@ -89,7 +89,7 @@ def upload_from_url(deposition_type, uuid):
 
 
 @blueprint.route('/upload/<deposition_type>/<uuid>', methods=['POST'])
-@blueprint.invenio_authenticated
+@login_required
 def plupload(deposition_type, uuid):
     """ The file is splitted in chunks on the client-side
         and it is merged again on the server-side
@@ -158,7 +158,7 @@ def plupload(deposition_type, uuid):
 
 
 @blueprint.route('/plupload_delete/<uuid>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def plupload_delete(uuid):
     if request.method == 'POST':
         files = draft_field_get(current_user.get_id(), uuid, "files")
@@ -177,7 +177,7 @@ def plupload_delete(uuid):
 
 
 @blueprint.route('/plupload_get_file/<uuid>', methods=['GET'])
-@blueprint.invenio_authenticated
+@login_required
 def plupload_get_file(uuid):
     filename = request.args.get('filename')
     tmp = ""
@@ -193,14 +193,14 @@ def plupload_get_file(uuid):
 
 
 @blueprint.route('/check_status/<uuid>/', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def check_status(uuid):
     form_status = get_form_status(current_user.get_id(), uuid)
     return jsonify({"status": form_status})
 
 
 @blueprint.route('_autocomplete/<uuid>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def autocomplete(uuid):
     """ Returns a list with of suggestions for the field
         based on the current value
@@ -221,7 +221,7 @@ def autocomplete(uuid):
 
 
 @blueprint.route('_errorCheck/<uuid>')
-@blueprint.invenio_authenticated
+@login_required
 def error_check(uuid):
     """ Used for field error checking
     """
@@ -242,7 +242,7 @@ def error_check(uuid):
 
 
 @blueprint.route('/<deposition_type>/delete/<uuid>')
-@blueprint.invenio_authenticated
+@login_required
 def delete(deposition_type, uuid):
     """ Deletes the whole deposition with uuid=uuid
         (including form drafts)
@@ -258,7 +258,7 @@ def delete(deposition_type, uuid):
 
 
 @blueprint.route('/<deposition_type>/new/')
-@blueprint.invenio_authenticated
+@login_required
 def create_new(deposition_type):
     """ Creates new deposition
     """
@@ -287,7 +287,7 @@ def index_deposition_types():
 
 
 @blueprint.route('/<deposition_type>/')
-@blueprint.invenio_authenticated
+@login_required
 def index(deposition_type):
     if deposition_type not in deposition_metadata:
         flash(_('Invalid deposition type `%s`.' % deposition_type), 'error')
@@ -303,7 +303,7 @@ def index(deposition_type):
 
 
 @blueprint.route('/<deposition_type>/<uuid>', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def add(deposition_type, uuid):
     """
         Runs the workflows and shows the current form/output of the workflow
