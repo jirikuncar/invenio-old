@@ -50,10 +50,6 @@ class InvenioBlueprint(Blueprint):
         """
         Blueprint.__init__(self, name, import_name, url_prefix=url_prefix, **kwargs)
         self.config = config
-        self.breadcrumbs = breadcrumbs or []
-        self.breadcrumbs_map = {}
-        self.menubuilder = menubuilder or []
-        self.menubuilder_map = {}
         self._force_https = force_https
 
     def invenio_authorized(self, action, **params):

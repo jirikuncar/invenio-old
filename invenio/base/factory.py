@@ -295,7 +295,6 @@ def create_app(**kwargs_config):
     _app.config['breadcrumbs_map'] = {}
 
     ## Let's attach all the blueprints
-    from invenio.webinterface_handler_flask_utils import _
     for plugin in _BLUEPRINTS:
         _app.register_blueprint(plugin,
                                 url_prefix=_app.config.get(
@@ -307,9 +306,6 @@ def create_app(**kwargs_config):
             ## 'invenio.webmessage_config' any uppercase variable defined in
             ## the module invenio.webmessage_config is loaded into the system.
             _app.config.from_object(plugin.config)
-        if plugin.breadcrumbs:
-            _app.config['breadcrumbs_map'][plugin.name] = plugin.breadcrumbs
-        _app.config['breadcrumbs_map'].update(plugin.breadcrumbs_map)
 
     # Flask-Admin was here.
 

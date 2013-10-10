@@ -79,8 +79,6 @@ def inject_utils():
     - `url_for`: an Invenio specific wrapper of Flask url_for, that will let
                  you obtain URLs for non Flask-native handlers (i.e. not yet
                  ported Invenio URLs)
-    - `breadcrumbs`: this will be a list of three-elements tuples, containing
-                 the hierarchy of Label -> URLs of navtrails/breadcrumbs.
     - `_`: this can be used to automatically translate a given string.
     - `is_language_rtl`: True if the chosen language should be read right to
                          left.
@@ -117,7 +115,6 @@ def inject_utils():
                 alternate_urls=alternate_urls,
                 get_record=get_record,
                 url_for=invenio_url_for,
-                breadcrumbs=[],
                 **TEMPLATE_CONTEXT_FILTERS
                 )
 

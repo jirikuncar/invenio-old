@@ -40,7 +40,6 @@ current_path = LocalProxy(_current_path)
 
 def _breadcrumbs():
     """Returns list with breadcrumbs."""
-    print current_menu
     return current_menu.list_path('breadcrumbs', current_path) or []
 
 breadcrumbs = LocalProxy(_breadcrumbs)

@@ -34,6 +34,7 @@ from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
 from invenio.ext.menu import register_menu
+from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.config import CFG_PREFIX, \
     CFG_SITE_LANG, \
     CFG_WEBALERT_ALERT_ENGINE_EMAIL,\
@@ -58,9 +59,7 @@ from invenio.access_control_engine import acc_authorize_action
 
 blueprint = InvenioBlueprint('webcomment', __name__,
                              url_prefix="/" + CFG_SITE_RECORD,
-                             config='invenio.webcomment_config',
-                             breadcrumbs=[(_('Comments'),
-                                           'webcomment.subscribtions')])
+                             config='invenio.webcomment_config')
 
 from invenio.modules.records.blueprint import request_record
 
@@ -341,12 +340,12 @@ def unsubscribe(recid=None):
         return redirect(url_for('.subscriptions'))
 
 
-@blueprint.invenio_set_breadcrumb(_("Your comment subscriptions"))
 @blueprint.route('/comments/subscriptions', methods=['GET', 'POST'])
 @login_required
 @templated('webcomment_subscriptions.html')
 @register_menu(blueprint, 'personalize.comment_subscriptions',
                _('Your comment subscriptions'), order=20)
+@register_breadcrumb(blueprint, '.', _("Your comment subscriptions"))
 def subscriptions():
     uid = current_user.get_id()
     subscriptions = CmtSUBSCRIPTION.query.filter(
