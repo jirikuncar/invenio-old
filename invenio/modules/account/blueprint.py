@@ -46,6 +46,7 @@ from invenio.modules.account.models import User
 from invenio.websession_webinterface import wash_login_method
 from invenio.ext.login import login_user, logout_user, UserInfo
 from invenio.ext.menu import register_menu
+from invenio.ext.sslify import ssl_required
 
 
 CFG_HAS_HTTPS_SUPPORT = CFG_SITE_SECURE_URL.startswith("https://")
@@ -74,7 +75,7 @@ def update_login(nickname, password=None, remember_me=False):
                                  'remember_me': (bool, False),
                                  'referer': (unicode, None)})
 @blueprint.invenio_set_breadcrumb(_("Login"))
-@blueprint.invenio_force_https
+@ssl_required
 def login(nickname=None, password=None, login_method=None, action='',
           remember_me=False, referer=None):
 
@@ -140,7 +141,7 @@ def login(nickname=None, password=None, login_method=None, action='',
 
 @blueprint.route('/register', methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_("Register"))
-@blueprint.invenio_force_https
+@ssl_required
 def register():
     req = request.get_legacy_request()
 

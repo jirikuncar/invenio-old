@@ -56,17 +56,6 @@ class InvenioBlueprint(Blueprint):
         self.menubuilder_map = {}
         self._force_https = force_https
 
-    @property
-    def invenio_force_https(self):
-        """
-        Decorator: This forces the view function be available only through
-        HTTPS.
-        """
-        def decorator(f):
-            f._force_https = True
-            return f
-        return decorator
-
     def invenio_authorized(self, action, **params):
         """
         Decorator: This checks is current user is authorized to the action.

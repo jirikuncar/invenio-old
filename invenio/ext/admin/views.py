@@ -22,6 +22,7 @@ from flask.ext.admin.contrib.sqlamodel import ModelView as FlaskModelView
 from flask.ext.login import current_user
 
 from invenio.webinterface_handler_flask_utils import InvenioBlueprint
+from invenio.ext.sslify import ssl_required
 
 
 def can_acc_action(action):
@@ -114,15 +115,14 @@ class BaseView(FlaskBaseView):
         import_name = getattr(self, 'import_name', __name__)
 
         # Create blueprint and register rules
-        self.blueprint = InvenioBlueprint(
+        self.blueprint = ssl_required(InvenioBlueprint(
             self.endpoint, import_name,
             url_prefix=self.url,
             subdomain=self.admin.subdomain,
             template_folder='templates',
             static_folder=self.static_folder,
             static_url_path=self.static_url_path,
-            force_https=True,
-        )
+        ))
 
         for url, name, methods in self._urls:
             self.blueprint.add_url_rule(url,

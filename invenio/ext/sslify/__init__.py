@@ -26,6 +26,7 @@
 
 from flask import session, request, current_app
 from invenio.flask_sslify import SSLify
+from .decorators import ssl_required
 
 
 def setup_app(app):
@@ -46,8 +47,8 @@ def setup_app(app):
                 """Extends criteria when to stay on HTTP site."""
                 _force_https = False
                 if request.blueprint in current_app.blueprints:
-                    _force_https = current_app.blueprints[request.blueprint].\
-                        _force_https
+                    blueprint =  current_app.blueprints[request.blueprint]
+                    _force_https = getattr(blueprint, '_force_https', False)
 
                 view_func = current_app.view_functions.get(request.endpoint)
                 if view_func is not None and hasattr(view_func, '_force_https'):
@@ -56,3 +57,5 @@ def setup_app(app):
                 return not (_force_https or session.need_https())
 
     return app
+
+__all__ = ['setup_app', 'ssl_required']
