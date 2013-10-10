@@ -44,6 +44,7 @@ from invenio.websearch_forms import EasySearchForm
 from invenio.modules.search.models import Collection
 from invenio.websearch_webinterface import wash_search_urlargd
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from invenio.ext.template.context_processor import \
     register_template_context_processor
 from flask.ext.login import current_user
@@ -116,7 +117,7 @@ def response_formated_records(recids, collection, of, **kwargs):
 
 @blueprint.route('/index.py', methods=['GET', 'POST'])
 @blueprint.route('/', methods=['GET', 'POST'])
-@blueprint.invenio_templated('websearch_index.html')
+@templated('websearch_index.html')
 @register_menu(blueprint, 'main.search', _('Search'), order=1)
 def index():
     """ Renders homepage. """
@@ -142,7 +143,7 @@ def index():
 
 
 @blueprint.route('/collection/<name>', methods=['GET', 'POST'])
-@blueprint.invenio_templated('websearch_collection.html')
+@templated('websearch_collection.html')
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
     b = [(_('Home'), '.index')] + collection.breadcrumbs(ln=g.ln)[1:]
@@ -264,7 +265,7 @@ def collection_breadcrumbs(collection, endpoint=None):
 
 @blueprint.route('/browse', methods=['GET', 'POST'])
 @blueprint.invenio_set_breadcrumb(_('Browse results'))
-@blueprint.invenio_templated('websearch_browse.html')
+@templated('websearch_browse.html')
 @blueprint.invenio_wash_urlargd({'p': (unicode, ''),
                                  'f': (unicode, None),
                                  'of': (unicode, 'hb'),

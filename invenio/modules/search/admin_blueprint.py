@@ -28,6 +28,7 @@ from invenio.sqlalchemyutils import db
 from invenio.modules.search.models import Collection, CollectionCollection, \
         Collectionname, CollectionPortalbox
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from flask.ext.login import current_user
 from invenio.messages import language_list_long
 from sqlalchemy.ext.orderinglist import ordering_list
@@ -48,7 +49,7 @@ blueprint = InvenioBlueprint(
 @blueprint.route('/index', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized('cfgwebsearch')
-@blueprint.invenio_templated('websearch_admin_index.html')
+@templated('websearch_admin_index.html')
 @register_menu(blueprint, 'main.admin.websearch', _('Configure WebSearch'),
                order=50)
 def index():
@@ -182,7 +183,7 @@ def update(id):
 @blueprint.route('/collection/new', methods=['GET', 'POST'])
 @blueprint.route('/collection/add', methods=['GET', 'POST'])
 #@blueprint.invenio_authenticated
-@blueprint.invenio_templated('websearch_admin_collection.html')
+@templated('websearch_admin_collection.html')
 def create_collection():
     form = CollectionForm()
     return dict(form=form)

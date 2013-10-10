@@ -31,6 +31,7 @@ from invenio.modules.comments.models import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
 from invenio.webcomment_forms import AddCmtRECORDCOMMENTForm, \
                                      AddCmtRECORDCOMMENTFormReview
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from flask.ext.login import current_user
 from invenio.ext.menu import register_menu
 from invenio.config import CFG_PREFIX, \
@@ -343,7 +344,7 @@ def unsubscribe(recid=None):
 @blueprint.invenio_set_breadcrumb(_("Your comment subscriptions"))
 @blueprint.route('/comments/subscriptions', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
-@blueprint.invenio_templated('webcomment_subscriptions.html')
+@templated('webcomment_subscriptions.html')
 @register_menu(blueprint, 'personalize.comment_subscriptions',
                _('Your comment subscriptions'), order=20)
 def subscriptions():

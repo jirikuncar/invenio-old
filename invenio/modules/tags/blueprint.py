@@ -25,6 +25,7 @@ from invenio.config import CFG_SITE_LANG
 # Flask
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from flask.ext.login import current_user
 from invenio.sqlalchemyutils import db
 
@@ -65,7 +66,7 @@ blueprint = InvenioBlueprint('webtag',
 @blueprint.route('/display', methods=['GET', 'POST'])
 @blueprint.route('/display/cloud', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
-@blueprint.invenio_templated('webtag_display_cloud.html')
+@templated('webtag_display_cloud.html')
 @register_menu(blueprint, 'personalize.tags', _('Your Tags'))
 def display_cloud():
     """ List of user's private/group/public tags """
@@ -101,7 +102,7 @@ def display_cloud():
 
 @blueprint.route('/display/list', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
-@blueprint.invenio_templated('webtag_display_list.html')
+@templated('webtag_display_list.html')
 @blueprint.invenio_wash_urlargd({'sort_by': (unicode, 'name'),
                                  'order': (unicode, '')})
 def display_list(sort_by, order):
@@ -258,7 +259,7 @@ def delete():
 @blueprint.route('/create', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_set_breadcrumb(_("New tag"))
-@blueprint.invenio_templated('webtag_create.html')
+@templated('webtag_create.html')
 def create():
     """ Create a new tag """
     response = {}

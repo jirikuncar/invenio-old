@@ -28,6 +28,7 @@ import os
 from invenio.pluginutils import PluginContainer
 from invenio.config import CFG_PYLIBDIR, CFG_LOGDIR
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from invenio.bibworkflow_utils import getWorkflowDefinition
 
 import traceback
@@ -46,7 +47,7 @@ blueprint = InvenioBlueprint('bibworkflow', __name__,
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
-@blueprint.invenio_templated('bibworkflow_index.html')
+@templated('bibworkflow_index.html')
 def index():
     """
     Dispalys main interface of BibWorkflow.
@@ -99,7 +100,7 @@ def workflow_details(workflow_id):
 
 @blueprint.route('/workflows', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
-@blueprint.invenio_templated('bibworkflow_workflows.html')
+@templated('bibworkflow_workflows.html')
 def workflows():
     loaded_workflows = PluginContainer(os.path.join(CFG_PYLIBDIR, 'invenio',
                                        'bibworkflow', 'workflows', '*.py'))

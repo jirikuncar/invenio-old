@@ -23,6 +23,7 @@ from flask import redirect, url_for
 from invenio.modules.access.models import AccACTION, AccROLE
 from invenio.modules.account.models import User
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from invenio.ext.menu import register_menu
 from invenio.access_control_config import \
     WEBACCESSACTION
@@ -38,7 +39,7 @@ blueprint = InvenioBlueprint('webaccess_admin', __name__,
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized(WEBACCESSACTION)
-@blueprint.invenio_templated('webaccess_admin_index.html')
+@templated('webaccess_admin_index.html')
 @register_menu(blueprint, 'main.admin.webaccess', _('Configure WebAccess'))
 def index():
     actions = [
@@ -71,7 +72,7 @@ def index():
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_sorted(AccACTION)
-@blueprint.invenio_templated('webaccess_admin_actionarea.html')
+@templated('webaccess_admin_actionarea.html')
 def actionarea(sort=False, filter=None):
     if sort is False:
         sort = AccACTION.name
@@ -83,7 +84,7 @@ def actionarea(sort=False, filter=None):
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_sorted(AccROLE)
-@blueprint.invenio_templated('webaccess_admin_rolearea.html')
+@templated('webaccess_admin_rolearea.html')
 def rolearea(sort=False, filter=None):
     if sort is False:
         sort = AccROLE.name
@@ -94,7 +95,7 @@ def rolearea(sort=False, filter=None):
 @blueprint.route('/showroledetails/<int:id_role>', methods=['GET', 'POST'])
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized(WEBACCESSACTION)
-@blueprint.invenio_templated('webaccess_admin_showroledetails.html')
+@templated('webaccess_admin_showroledetails.html')
 def showroledetails(id_role):
     return dict(role=AccROLE.query.get_or_404(id_role))
 
@@ -103,7 +104,7 @@ def showroledetails(id_role):
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @blueprint.invenio_sorted(User)
-@blueprint.invenio_templated('webaccess_admin_userarea.html')
+@templated('webaccess_admin_userarea.html')
 def userarea(sort=False, filter=None):
     if sort is False:
         sort = User.nickname

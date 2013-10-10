@@ -32,6 +32,7 @@ from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.decorators import templated
 from flask.ext.login import current_user
 
 from sqlalchemy.sql import operators
@@ -66,7 +67,7 @@ blueprint = InvenioBlueprint('webmessage', __name__, url_prefix="/yourmessages",
 #FIXME if request is_xhr then do not return 401
 #@blueprint.invenio_authenticated
 #@blueprint.invenio_authorized('usemessages')
-#@blueprint.invenio_templated('webmessage_menu.html')
+#@templated('webmessage_menu.html')
 def menu():
     uid = current_user.get_id()
 
@@ -93,7 +94,7 @@ def menu():
     'subject': operators.startswith_op,
     'user_from.nickname': operators.contains_op},
     form=FilterMsgMESSAGEForm)
-@blueprint.invenio_templated('webmessage_index.html')
+@templated('webmessage_index.html')
 @register_menu(blueprint, 'personalize.messages', _('Your messages'), order=10)
 @register_menu(blueprint, 'main.messages', MessagesMenu(), order=-3,
                visible_when=not_guest)
@@ -189,7 +190,7 @@ def add(msg_reply_id):
 @blueprint.invenio_authenticated
 @blueprint.invenio_authorized('usemessages')
 @blueprint.invenio_wash_urlargd({'msgid': (int, 0)})
-@blueprint.invenio_templated('webmessage_view.html')
+@templated('webmessage_view.html')
 def view(msgid):
     uid = current_user.get_id()
     if (dbquery.check_user_owns_message(uid, msgid) == 0):
