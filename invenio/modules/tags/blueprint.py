@@ -35,6 +35,7 @@ from invenio.modules.record_editor.models import Bibrec
 from invenio.modules.search.models import Collection
 from invenio.modules.search.blueprint import response_formated_records
 from invenio.ext.menu import register_menu
+from invenio.ext.breadcrumb import default_breadcrumb, register_breadcrumb
 
 # Internal imports
 from .models import \
@@ -61,6 +62,8 @@ blueprint = InvenioBlueprint('webtag',
                              breadcrumbs=[(_('Your Account'), 'youraccount.edit'),
                                           (_('Your Tags'), 'webtag.display_cloud')])
 
+default_breadcrumb(blueprint, _('Yous tags'))
+
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/display', methods=['GET', 'POST'])
@@ -68,6 +71,7 @@ blueprint = InvenioBlueprint('webtag',
 @login_required
 @templated('webtag_display_cloud.html')
 @register_menu(blueprint, 'personalize.tags', _('Your Tags'))
+@register_breadcrumb(blueprint, '.cloud', _('Display as Cloud'))
 def display_cloud():
     """ List of user's private/group/public tags """
     user = User.query.get(current_user.get_id())
@@ -105,6 +109,7 @@ def display_cloud():
 @templated('webtag_display_list.html')
 @blueprint.invenio_wash_urlargd({'sort_by': (unicode, 'name'),
                                  'order': (unicode, '')})
+@register_breadcrumb(blueprint, '.list', _('Display as List'))
 def display_list(sort_by, order):
     """ List of user's private/group/public tags """
     tags = User.query.get(current_user.get_id()).tags_query
