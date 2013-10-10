@@ -251,6 +251,9 @@ def create_app(**kwargs_config):
     ## Invenio is all using str objects. Let's change them to unicode
     _app.config.update(unicodifier(dict(_app.config)))
 
+    from invenio.base import before_request_functions
+    before_request_functions.setup_app(_app)
+
     # Cache was here
 
     # Logging was here.
@@ -265,9 +268,7 @@ def create_app(**kwargs_config):
 
     # Gravatar bridge was here.
 
-    # Let's set the user language
-    from invenio.webinterface_handler_flask_utils import guess_language
-    _app.before_request(guess_language)
+    # Set the user language was here.
 
     # Custom templete filters loading was here.
 

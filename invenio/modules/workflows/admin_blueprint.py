@@ -21,6 +21,7 @@ __revision__ = "$Id$"
 __lastupdated__ = """$Date$"""
 
 from flask import render_template
+from flask.ext.login import login_required
 from pprint import pformat
 from invenio.modules.workflows.models import Workflow, WfeObject
 from invenio.bibworkflow_api import run
