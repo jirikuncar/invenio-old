@@ -60,7 +60,9 @@ class MenuAlchemy(object):
 
         :param blueprint: Blueprint which owns the function.
         :param path: Path to this item in menu hierarchy,
-            for example 'main.category.item'.
+            for example 'main.category.item'. Path can be an object
+            with custom __str__ method: it will be converted on first request,
+            therefore you can use current_app inside this __str__ method.
         :param text: Text displayed as link.
         :param order: Index of item among other items in the same menu.
         :param endpoint_arguments_constructor: Function returning dict of
@@ -77,7 +79,9 @@ class MenuAlchemy(object):
 
             @blueprint.before_app_first_request
             def _register_menu_item():
-                item = current_menu.submenu(path)
+                # str(path) allows path to be a string-convertible object
+                # that may be useful for delayed evaluation of path
+                item = current_menu.submenu(str(path))
                 item.register(endpoint, text, order,
                               endpoint_arguments_constructor,
                               active_when, visible_when)
