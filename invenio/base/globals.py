@@ -32,7 +32,7 @@ def _lookup_current_function():
 
 
 def _lookup_current_blueprint():
-    return request.blueprint
+    return current_app.blueprints.get(request.blueprint, None)
 
 # context data
 current_function = LocalProxy(_lookup_current_function)
