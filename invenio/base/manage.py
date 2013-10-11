@@ -22,7 +22,7 @@ import sys
 from invenio.config import CFG_SITE_SECRET_KEY
 from invenio.scriptutils import Manager, change_command_name, \
     generate_secret_key, register_manager
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.base.factory import create_app
 
 
