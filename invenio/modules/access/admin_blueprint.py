@@ -26,15 +26,13 @@ from invenio.modules.account.models import User
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated, sorted_by
 from invenio.ext.menu import register_menu
+from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.access_control_config import \
     WEBACCESSACTION
 
 blueprint = InvenioBlueprint('webaccess_admin', __name__,
                              url_prefix="/admin/webaccess",
-                             config='invenio.access_control_config',
-                             breadcrumbs=[(_('Administration'), 'help.admin'),
-                                          (_('WebAccess'),
-                                           'webaccesss_admin.index')])
+                             config='invenio.access_control_config')
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
@@ -42,6 +40,7 @@ blueprint = InvenioBlueprint('webaccess_admin', __name__,
 @blueprint.invenio_authorized(WEBACCESSACTION)
 @templated('webaccess_admin_index.html')
 @register_menu(blueprint, 'main.admin.webaccess', _('Configure WebAccess'))
+@register_breadcrumb(blueprint, 'admin.webaccess_admin', _('WebAccess'))
 def index():
     actions = [
         dict(url=url_for('.rolearea'),
