@@ -233,6 +233,7 @@ _USER_SETTINGS = LazyDict(load_user_settings)
 @blueprint.route('/display', methods=['GET', 'POST'])
 @login_required
 @register_menu(blueprint, 'personalize', _('Personalize'))
+@register_breadcrumb(blueprint, '.', _('Your account'))
 def index():
     # load plugins
     plugins = filter(lambda x: x.is_authorized and x.widget,
