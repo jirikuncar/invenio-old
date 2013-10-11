@@ -28,7 +28,7 @@ import types
 from .bccache import BytecodeCacheWithConfig
 from .context_processor import setup_app as context_processor_setup_app
 from flask import g, request, current_app, _request_ctx_stack, url_for
-from jinja2 import FileSystemLoader
+from jinja2 import FileSystemLoader, ChoiceLoader
 
 from invenio.datastructures import LazyDict
 
@@ -152,10 +152,13 @@ def setup_app(app):
     ## /opt/invenio/etc-local/templates and then into
     ## /opt/invenio/etc/templates
     CFG_ETCDIR = app.config.get('CFG_ETCDIR', 'etc')
-    app.jinja_loader = FileSystemLoader([os.path.join(CFG_ETCDIR + '-local',
+    jinja_loader = ChoiceLoader([
+        app.jinja_loader,
+        FileSystemLoader([os.path.join(CFG_ETCDIR + '-local',
                                                       'templates'),
-                                         os.path.join(CFG_ETCDIR, 'templates')])
-
+                          os.path.join(CFG_ETCDIR, 'templates')])
+    ])
+    app.jinja_loader = jinja_loader
 
     for ext in app.config.get('JINJA2_EXTENSIONS', []):
         try:

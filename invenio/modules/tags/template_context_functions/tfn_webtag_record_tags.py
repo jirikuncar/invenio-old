@@ -46,7 +46,7 @@ def template_context_function(id_bibrec, id_user):
                    WtgTAGRecord.id_bibrec == id_bibrec)\
            .order_by(WtgTAG.name)\
            .all()
-        return render_template_to_string('webtag_record.html',
+        return render_template_to_string('tags/record.html',
                                          id_bibrec=id_bibrec,
                                          record_tags=tags)
     else:

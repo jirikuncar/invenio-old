@@ -55,7 +55,7 @@ class WebTagSettings(Settings):
             .filter(WtgTAG.user == user).count()
 
         return render_template_to_string(
-            'webtag_user_settings.html',
+            'tags/user_settings.html',
             tag_count=tag_count,
             record_count=record_count)
 

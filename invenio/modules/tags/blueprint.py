@@ -55,10 +55,8 @@ from .forms import \
     validators
 
 
-blueprint = InvenioBlueprint('webtag',
-                             __name__,
-                             url_prefix='/yourtags',
-                             config='invenio.webtag_config')
+blueprint = InvenioBlueprint('webtag', __name__, template_folder='templates',
+                             url_prefix='/yourtags')
 
 default_breadcrumb(blueprint, _('Yous tags'))
 
@@ -67,7 +65,7 @@ default_breadcrumb(blueprint, _('Yous tags'))
 @blueprint.route('/display', methods=['GET', 'POST'])
 @blueprint.route('/display/cloud', methods=['GET', 'POST'])
 @login_required
-@templated('webtag_display_cloud.html')
+@templated('tags/display_cloud.html')
 @register_menu(blueprint, 'personalize.tags', _('Your Tags'))
 @register_breadcrumb(blueprint, '.', _('Display as Cloud'))
 def display_cloud():
@@ -104,7 +102,7 @@ def display_cloud():
 
 @blueprint.route('/display/list', methods=['GET', 'POST'])
 @login_required
-@templated('webtag_display_list.html')
+@templated('tags/display_list.html')
 @blueprint.invenio_wash_urlargd({'sort_by': (unicode, 'name'),
                                  'order': (unicode, '')})
 @register_breadcrumb(blueprint, '.list', _('Display as List'))
@@ -212,7 +210,7 @@ def editor(id_bibrec):
 
     # invenio_templated cannot be used,
     # because this view is requested using AJAX
-    return render_template('webtag_editor.html', id_bibrec=id_bibrec,
+    return render_template('tags/editor.html', id_bibrec=id_bibrec,
                                                  record_tags=tags_json)
 
 #Temporary solution to call validators, we need a better one
@@ -262,7 +260,7 @@ def delete():
 @blueprint.route('/create', methods=['GET', 'POST'])
 @login_required
 @register_breadcrumb(blueprint, '.create', _('New tag'))
-@templated('webtag_create.html')
+@templated('tags/create.html')
 def create():
     """ Create a new tag """
     response = {}
