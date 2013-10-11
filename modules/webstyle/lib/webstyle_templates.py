@@ -86,19 +86,23 @@ class Template:
         if title == CFG_SITE_NAME_INTL.get(ln, CFG_SITE_NAME):
             return ""
 
+        # Breadcrumbs
+        # breadcrumb objects should provide properties 'text' and 'url'
+
         # First element
-        breadcrumbs = [(_("Home"), CFG_SITE_URL), ]
+        breadcrumbs = [dict(text=_("Home"), url=CFG_SITE_URL), ]
 
         # Decode previous elements
         if previous_links:
             soup = BeautifulSoup(previous_links)
             for link in soup.find_all('a'):
-                breadcrumbs.append((unicode(" ".join(link.contents)),
-                                   link.get('href')))
+                breadcrumbs.append(dict(
+                    text=unicode(' '.join(link.contents)),
+                    url=link.get('href')))
 
         # Add head
         if title:
-            breadcrumbs.append((title, ''))
+            breadcrumbs.append(dict(text=title, url='#'))
 
         return render_template_to_string("breadcrumbs.html",
                                          breadcrumbs=breadcrumbs).encode('utf8')
