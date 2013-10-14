@@ -19,7 +19,7 @@
     invenio.base.helpers
     --------------------
 
-    Implements various helpers and decorators.
+    Implements various helpers.
 """
 
 from functools import wraps
@@ -52,3 +52,24 @@ def with_app_context(app=None, new_context=False, **kwargs_config):
             return result
         return decorated_func
     return decorator
+
+
+def unicodifier(obj):
+    """
+    Tries to (recursively) convert the given object into unicode, assuming
+    a UTF-8 encoding)
+
+    :param obj: the object to convert
+        (can be e.g. unicode, str, list, tuple, dict)
+    """
+    if isinstance(obj, unicode):
+        return obj
+    elif isinstance(obj, str):
+        return obj.decode('utf8')
+    elif isinstance(obj, list):
+        return [unicodifier(elem) for elem in obj]
+    elif isinstance(obj, tuple):
+        return tuple(unicodifier(elem) for elem in obj)
+    elif isinstance(obj, dict):
+        return dict((key, unicodifier(value)) for key, value in obj.iteritems())
+    return obj

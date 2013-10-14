@@ -564,7 +564,7 @@ def format_with_format_template(format_template_filename, bfo,
             get_record as bibfield_get_record
         from invenio.search_engine import print_record
         from flask.ext.login import current_user
-        from invenio.webinterface_handler_flask_utils import unicodifier
+        from invenio.base.helpers import unicodifier
 
         def _format_record(recid, of='hb', user_info=current_user, *args, **kwargs):
             return print_record(recid, format=of, user_info=user_info, *args, **kwargs)

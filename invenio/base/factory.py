@@ -38,7 +38,7 @@ from invenio.config import \
 
 from werkzeug.utils import import_string
 
-from .helpers import with_app_context
+from .helpers import with_app_context, unicodifier
 from .wrappers import Flask
 
 def import_extension(directories, extension_name):
@@ -200,7 +200,6 @@ def create_app(**kwargs_config):
     #check_running_process_user()
 
     from invenio.messages import language_list_long
-    from invenio.webinterface_handler_flask_utils import unicodifier
 
     # Jinja2 hacks were here.
     # See note on Jinja2 string decoding using ASCII codec instead of UTF8 in

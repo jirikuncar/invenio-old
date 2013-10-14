@@ -26,7 +26,7 @@
 """
 
 from .legacy_user import UserInfo
-from flask import request, flash
+from flask import request, flash, g
 from flask.ext.login import LoginManager, current_user, \
     login_user as flask_login_user, logout_user, login_required, UserMixin
 
@@ -44,10 +44,9 @@ def setup_app(app):
     @app.errorhandler(401)
     def do_login_first(error=401):
         """Displays login page when user is not authorised."""
-        from invenio.webinterface_handler_flask_utils import _
         if request.is_xhr:
-            return _("Authorization failure"), 401
-        flash(_("Authorization failure"), 'error')
+            return g._("Authorization failure"), 401
+        flash(g._("Authorization failure"), 'error')
         from invenio.modules.account.blueprint import login
         return login(referer=request.url), 401
 

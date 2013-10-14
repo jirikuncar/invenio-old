@@ -65,7 +65,7 @@ except ImportError:
 from invenio.errorlib import register_exception
 from invenio.miscutil_config import InvenioMiscUtilError
 from invenio.ext.template import render_template_to_string
-from invenio.webinterface_handler_flask_utils import unicodifier
+from invenio.base.helpers import unicodifier
 
 
 def setup_app(app):

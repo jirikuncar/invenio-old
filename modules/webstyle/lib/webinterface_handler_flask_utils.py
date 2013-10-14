@@ -61,26 +61,6 @@ class InvenioBlueprint(Blueprint):
         return _invenio_wash_urlargd
 
 
-def unicodifier(obj):
-    """
-    Tries to (recursively) convert the given object into unicode, assuming
-    a UTF-8 encoding)
-
-    :Parameters:
-    - `obj`: the object to convert (can be e.g. unicode, str, list, tuple, dict...
-    """
-    if isinstance(obj, unicode):
-        return obj
-    elif isinstance(obj, str):
-        return obj.decode('utf8')
-    elif isinstance(obj, list):
-        return [unicodifier(elem) for elem in obj]
-    elif isinstance(obj, tuple):
-        return tuple(unicodifier(elem) for elem in obj)
-    elif isinstance(obj, dict):
-        return dict((key, unicodifier(value)) for key, value in obj.iteritems())
-    return obj
-
 def wash_urlargd(form, content):
     """
     Wash the complete form based on the specification in
