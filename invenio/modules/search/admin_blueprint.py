@@ -30,6 +30,7 @@ from invenio.modules.search.models import Collection, CollectionCollection, \
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
+from invenio.ext.principal import permission_required
 from invenio.messages import language_list_long
 from sqlalchemy.ext.orderinglist import ordering_list
 
@@ -48,7 +49,7 @@ blueprint = InvenioBlueprint(
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 @templated('websearch_admin_index.html')
 @register_menu(blueprint, 'main.admin.websearch', _('Configure WebSearch'),
                order=50)
@@ -68,7 +69,7 @@ def index():
 
 @blueprint.route('/modifycollectiontree', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 def modifycollectiontree():
     """
     Handler of the tree changing operations triggered by the drag and drop operation
@@ -129,7 +130,7 @@ def modifycollectiontree():
 
 @blueprint.route('/collectiontree', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 def managecollectiontree():
     """
     Here is where managing the tree is possible
@@ -146,7 +147,7 @@ def managecollectiontree():
 @blueprint.route('/collection/<name>', methods=['GET', 'POST'])
 @blueprint.route('/collection/view/<name>', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 def manage_collection(name):
     collection = Collection.query.filter(Collection.name==name).first_or_404()
     form = CollectionForm(request.form, obj = collection)
@@ -169,7 +170,7 @@ def manage_collection(name):
 
 @blueprint.route('/collection/update/<id>', methods=['POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 def update(id):
     form = CollectionForm(request.form)
     if  request.method == 'POST':# and form.validate():
@@ -193,7 +194,7 @@ def create_collection():
 
 @blueprint.route('/collection/update_translations<id>', methods=['POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 #@login_required
 def update_translations(id):
     """
@@ -253,7 +254,7 @@ def manage_portalboxes_order():
 
 @blueprint.route('/collection/edit_portalbox', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized('cfgwebsearch')
+@permission_required('cfgwebsearch')
 def edit_portalbox():
     portalbox = Portalbox.query.get(request.args.get_or_404('id', 0, type=int))
 

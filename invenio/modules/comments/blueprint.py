@@ -35,6 +35,7 @@ from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
 from invenio.ext.menu import register_menu
 from invenio.ext.breadcrumb import register_breadcrumb
+from invenio.ext.principal import permission_required
 from invenio.config import CFG_PREFIX, \
     CFG_SITE_LANG, \
     CFG_WEBALERT_ALERT_ENGINE_EMAIL,\
@@ -123,9 +124,8 @@ class CommentRights(object):
 @blueprint.route('/<int:recid>/comments/add', methods=['GET', 'POST'])
 @request_record
 @login_required
-@blueprint.invenio_authorized('sendcomment',
-                              authorized_if_no_roles=True,
-                              collection=lambda: g.collection.id)
+@permission_required('sendcomment', authorized_if_no_roles=True,
+                     collection=lambda: g.collection.id)
 def add_comment(recid):
     uid = current_user.get_id()
     in_reply = request.args.get('in_reply', type=int)
@@ -165,9 +165,8 @@ def add_comment(recid):
 @blueprint.route('/<int:recid>/reviews/add', methods=['GET', 'POST'])
 @request_record
 @login_required
-@blueprint.invenio_authorized('sendcomment',
-                              authorized_if_no_roles=True,
-                              collection=lambda: g.collection.id)
+@permission_required('sendcomment', authorized_if_no_roles=True,
+                     collection=lambda: g.collection.id)
 def add_review(recid):
     uid = current_user.get_id()
     form = AddCmtRECORDCOMMENTFormReview(request.values)

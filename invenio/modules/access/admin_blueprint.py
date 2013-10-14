@@ -27,6 +27,7 @@ from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated, sorted_by
 from invenio.ext.menu import register_menu
 from invenio.ext.breadcrumb import register_breadcrumb
+from invenio.ext.principal import permission_required
 from invenio.access_control_config import \
     WEBACCESSACTION
 
@@ -37,7 +38,7 @@ blueprint = InvenioBlueprint('webaccess_admin', __name__,
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized(WEBACCESSACTION)
+@permission_required(WEBACCESSACTION)
 @templated('webaccess_admin_index.html')
 @register_menu(blueprint, 'main.admin.webaccess', _('Configure WebAccess'))
 @register_breadcrumb(blueprint, 'admin.webaccess_admin', _('WebAccess'))
@@ -70,7 +71,7 @@ def index():
 
 @blueprint.route('/actionarea', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized(WEBACCESSACTION)
+@permission_required(WEBACCESSACTION)
 @sorted_by(AccACTION)
 @templated('webaccess_admin_actionarea.html')
 def actionarea(sort=False, filter=None):
@@ -82,7 +83,7 @@ def actionarea(sort=False, filter=None):
 
 @blueprint.route('/rolearea', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized(WEBACCESSACTION)
+@permission_required(WEBACCESSACTION)
 @sorted_by(AccROLE)
 @templated('webaccess_admin_rolearea.html')
 def rolearea(sort=False, filter=None):
@@ -94,7 +95,7 @@ def rolearea(sort=False, filter=None):
 
 @blueprint.route('/showroledetails/<int:id_role>', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized(WEBACCESSACTION)
+@permission_required(WEBACCESSACTION)
 @templated('webaccess_admin_showroledetails.html')
 def showroledetails(id_role):
     return dict(role=AccROLE.query.get_or_404(id_role))
@@ -102,7 +103,7 @@ def showroledetails(id_role):
 
 @blueprint.route('/userarea', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_authorized(WEBACCESSACTION)
+@permission_required(WEBACCESSACTION)
 @sorted_by(User)
 @templated('webaccess_admin_userarea.html')
 def userarea(sort=False, filter=None):

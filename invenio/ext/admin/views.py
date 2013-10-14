@@ -23,6 +23,7 @@ from flask.ext.login import current_user
 
 from invenio.webinterface_handler_flask_utils import InvenioBlueprint
 from invenio.ext.sslify import ssl_required
+from invenio.ext.principal import permission_required
 
 
 def can_acc_action(action):
@@ -61,7 +62,7 @@ class BaseView(FlaskBaseView):
         # Next check if user is authorized to edit
         action = getattr(self, 'acc_%s_action' % action, None)
         if action:
-            return self.blueprint.invenio_authorized(action)
+            return permission_required(action)
         else:
             return current_user.is_super_admin
 

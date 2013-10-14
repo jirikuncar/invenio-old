@@ -22,11 +22,9 @@ Invenio -> Flask adapter utilities
 
 import types
 from functools import wraps
-from flask import Blueprint, current_app, request, session, redirect, abort, g, \
+from flask import Blueprint, current_app, request,  \
                   render_template, jsonify, get_flashed_messages, flash, \
                   Response, _request_ctx_stack, stream_with_context, Request
-
-from invenio.ext.login import current_user
 
 ## Placemark for the i18n function
 _ = lambda x: x
@@ -52,32 +50,6 @@ class InvenioBlueprint(Blueprint):
         self.config = config
         self._force_https = force_https
 
-    def invenio_authorized(self, action, **params):
-        """
-        Decorator: This checks is current user is authorized to the action.
-        When not authorized returns http error 401.
-        """
-        def decorator(f):
-            @wraps(f)
-            def inner(*a, **kw):
-                try:
-                    from invenio.access_control_engine import acc_authorize_action
-                    auth, message = acc_authorize_action(
-                        current_user.get_id(),
-                        action,
-                        **dict((k,v() if callable(v) else v) \
-                            for (k,v) in params.iteritems()))
-                    if auth != 0:
-                        current_app.logger.info(message)
-                        abort(401)
-                except:
-                    #FIXME add some better message to log
-                    current_app.logger.info("NOT KEY FOR AUTHORIZATION")
-                    abort(401)
-                return f(*a, **kw)
-            return inner
-        return decorator
-
     def invenio_wash_urlargd(self, config):
         def _invenio_wash_urlargd(f):
             @wraps(f)
@@ -87,6 +59,7 @@ class InvenioBlueprint(Blueprint):
                 return f(*args, **argd)
             return decorator
         return _invenio_wash_urlargd
+
 
 def unicodifier(obj):
     """
