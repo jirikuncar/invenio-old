@@ -34,9 +34,9 @@ from invenio.modules.record_editor.models import Bibrec
 
 def template_context_function(id_bibrec, id_user):
     """
-    @param id_bibrec ID of record
-    @param id_user user viewing the record (and owning the displayed tags)
-    @return HTML containing tag list
+    :param id_bibrec: ID of record
+    :param id_user: user viewing the record (and owning the displayed tags)
+    :return: HTML containing tag list
     """
 
     if id_user and id_bibrec:

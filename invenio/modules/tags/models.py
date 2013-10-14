@@ -157,8 +157,8 @@ class WtgTAG(db.Model, Serializable):
         Check if the tag is valid for insertion.
         Should be run after any cleanup, in case it was reduced to the empty string.
 
-        @param value: Single tag.
-        @return: Cleaned version of tag
+        :param value: Single tag.
+        :return: Cleaned version of tag
 
         Examples:
         >>> validate_name('It is full of spaces')
@@ -299,9 +299,9 @@ COMPILED_REPLACEMENTS_BLOCKING = [(re.compile(exp), repl)
                                  in CFG_WEBTAG_NAME_REPLACEMENTS_BLOCKING]
 
 def _apply_replacements(replacements, text):
-    """ Applies a list of regular expression replacements
-        to a string.
-        @param replacements list of pairs (compiled_expression, replacement)
+    """Applies a list of regular expression replacements to a string.
+
+    :param replacements: list of pairs (compiled_expression, replacement)
     """
     for (reg_exp, replacement) in replacements:
         text = re.sub(reg_exp, replacement, text)
@@ -312,8 +312,8 @@ def wash_tag_silent(tag_name):
     """
     Whitespace and character cleanup.
 
-    @param tag_name: Single tag.
-    @return: Tag Unicode string with all whitespace characters replaced with
+    :param tag_name: Single tag.
+    :return: Tag Unicode string with all whitespace characters replaced with
     Unicode single space (' '), no whitespace at the start and end of the tags,
     no duplicate whitespace, and only characters valid in XML 1.0.
     Also applies list of replacements from CFG_WEBTAG_REPLACEMENTS_SILENT.

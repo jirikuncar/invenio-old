@@ -17,10 +17,12 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-"""WebTag Flask Blueprint"""
+"""
+    invenio.modules.tags.blueprint
+    ------------------------------
 
-# Configs
-from invenio.config import CFG_SITE_LANG
+    Tagging interface.
+"""
 
 # Flask
 from flask import render_template, request, flash, redirect, url_for, jsonify
@@ -192,9 +194,13 @@ def tokenize(id_bibrec, q):
 
     return jsonify(dict(results=response_tags, query=q))
 
+
 @blueprint.route('/record/<int:id_bibrec>/edit', methods=['GET', 'POST'])
 @login_required
 def editor(id_bibrec):
+    """Edits your tags for `id_bibrec`.
+
+    :param id_bibrec: record identifier"""
     user = db.session.query(User).get(current_user.get_id())
     record = db.session.query(Bibrec).get(id_bibrec)
 
