@@ -505,7 +505,7 @@ def post_handler_demosite_populate(sender, default_data='', *args, **kwargs):
                 CrcLOANREQUESTData]
 
     try:
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         from fixture import SQLAlchemyFixture
         from invenio import bibcirculation_model
 

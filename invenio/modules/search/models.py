@@ -29,7 +29,7 @@ from invenio.config import CFG_SITE_LANG
 from invenio.intbitset import intbitset
 #from invenio.search_engine_config import CFG_WEBSEARCH_SEARCH_WITHIN
 #from invenio.search_engine import collection_restricted_p
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from sqlalchemy.orm.collections import InstrumentedList
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm.collections import attribute_mapped_collection

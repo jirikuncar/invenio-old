@@ -17,7 +17,7 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.ext.login import current_user, login_user, logout_user
 from invenio.testutils import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture

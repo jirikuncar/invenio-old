@@ -28,7 +28,7 @@ from invenio.config import CFG_SITE_LANG, \
                            CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES, \
                            CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.webinterface_handler_flask_utils import _
 from invenio.modules.search.models import get_pbx_pos
 from flask.ext.wtf import Form

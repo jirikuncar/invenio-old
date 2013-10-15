@@ -29,7 +29,6 @@ from flask import render_template, request, flash, redirect, url_for, jsonify
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
-from invenio.sqlalchemyutils import db
 
 # External imports
 from invenio.modules.account.models import User
@@ -38,6 +37,7 @@ from invenio.modules.search.models import Collection
 from invenio.modules.search.blueprint import response_formated_records
 from invenio.ext.menu import register_menu
 from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
+from invenio.ext.sqlalchemy import db
 
 # Internal imports
 from .models import \

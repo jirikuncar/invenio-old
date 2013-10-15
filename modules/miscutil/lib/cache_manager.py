@@ -37,7 +37,7 @@ def reset_rec_cache(output_format, get_record, split_by=1000):
     from invenio.config import CFG_BIBUPLOAD_SERIALIZE_RECORD_STRUCTURE
     from invenio.intbitset import intbitset
     from invenio.bibsched import server_pid, pidfile
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     from invenio.modules.record_editor.models import Bibrec, Bibfmt
     pid = server_pid(ping_the_process=False)
     if pid:

@@ -19,7 +19,7 @@
 
 from werkzeug.utils import import_string
 from invenio.ext.cache import cache
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from flask.ext.login import current_user
 from invenio.modules.deposit.models import WebDepositDraft
 from invenio.webdeposit_cook_json_utils import cook_to_recjson

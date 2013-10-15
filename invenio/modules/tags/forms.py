@@ -41,7 +41,7 @@ from invenio.search_engine import check_user_can_view_record
 from invenio.modules.record_editor.models import Bibrec
 
 # Internal
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from .models import \
     WtgTAG, \
     WtgTAGRecord, \

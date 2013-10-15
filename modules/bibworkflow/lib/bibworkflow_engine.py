@@ -28,7 +28,7 @@ from workflow.engine import GenericWorkflowEngine, \
     WorkflowError
 from datetime import datetime
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.config import CFG_DEVEL_SITE
 from invenio.bibworkflow_utils import getWorkflowDefinition
 from uuid import uuid1 as new_uuid

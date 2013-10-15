@@ -22,7 +22,7 @@ BibWorkflow Unit tests - functions to test workflows
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, \
     InvenioTestCase
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION
 
 run = lazy_import('invenio.bibworkflow_api:run')

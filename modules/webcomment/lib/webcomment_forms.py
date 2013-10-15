@@ -22,7 +22,7 @@
 from string import strip
 from datetime import datetime
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.modules.account.models import User, Usergroup
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webinterface_handler_flask_utils import _

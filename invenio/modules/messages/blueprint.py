@@ -24,7 +24,7 @@ from flask import render_template, request, flash, redirect, url_for
 from invenio import webmessage_dblayer as dbplayer
 from invenio.config import CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES
 from invenio.ext.menu import register_menu
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.webmessage import is_no_quota_user
 from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE
 from invenio.webmessage_mailutils import email_quote_txt

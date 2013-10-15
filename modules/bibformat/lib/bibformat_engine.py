@@ -264,7 +264,7 @@ class LazyTemplateContextFunctionsCache(object):
 
         bfe_from_tags = {}
         if has_app_context():
-            from invenio.sqlalchemyutils import db
+            from invenio.ext.sqlalchemy import db
             from invenio.modules.search.models import Tag
 
             # get functions from tag table

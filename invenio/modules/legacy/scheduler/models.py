@@ -22,7 +22,7 @@ bibsched database models.
 """
 
 # General imports.
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 
 # Create your models here.
 from invenio.modules.sequence_generator.models import SeqSTORE

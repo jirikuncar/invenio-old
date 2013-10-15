@@ -25,7 +25,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid1 as new_uuid
 from urllib2 import urlopen, URLError
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.modules.deposit.models import WebDepositDraft
 from invenio.modules.workflows.models import Workflow
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS

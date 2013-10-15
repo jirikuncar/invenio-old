@@ -25,7 +25,7 @@ from invenio.ext.template import render_template_to_string
 from invenio.webinterface_handler_flask_utils import _
 from flask.ext.login import current_user
 from invenio.settings import Settings, UserSettingsStorage
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 
 # Related models
 from invenio.modules.account.models import User

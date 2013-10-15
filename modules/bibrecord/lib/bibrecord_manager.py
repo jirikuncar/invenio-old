@@ -35,7 +35,7 @@ def reset(split_by=1000):
     from invenio.cache_manager import reset_rec_cache
     from invenio.dbquery import run_sql, serialize_via_marshal
     from invenio.search_engine import get_record
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
 
     def get_recstruct_record(recid):
         value = serialize_via_marshal(get_record(recid))

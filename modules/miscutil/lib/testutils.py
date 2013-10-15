@@ -203,11 +203,11 @@ class InvenioTestCase(TestCase, unittest2.TestCase):
 class FlaskSQLAlchemyTest(InvenioTestCase):
 
     def setUp(self):
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         db.create_all()
 
     def tearDown(self):
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         db.session.expunge_all()
         db.session.rollback()
         db.drop_all()

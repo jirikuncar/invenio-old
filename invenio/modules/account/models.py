@@ -22,7 +22,7 @@ WebSession database models.
 """
 
 # General imports.
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from sqlalchemy.ext.hybrid import hybrid_property
 # Create your models here.
 

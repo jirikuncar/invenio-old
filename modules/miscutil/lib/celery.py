@@ -65,7 +65,7 @@ class InvenioLoader(BaseLoader):
             else:
                 from invenio.base.factory import create_app
                 self.flask_app = create_app()
-                from invenio.sqlalchemyutils import db
+                from invenio.ext.sqlalchemy import db
                 self.db = db
 
     def on_task_init(self, task_id, task):

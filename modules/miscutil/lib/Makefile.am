@@ -102,7 +102,6 @@ pylib_DATA = __init__.py \
              solrutils_config.py \
              solrutils_regression_tests.py \
              solrutils_unit_tests.py \
-             sqlalchemyutils.py \
              sqlalchemyutils_mysql.py \
              testutils.py \
              testutils_regression_tests.py \

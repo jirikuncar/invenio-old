@@ -47,7 +47,7 @@ def drop(yes_i_know=False):
     from invenio.textutils import wrap_text_in_a_box, wait_for_user
     from invenio.webstat import destroy_customevents
     from invenio.inveniocfg import test_db_connection
-    from invenio.sqlalchemyutils import db, autodiscover_models
+    from invenio.ext.sqlalchemy import db, autodiscover_models
     from invenio.bibdocfile import _make_base_dir
 
     ## Step 0: confirm deletion
@@ -118,7 +118,7 @@ def create(default_data=True):
     from sqlalchemy import event
     from invenio.utils.date import get_time_estimator
     from invenio.inveniocfg import test_db_connection
-    from invenio.sqlalchemyutils import db, autodiscover_models
+    from invenio.ext.sqlalchemy import db, autodiscover_models
 
     test_db_connection()
     autodiscover_models()
@@ -179,7 +179,7 @@ def uri():
 
 
 def load_fixtures(suffix='', truncate_tables_first=False):
-    from invenio.sqlalchemyutils import db, autodiscover_models
+    from invenio.ext.sqlalchemy import db, autodiscover_models
     from fixture import SQLAlchemyFixture
     from invenio.importutils import autodiscover_modules
 
@@ -257,7 +257,7 @@ def populate(default_data=True):
 
 def version():
     """ Get running version of database driver."""
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     try:
         return db.engine.dialect.dbapi.__version__
     except:
@@ -270,7 +270,7 @@ def version():
 @change_command_name
 def driver_info(verbose=False):
     """ Get name of running database driver."""
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     try:
         return db.engine.dialect.dbapi.__name__ + (('==' + version())
                                                    if verbose else '')
@@ -287,7 +287,7 @@ def mysql_info(separator=None, line_format=None):
     Detect and print MySQL details useful for debugging problems on various OS.
     """
 
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     if db.engine.name != 'mysql':
         raise Exception('Database engine is not mysql.')
 

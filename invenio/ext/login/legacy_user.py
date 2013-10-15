@@ -145,7 +145,7 @@ class UserInfo(CombinedMultiDict, UserMixin):
         data = {'settings': {}}
 
         if current_app.config.get('CFG_WEBSESSION_DIFFERENTIATE_BETWEEN_GUESTS', False):
-            from invenio.sqlalchemyutils import db
+            from invenio.ext.sqlalchemy import db
             from invenio.modules.account.models import User
             note = '1' if current_app.config.get('CFG_ACCESS_CONTROL_LEVEL_GUESTS', 0) == 0 else '0'
             u = User(email='', note=note, password='guest')

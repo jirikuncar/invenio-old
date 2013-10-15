@@ -29,14 +29,18 @@ from .expressions import AsBINARY
 from .types import JSONEncodedTextDict, MarshalBinary
 from .utils import get_model_type
 import sqlalchemy
-from flask import current_app
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import event
 from sqlalchemy.pool import Pool
 from sqlalchemy.ext.hybrid import hybrid_property, Comparator
-from werkzeug import LocalProxy
 from invenio.errorlib import register_exception
 from invenio.utils.hash import md5
+
+
+def autodiscover_models():
+    """Makes sure that all tables are loaded in `db.metadata.tables`."""
+    from invenio.importutils import autodiscover_modules
+    return autodiscover_modules(['invenio'], related_name_re=".+_model\.py")
 
 
 def _include_sqlalchemy(obj, engine=None):
@@ -196,7 +200,6 @@ def setup_app(app):
     db.init_app(app)
 
     ## Make sure that all tables are loaded in `db.metadata.tables`.
-    from invenio.importutils import autodiscover_modules
-    autodiscover_modules(['invenio'], related_name_re=".+_model")
+    autodiscover_models()
 
     return app

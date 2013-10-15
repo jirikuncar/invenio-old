@@ -39,7 +39,7 @@ def populate(default_data=True):
         print '>>> Default data has been skiped (--no-data).'
         return
     from invenio.config import CFG_PREFIX
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     print ">>> Going to load demo records..."
     db.session.execute("TRUNCATE schTASK")
     db.session.commit()
@@ -70,7 +70,7 @@ def populate(default_data=True):
 def create(data='demosite'):
     """Populate database with demo site data."""
 
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     from invenio.config import CFG_PREFIX
     from invenio.modules.account.models import User
     from invenio.config_manager import get_conf

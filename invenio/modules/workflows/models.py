@@ -16,7 +16,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from sqlalchemy import desc
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from datetime import datetime
 from sqlalchemy.orm.exc import NoResultFound
 

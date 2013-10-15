@@ -238,7 +238,7 @@ def bft2tpl(rewrite_existing_templates=False, only_template_re=None, verbose=0):
                 default="HB", help="Specify output format/s (default HB)")
 def expunge(output_format="HB"):
     """Remove static output formats from cache."""
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     from invenio.modules.record_editor.models import Bibfmt
 
     # Make it uppercased as it is stored in database.

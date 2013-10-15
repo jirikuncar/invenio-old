@@ -24,7 +24,7 @@ from flask import Blueprint, session, make_response, g, render_template, \
         abort
 from invenio.ext.cache import cache
 from invenio.ext.menu import register_menu
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.modules.search.models import Collection, CollectionCollection, \
         Collectionname, CollectionPortalbox
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint

@@ -35,7 +35,7 @@ from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
       InvenioWebSessionError, \
       InvenioWebSessionWarning
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.ext.template import render_template_to_string
 from flask.ext.login import current_user
 from invenio.settings import Settings

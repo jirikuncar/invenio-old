@@ -23,7 +23,7 @@ BibEdit database models.
 """
 
 # General imports.
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.search_engine_utils import get_fieldvalues
 from werkzeug import cached_property
 

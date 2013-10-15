@@ -40,7 +40,7 @@ except ImportError:
 from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
 from invenio.config import CFG_WEB_API_KEY_ALLOWED_URL
 from invenio.utils.hash import sha1
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 
 _CFG_WEB_API_KEY_ALLOWED_URL = [(re.compile(_url), _authorized_time, _need_timestamp)
                                 for _url, _authorized_time, _need_timestamp in CFG_WEB_API_KEY_ALLOWED_URL]

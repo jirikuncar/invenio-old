@@ -29,7 +29,7 @@ from invenio.webmessage_config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
                                       CFG_WEBMESSAGE_SEPARATOR, \
                                       CFG_WEBMESSAGE_EMAIL_ALERT
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.ext.template import render_template_to_string
 from invenio.settings import Settings, UserSettingsStorage, \
                              ModelSettingsStorageBuilder

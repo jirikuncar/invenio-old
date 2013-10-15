@@ -40,7 +40,7 @@ from invenio.dbquery import run_sql, ProgrammingError
 from invenio.access_control_firerole import compile_role_definition, \
     acc_firerole_check_user, serialize, deserialize, load_role_definition
 from invenio.intbitset import intbitset
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.modules.access.models import AccAuthorization, AccACTION, \
                                     AccARGUMENT, UserAccROLE
 
@@ -1722,7 +1722,7 @@ def acc_delete_all_settings():
     """simply remove all data affiliated with webaccess by truncating
     tables accROLE, accACTION, accARGUMENT and those connected. """
 
-    from invenio.sqlalchemyutils import db
+    from invenio.ext.sqlalchemy import db
     db.session.commit()
 
     run_sql("""TRUNCATE accROLE""")

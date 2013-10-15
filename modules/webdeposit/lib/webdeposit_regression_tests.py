@@ -25,7 +25,7 @@ class TestWebDepositUtils(InvenioTestCase):
     def clear_tables(self):
         from invenio.modules.workflows.models import Workflow, WfeObject
         from invenio.modules.deposit.models import WebDepositDraft
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
 
         Workflow.query.delete()
         WfeObject.query.delete()
@@ -47,7 +47,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.webdeposit_utils import get_latest_or_new_workflow, \
             get_workflow, delete_workflow
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         from invenio.ext.login import login_user
 
         login_user(1)
@@ -105,7 +105,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.webdeposit_utils import get_current_form, get_form, \
             get_form_status, CFG_DRAFT_STATUS
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         from invenio.webdeposit_workflow_utils import render_form, \
             wait_for_submission
         from invenio.ext.cache import cache
@@ -174,7 +174,7 @@ class TestWebDepositUtils(InvenioTestCase):
 
     def test_field_functions(self):
         from datetime import datetime
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.modules.deposit.models import WebDepositDraft
         from invenio.webdeposit_workflow_utils import render_form

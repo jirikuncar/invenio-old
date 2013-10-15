@@ -39,7 +39,7 @@ from invenio.config import \
     CFG_ACCESS_CONTROL_NOTIFY_USER_ABOUT_NEW_ACCOUNT, \
     CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS
 from invenio.datastructures import LazyDict, flatten_multidict
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.webaccount_forms import LoginForm, RegisterForm
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.modules.account.models import User

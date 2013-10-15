@@ -32,7 +32,7 @@ from .config import \
 
 
 # Database
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from sqlalchemy.ext.associationproxy import association_proxy
 
 # Related models

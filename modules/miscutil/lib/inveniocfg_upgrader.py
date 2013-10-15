@@ -831,7 +831,7 @@ def cmd_upgrade_check(upgrader=None):
     logger = upgrader.get_logger()
 
     try:
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
     except ImportError:
         logger.error("make check-upgrade is unfortunately not supported for "
                      "non-SQLAlchemy based Invenio installations")
@@ -932,7 +932,7 @@ def cmd_upgrade_show_pending(upgrader=None):
     logger = upgrader.get_logger()
 
     try:
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
     except ImportError:
         logger.error("make check-upgrade is unfortunately not supported for "
                      "non-SQLAlchemy based Invenio installations")

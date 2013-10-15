@@ -22,7 +22,7 @@
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for
 from invenio import webgroup_dblayer as dbplayer
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from flask.ext.login import current_user, login_required
 from invenio.config import CFG_SITE_LANG
 from invenio.modules.account.models import User, Usergroup, UserUsergroup

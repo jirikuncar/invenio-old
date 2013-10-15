@@ -28,7 +28,7 @@ from invenio.config import CFG_SITE_LANG, \
                            CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES, \
                            CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.modules.account.models import User, Usergroup
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webinterface_handler_flask_utils import _

@@ -20,7 +20,7 @@ import tempfile
 
 from invenio.modules.workflows.models import WfeObject
 from datetime import datetime
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.bibworkflow_utils import dictproperty
 from invenio.bibworkflow_config import add_log, \
     CFG_BIBWORKFLOW_OBJECTS_LOGDIR, CFG_OBJECT_VERSION

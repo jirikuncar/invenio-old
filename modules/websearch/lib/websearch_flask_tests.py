@@ -18,7 +18,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from fixture import SQLAlchemyFixture
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.testutils import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture
 from invenio.websearch_fixtures import CollectionData, \

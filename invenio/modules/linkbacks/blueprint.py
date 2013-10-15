@@ -30,7 +30,7 @@ from flask import Blueprint, session, make_response, g, render_template, \
                   Response
 from invenio.ext.cache import cache
 from invenio.intbitset import intbitset as HitSet
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from flask.ext.login import current_user
 from invenio.modules.linkbacks.models import LnkENTRY
