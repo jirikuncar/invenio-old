@@ -25,6 +25,7 @@ from invenio.scriptutils import Manager, change_command_name, \
     generate_secret_key, register_manager
 from invenio.ext.sqlalchemy import db
 from invenio.base.factory import create_app
+from invenio.base.utils import autodiscover_managers
 
 
 # Fixes problems with empty secret key in config manager.
@@ -34,12 +35,17 @@ if 'config' in sys.argv and \
         SECRET_KEY=generate_secret_key())
 
 
-manager = Manager(create_app, with_default_commands=False)
+app = create_app()
+manager = Manager(app, with_default_commands=False)
 register_manager(manager)
 
 for script in find_modules('invenio.base.scripts'):
     manager.add_command(script.split('.')[-1],
                         import_string(script + ':manager'))
+
+for script in autodiscover_managers(app):
+    manager.add_command(script.__name__.split('.')[-2],
+                        getattr(script, 'manager'))
 
 
 @manager.shell

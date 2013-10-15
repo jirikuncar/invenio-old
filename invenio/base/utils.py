@@ -124,6 +124,7 @@ autodiscover_models = partial(import_module_from_packages, 'model')
 autodiscover_user_settings = partial(import_module_from_packages,
                                      'user_settings')
 autodiscover_configs = partial(import_module_from_packages, 'config')
+autodiscover_managers = partial(import_module_from_packages, 'manage')
 
 
 def register_configurations(app):
