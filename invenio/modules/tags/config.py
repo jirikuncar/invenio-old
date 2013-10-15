@@ -90,11 +90,3 @@ CFG_WEBTAG_ACCESS_RIGHTS = {
 }
 
 CFG_WEBTAG_ACCESS_OWNER_DEFAULT = CFG_WEBTAG_ACCESS_LEVELS['Manage']
-
-#
-# Access Rights
-#
-
-class WebTagNameTakenException(Exception):
-    pass
-
