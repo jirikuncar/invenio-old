@@ -20,16 +20,12 @@ SUBDIRS = upgrades
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
-             apache_manager.py \
-             cache_manager.py \
              celery.py \
              celery_config.py \
              celery_tasks.py \
              celery_unit_tests.py \
-             config_manager.py \
              crossrefutils.py \
              data_cacher.py \
-             database_manager.py \
              dataciteutils.py \
              dataciteutils_tester.py \
              datastructures.py \
@@ -39,7 +35,6 @@ pylib_DATA = __init__.py \
              dbquery.py \
              dbquery_regression_tests.py \
              dbquery_unit_tests.py \
-             demosite_manager.py \
              errorlib.py \
              errorlib_regression_tests.py \
              errorlib_unit_tests.py \
@@ -107,7 +102,6 @@ pylib_DATA = __init__.py \
              testutils_regression_tests.py \
              textutils.py \
              textutils_unit_tests.py \
-             upgrade_manager.py \
              urlutils.py \
              urlutils_unit_tests.py \
              w3c_validator.py \

@@ -19,6 +19,7 @@
 
 
 import sys
+from werkzeug import find_modules, import_string
 from invenio.config import CFG_SITE_SECRET_KEY
 from invenio.scriptutils import Manager, change_command_name, \
     generate_secret_key, register_manager
@@ -35,6 +36,10 @@ if 'config' in sys.argv and \
 
 manager = Manager(create_app, with_default_commands=False)
 register_manager(manager)
+
+for script in find_modules('invenio.base.scripts'):
+    manager.add_command(script.split('.')[-1],
+                        import_string(script + ':manager'))
 
 
 @manager.shell

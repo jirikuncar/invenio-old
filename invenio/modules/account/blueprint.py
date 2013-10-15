@@ -218,8 +218,8 @@ def load_user_settings():
     Handy function to populate LazyDic with user settings.
     """
     from invenio.settings import Settings
-    from invenio.base.factory import import_module_from_packages
-    modules = import_module_from_packages('user_settings')
+    from invenio.base.utils import autodiscover_user_settings
+    modules = autodiscover_user_settings()
     user_settings = {}
     for module in modules:
         candidate = getattr(module, 'settings')
