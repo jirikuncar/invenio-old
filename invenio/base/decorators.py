@@ -190,3 +190,16 @@ def filtered_by(model=None, columns=None, form=None, filter_empty=False):
             return f(*args, **kwargs)
         return decorated_function
     return decorator
+
+
+def wash_urlargd(self, config):
+    def _decorated(f):
+        @wraps(f)
+        def decorator(*args, **kwargs):
+            argd = wash_urlargd(request.values, config)
+            argd.update(kwargs)
+            return f(*args, **argd)
+        return decorator
+    return _decorated
+
+

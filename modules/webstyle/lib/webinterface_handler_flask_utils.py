@@ -50,16 +50,6 @@ class InvenioBlueprint(Blueprint):
         self.config = config
         self._force_https = force_https
 
-    def invenio_wash_urlargd(self, config):
-        def _invenio_wash_urlargd(f):
-            @wraps(f)
-            def decorator(*args, **kwargs):
-                argd = wash_urlargd(request.values, config)
-                argd.update(kwargs)
-                return f(*args, **argd)
-            return decorator
-        return _invenio_wash_urlargd
-
 
 def wash_urlargd(form, content):
     """

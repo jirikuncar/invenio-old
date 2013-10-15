@@ -35,12 +35,7 @@ from sqlalchemy.pool import Pool
 from sqlalchemy.ext.hybrid import hybrid_property, Comparator
 from invenio.errorlib import register_exception
 from invenio.utils.hash import md5
-
-
-def autodiscover_models():
-    """Makes sure that all tables are loaded in `db.metadata.tables`."""
-    from invenio.importutils import autodiscover_modules
-    return autodiscover_modules(['invenio'], related_name_re=".+_model\.py")
+from invenio.base.utils import autodiscover_models
 
 
 def _include_sqlalchemy(obj, engine=None):
