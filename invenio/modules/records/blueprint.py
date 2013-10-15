@@ -24,6 +24,7 @@ from invenio import webinterface_handler_config as apache
 
 from flask import g, render_template, request, flash, redirect, url_for, \
     current_app, abort
+from invenio.base.decorators import wash_arguments
 from invenio.config import CFG_SITE_RECORD, CFG_WEBLINKBACK_TRACKBACK_ENABLED
 from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.access_control_mailcookie import \
@@ -144,7 +145,7 @@ def request_record(f):
 @blueprint.route('/<int:recid>/metadata', methods=['GET', 'POST'])
 @blueprint.route('/<int:recid>/', methods=['GET', 'POST'])
 @blueprint.route('/<int:recid>', methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({'of': (unicode, 'hd')})
+@wash_arguments({'of': (unicode, 'hd')})
 @request_record
 def metadata(recid, of='hd'):
     register_page_view_event(recid, current_user.get_id(), str(request.remote_addr))

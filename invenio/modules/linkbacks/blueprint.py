@@ -28,6 +28,7 @@ from datetime import datetime
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app, \
                   Response
+from invenio.base.decorators import wash_arguments
 from invenio.ext.cache import cache
 from invenio.intbitset import intbitset as HitSet
 from invenio.ext.sqlalchemy import db
@@ -72,7 +73,7 @@ def index(recid):
 
 @blueprint.route('/<int:recid>/sendtrackback', methods=['GET', 'POST'])
 @request_record
-@blueprint.invenio_wash_urlargd({'url': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME),
+@wash_arguments({'url': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME),
                                  'title': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME),
                                  'excerpt': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME),
                                  'blog_name': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME),

@@ -29,7 +29,7 @@ import os
 from invenio.pluginutils import PluginContainer
 from invenio.config import CFG_PYLIBDIR, CFG_LOGDIR
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.base.decorators import templated
+from invenio.base.decorators import wash_arguments, templated
 from invenio.bibworkflow_utils import getWorkflowDefinition
 
 import traceback
@@ -59,7 +59,7 @@ def index():
 
 @blueprint.route('/entry_details', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_wash_urlargd({'entry_id': (int, 0)})
+@wash_arguments({'entry_id': (int, 0)})
 def entry_details(entry_id):
     """
     Dispalys entry details.
@@ -82,7 +82,7 @@ def entry_details(entry_id):
 
 @blueprint.route('/workflow_details', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_wash_urlargd({'workflow_id': (unicode, "")})
+@wash_arguments({'workflow_id': (unicode, "")})
 def workflow_details(workflow_id):
     w_metadata = Workflow.query.filter(Workflow.uuid == workflow_id).first()
 
@@ -114,7 +114,7 @@ def workflows():
 
 @blueprint.route('/run_workflow', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_wash_urlargd({'workflow_name': (unicode, "")})
+@wash_arguments({'workflow_name': (unicode, "")})
 def run_workflow(workflow_name, data=10):
     try:
         data = [{'data': data}]
@@ -127,7 +127,7 @@ def run_workflow(workflow_name, data=10):
 
 @blueprint.route('/entry_data_preview', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_wash_urlargd({'oid': (int, 0),
+@wash_arguments({'oid': (int, 0),
                                 'of': (unicode, 'default')})
 def entry_data_preview(oid, of):
     workflow_object = WfeObject.query.filter(WfeObject.id == oid).first()

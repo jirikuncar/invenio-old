@@ -44,7 +44,7 @@ from invenio.websearch_forms import EasySearchForm
 from invenio.modules.search.models import Collection
 from invenio.websearch_webinterface import wash_search_urlargd
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.base.decorators import templated
+from invenio.base.decorators import wash_arguments, templated
 from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.ext.template.context_processor import \
     register_template_context_processor
@@ -268,7 +268,7 @@ def collection_breadcrumbs(collection, endpoint=None):
 @blueprint.route('/browse', methods=['GET', 'POST'])
 @register_breadcrumb(blueprint, '.browse', _('Browse results'))
 @templated('websearch_browse.html')
-@blueprint.invenio_wash_urlargd({'p': (unicode, ''),
+@wash_arguments({'p': (unicode, ''),
                                  'f': (unicode, None),
                                  'of': (unicode, 'hb'),
                                  'so': (unicode, None),
@@ -313,7 +313,7 @@ websearch_before_browse.connect(websearch_receivers.websearch_before_browse_hand
 @blueprint.route('/rss', methods=['GET'])
 # FIXME caching issue of response object
 #@cache.cached(timeout=CFG_WEBSEARCH_RSS_TTL)
-@blueprint.invenio_wash_urlargd({'p': (unicode, ''),
+@wash_arguments({'p': (unicode, ''),
                                  'jrec': (int, 1),
                                  'so': (unicode, None),
                                  'rm': (unicode, None)})
@@ -342,7 +342,7 @@ def rss(collection, p, jrec, so, rm):
 
 @blueprint.route('/search', methods=['GET', 'POST'])
 @register_breadcrumb(blueprint, '.browse', _('Search results'))
-@blueprint.invenio_wash_urlargd({'p': (unicode, ''),
+@wash_arguments({'p': (unicode, ''),
                                  'of': (unicode, 'hb'),
                                  'so': (unicode, None),
                                  'rm': (unicode, None)})
@@ -425,7 +425,7 @@ def facet(name, qid):
 
 
 @blueprint.route('/results/<qid>', methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({'p': (unicode, ''),
+@wash_arguments({'p': (unicode, ''),
                                  'of': (unicode, 'hb'),
                                  'so': (unicode, None),
                                  'rm': (unicode, None)})
@@ -461,7 +461,7 @@ def results(qid, p, of, so, rm):
 
 
 @blueprint.route('/list/<any(exactauthor, keyword, affiliation, reportnumber, collaboration):field>', methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({'q': (min_length(3), '')})
+@wash_arguments({'q': (min_length(3), '')})
 def autocomplete(field, q):
     """
     Autocompletes data from indexes.
@@ -511,7 +511,7 @@ def dispatch():
 
 
 @blueprint.route('/export', methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({'of': (unicode, 'xm')})
+@wash_arguments({'of': (unicode, 'xm')})
 @check_collection(default_collection=True)
 def export(collection, of):
     """

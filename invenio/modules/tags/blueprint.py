@@ -27,7 +27,7 @@
 # Flask
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.base.decorators import templated
+from invenio.base.decorators import wash_arguments, templated
 from flask.ext.login import current_user, login_required
 
 # External imports
@@ -105,7 +105,7 @@ def display_cloud():
 @blueprint.route('/display/list', methods=['GET', 'POST'])
 @login_required
 @templated('tags/display_list.html')
-@blueprint.invenio_wash_urlargd({'sort_by': (unicode, 'name'),
+@wash_arguments({'sort_by': (unicode, 'name'),
                                  'order': (unicode, '')})
 @register_breadcrumb(blueprint, '.list', _('Display as List'))
 def display_list(sort_by, order):
@@ -159,7 +159,7 @@ def tag_details(id_tag):
 
 @blueprint.route('/tokenize/<int:id_bibrec>', methods=['GET', 'POST'])
 @login_required
-@blueprint.invenio_wash_urlargd({'q': (unicode, '')})
+@wash_arguments({'q': (unicode, '')})
 def tokenize(id_bibrec, q):
     """ Data for tokeninput """
     user = db.session.query(User).get(current_user.get_id())

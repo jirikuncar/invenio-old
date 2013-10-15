@@ -22,6 +22,7 @@
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for
 from invenio import webgroup_dblayer as dbplayer
+from invenio.base.decorators import wash_arguments
 from invenio.ext.sqlalchemy import db
 from flask.ext.login import current_user, login_required
 from invenio.config import CFG_SITE_LANG
@@ -62,7 +63,7 @@ def index():
 
 
 @blueprint.route("/search", methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({"query": (unicode, ""), "term": (unicode, "")})
+@wash_arguments({"query": (unicode, ""), "term": (unicode, "")})
 def search(query, term):
     if query == 'users' and len(term) >= 3:
         res = db.session.query(User.nickname).filter(
@@ -76,7 +77,7 @@ def search(query, term):
     return jsonify()
 
 @blueprint.route("/tokenize", methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({"q": (unicode, "")})
+@wash_arguments({"q": (unicode, "")})
 def tokenize(q):
     res = Usergroup.query.filter(
         Usergroup.name.like("%s%%" % q)).limit(10).all()
@@ -84,7 +85,7 @@ def tokenize(q):
 
 @blueprint.route("/join", methods=['GET', 'POST'])
 @blueprint.route("/leave", methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({"id": (int, 0)})
+@wash_arguments({"id": (int, 0)})
 def _manipulate_group(id):
     uid = current_user.get_id()
     try:

@@ -32,7 +32,7 @@ from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.base.decorators import templated, sorted_by, filtered_by
+from invenio.base.decorators import wash_arguments, templated, sorted_by, filtered_by
 from flask.ext.login import current_user, login_required
 from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.ext.principal import permission_required
@@ -122,7 +122,7 @@ def index(sort=False, filter=None):
 @register_breadcrumb(blueprint, '.add', _('Write a message'))
 @login_required
 @permission_required('usemessages')
-@blueprint.invenio_wash_urlargd({'msg_reply_id': (int, 0)})
+@wash_arguments({'msg_reply_id': (int, 0)})
 def add(msg_reply_id):
     uid = current_user.get_id()
     if msg_reply_id:
@@ -191,7 +191,7 @@ def add(msg_reply_id):
 @register_breadcrumb(blueprint, '.view', _('View a message'))
 @login_required
 @permission_required('usemessages')
-@blueprint.invenio_wash_urlargd({'msgid': (int, 0)})
+@wash_arguments({'msgid': (int, 0)})
 @templated('webmessage_view.html')
 def view(msgid):
     uid = current_user.get_id()
@@ -242,7 +242,7 @@ def delete():
 @register_breadcrumb(blueprint, '.delete', _('Delete all messages'))
 @login_required
 @permission_required('usemessages')
-@blueprint.invenio_wash_urlargd({'confirmed': (int, 0)})
+@wash_arguments({'confirmed': (int, 0)})
 def delete_all(confirmed=0):
     """
     Delete every message belonging a logged user.

@@ -39,6 +39,7 @@ from invenio.config import \
     CFG_ACCESS_CONTROL_NOTIFY_USER_ABOUT_NEW_ACCOUNT, \
     CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS
 from invenio.datastructures import LazyDict, flatten_multidict
+from invenio.base.decorators import wash_arguments
 from invenio.ext.sqlalchemy import db
 from invenio.webaccount_forms import LoginForm, RegisterForm
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
@@ -69,7 +70,7 @@ def update_login(nickname, password=None, remember_me=False):
 
 
 @blueprint.route('/login/', methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({'nickname': (unicode, None),
+@wash_arguments({'nickname': (unicode, None),
                                  'password': (unicode, None),
                                  'login_method': (wash_login_method, 'Local'),
                                  'action': (unicode, ''),
@@ -312,7 +313,7 @@ def edit(name):
 
 @blueprint.route('/view', methods=['GET'])
 @login_required
-@blueprint.invenio_wash_urlargd({'name': (unicode, "")})
+@wash_arguments({'name': (unicode, "")})
 def view(name):
     if name not in _USER_SETTINGS:
         return "1", 406

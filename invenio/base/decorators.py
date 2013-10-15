@@ -192,14 +192,13 @@ def filtered_by(model=None, columns=None, form=None, filter_empty=False):
     return decorator
 
 
-def wash_urlargd(self, config):
+def wash_arguments(config):
     def _decorated(f):
         @wraps(f)
         def decorator(*args, **kwargs):
+            from invenio.webinterface_handler_flask_utils import wash_urlargd
             argd = wash_urlargd(request.values, config)
             argd.update(kwargs)
             return f(*args, **argd)
         return decorator
     return _decorated
-
-
