@@ -41,6 +41,10 @@ def login_user(user, *args, **kwargs):
 def setup_app(app):
     """Setup login extension."""
 
+    app.config.setdefault('CFG_OPENID_AUTHENTICATION', False)
+    app.config.setdefault('CFG_OAUTH1_AUTHENTICATION', False)
+    app.config.setdefault('CFG_OAUTH2_AUTHENTICATION', False)
+
     @app.errorhandler(401)
     def do_login_first(error=401):
         """Displays login page when user is not authorised."""
