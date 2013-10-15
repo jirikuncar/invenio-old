@@ -133,4 +133,4 @@ def register_configurations(app):
     loaded into the system.
     """
     for config in autodiscover_configs(app):
-        app.config.from_object(config, silent=True)
+        app.config.from_object(config)

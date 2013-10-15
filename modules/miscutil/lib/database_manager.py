@@ -47,7 +47,8 @@ def drop(yes_i_know=False):
     from invenio.textutils import wrap_text_in_a_box, wait_for_user
     from invenio.webstat import destroy_customevents
     from invenio.inveniocfg import test_db_connection
-    from invenio.ext.sqlalchemy import db, autodiscover_models
+    from invenio.base.utils import autodiscover_models
+    from invenio.ext.sqlalchemy import db
     from invenio.bibdocfile import _make_base_dir
 
     ## Step 0: confirm deletion
@@ -118,7 +119,8 @@ def create(default_data=True):
     from sqlalchemy import event
     from invenio.utils.date import get_time_estimator
     from invenio.inveniocfg import test_db_connection
-    from invenio.ext.sqlalchemy import db, autodiscover_models
+    from invenio.base.utils import autodiscover_models
+    from invenio.ext.sqlalchemy import db
 
     test_db_connection()
     autodiscover_models()
@@ -179,7 +181,8 @@ def uri():
 
 
 def load_fixtures(suffix='', truncate_tables_first=False):
-    from invenio.ext.sqlalchemy import db, autodiscover_models
+    from invenio.base.utils import autodiscover_models
+    from invenio.ext.sqlalchemy import db
     from fixture import SQLAlchemyFixture
     from invenio.importutils import autodiscover_modules
 
