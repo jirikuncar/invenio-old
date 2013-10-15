@@ -19,18 +19,6 @@
 
 """ WebTag database models. """
 
-# Configs
-from .config import \
-    CFG_WEBTAG_NAME_MAX_LENGTH, \
-    CFG_WEBTAG_ACCESS_NAMES, \
-    CFG_WEBTAG_ACCESS_LEVELS, \
-    CFG_WEBTAG_ACCESS_RIGHTS, \
-    CFG_WEBTAG_ACCESS_OWNER_DEFAULT, \
-    CFG_WEBTAG_NAME_REPLACEMENTS_SILENT, \
-    CFG_WEBTAG_NAME_REPLACEMENTS_BLOCKING, \
-    CFG_WEBTAG_LAST_MYSQL_CHARACTER
-
-
 # Database
 from invenio.ext.sqlalchemy import db
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -40,6 +28,7 @@ from invenio.modules.record_editor.models import Bibrec
 from invenio.modules.account.models import User, Usergroup
 
 # Functions
+from werkzeug import cached_property
 from invenio.textutils import wash_for_xml
 from datetime import datetime, date
 import re
@@ -94,6 +83,31 @@ class WtgTAG(db.Model, Serializable):
     __tablename__ = 'wtgTAG'
     __public__ = ['id', 'name', 'id_owner']
 
+    #
+    # Access Rights
+    #
+    ACCESS_NAMES = {
+        0: 'Nothing',
+        10: 'View',
+        20: 'Add',
+        30: 'Add and remove',
+        40: 'Manage',
+    }
+
+    ACCESS_LEVELS = \
+        dict((v, k) for (k, v) in ACCESS_NAMES.iteritems())
+
+    ACCESS_RIGHTS = {
+        0: [],
+        10: ['view'],
+        20: ['view', 'add'],
+        30: ['view', 'add', 'remove'],
+        40: ['view', 'add', 'remove', 'edit'],
+    }
+
+    ACCESS_OWNER_DEFAULT = ACCESS_LEVELS['Manage']
+
+
     # Primary key
     id = db.Column(db.Integer(15, unsigned=True),
                    primary_key=True,
@@ -114,12 +128,12 @@ class WtgTAG(db.Model, Serializable):
     # Access rights of owner
     user_access_rights = db.Column(db.Integer(2, unsigned=True),
                             nullable=False,
-                            default=CFG_WEBTAG_ACCESS_OWNER_DEFAULT)
+                            default=ACCESS_OWNER_DEFAULT)
 
     # Access rights of everyone
     public_access_rights = db.Column(db.Integer(2, unsigned=True),
                             nullable=False,
-                            default=CFG_WEBTAG_ACCESS_LEVELS['Nothing'])
+                            default=ACCESS_LEVELS['Nothing'])
 
     # Visibility in document description
     show_in_description = db.Column(db.Boolean,
@@ -175,9 +189,9 @@ class WtgTAG(db.Model, Serializable):
         True
         >>> validate_name('\\uFFFD' * TAG_MAX_LENGTH) # Last XML compatible character
         False
-        >>> validate_name(unichr(CFG_WEBTAG_LAST_MYSQL_CHARACTER)) # Not XML compatible
+        >>> validate_name(unichr(WEBTAG_MAX_CHARACTER)) # Not XML compatible
         False
-        >>> validate_name(unichr(CFG_WEBTAG_LAST_MYSQL_CHARACTER + 1)) # Outside range
+        >>> validate_name(unichr(WEBTAG_MAX_CHARACTER + 1)) # Outside range
         False
         """
         tag = wash_tag(value)
@@ -186,7 +200,7 @@ class WtgTAG(db.Model, Serializable):
         # assert len(tag) > 0
         # assert len(tag) <= CFG_WEBTAG_NAME_MAX_LENGTH
         # assert max(ord(letter) for letter in tag) \
-        #        <= CFG_WEBTAG_LAST_MYSQL_CHARACTER
+        #        <= WEBTAG_MAX_CHARACTER
 
         return tag
 
@@ -194,7 +208,7 @@ class WtgTAG(db.Model, Serializable):
     @db.validates('public_access_rights')
     def validate_user_access_rights(self, key, value):
         """ Check if the value is among defined levels """
-        assert value in CFG_WEBTAG_ACCESS_NAMES
+        assert value in WtgTAG.ACCESS_NAMES
         return value
 
 #
@@ -272,7 +286,7 @@ class WtgTAGUsergroup(db.Model, Serializable):
     # Access rights
     group_access_rights = db.Column(db.Integer(2, unsigned=True),
                            nullable=False,
-                           default=CFG_WEBTAG_ACCESS_LEVELS['View'])
+                           default=WtgTAG.ACCESS_LEVELS['View'])
 
     # Relationships
     tag = db.relationship(WtgTAG,
@@ -285,28 +299,43 @@ class WtgTAGUsergroup(db.Model, Serializable):
     @db.validates('group_access_rights')
     def validate_user_access_rights(self, key, value):
         """ Check if the value is among defined levels """
-        assert value in CFG_WEBTAG_ACCESS_NAMES
+        assert value in WtgTAG.ACCESS_NAMES
         return value
 
 
 # Compiling once should improve regexp speed
-COMPILED_REPLACEMENTS_SILENT = [(re.compile(exp), repl)
-                                for (exp, repl)
-                                in CFG_WEBTAG_NAME_REPLACEMENTS_SILENT]
 
-COMPILED_REPLACEMENTS_BLOCKING = [(re.compile(exp), repl)
-                                 for (exp, repl)
-                                 in CFG_WEBTAG_NAME_REPLACEMENTS_BLOCKING]
+class ReplacementList(object):
 
-def _apply_replacements(replacements, text):
-    """Applies a list of regular expression replacements to a string.
+    def __init__(self, config_name):
+        self.config_name = config_name
 
-    :param replacements: list of pairs (compiled_expression, replacement)
-    """
-    for (reg_exp, replacement) in replacements:
-        text = re.sub(reg_exp, replacement, text)
+    @cached_property
+    def replacements(self):
+        return current_app.config.get(config_name, [])
 
-    return text
+    @cached_property
+    def compiled(self):
+        return [(re.compile(exp), repl)
+                for (exp, repl) in self.replacements]
+
+    def apply(self, text):
+        """Applies a list of regular expression replacements to a string.
+
+        :param replacements: list of pairs (compiled_expression, replacement)
+        """
+        for (reg_exp, replacement) in self.compiled:
+            text = re.sub(reg_exp, replacement, text)
+
+        return text
+
+
+COMPILED_REPLACEMENTS_SILENT = \
+    ReplacementList('CFG_TAGS_NAME_REPLACEMENTS_SILENT')
+
+COMPILED_REPLACEMENTS_BLOCKING = \
+    ReplacementList('CFG_TAGS_NAME_REPLACEMENTS_BLOCKING')
+
 
 def wash_tag_silent(tag_name):
     """
@@ -331,7 +360,7 @@ def wash_tag_silent(tag_name):
     Trailing whitespace
     >>> print(_tag_cleanup('  Preceding and trailing double whitespace  '))
     Preceding and trailing double whitespace
-    >>> _tag_cleanup(unichr(CFG_WEBTAG_LAST_MYSQL_CHARACTER))
+    >>> _tag_cleanup(unichr(WEBTAG_MAX_CHARACTER))
     u''
     >>> from string import whitespace
     >>> _tag_cleanup(whitespace)
@@ -348,7 +377,7 @@ def wash_tag_silent(tag_name):
     tag_name = wash_for_xml(tag_name)
 
     # replacements
-    tag_name = _apply_replacements(COMPILED_REPLACEMENTS_SILENT, tag_name)
+    tag_name = COMPILED_REPLACEMENTS_SILENT.apply(tag_name)
 
     return tag_name
 
@@ -359,7 +388,7 @@ def wash_tag_blocking(tag_name):
         return None
 
      # replacements
-    tag_name = _apply_replacements(COMPILED_REPLACEMENTS_BLOCKING, tag_name)
+    tag_name = COMPILED_REPLACEMENTS_BLOCKING.apply(tag_name)
 
     return tag_name
 

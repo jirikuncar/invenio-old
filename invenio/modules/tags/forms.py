@@ -19,10 +19,6 @@
 
 """WebTag Forms"""
 
-from .config import \
-    CFG_WEBTAG_NAME_MAX_LENGTH, \
-    CFG_WEBTAG_LAST_MYSQL_CHARACTER
-
 from invenio.webinterface_handler_flask_utils import _
 
 from invenio.wtforms_utils import InvenioBaseForm
@@ -51,6 +47,9 @@ from .models import \
 
 def validate_tag_name(dummy_form, field):
     """ Check validity of tag name """
+    max_len = current_app.config['CFG_TAGS_NAME_MAX_LENGTH']
+    max_char = current_app.config['CFG_TAGS_MAX_CHARACTER']
+
     if field.data:
         suggested_silent = wash_tag_silent(field.data)
         suggested = wash_tag_blocking(suggested_silent)
@@ -65,12 +64,11 @@ def validate_tag_name(dummy_form, field):
             raise validators.ValidationError(
                 _('The name must contain valid characters.'))
 
-        if len(suggested_silent) > CFG_WEBTAG_NAME_MAX_LENGTH:
-            raise validators.ValidationError( _('The name cannot exeed ') \
-                  + str(CFG_WEBTAG_NAME_MAX_LENGTH) + _(' characters.'))
+        if len(suggested_silent) > max_len:
+            raise validators.ValidationError( _('The name cannot exeed ')
+                    + str(max_len) + _(' characters.'))
 
-        if max(ord(letter) for letter in suggested_silent) \
-           > CFG_WEBTAG_LAST_MYSQL_CHARACTER:
+        if max(ord(letter) for letter in suggested_silent) > max_char:
             raise validators.ValidationError( _('Forbidden character.'))
 
 def validate_name_available(dummy_form, field):
