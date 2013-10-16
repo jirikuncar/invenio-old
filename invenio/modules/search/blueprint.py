@@ -56,11 +56,12 @@ from invenio.search_engine import get_creation_date, perform_request_search,\
     print_record, create_nearest_terms_box, browse_pattern_phrases
 from invenio.utils.pagination import Pagination
 
-blueprint = InvenioBlueprint('search', __name__, url_prefix="",
-                             config='invenio.search_engine_config')
+blueprint = InvenioBlueprint('search', __name__, url_prefix="")
 
 
 FACETS = FacetLoader()
+
+
 def collection_name_from_request():
     collection = request.values.get('cc')
     if collection is None and len(request.values.getlist('c')) == 1:
@@ -149,7 +150,7 @@ def index():
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
     b = [(_('Home'), '.index')] + collection.breadcrumbs(ln=g.ln)[1:]
-    current_app.config['breadcrumbs_map'][request.endpoint] = b
+    #current_app.config['breadcrumbs_map'][request.endpoint] = b
 
     @register_template_context_processor
     def index_context():
@@ -262,7 +263,7 @@ def collection_breadcrumbs(collection, endpoint=None):
         del qargs[k]
         b = [(_('Home'), endpoint, qargs)] + collection.breadcrumbs(
             builder=crumb_builder(endpoint), ln=g.ln)[1:]
-    current_app.config['breadcrumbs_map'][request.endpoint] = b
+    #current_app.config['breadcrumbs_map'][request.endpoint] = b
 
 
 @blueprint.route('/browse', methods=['GET', 'POST'])
