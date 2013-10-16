@@ -22,7 +22,7 @@ import sys
 import shutil
 import datetime
 
-from invenio.scriptutils import Manager, change_command_name, print_progress
+from invenio.ext.script import Manager, change_command_name, print_progress
 
 manager = Manager(usage="Perform database operations")
 

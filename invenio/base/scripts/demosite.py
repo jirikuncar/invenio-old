@@ -20,7 +20,7 @@
 import os
 import sys
 
-from invenio.scriptutils import Manager
+from invenio.ext.script import Manager
 
 manager = Manager(usage="Perform demosite operations")
 

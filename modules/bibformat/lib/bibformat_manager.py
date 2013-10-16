@@ -29,7 +29,7 @@ generates new Jinja2 templates in CFG_BIBFORMAT_JINJA_TEMPLATE_PATH.
 import os
 import re
 import shutil
-from invenio.scriptutils import Manager
+from invenio.ext.script import Manager
 
 manager = Manager(usage="Perform migration operations")
 

@@ -246,7 +246,7 @@ def index():
 
     if current_user.is_super_admin:
         # Check for a new release of Invenio
-        from invenio.scriptutils import check_for_software_updates
+        from invenio.ext.script import check_for_software_updates
         check_for_software_updates(flash_message=True)
 
     if dashboard_settings:

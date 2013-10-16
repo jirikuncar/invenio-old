@@ -19,9 +19,9 @@
 
 
 import sys
-from werkzeug import find_modules, import_string
+from werkzeug.utils import find_modules, import_string
 from invenio.config import CFG_SITE_SECRET_KEY
-from invenio.scriptutils import Manager, change_command_name, \
+from invenio.ext.script import Manager, change_command_name, \
     generate_secret_key, register_manager
 from invenio.ext.sqlalchemy import db
 from invenio.base.factory import create_app
@@ -31,18 +31,14 @@ from invenio.base.utils import autodiscover_managers
 # Fixes problems with empty secret key in config manager.
 if 'config' in sys.argv and \
         (not CFG_SITE_SECRET_KEY or CFG_SITE_SECRET_KEY == ''):
-    create_app = create_app(
-        SECRET_KEY=generate_secret_key())
+    create_app = create_app(SECRET_KEY=generate_secret_key())
 
 
 app = create_app()
 manager = Manager(app, with_default_commands=False)
 register_manager(manager)
 
-for script in find_modules('invenio.base.scripts'):
-    manager.add_command(script.split('.')[-1],
-                        import_string(script + ':manager'))
-
+#FIXME find better way of adding managers depending on application config.
 for script in autodiscover_managers(app):
     manager.add_command(script.__name__.split('.')[-2],
                         getattr(script, 'manager'))
@@ -66,7 +62,7 @@ def version():
 @change_command_name
 def check_for_software_updates():
     from flask import get_flashed_messages
-    from invenio.scriptutils import check_for_software_updates
+    from invenio.ext.script import check_for_software_updates
     print ">>> Going to check software updates ..."
     result = check_for_software_updates()
     messages = list(get_flashed_messages(with_categories=True))
@@ -74,7 +70,8 @@ def check_for_software_updates():
         print '\n'.join(map(lambda t, msg: '[%s]: %s' % (t.upper(), msg),
                             messages))
     print '>>> ' + ('Invenio is up to date.' if result else
-        'Please consider updating your Invenio installation.')
+                    'Please consider updating your Invenio installation.')
+
 
 @manager.command
 @change_command_name
