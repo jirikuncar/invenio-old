@@ -24,6 +24,7 @@ import functools
 from functools import wraps
 from flask import flash
 from flask.ext.script import Manager as FlaskExtManager
+from werkzeug.utils import import_string, find_modules
 from invenio.base.signals import pre_command, post_command
 
 
@@ -138,7 +139,10 @@ def register_manager(manager):
     from invenio.config import CFG_SITE_URL
     from invenio.importutils import autodiscover_modules
 
-    # Call add_command() in inveniomanage module to register managers.
+    for script in find_modules('invenio.base.scripts'):
+        manager.add_command(script.split('.')[-1],
+                            import_string(script + ':manager'))
+
     modules = autodiscover_modules(['invenio'],
                                    '.+_manager')
     for m in modules:
