@@ -37,3 +37,4 @@ def _lookup_current_blueprint():
 # context data
 current_function = LocalProxy(_lookup_current_function)
 current_blueprint = LocalProxy(_lookup_current_blueprint)
+cfg = LocalProxy(lambda: current_app.config)
