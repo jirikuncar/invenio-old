@@ -23,12 +23,6 @@ from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
 from invenio.modules.account.models import User, Usergroup, UserUsergroup
 from invenio.webinterface_handler_flask_utils import _
-
-from invenio.webmessage_config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
-                                      CFG_WEBMESSAGE_STATUS_CODE, \
-                                      CFG_WEBMESSAGE_SEPARATOR, \
-                                      CFG_WEBMESSAGE_EMAIL_ALERT
-
 from invenio.ext.sqlalchemy import db
 from invenio.ext.template import render_template_to_string
 from invenio.settings import Settings, UserSettingsStorage, \
@@ -48,8 +42,7 @@ class WebMessageSettings(Settings):
         self.icon = 'envelope'
         self.title = _('Messages')
         self.view = url_for('webmessage.index')
-        if True or CFG_WEBMESSAGE_EMAIL_ALERT:
-            self.edit = url_for('webaccount.edit', name=self.name)
+        self.edit = url_for('webaccount.edit', name=self.name)
 
     def commit(self):
         pass
@@ -59,7 +52,7 @@ class WebMessageSettings(Settings):
         unread = db.session.query(db.func.count(UserMsgMESSAGE.id_msgMESSAGE)).\
             filter(db.and_(
                 UserMsgMESSAGE.id_user_to == uid,
-                UserMsgMESSAGE.status == CFG_WEBMESSAGE_STATUS_CODE['NEW']
+                UserMsgMESSAGE.status == cfg['CFG_WEBMESSAGE_STATUS_CODE']['NEW']
             )).scalar()
 
         total = db.session.query(db.func.count(UserMsgMESSAGE.id_msgMESSAGE)).\

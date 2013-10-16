@@ -35,7 +35,7 @@ from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
       InvenioWebSessionError, \
       InvenioWebSessionWarning
 
-from invenio.webmessage_config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
+from invenio.modules.messages.config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
                                       CFG_WEBMESSAGE_STATUS_CODE, \
                                       CFG_WEBMESSAGE_SEPARATOR, \
                                       CFG_WEBMESSAGE_EMAIL_ALERT

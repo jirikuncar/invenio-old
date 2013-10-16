@@ -21,13 +21,8 @@
 
 from string import strip
 from datetime import datetime
-from invenio.webmessage_config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
-                                      CFG_WEBMESSAGE_STATUS_CODE, \
-                                      CFG_WEBMESSAGE_SEPARATOR
-from invenio.config import CFG_SITE_LANG, \
-                           CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES, \
-                           CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 
+from invenio.modules.messages.config import CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 from invenio.ext.sqlalchemy import db
 from invenio.modules.account.models import User, Usergroup
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
@@ -43,7 +38,7 @@ def msg_split_addr(value):
     if not value:
         return []
     return filter(len, map(strip,
-        value.split(CFG_WEBMESSAGE_SEPARATOR)))
+        value.split(cfg['CFG_WEBMESSAGE_SEPARATOR'])))
 
 
 def validate_user_nicks(form, field):

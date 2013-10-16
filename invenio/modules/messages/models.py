@@ -22,14 +22,14 @@ WebMessage database models.
 """
 
 # General imports
+from invenio.base.globals import cfg
 from invenio.ext.sqlalchemy import db
 
 # Create your models here.
 from string import strip
 from invenio.modules.account.models import User, Usergroup
-from invenio.webmessage_config import CFG_WEBMESSAGE_SEPARATOR
-
 from sqlalchemy.ext.associationproxy import association_proxy
+
 
 class MsgMESSAGE(db.Model):
     """Represents a MsgMESSAGE record."""
@@ -76,22 +76,22 @@ class MsgMESSAGE(db.Model):
     @db.validates('_sent_to_user_nicks')
     def validate_sent_to_user_nicks(self, key, value):
         user_nicks = filter(len, map(strip,
-            value.split(CFG_WEBMESSAGE_SEPARATOR)))
+            value.split(cfg['CFG_WEBMESSAGE_SEPARATOR'])))
         assert len(user_nicks) == len(set(user_nicks))
         if len(user_nicks) > 0:
             assert len(user_nicks) == \
                 User.query.filter(User.nickname.in_(user_nicks)).count()
-        return CFG_WEBMESSAGE_SEPARATOR.join(user_nicks)
+        return cfg['CFG_WEBMESSAGE_SEPARATOR'].join(user_nicks)
 
     @db.validates('_sent_to_group_names')
     def validate_sent_to_group_names(self, key, value):
         group_names = filter(len, map(strip,
-            value.split(CFG_WEBMESSAGE_SEPARATOR)))
+            value.split(cfg['CFG_WEBMESSAGE_SEPARATOR'])))
         assert len(group_names) == len(set(group_names))
         if len(group_names) > 0:
             assert len(group_names) == \
                 Usergroup.query.filter(Usergroup.name.in_(group_names)).count()
-        return CFG_WEBMESSAGE_SEPARATOR.join(group_names)
+        return cfg['CFG_WEBMESSAGE_SEPARATOR'].join(group_names)
 
 
     @sent_to_user_nicks.setter
@@ -143,19 +143,19 @@ class MsgMESSAGE(db.Model):
         if not self._sent_to_user_nicks:
             return []
         return filter(len, map(strip,
-            self._sent_to_user_nicks.split(CFG_WEBMESSAGE_SEPARATOR)))
+            self._sent_to_user_nicks.split(cfg['CFG_WEBMESSAGE_SEPARATOR'])))
 
     @property
     def group_names(self):
         if not self._sent_to_group_names:
             return []
         return filter(len, map(strip,
-            self.sent_to_group_names.split(CFG_WEBMESSAGE_SEPARATOR)))
+            self.sent_to_group_names.split(cfg['CFG_WEBMESSAGE_SEPARATOR'])))
 
 
 #TODO consider moving following lines to separate file.
 
-from invenio.webmessage_config import CFG_WEBMESSAGE_EMAIL_ALERT
+from invenio.modules.messages.config import CFG_WEBMESSAGE_EMAIL_ALERT
 from invenio.config import CFG_WEBCOMMENT_ALERT_ENGINE_EMAIL
 from invenio.utils.date import datetext_format
 from datetime import datetime
@@ -180,7 +180,7 @@ def email_alert(mapper, connection, target):
             u.settings.get('webmessage_email_alert', True):
             try:
                 alert(
-                    CFG_WEBCOMMENT_ALERT_ENGINE_EMAIL,
+                    cfg['CFG_WEBCOMMENT_ALERT_ENGINE_EMAIL'],
                     u.email,
                     subject = m.subject,
                     content = render_template_to_string(
@@ -191,10 +191,15 @@ def email_alert(mapper, connection, target):
                 pass
 
 
-if CFG_WEBMESSAGE_EMAIL_ALERT:
-    from sqlalchemy import event
-    # Register after insert callback.
-    event.listen(MsgMESSAGE, 'after_insert', email_alert)
+# Registration of email_alert invoked from blueprint
+# in order to use before_app_first_request.
+# Reading config CFG_WEBMESSAGE_EMAIL_ALERT
+# required app context.
+def email_alert_register():
+    if cfg['CFG_WEBMESSAGE_EMAIL_ALERT']:
+        from sqlalchemy import event
+        # Register after insert callback.
+        event.listen(MsgMESSAGE, 'after_insert', email_alert)
 
 
 class UserMsgMESSAGE(db.Model):

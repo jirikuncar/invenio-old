@@ -18,7 +18,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from invenio.ext.sqlalchemy import db
-from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE
+from invenio.modules.messages.config import CFG_WEBMESSAGE_STATUS_CODE
 from invenio.testutils import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture
 

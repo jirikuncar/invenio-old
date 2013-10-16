@@ -22,13 +22,13 @@
 from datetime import datetime
 from flask import render_template, request, flash, redirect, url_for
 from invenio import webmessage_dblayer as dbplayer
-from invenio.config import CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES
+from invenio.base.globals import cfg
 from invenio.ext.menu import register_menu
 from invenio.ext.sqlalchemy import db
 from invenio.webmessage import is_no_quota_user
-from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE
 from invenio.webmessage_mailutils import email_quote_txt
-from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
+from invenio.modules.messages.models import \
+    MsgMESSAGE, UserMsgMESSAGE, email_alert_register
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
@@ -47,7 +47,7 @@ class MessagesMenu(object):
         unread = db.session.query(db.func.count(UserMsgMESSAGE.id_msgMESSAGE)).\
             filter(db.and_(
                 UserMsgMESSAGE.id_user_to == uid,
-                UserMsgMESSAGE.status == CFG_WEBMESSAGE_STATUS_CODE['NEW']
+                UserMsgMESSAGE.status == cfg['CFG_WEBMESSAGE_STATUS_CODE']['NEW']
             )).scalar()
 
         out = '<div data-menu="click" data-menu-source="' + url_for('webmessage.menu') + '">'
@@ -60,7 +60,7 @@ class MessagesMenu(object):
 not_guest = lambda: not current_user.is_guest
 
 blueprint = InvenioBlueprint('webmessage', __name__, url_prefix="/yourmessages",
-                             config='invenio.webmessage_config',
+                             config='invenio.modules.messages.config',
                              breadcrumbs=[(_("Your Account"), 'youraccount.edit'),
                                           ('Your Messages', 'webmessage.index')])
 
@@ -154,14 +154,14 @@ def add(msg_reply_id):
         form.populate_obj(m)
         m.id_user_from = uid
         m.sent_date = datetime.now()
-        quotas = dbplayer.check_quota(CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES - 1)
+        quotas = dbplayer.check_quota(cfg['CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES'] - 1)
         users = filter(lambda x: quotas.has_key(x.id), m.recipients)
         #m.recipients = m.recipients.difference(users))
         for u in users:
             m.recipients.remove(u)
         if len(users) > 0:
             flash(_('Following users reached their quota %d messages: %s') % \
-                  (CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES, ', '.join(
+                  (cfg['CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES'], ', '.join(
                   [u.nickname for u in users]),), "error")
         flash(_('Message has %d valid recipients.') %
               (len(m.recipients),), "info")
@@ -172,7 +172,7 @@ def add(msg_reply_id):
                 and m.received_date > datetime.now():
 
                 for um in m.sent_to_users:
-                    um.status = CFG_WEBMESSAGE_STATUS_CODE['REMINDER']
+                    um.status = cfg['CFG_WEBMESSAGE_STATUS_CODE']['REMINDER']
             else:
                 m.received_date = datetime.now()
             try:
@@ -200,7 +200,7 @@ def view(msgid):
     else:
         try:
             m = dbquery.get_message(uid, msgid)
-            m.status = CFG_WEBMESSAGE_STATUS_CODE['READ']
+            m.status = cfg['CFG_WEBMESSAGE_STATUS_CODE']['READ']
             ## It's not necessary since "m" is SQLAlchemy object bind with same
             ## session.
             ##db.session.add(m)
@@ -257,3 +257,12 @@ def delete_all(confirmed=0):
     else:
         flash(_("Could not empty your mailbox."), "warning")
     return redirect(url_for('.index'))
+
+
+# Registration of email_alert invoked from blueprint
+# in order to use before_app_first_request.
+# Reading config CFG_WEBMESSAGE_EMAIL_ALERT
+# required app context.
+@blueprint.before_app_first_request
+def invoke_email_alert_register():
+    email_alert_register()

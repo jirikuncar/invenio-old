@@ -24,9 +24,10 @@
 __revision__ = "$Id$"
 
 from invenio.webmessage_mailutils import email_quoted_txt2html, email_quote_txt
-from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE, \
-                                      CFG_WEBMESSAGE_SEPARATOR, \
-                                      CFG_WEBMESSAGE_RESULTS_FIELD
+from invenio.modules.messages.config import \
+    CFG_WEBMESSAGE_STATUS_CODE, \
+    CFG_WEBMESSAGE_SEPARATOR, \
+    CFG_WEBMESSAGE_RESULTS_FIELD
 from invenio.config import CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES
 from invenio.utils.date import convert_datetext_to_dategui, \
                               datetext_default, \
@@ -39,7 +40,6 @@ from invenio.config import CFG_SITE_URL, CFG_SITE_LANG
 from invenio.messages import gettext_set_language
 from invenio.webuser import get_user_info
 
+
 class Template:
     """Templates for WebMessage module"""
-
-

@@ -32,7 +32,7 @@ from invenio.webmessage import perform_request_display_msg, \
                                perform_request_delete_msg, \
                                perform_request_delete_all, \
                                get_navtrail
-from invenio.webmessage_config import CFG_WEBMESSAGE_RESULTS_FIELD
+from invenio.modules.messages.config import CFG_WEBMESSAGE_RESULTS_FIELD
 from invenio.webmessage_mailutils import escape_email_quoted_text
 from invenio.webpage import page
 from invenio.messages import gettext_set_language

@@ -22,12 +22,13 @@
 from time import localtime, mktime
 from datetime import datetime
 
-from invenio.config import \
-     CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES, \
-     CFG_WEBMESSAGE_DAYS_BEFORE_DELETE_ORPHANS
 from invenio.dbquery import run_sql, OperationalError
-from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE, \
-                                      CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA
+from invenio.modules.messages.config import \
+    CFG_WEBMESSAGE_STATUS_CODE, \
+    CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
+    CFG_WEBMESSAGE_MAX_NB_OF_MESSAGES, \
+    CFG_WEBMESSAGE_DAYS_BEFORE_DELETE_ORPHANS
+
 from invenio.utils.date import datetext_default, \
                               convert_datestruct_to_datetext
 from invenio.websession_config import CFG_WEBSESSION_USERGROUP_STATUS

@@ -22,13 +22,14 @@
 __revision__ = "$Id$"
 
 import invenio.webmessage_dblayer as db
-from invenio.webmessage_config import CFG_WEBMESSAGE_STATUS_CODE, \
-                                      CFG_WEBMESSAGE_RESULTS_FIELD, \
-                                      CFG_WEBMESSAGE_SEPARATOR, \
-                                      CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
-                                      InvenioWebMessageError
-from invenio.config import CFG_SITE_LANG, \
-     CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
+from invenio.modules.messages.config import \
+    CFG_WEBMESSAGE_STATUS_CODE, \
+    CFG_WEBMESSAGE_RESULTS_FIELD, \
+    CFG_WEBMESSAGE_SEPARATOR, \
+    CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
+    CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
+from invenio.modules.messages.errors import InvenioWebMessageError
+from invenio.config import CFG_SITE_LANG
 from invenio.messages import gettext_set_language
 from invenio.utils.date import datetext_default, get_datetext
 from invenio.htmlutils import escape_html

@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+##
 ## This file is part of Invenio.
-## Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011 CERN.
+## Copyright (C) 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -15,20 +17,17 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-pylibdir = $(libdir)/python/invenio
+"""
+    Exceptions for Invenio Messages module
+"""
 
-pylib_DATA = webmessage.py \
-             webmessage_templates.py \
-             webmessage_dblayer.py \
-             webmessage_mailutils.py \
-             webmessage_flask_tests.py \
-             webmessage_forms.py \
-             webmessage_query.py \
-             webmessage_webinterface.py \
-             webmessage_regression_tests.py \
-             webmessage_unit_tests.py \
-             webmessage_web_tests.py
 
-EXTRA_DIST = $(pylib_DATA)
+class InvenioWebMessageError(Exception):
+    """A generic error for WebMessage."""
+    def __init__(self, message):
+        """Initialisation."""
+        self.message = message
 
-CLEANFILES = *~ *.tmp *.pyc
+    def __str__(self):
+        """String representation."""
+        return repr(self.message)
