@@ -6,4 +6,4 @@ fixture==1.4
 redis==2.8.0
 twill==0.9
 unittest2==0.5.1
-webassets==0.8
+webassets==0.7
