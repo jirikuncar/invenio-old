@@ -25,7 +25,7 @@
 """
 
 from werkzeug import LocalProxy
-from flask import current_app, request
+from flask import current_app
 from invenio.base.globals import current_function, current_blueprint
 from invenio.ext.menu import MenuAlchemy, current_menu
 
@@ -56,8 +56,13 @@ class BreadcrumbAlchemy(MenuAlchemy):
         Backend function for current_path proxy.
         """
         # str(...) because __breadcrumb__ can hold a LocalProxy
-        return str(getattr(current_function, '__breadcrumb__', '')) \
-            or BreadcrumbAlchemy.blueprint_get_path(current_blueprint)
+        if hasattr(current_function, '__breadcrumb__'):
+            return str(getattr(current_function, '__breadcrumb__', ''))
+
+        if current_blueprint:
+            return BreadcrumbAlchemy.blueprint_get_path(current_blueprint)
+
+        return ''
 
     @staticmethod
     def _breadcrumbs():
