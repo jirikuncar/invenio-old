@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-##
 ## This file is part of Invenio.
 ## Copyright (C) 2013 CERN.
 ##
@@ -16,9 +15,32 @@
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+"""
+    invenio.utils.serializers
+    -------------------------
 
-"""Author Facet"""
+    Implements custom serializers.
+"""
 
-from invenio.websearch_facet_builders import FacetBuilder
+import marshal
+from zlib import compress, decompress
 
-facet = FacetBuilder('author', order=2)
+__all__ = ['ZlibMarshal', 'serialize_via_marshal', 'deserialize_via_marshal']
+
+
+class ZlibMarshal(object):
+    """Combines zlib and marshal libraries."""
+
+    @staticmethod
+    def loads(astring):
+        """Decompress and deserialize string into a Python object via marshal."""
+        return marshal.loads(decompress(astring))
+
+    @staticmethod
+    def dumps(obj):
+        """Serialize Python object via marshal into a compressed string."""
+        return compress(marshal.dumps(obj))
+
+# Provides legacy API functions.
+serialize_via_marshal = ZlibMarshal.dumps
+deserialize_via_marshal = ZlibMarshal.loads

@@ -24,13 +24,11 @@ BibEdit database models.
 
 # General imports.
 from invenio.ext.sqlalchemy import db
-from invenio.search_engine_utils import get_fieldvalues
+from flask import current_app
 from werkzeug import cached_property
 
-from invenio.config import \
-     CFG_CERN_SITE
-
 # Create your models here.
+
 
 class Bibrec(db.Model):
     """Represents a Bibrec record."""
@@ -54,16 +52,18 @@ class Bibrec(db.Model):
         """
            Return True if record is marked as deleted.
         """
-
+        from invenio.search_engine_utils import get_fieldvalues
         # record exists; now check whether it isn't marked as deleted:
         dbcollids = get_fieldvalues(self.id, "980__%")
 
         return ("DELETED" in dbcollids) or \
-               (CFG_CERN_SITE and "DUMMY" in dbcollids)
+               (current_app.config.get('CFG_CERN_SITE')
+                and "DUMMY" in dbcollids)
 
     @staticmethod
     def _next_merged_recid(recid):
         """ Returns the ID of record merged with record with ID = recid """
+        from invenio.search_engine_utils import get_fieldvalues
         merged_recid = None
         for val in get_fieldvalues(recid, "970__d"):
             try:

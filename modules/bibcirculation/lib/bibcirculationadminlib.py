@@ -51,8 +51,8 @@ from invenio.webstat import register_customevent
 from invenio.errorlib import register_exception
 from invenio.ext.email import send_email
 from invenio.search_engine import perform_request_search, record_exists
-from invenio.urlutils import create_html_link, create_url, redirect_to_url
-from invenio.messages import gettext_set_language
+from invenio.utils.url import create_html_link, create_url, redirect_to_url
+from invenio.base.i18n import gettext_set_language
 from invenio.webstat import register_customevent
 from invenio.errorlib import register_exception
 from invenio.config import \

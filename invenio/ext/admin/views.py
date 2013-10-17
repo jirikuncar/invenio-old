@@ -16,12 +16,12 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
+from flask import Blueprint
 from flask.ext.admin import BaseView as FlaskBaseView, \
     AdminIndexView as FlaskAdminIndexView
 from flask.ext.admin.contrib.sqlamodel import ModelView as FlaskModelView
 from flask.ext.login import current_user
 
-from invenio.webinterface_handler_flask_utils import InvenioBlueprint
 from invenio.ext.sslify import ssl_required
 from invenio.ext.principal import permission_required
 
@@ -79,7 +79,7 @@ class BaseView(FlaskBaseView):
         Create Flask blueprint.
 
         Copy/pasted from flask.ext.admin.BaseView, with minor edits needed to
-        ensure InvenioBlueprint is being used.
+        ensure Blueprint is being used.
         """
         # Store admin instance
         self.admin = admin
@@ -116,7 +116,7 @@ class BaseView(FlaskBaseView):
         import_name = getattr(self, 'import_name', __name__)
 
         # Create blueprint and register rules
-        self.blueprint = ssl_required(InvenioBlueprint(
+        self.blueprint = ssl_required(Blueprint(
             self.endpoint, import_name,
             url_prefix=self.url,
             subdomain=self.admin.subdomain,
@@ -149,7 +149,7 @@ class ModelView(FlaskModelView, BaseView):
 
 class AdminIndexView(FlaskAdminIndexView, BaseView):
     """
-    Invenio admin index view that ensures InvenioBlueprint is being used.
+    Invenio admin index view that ensures Blueprint is being used.
     """
     # Ensures that templates and static files can be found
     import_name = 'flask_admin'

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2012 CERN.
+## Copyright (C) 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -19,11 +19,11 @@
 
 """WebAccess Admin Flask Blueprint"""
 
-from flask import redirect, url_for
+from flask import redirect, url_for, Blueprint
 from flask.ext.login import login_required
 from invenio.modules.access.models import AccACTION, AccROLE
 from invenio.modules.account.models import User
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from invenio.base.decorators import templated, sorted_by
 from invenio.ext.menu import register_menu
 from invenio.ext.breadcrumb import register_breadcrumb
@@ -31,9 +31,8 @@ from invenio.ext.principal import permission_required
 from invenio.access_control_config import \
     WEBACCESSACTION
 
-blueprint = InvenioBlueprint('webaccess_admin', __name__,
-                             url_prefix="/admin/webaccess",
-                             config='invenio.access_control_config')
+blueprint = Blueprint('webaccess_admin', __name__,
+                             url_prefix="/admin/webaccess")
 
 
 @blueprint.route('/', methods=['GET', 'POST'])

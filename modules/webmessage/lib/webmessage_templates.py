@@ -33,10 +33,10 @@ from invenio.utils.date import convert_datetext_to_dategui, \
                               create_day_selectbox, \
                               create_month_selectbox, \
                               create_year_selectbox
-from invenio.urlutils import create_html_link, create_url
+from invenio.utils.url import create_html_link, create_url
 from invenio.htmlutils import escape_html
 from invenio.config import CFG_SITE_URL, CFG_SITE_LANG
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.webuser import get_user_info
 
 class Template:

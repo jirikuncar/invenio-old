@@ -25,8 +25,9 @@
 """
 
 # Flask
-from flask import render_template, request, flash, redirect, url_for, jsonify
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from flask import render_template, request, flash, redirect, url_for, \
+        jsonify, Blueprint
+from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from flask.ext.login import current_user, login_required
 
@@ -57,7 +58,7 @@ from .forms import \
     validators
 
 
-blueprint = InvenioBlueprint('webtag', __name__, template_folder='templates',
+blueprint = Blueprint('webtag', __name__, template_folder='templates',
                              url_prefix='/yourtags')
 
 default_breadcrumb_root(blueprint, '.webaccount.tags')

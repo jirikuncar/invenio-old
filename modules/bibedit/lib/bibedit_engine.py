@@ -33,7 +33,7 @@ import cookielib
 from invenio import bibformat
 
 from invenio.utils.json import json, CFG_JSON_AVAILABLE
-from invenio.urlutils import auto_version_url
+from invenio.utils.url import auto_version_url
 from invenio.xmlmarc2textmarc import create_marc_record
 from invenio.bibedit_config import CFG_BIBEDIT_AJAX_RESULT_CODES, \
     CFG_BIBEDIT_JS_CHECK_SCROLL_INTERVAL, CFG_BIBEDIT_JS_HASH_CHECK_INTERVAL, \

@@ -135,7 +135,7 @@ from invenio.dbquery import CFG_DATABASE_HOST, \
     CFG_DATABASE_SLAVE
 from invenio.base.factory import create_app, \
     with_app_context
-from invenio.urlutils import rewrite_to_secure_url
+from invenio.utils.url import rewrite_to_secure_url
 import pyparsing  # needed to import here before flask.ext.testing in
                   # order to avoid pyparsing troubles due to twill
 from flask.ext.testing import TestCase

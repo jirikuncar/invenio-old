@@ -21,34 +21,6 @@ Invenio -> Flask adapter utilities
 """
 
 import types
-from functools import wraps
-from flask import Blueprint, current_app, request,  \
-                  render_template, jsonify, get_flashed_messages, flash, \
-                  Response, _request_ctx_stack, stream_with_context, Request
-
-## Placemark for the i18n function
-_ = lambda x: x
-
-
-class InvenioBlueprint(Blueprint):
-
-    def __init__(self, name, import_name, url_prefix=None, config=None,
-                 breadcrumbs=None, menubuilder=None, force_https=False,
-                 **kwargs):
-        """
-        Invenio extension of standard Flask blueprint.
-
-        @param name: blueprint unique text identifier
-        @param import_name: class name (usually __name__)
-        @param url_prefix: URL prefix for all blueprints' view functions
-        @param config: importable config class
-        @param breadcrumbs: list of breadcrumbs
-        @param menubuilder: list of menus
-        @param force_https: requires blueprint to be accessible only via https
-        """
-        Blueprint.__init__(self, name, import_name, url_prefix=url_prefix, **kwargs)
-        self.config = config
-        self._force_https = force_https
 
 
 def wash_urlargd(form, content):

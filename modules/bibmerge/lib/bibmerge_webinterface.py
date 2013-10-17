@@ -28,7 +28,7 @@ from invenio.search_engine import guess_primary_collection_of_a_record
 from invenio.webpage import page
 from invenio.webuser import getUid, page_not_authorized, collect_user_info
 from invenio.utils.json import json, json_unicode_to_utf8
-from invenio.urlutils import redirect_to_url
+from invenio.utils.url import redirect_to_url
 from invenio.webinterface_handler import WebInterfaceDirectory, wash_urlargd
 from invenio.bibmerge_engine import perform_request_init, \
                                     perform_request_ajax

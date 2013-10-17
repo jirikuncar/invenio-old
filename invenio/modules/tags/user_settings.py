@@ -22,9 +22,9 @@
 # Flask
 from flask import url_for
 from invenio.ext.template import render_template_to_string
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from flask.ext.login import current_user
-from invenio.settings import Settings, UserSettingsStorage
+from invenio.modules.dashboard.settings import Settings, UserSettingsStorage
 from invenio.ext.sqlalchemy import db
 
 # Related models

@@ -22,7 +22,7 @@ __revision__ = "$Id$"
 import cgi
 import urllib
 
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.webbasket_config import \
                        CFG_WEBBASKET_CATEGORIES, \
                        CFG_WEBBASKET_ACTIONS, \

@@ -25,9 +25,9 @@ from datetime import datetime
 from invenio.ext.sqlalchemy import db
 from invenio.modules.account.models import User, Usergroup
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from flask.ext.wtf import Form
-from invenio.wtforms_utils import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
+from invenio.utils.forms import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
 from wtforms import DateTimeField, BooleanField, TextField, TextAreaField, \
                     PasswordField, HiddenField, SelectField, validators
 

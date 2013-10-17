@@ -25,7 +25,7 @@ WebSearch database models.
 import re
 from operator import itemgetter
 from flask import g, url_for
-from invenio.config import CFG_SITE_LANG
+from invenio.base.globals import cfg
 from invenio.intbitset import intbitset
 #from invenio.search_engine_config import CFG_WEBSEARCH_SEARCH_WITHIN
 #from invenio.search_engine import collection_restricted_p
@@ -396,8 +396,9 @@ class Collection(db.Model):
     #    else:
     #        self._externalcollections = data
 
-    def breadcrumbs(self, builder=None, ln=CFG_SITE_LANG):
+    def breadcrumbs(self, builder=None, ln=None):
         """Retunds breadcrumbs for collection."""
+        ln = cfg.get('CFG_SITE_LANG') if ln is None else ln
         breadcrumbs = []
         # Get breadcrumbs for most specific dad if it exists.
         if self.most_specific_dad is not None:

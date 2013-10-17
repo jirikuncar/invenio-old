@@ -24,16 +24,7 @@ templates_DATA = record.html \
 		 record_keywords.html \
 		 record_references.html \
 		 record_usage.html \
-		 record_back_to_search_links.html \
-		 websearch_browse.html \
-		 websearch_collection.html \
-		 websearch_index.html \
-		 websearch_helpers.html \
-		 websearch_results.html \
-		 websearch_search.html \
-		 websearch_admin_index.html \
-		 websearch_admin_helpers.html \
-		 websearch_admin_collection.html
+		 record_back_to_search_links.html
 
 EXTRA_DIST = $(templates_DATA)
 

@@ -26,7 +26,10 @@
 import sqlalchemy
 import base64
 from sqlalchemy.orm import class_mapper, properties
-from invenio.intbitset import intbitset
+try:
+    from invenio.intbitset import intbitset
+except:
+    from intbitset import intbitset
 
 
 def get_model_type(ModelBase):

@@ -67,7 +67,7 @@ from invenio.bibrecord import \
      record_xml_output
 from invenio.bibformat_xslt_engine import format
 from invenio.dbquery import run_sql
-from invenio.messages import \
+from invenio.base.i18n import \
      language_list_long, \
      wash_language, \
      gettext_set_language

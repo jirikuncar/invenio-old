@@ -24,8 +24,8 @@ Please see http://flask-admin.readthedocs.org/en/latest/quickstart/ prior to
 reading this documentation, to understand how Flask-Admin works.
 
 Flask admin allows you to easily create web administration interfaces for your
-SQLAlchemy models. This extension takes care of using InvenioBlueprint as
-base class for the admin views.
+SQLAlchemy models. This extension takes care of using Blueprint as base class
+for the admin views.
 
 By default this extension will look for invenio.<name>_admin modules and call
 the method register_admin(app, admin) in each module to allow to register its
@@ -54,7 +54,8 @@ Usage example - create a file called <module>_admin.py::
             super(MyModelAdmin, self).__init__(model, session, **kwargs)
 
     def register_admin(app, admin):
-        admin.add_view(MyModelAdmin(MyModel, db.session, name='My model', category="My Category"))
+        admin.add_view(MyModelAdmin(MyModel, db.session, name='My model',
+                                    category="My Category"))
 """
 
 from flask.ext.admin import Admin
@@ -63,6 +64,8 @@ from .views import AdminIndexView
 #
 # Utility method
 #
+
+
 def setup_app(app):
     """
     Register all administration views with the Flask application

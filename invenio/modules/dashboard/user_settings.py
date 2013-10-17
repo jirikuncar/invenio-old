@@ -22,10 +22,10 @@
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
 from invenio.modules.account.models import User
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from flask.ext.login import current_user
 from invenio.ext.template import render_template_to_string
-from invenio.settings import Settings, UserSettingsStorage, \
+from invenio.modules.dashboard.settings import Settings, UserSettingsStorage, \
                              ModelSettingsStorageBuilder, \
                              UserSettingsAttributeStorage
 from invenio.modules.account.models import User

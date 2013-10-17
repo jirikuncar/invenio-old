@@ -20,9 +20,9 @@
 """WebMessage Forms"""
 
 from flask import url_for
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from invenio.bibknowledge import get_kb_mappings
-from invenio.wtforms_utils import InvenioBaseForm, AutocompleteField, \
+from invenio.utils.forms import InvenioBaseForm, AutocompleteField, \
     RowWidget
 from wtforms import TextField
 from wtforms import FormField, SelectField, SelectMultipleField

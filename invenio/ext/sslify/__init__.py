@@ -25,7 +25,7 @@
 """
 
 from flask import session, request, current_app
-from invenio.flask_sslify import SSLify
+from .wrappers import SSLify
 from .decorators import ssl_required
 
 

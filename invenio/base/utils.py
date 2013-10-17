@@ -102,6 +102,8 @@ def import_module_from_packages(name, app=None, packages=None):
                 except ImportError:
                     pass
                 except Exception as e:
+                    import traceback
+                    traceback.print_exc()
                     app.logger.error('Could not import: "%s.%s: %s',
                                      module, name, str(e))
                     pass

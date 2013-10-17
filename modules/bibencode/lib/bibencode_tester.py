@@ -32,7 +32,7 @@ import invenio.config
 from invenio.bibencode_encode import encode_video
 from invenio.bibencode_extract import extract_frames
 from invenio.textutils import wait_for_user
-from invenio.urlutils import make_invenio_opener
+from invenio.utils.url import make_invenio_opener
 from os.path import basename
 import os
 from urlparse import urlsplit

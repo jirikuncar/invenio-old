@@ -82,7 +82,7 @@ from invenio.utils.date import convert_datestruct_to_datetext
 from invenio.errorlib import register_exception
 from invenio.bibcatalog import bibcatalog_system
 from invenio.intbitset import intbitset
-from invenio.urlutils import make_user_agent_string
+from invenio.utils.url import make_user_agent_string
 from invenio.config import CFG_BIBDOCFILE_FILEDIR
 from invenio.bibtask import task_init, write_message, \
     task_set_option, task_get_option, task_get_task_param, task_update_status, \

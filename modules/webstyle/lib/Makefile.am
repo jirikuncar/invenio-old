@@ -33,8 +33,6 @@ pylib_DATA = webdoc.py \
              ckeditor_invenio_connector.py \
              webinterface_handler_wsgi.py \
              webinterface_handler_wsgi_utils.py \
-             webinterface_handler_flask_utils.py \
-             webinterface_handler_config.py \
              httptest_webinterface.py \
              ping_webinterface.py \
              goto_webinterface.py \

@@ -25,35 +25,27 @@ import functools
 import cStringIO
 from math import ceil
 from flask import make_response, g, request, flash, jsonify, \
-    redirect, url_for, current_app, abort, session
+    redirect, url_for, current_app, abort, session, Blueprint
+from flask.ext.login import current_user
 
-from invenio.modules.index import models as BibIndex
-from invenio import websearch_receivers
-from invenio.bibindex_engine import get_index_id_from_index_name
-from invenio.bibformat import get_output_format_content_type, print_records
+from . import receivers
+from .cache import get_search_query_id, get_collection_name_from_cache
+from .facet_builders import get_current_user_records_that_can_be_displayed, \
+    faceted_results_filter, FacetLoader
+from .forms import EasySearchForm
+from .models import Collection
 from invenio.ext.menu import register_menu
-from invenio.websearch_cache import \
-    get_search_query_id, get_collection_name_from_cache
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.base.signals import websearch_before_browse, websearch_before_search
-from invenio.websearch_forms import EasySearchForm
-from invenio.modules.search.models import Collection
-from invenio.websearch_webinterface import wash_search_urlargd
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.modules.index import models as BibIndex
+from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from invenio.ext.breadcrumb import register_breadcrumb, breadcrumbs
 from invenio.ext.template.context_processor import \
     register_template_context_processor
-from flask.ext.login import current_user
-from invenio.websearch_facet_builders import \
-    get_current_user_records_that_can_be_displayed, faceted_results_filter, \
-    FacetLoader
-from invenio.search_engine import get_creation_date, perform_request_search,\
-    print_record, create_nearest_terms_box, browse_pattern_phrases
 from invenio.utils.pagination import Pagination
 
-blueprint = InvenioBlueprint('search', __name__, url_prefix="")
+blueprint = Blueprint('search', __name__, url_prefix="",
+                      template_folder='templates')
 
 
 FACETS = FacetLoader()
@@ -93,6 +85,8 @@ def check_collection(method=None, name_getter=collection_name_from_request,
             return abort(404)
 
         if collection.is_restricted:
+            from invenio.access_control_engine import acc_authorize_action
+            from invenio.access_control_config import VIEWRESTRCOLL
             (auth_code, auth_msg) = acc_authorize_action(uid, VIEWRESTRCOLL,
                                                          collection=collection.name)
             if auth_code:
@@ -108,6 +102,7 @@ def check_collection(method=None, name_getter=collection_name_from_request,
 
 
 def response_formated_records(recids, collection, of, **kwargs):
+    from invenio.bibformat import get_output_format_content_type, print_records
     response = make_response(print_records(recids, collection=collection,
                                            of=of, **kwargs))
     response.mimetype = get_output_format_content_type(of)
@@ -116,7 +111,7 @@ def response_formated_records(recids, collection, of, **kwargs):
 
 @blueprint.route('/index.py', methods=['GET', 'POST'])
 @blueprint.route('/', methods=['GET', 'POST'])
-@templated('websearch_index.html')
+@templated('search/index.html')
 @register_menu(blueprint, 'main.search', _('Search'), order=1)
 @register_breadcrumb(blueprint, 'breadcrumbs', _('Home'))
 def index():
@@ -131,6 +126,7 @@ def index():
 
     collection = Collection.query.get_or_404(1)
     # inject functions to the template
+    from invenio.search_engine import get_creation_date, print_record
 
     @register_template_context_processor
     def index_context():
@@ -143,9 +139,11 @@ def index():
 
 
 @blueprint.route('/collection/<name>', methods=['GET', 'POST'])
-@templated('websearch_collection.html')
+@templated('search/collection.html')
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
+
+    from invenio.search_engine import get_creation_date, print_record
 
     @register_template_context_processor
     def index_context():
@@ -218,6 +216,7 @@ def _create_neareset_term_box(argd_orig):
         if get_field_name(fx) != "":
             f, p = fx, px
 
+    from invenio.search_engine import create_nearest_terms_box
     return create_nearest_terms_box(argd_orig,
         p=p, f=f.lower(), ln=g.ln, intro_text_p=True)
     #except:
@@ -265,7 +264,7 @@ def collection_breadcrumbs(collection, endpoint=None):
 
 @blueprint.route('/browse', methods=['GET', 'POST'])
 @register_breadcrumb(blueprint, '.browse', _('Browse results'))
-@templated('websearch_browse.html')
+@templated('search/browse.html')
 @wash_arguments({'p': (unicode, ''),
                                  'f': (unicode, None),
                                  'of': (unicode, 'hb'),
@@ -276,6 +275,7 @@ def collection_breadcrumbs(collection, endpoint=None):
 @check_collection(default_collection=True)
 def browse(collection, p, f, of, so, rm, rg, jrec):
 
+    from invenio.search_engine import browse_pattern_phrases
     from invenio.websearch_webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
 
@@ -304,7 +304,7 @@ def browse(collection, p, f, of, so, rm, rg, jrec):
 
     return dict(records=records)
 
-websearch_before_browse.connect(websearch_receivers.websearch_before_browse_handler)
+websearch_before_browse.connect(receivers.websearch_before_browse_handler)
 
 
 @blueprint.route('/rss', methods=['GET'])
@@ -315,7 +315,9 @@ websearch_before_browse.connect(websearch_receivers.websearch_before_browse_hand
                  'rm': (unicode, None)})
 @check_collection(default_collection=True)
 def rss(collection, p, jrec, so, rm):
+    from invenio.search_engine import perform_request_search
     of = 'xr'
+    from invenio.websearch_webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
     argd['of'] = 'id'
 
@@ -347,6 +349,7 @@ def search(collection, p, of, so, rm):
     """
     Renders search pages.
     """
+    from invenio.search_engine import perform_request_search
 
     if 'action_browse' in request.args \
             or request.args.get('action', '') == 'browse':
@@ -356,6 +359,7 @@ def search(collection, p, of, so, rm):
             and len(request.args.getlist('c')) == 1:
         return redirect(url_for('.collection', name=request.args.get('c')))
 
+    from invenio.websearch_webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
     argd['of'] = 'id'
 
@@ -469,7 +473,7 @@ def autocomplete(field, q):
 
     @return: list of values matching query.
     """
-
+    from invenio.bibindex_engine import get_index_id_from_index_name
     IdxPHRASE = BibIndex.__getattribute__('IdxPHRASE%02dF' %
                                           get_index_id_from_index_name(field))
 

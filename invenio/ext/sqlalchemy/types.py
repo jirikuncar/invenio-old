@@ -24,7 +24,7 @@
 """
 import json
 from sqlalchemy.types import TypeDecorator, TEXT, LargeBinary
-from invenio.dbquery import serialize_via_marshal, deserialize_via_marshal
+from invenio.utils.serializers import ZlibMarshal
 
 
 class JSONEncodedTextDict(TypeDecorator):
@@ -58,14 +58,14 @@ class MarshalBinary(TypeDecorator):
 
     def process_bind_param(self, value, dialect):
         if value is not None:
-            value = serialize_via_marshal(self.force_type(value))
+            value = ZlibMarshal.dumps(self.force_type(value))
             return value
         return value
 
     def process_result_value(self, value, dialect):
         if value is not None:
             try:
-                value = deserialize_via_marshal(value)
+                value = ZlibMarshal.loads(value)
             except:
                 value = None
         return value if value is not None else \

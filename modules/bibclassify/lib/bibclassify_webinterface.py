@@ -27,7 +27,7 @@ from urllib import quote
 import time
 from invenio import bibupload
 
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.bibdocfile import BibRecDocs
 from invenio.webinterface_handler import WebInterfaceDirectory
 from invenio.webpage import pageheaderonly, pagefooteronly

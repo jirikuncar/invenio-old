@@ -44,9 +44,9 @@ from invenio.search_engine import create_navtrail_links, \
      guess_primary_collection_of_a_record, \
      get_colID, check_user_can_view_record, \
      record_exists, get_fieldvalues
-from invenio.urlutils import redirect_to_url, \
+from invenio.utils.url import redirect_to_url, \
                              make_canonical_urlargd
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
 from invenio.websearchadminlib import get_detailed_page_tabs
 from invenio.access_control_config import VIEWRESTRCOLL

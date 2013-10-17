@@ -42,8 +42,8 @@ from invenio.config import \
      CFG_INSPIRE_SITE, \
      CFG_WEBLINKBACK_TRACKBACK_ENABLED
 
-from invenio.messages import gettext_set_language, language_list_long, is_language_rtl
-from invenio.urlutils import make_canonical_urlargd, create_html_link, \
+from invenio.base.i18n import gettext_set_language, language_list_long, is_language_rtl
+from invenio.utils.url import make_canonical_urlargd, create_html_link, \
                              get_canonical_and_alternates_urls
 from invenio.utils.date import convert_datecvs_to_datestruct, \
                               convert_datestruct_to_dategui

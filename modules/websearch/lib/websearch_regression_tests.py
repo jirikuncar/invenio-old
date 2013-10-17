@@ -47,7 +47,7 @@ from invenio.testutils import make_test_suite, \
                               make_url, make_surl, test_web_page_content, \
                               merge_error_messages, InvenioTestCase, \
                               get_authenticated_mechanize_browser
-from invenio.urlutils import same_urls_p
+from invenio.utils.url import same_urls_p
 from invenio.dbquery import run_sql
 from invenio.search_engine_query_parser_unit_tests import DATEUTIL_AVAILABLE
 

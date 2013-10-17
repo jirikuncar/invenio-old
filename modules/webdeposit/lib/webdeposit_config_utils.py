@@ -24,7 +24,7 @@ from flask.ext.login import current_user
 from invenio.modules.deposit.models import WebDepositDraft
 from invenio.webdeposit_cook_json_utils import cook_to_recjson
 from invenio.modules.workflows.models import Workflow
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from invenio.webdeposit_cook_json_utils import cook_to_recjson
 
 

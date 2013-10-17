@@ -22,35 +22,33 @@
 from flask import Blueprint, session, make_response, g, render_template, \
         request, flash, jsonify, redirect, url_for, current_app, \
         abort
-from invenio.ext.cache import cache
 from invenio.ext.menu import register_menu
 from invenio.ext.sqlalchemy import db
 from invenio.modules.search.models import Collection, CollectionCollection, \
         Collectionname, CollectionPortalbox
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
 from invenio.ext.principal import permission_required
-from invenio.messages import language_list_long
-from sqlalchemy.ext.orderinglist import ordering_list
+from invenio.base.i18n import language_list_long
 
 # imports the necessary forms
 from invenio.websearch_admin_forms import CollectionForm, TranslationsForm
 
 not_guest = lambda: not current_user.is_guest
 
-blueprint = InvenioBlueprint(
-        'websearch_admin',
-        __name__,
-        url_prefix="/admin/websearch",
-        breadcrumbs=[(_('Configure WebSearch'), 'websearch_admin.index')])
+blueprint = Blueprint('websearch_admin', __name__,
+                      url_prefix="/admin/websearch",
+                      )
+
+#breadcrumbs=[(_('Configure WebSearch'), 'websearch_admin.index')])
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @login_required
 @permission_required('cfgwebsearch')
-@templated('websearch_admin_index.html')
+@templated('search/admin_index.html')
 @register_menu(blueprint, 'main.admin.websearch', _('Configure WebSearch'),
                order=50)
 def index():
@@ -163,7 +161,7 @@ def manage_collection(name):
 
     #translation_form.populate_obj(translations)
 
-    return render_template('websearch_admin_collection.html', \
+    return render_template('search/admin_collection.html', \
             collection = collection, form=form, \
             translation_form=translation_form)
 
@@ -184,7 +182,7 @@ def update(id):
 @blueprint.route('/collection/new', methods=['GET', 'POST'])
 @blueprint.route('/collection/add', methods=['GET', 'POST'])
 #@login_required
-@templated('websearch_admin_collection.html')
+@templated('search/admin_collection.html')
 def create_collection():
     form = CollectionForm()
     return dict(form=form)

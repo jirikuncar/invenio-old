@@ -38,7 +38,7 @@ from invenio.ext.cache import cache
 from invenio.ext.menu import register_menu
 from invenio.webdeposit_load_deposition_types import deposition_types, \
     deposition_metadata
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from invenio.webdeposit_utils import get_current_form, \
     get_form, \
     draft_field_set, \
@@ -59,7 +59,7 @@ from invenio.webdeposit_utils import get_current_form, \
 from flask.ext.login import current_user, login_required
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 
-blueprint = InvenioBlueprint('webdeposit', __name__,
+blueprint = Blueprint('webdeposit', __name__,
                              url_prefix='/deposit',
                              config='invenio.websubmit_config',
                              breadcrumbs=[(_('Deposit'),

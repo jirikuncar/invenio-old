@@ -22,7 +22,6 @@ pylib_DATA = session.py webuser.py webuser_unit_tests.py \
 	websession_fixtures_demosite.py \
 	webgroup.py webgroup_dblayer.py websession_config.py \
 	webaccount.py \
-	webaccount_forms.py \
 	webaccount_flask_tests.py \
 	websession_regression_tests.py \
 	webgroup_regression_tests.py webuser_regression_tests.py \

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2012 CERN.
+## Copyright (C) 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -19,33 +19,19 @@
 
 """WebGroup Flask Blueprint"""
 
-from flask import Blueprint, session, make_response, g, render_template, \
-                  request, flash, jsonify, redirect, url_for
-from invenio import webgroup_dblayer as dbplayer
+from flask import Blueprint, render_template, request, jsonify
 from invenio.base.decorators import wash_arguments
 from invenio.ext.sqlalchemy import db
 from flask.ext.login import current_user, login_required
-from invenio.config import CFG_SITE_LANG
 from invenio.modules.account.models import User, Usergroup, UserUsergroup
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
-from invenio.webinterface_handler import wash_urlargd
-from invenio.dbquery import run_sql
 
-from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
-      CFG_WEBSESSION_USERGROUP_STATUS, \
-      CFG_WEBSESSION_GROUP_JOIN_POLICY, \
-      InvenioWebSessionError, \
-      InvenioWebSessionWarning
-
-blueprint = InvenioBlueprint('webgroup', __name__, url_prefix="/yourgroups",
-                             breadcrumbs=[(_("Your Groups"),
-                                           'webgroup.index')])
+blueprint = Blueprint('webgroup', __name__, url_prefix="/yourgroups")
 
 
 def filter_by_user_status(uid, user_status, login_method='INTERNAL'):
-    return db.and_(UserUsergroup.id_user==uid,
-                   UserUsergroup.user_status==user_status,
-                   Usergroup.login_method==login_method)
+    return db.and_(UserUsergroup.id_user == uid,
+                   UserUsergroup.user_status == user_status,
+                   Usergroup.login_method == login_method)
 
 
 @blueprint.route('/')
@@ -54,10 +40,10 @@ def filter_by_user_status(uid, user_status, login_method='INTERNAL'):
 def index():
     uid = current_user.get_id()
     mg = Usergroup.query.join(Usergroup.users).\
-            filter(UserUsergroup.id_user==uid).all()
-            #filter_by_user_status(uid,
-            #CFG_WEBSESSION_USERGROUP_STATUS["MEMBER"])).\
-            #all()
+        filter(UserUsergroup.id_user==uid).all()
+        #filter_by_user_status(uid,
+        #CFG_WEBSESSION_USERGROUP_STATUS["MEMBER"])).\
+        #all()
 
     return render_template('webgroup_index.html', member_groups=map(dict, mg))
 
@@ -76,6 +62,7 @@ def search(query, term):
         return jsonify(groups=[elem for elem, in res])
     return jsonify()
 
+
 @blueprint.route("/tokenize", methods=['GET', 'POST'])
 @wash_arguments({"q": (unicode, "")})
 def tokenize(q):
@@ -83,14 +70,15 @@ def tokenize(q):
         Usergroup.name.like("%s%%" % q)).limit(10).all()
     return jsonify(data=map(dict, res))
 
+
 @blueprint.route("/join", methods=['GET', 'POST'])
 @blueprint.route("/leave", methods=['GET', 'POST'])
 @wash_arguments({"id": (int, 0)})
 def _manipulate_group(id):
     uid = current_user.get_id()
     try:
-        user = User.query.filter(User.id==uid).one()
-        group = Usergroup.query.filter(Usergroup.id==id).one()
+        user = User.query.filter(User.id == uid).one()
+        group = Usergroup.query.filter(Usergroup.id == id).one()
         if request.path.find("/join") > 0:
             user.usergroups.append(UserUsergroup(usergroup=group))
             db.session.add(user)

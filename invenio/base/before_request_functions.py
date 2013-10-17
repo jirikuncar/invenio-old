@@ -25,7 +25,6 @@
 
 from flask import request, session, g, current_app
 from flask.ext.login import current_user
-from invenio.messages import wash_language, gettext_set_language
 
 
 def guess_language():
@@ -37,6 +36,8 @@ def guess_language():
     Additionally under g._ an already configured internationalization function
     will be available (configured to return unicode objects).
     """
+    #FIXME
+    from invenio.base.i18n import wash_language, gettext_set_language
     required_ln = None
     passed_ln = request.values.get('ln', type=str)
     if passed_ln:

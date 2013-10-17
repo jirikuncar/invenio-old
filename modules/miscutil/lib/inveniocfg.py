@@ -590,7 +590,7 @@ def cli_cmd_reset_fieldnames(conf):
     are taken from the PO files.
     """
     print ">>> Going to reset I18N field names..."
-    from invenio.messages import gettext_set_language, language_list_long
+    from invenio.base.i18n import gettext_set_language, language_list_long
     from invenio.dbquery import run_sql, IntegrityError
 
     ## get field id and name list:

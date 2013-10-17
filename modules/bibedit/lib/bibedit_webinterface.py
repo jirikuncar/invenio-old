@@ -32,8 +32,8 @@ from invenio.bibedit_engine import perform_request_ajax, perform_request_init, \
     perform_request_ajax_template_interface
 from invenio.bibedit_utils import user_can_edit_record_collection
 from invenio.config import CFG_SITE_LANG, CFG_SITE_SECURE_URL, CFG_SITE_RECORD
-from invenio.messages import gettext_set_language
-from invenio.urlutils import redirect_to_url
+from invenio.base.i18n import gettext_set_language
+from invenio.utils.url import redirect_to_url
 from invenio.webinterface_handler import WebInterfaceDirectory, wash_urlargd
 from invenio.webpage import page
 from invenio.webuser import page_not_authorized

@@ -19,9 +19,9 @@
 
 """WebTag Forms"""
 
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 
-from invenio.wtforms_utils import InvenioBaseForm
+from invenio.utils.forms import InvenioBaseForm
 from flask.ext.login import current_user
 
 from wtforms import \
@@ -30,8 +30,6 @@ from wtforms import \
     TextField, \
     SelectMultipleField, \
     validators
-
-from invenio.search_engine import check_user_can_view_record
 
 #Models
 from invenio.modules.record_editor.models import Bibrec
@@ -127,6 +125,7 @@ def validate_bibrec_exists(dummy_form, field):
 def validate_user_can_see_bibrec(dummy_form, field):
     """ Check if user has rights to view bibrec """
     if field.data:
+        from invenio.search_engine import check_user_can_view_record
         (auth_code, msg) = check_user_can_view_record(current_user, field.data)
 
         if auth_code > 0:

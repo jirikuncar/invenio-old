@@ -24,7 +24,7 @@ import re
 from urllib import quote
 from cgi import escape
 from invenio.config import CFG_SITE_URL
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 
 def format_element(bfo, limit, separator=' ; ',
            extension='[...]',

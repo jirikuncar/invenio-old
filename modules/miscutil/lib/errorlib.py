@@ -36,8 +36,8 @@ from invenio.config import CFG_SITE_LANG, CFG_LOGDIR, \
     CFG_SITE_EMERGENCY_EMAIL_ADDRESSES, \
     CFG_SITE_ADMIN_EMAIL_EXCEPTIONS, \
     CFG_ERRORLIB_RESET_EXCEPTION_NOTIFICATION_COUNTER_AFTER
-from invenio.urlutils import wash_url_argument
-from invenio.messages import wash_language, gettext_set_language
+from invenio.utils.url import wash_url_argument
+from invenio.base.i18n import wash_language, gettext_set_language
 from invenio.utils.date import convert_datestruct_to_datetext
 from invenio.dbquery import run_sql
 

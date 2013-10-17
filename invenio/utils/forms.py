@@ -31,13 +31,13 @@ import datetime
 import time
 
 from flask import session
-from wtforms import Form as WTForm
+from wtforms.form import Form as WTForm
 from wtforms.widgets import TextInput, HTMLString, html_params
 from wtforms.fields import Field, TextField, HiddenField, FileField
 from flask.ext.wtf import Form
 from wtforms.ext.csrf.session import SessionSecureForm
 from wtforms.compat import text_type
-from invenio.config import CFG_SITE_SECRET_KEY
+#from invenio.config import CFG_SITE_SECRET_KEY
 
 
 class RowWidget(object):
@@ -181,7 +181,7 @@ class InvenioForm(WTForm):
 
 
 class InvenioBaseForm(Form, SessionSecureForm):
-    SECRET_KEY = CFG_SITE_SECRET_KEY
+    #SECRET_KEY = CFG_SITE_SECRET_KEY
     TIME_LIMIT = datetime.timedelta(minutes=20)
 
     def __init__(self, *args, **kwargs):

@@ -22,15 +22,15 @@
 from string import strip
 from datetime import datetime
 from invenio.ext.sqlalchemy import db
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from invenio.modules.search.models import get_pbx_pos
 from flask.ext.wtf import Form
-from invenio.wtforms_utils import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
+from invenio.utils.forms import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
 from wtforms import DateTimeField, BooleanField, TextField, TextAreaField, \
                     PasswordField, validators, HiddenField, FieldList, SelectField
 
 
-# from invenio.messages import language_list_long
+# from invenio.base.i18n import language_list_long
 
 class CollectionForm(InvenioBaseForm):
     id = HiddenField()

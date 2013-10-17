@@ -23,14 +23,14 @@ from datetime import datetime
 import socket
 
 from flask import g, render_template, request, flash, redirect, url_for, \
-    current_app, abort
+    current_app, abort, Blueprint
 from invenio.base.decorators import wash_arguments
 from invenio.ext.sqlalchemy import db
 from invenio.webmessage_mailutils import email_quote_txt
 from invenio.modules.comments.models import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
                                      CmtACTIONHISTORY
 from .forms import AddCmtRECORDCOMMENTForm, AddCmtRECORDCOMMENTFormReview
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
 from invenio.ext.menu import register_menu
@@ -58,10 +58,8 @@ from invenio.config import CFG_PREFIX, \
 from invenio.webcomment_config import CFG_WEBCOMMENT_ACTION_CODE
 from invenio.access_control_engine import acc_authorize_action
 
-blueprint = InvenioBlueprint('webcomment', __name__,
-                             url_prefix="/" + CFG_SITE_RECORD,
-                             template_folder='templates',
-                             config='invenio.webcomment_config')
+blueprint = Blueprint('webcomment', __name__, url_prefix="/" + CFG_SITE_RECORD,
+                      template_folder='templates')
 
 from invenio.modules.records.blueprint import request_record
 

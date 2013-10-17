@@ -29,8 +29,14 @@ from logging import Formatter
 
 def setup_app(app):
     """Adds new Rotating File Handler to application."""
+    try:
+        os.makedirs(os.path.join(app.instance_path,
+                                 app.config.get('CFG_LOGDIR', '')))
+    except:
+        pass
 
-    file_log_name = os.path.join(app.config.get('CFG_LOGDIR', ''),
+    file_log_name = os.path.join(app.instance_path,
+                                 app.config.get('CFG_LOGDIR', ''),
                                  app.import_name + '.log')
 
     handler = RotatingFileHandler(file_log_name)

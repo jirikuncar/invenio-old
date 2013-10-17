@@ -17,6 +17,7 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
+from flask import current_app
 from invenio.ext.script import Manager, change_command_name
 
 manager = Manager(usage="Perform cache operations")
@@ -34,7 +35,6 @@ def reset_rec_cache(output_format, get_record, split_by=1000):
     except:
         import pickle
     from itertools import islice
-    from invenio.config import CFG_BIBUPLOAD_SERIALIZE_RECORD_STRUCTURE
     from invenio.intbitset import intbitset
     from invenio.bibsched import server_pid, pidfile
     from invenio.ext.sqlalchemy import db
@@ -44,7 +44,7 @@ def reset_rec_cache(output_format, get_record, split_by=1000):
         print >> sys.stderr, "ERROR: bibsched seems to run with pid %d, according to %s." % (pid, pidfile)
         print >> sys.stderr, "       Please stop bibsched before running this procedure."
         sys.exit(1)
-    if CFG_BIBUPLOAD_SERIALIZE_RECORD_STRUCTURE:
+    if current_app.config.get('CFG_BIBUPLOAD_SERIALIZE_RECORD_STRUCTURE'):
         print ">>> Searching records which need %s cache resetting; this may take a while..." % (output_format, )
         all_recids = intbitset(db.session.query(Bibrec.id).all())
         #TODO: prevent doing all records?

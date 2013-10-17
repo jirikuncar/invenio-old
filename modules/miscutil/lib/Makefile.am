@@ -1,7 +1,7 @@
 ## This file is part of Invenio.
 ## Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013 CERN.
 ##
-## Invenio is free software; you can redistribute it and/or
+# Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
 ## published by the Free Software Foundation; either version 2 of the
 ## License, or (at your option) any later version.
@@ -28,7 +28,6 @@ pylib_DATA = __init__.py \
              data_cacher.py \
              dataciteutils.py \
              dataciteutils_tester.py \
-             datastructures.py \
              datastructures_unit_tests.py \
              dateutils_unit_tests.py \
              dbdump.py \
@@ -39,7 +38,6 @@ pylib_DATA = __init__.py \
              errorlib_regression_tests.py \
              errorlib_unit_tests.py \
              errorlib_webinterface.py \
-             flask_sslify.py \
              flaskshell.py \
              hashutils_unit_tests.py \
              htmlutils.py \
@@ -60,7 +58,6 @@ pylib_DATA = __init__.py \
              logicutils_unit_tests.py \
              mailutils_unit_tests.py \
              memoiseutils_unit_tests.py \
-             messages.py \
              messages_unit_tests.py \
              mimetypeutils_unit_tests.py \
              miscutil_config.py \
@@ -84,7 +81,6 @@ pylib_DATA = __init__.py \
              sequtils.py \
              sequtils_cnum.py \
              sequtils_regression_tests.py \
-             settings.py \
              shellutils.py \
              shellutils_unit_tests.py \
              sherpa_romeo.py \
@@ -96,17 +92,14 @@ pylib_DATA = __init__.py \
              solrutils_config.py \
              solrutils_regression_tests.py \
              solrutils_unit_tests.py \
-             sqlalchemyutils_mysql.py \
              testutils.py \
              testutils_regression_tests.py \
              textutils.py \
              textutils_unit_tests.py \
-             urlutils.py \
              urlutils_unit_tests.py \
              w3c_validator.py \
              web_api_key.py \
              web_api_key_unit_tests.py \
-             wtforms_utils.py \
              xapianutils_bibindex_indexer.py \
              xapianutils_bibindex_searcher.py \
              xapianutils_bibrank_indexer.py \

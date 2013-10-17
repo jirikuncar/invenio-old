@@ -351,7 +351,7 @@ class ExternalAuthRobot(ExternalAuth):
         @rtype: string
         """
         from invenio.access_control_config import CFG_EXTERNAL_AUTHENTICATION
-        from invenio.urlutils import create_url
+        from invenio.utils.url import create_url
         if assertion is None:
             assertion = {}
         assertion[self.email_attribute_name] = email

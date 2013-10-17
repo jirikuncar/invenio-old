@@ -29,7 +29,7 @@ from invenio.errorlib import register_exception
 from invenio.webaccount import warning_guest_user
 from invenio.webbasket import create_personal_baskets_selection_box
 from invenio.webbasket_dblayer import check_user_owns_baskets
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.utils.date import convert_datestruct_to_datetext, convert_datetext_to_dategui
 
 import invenio.template

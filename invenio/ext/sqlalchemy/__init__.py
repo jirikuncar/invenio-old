@@ -33,7 +33,6 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import event
 from sqlalchemy.pool import Pool
 from sqlalchemy.ext.hybrid import hybrid_property, Comparator
-from invenio.errorlib import register_exception
 from invenio.utils.hash import md5
 from invenio.base.utils import autodiscover_models
 
@@ -78,7 +77,7 @@ def _include_sqlalchemy(obj, engine=None):
     setattr(obj, 'iMediumBinary', sqlalchemy.types.LargeBinary)
 
     if engine == 'mysql':
-        import invenio.sqlalchemyutils_mysql
+        from .engines import mysql as dummy_mysql
     #    module = invenio.sqlalchemyutils_mysql
     #    for key in module.__dict__:
     #        setattr(obj, key,
@@ -121,7 +120,10 @@ def autocommit_on_checkin(dbapi_con, con_record):
     try:
         dbapi_con.autocommit(True)
     except:
-        register_exception()
+        pass
+        #FIXME
+        #from invenio.errorlib import register_exception
+        #register_exception()
 
 ## Possibly register globally.
 #event.listen(Pool, 'checkin', autocommit_on_checkin)
@@ -178,23 +180,21 @@ def setup_app(app):
     """Setup SQLAlchemy extension."""
     if 'SQLALCHEMY_DATABASE_URI' not in app.config:
         from sqlalchemy.engine.url import URL
-        # Global variables
-        from invenio.dbquery import CFG_DATABASE_HOST, CFG_DATABASE_PORT,\
-            CFG_DATABASE_NAME, CFG_DATABASE_USER, CFG_DATABASE_PASS, \
-            CFG_DATABASE_TYPE
+        cfg = app.config
 
-        app.config['SQLALCHEMY_DATABASE_URI'] = URL(CFG_DATABASE_TYPE,
-                                                    username=CFG_DATABASE_USER,
-                                                    password=CFG_DATABASE_PASS,
-                                                    host=CFG_DATABASE_HOST,
-                                                    database=CFG_DATABASE_NAME,
-                                                    port=CFG_DATABASE_PORT,
-                                                    )
+        app.config['SQLALCHEMY_DATABASE_URI'] = URL(
+            cfg.get('CFG_DATABASE_TYPE', 'mysql'),
+            username=cfg.get('CFG_DATABASE_USER'),
+            password=cfg.get('CFG_DATABASE_PASS'),
+            host=cfg.get('CFG_DATABASE_HOST'),
+            database=cfg.get('CFG_DATABASE_NAME'),
+            port=cfg.get('CFG_DATABASE_PORT'),
+            )
 
     ## Let's initialize database.
     db.init_app(app)
 
     ## Make sure that all tables are loaded in `db.metadata.tables`.
-    autodiscover_models()
+    #autodiscover_models()
 
     return app

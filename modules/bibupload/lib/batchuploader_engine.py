@@ -42,7 +42,7 @@ from invenio.config import CFG_BINDIR, CFG_TMPSHAREDDIR, CFG_LOGDIR, \
                             CFG_PREFIX, CFG_SITE_LANG
 from invenio.textutils import encode_for_xml
 from invenio.bibtask import task_low_level_submission
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.textmarc2xmlmarc import transform_file
 from invenio.shellutils import run_shell_command
 from invenio.bibupload import xml_marc_to_records, bibupload

@@ -36,7 +36,7 @@ from invenio.config import CFG_DEVEL_SITE, CFG_SITE_URL, CFG_TMPDIR, CFG_BINDIR
 from invenio.bibsched import get_last_taskid, delete_task
 from invenio.shellutils import run_shell_command
 from invenio.bibupload_regression_tests import GenericBibUploadTest
-from invenio.urlutils import make_user_agent_string
+from invenio.utils.url import make_user_agent_string
 
 CFG_HAS_CURL = os.path.exists("/usr/bin/curl")
 

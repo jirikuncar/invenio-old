@@ -38,7 +38,7 @@ from invenio.access_control_admin import \
 from invenio.access_control_config import CFG_WEBACCESS_WARNING_MSGS, CFG_WEBACCESS_MSGS
 from invenio.webuser import collect_user_info
 from invenio.access_control_firerole import deserialize, load_role_definition, acc_firerole_extract_emails
-from invenio.urlutils import make_canonical_urlargd
+from invenio.utils.url import make_canonical_urlargd
 from invenio.ext.cache import cache
 from flask.ext.login import current_user
 

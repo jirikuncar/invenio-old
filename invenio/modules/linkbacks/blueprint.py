@@ -32,10 +32,9 @@ from invenio.base.decorators import wash_arguments
 from invenio.ext.cache import cache
 from invenio.intbitset import intbitset as HitSet
 from invenio.ext.sqlalchemy import db
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from flask.ext.login import current_user
 from invenio.modules.linkbacks.models import LnkENTRY
-from invenio.weblinkback import perform_sendtrackback, perform_sendtrackback_disabled
 from invenio.access_control_engine import acc_authorize_action
 from invenio.config import CFG_SITE_URL, \
                            CFG_SITE_LANG, \
@@ -52,9 +51,8 @@ from invenio.weblinkback_config import CFG_WEBLINKBACK_TYPE, \
                                        CFG_WEBLINKBACK_BROKEN_COUNT
 
 
-blueprint = InvenioBlueprint('weblinkback', __name__,
-                            url_prefix="/"+CFG_SITE_RECORD,
-                            )
+blueprint = Blueprint('weblinkback', __name__, url_prefix="/"+CFG_SITE_RECORD,
+                      )
 
 from invenio.modules.records.blueprint import request_record
 
@@ -80,10 +78,10 @@ def index(recid):
                                  'id': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME),
                                  'source': (unicode, CFG_WEBLINKBACK_SUBSCRIPTION_DEFAULT_ARGUMENT_NAME)})
 def sendtrackback(recid, url, title, excerpt, blog_name, id, source):
+    from invenio.weblinkback import perform_sendtrackback, perform_sendtrackback_disabled
     mime_type = 'text/xml; charset=utf-8'
     if CFG_WEBLINKBACK_TRACKBACK_ENABLED:
         xml_response, status = perform_sendtrackback(recid, url, title, excerpt, blog_name, id, source, current_user)
     else:
         xml_response, status = perform_sendtrackback_disabled()
     return Response(response=xml_response, status=status, mimetype=mime_type)
-

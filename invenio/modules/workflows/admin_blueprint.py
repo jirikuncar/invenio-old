@@ -20,7 +20,7 @@ __revision__ = "$Id$"
 
 __lastupdated__ = """$Date$"""
 
-from flask import render_template
+from flask import render_template, Blueprint
 from flask.ext.login import login_required
 from pprint import pformat
 from invenio.modules.workflows.models import Workflow, WfeObject
@@ -28,21 +28,22 @@ from invenio.bibworkflow_api import run
 import os
 from invenio.pluginutils import PluginContainer
 from invenio.config import CFG_PYLIBDIR, CFG_LOGDIR
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from invenio.bibworkflow_utils import getWorkflowDefinition
 
 import traceback
 
-blueprint = InvenioBlueprint('bibworkflow', __name__,
+blueprint = Blueprint('bibworkflow', __name__,
                              url_prefix="/admin/bibworkflow",
-                             menubuilder=[('main.admin.bibworkflow',
-                                           _('Configure BibWorkflow'),
-                                          'bibworkflow.index')],
-                             breadcrumbs=[(_('Administration'),
-                                           'help.admin'),
-                                          (_('Configure BibWorkflow'),
-                                           'bibworkflow.index')],)
+                             )
+                             #menubuilder=[('main.admin.bibworkflow',
+                             #              _('Configure BibWorkflow'),
+                             #             'bibworkflow.index')],
+                             #breadcrumbs=[(_('Administration'),
+                             #              'help.admin'),
+                             #             (_('Configure BibWorkflow'),
+                             #              'bibworkflow.index')],)
 
 
 @blueprint.route('/', methods=['GET', 'POST'])

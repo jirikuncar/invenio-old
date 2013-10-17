@@ -18,20 +18,11 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 
-import sys
-from werkzeug.utils import find_modules, import_string
-from invenio.config import CFG_SITE_SECRET_KEY
+from flask import current_app
 from invenio.ext.script import Manager, change_command_name, \
     generate_secret_key, register_manager
-from invenio.ext.sqlalchemy import db
 from invenio.base.factory import create_app
 from invenio.base.utils import autodiscover_managers
-
-
-# Fixes problems with empty secret key in config manager.
-if 'config' in sys.argv and \
-        (not CFG_SITE_SECRET_KEY or CFG_SITE_SECRET_KEY == ''):
-    create_app = create_app(SECRET_KEY=generate_secret_key())
 
 
 app = create_app()
@@ -47,15 +38,14 @@ for script in autodiscover_managers(app):
 @manager.shell
 def make_shell_context():
     """Extend shell context."""
-    from flask import current_app
-    return dict(current_app=current_app, db=db)
+    #from invenio.ext.sqlalchemy import db
+    return dict(current_app=current_app)#, db=db)
 
 
 @manager.command
 def version():
     """ Get running version of Invenio """
-    from invenio.config import CFG_VERSION
-    return CFG_VERSION
+    return current_app.config.get('CFG_VERSION')
 
 
 @manager.command

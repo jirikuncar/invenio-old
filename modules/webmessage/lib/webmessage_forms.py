@@ -26,9 +26,9 @@ from invenio.modules.messages.config import CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 from invenio.ext.sqlalchemy import db
 from invenio.modules.account.models import User, Usergroup
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from flask.ext.wtf import Form
-from invenio.wtforms_utils import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
+from invenio.utils.forms import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
 from wtforms import DateTimeField, BooleanField, TextField, TextAreaField, \
                     PasswordField, RadioField, validators
 

@@ -20,7 +20,7 @@
 """WebMessage Flask Blueprint"""
 
 from datetime import datetime
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, Blueprint
 from invenio import webmessage_dblayer as dbplayer
 from invenio.base.globals import cfg
 from invenio.ext.menu import register_menu
@@ -31,7 +31,7 @@ from invenio.modules.messages.models import \
     MsgMESSAGE, UserMsgMESSAGE, email_alert_register
 from invenio.webmessage_forms import AddMsgMESSAGEForm, FilterMsgMESSAGEForm
 from invenio import webmessage_query as dbquery
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated, sorted_by, filtered_by
 from flask.ext.login import current_user, login_required
 from invenio.ext.breadcrumb import register_breadcrumb
@@ -59,10 +59,9 @@ class MessagesMenu(object):
 
 not_guest = lambda: not current_user.is_guest
 
-blueprint = InvenioBlueprint('webmessage', __name__, url_prefix="/yourmessages",
-                             config='invenio.modules.messages.config',
-                             breadcrumbs=[(_("Your Account"), 'youraccount.edit'),
-                                          ('Your Messages', 'webmessage.index')])
+blueprint = Blueprint('webmessage', __name__, url_prefix="/yourmessages")
+                             #breadcrumbs=[(_("Your Account"), 'youraccount.edit'),
+                             #             ('Your Messages', 'webmessage.index')])
 
 
 @blueprint.route('/menu', methods=['GET'])

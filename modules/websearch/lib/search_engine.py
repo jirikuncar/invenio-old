@@ -135,11 +135,11 @@ from invenio.dbquery import run_sql, run_sql_with_limit, wash_table_column_name,
                             get_table_update_time
 from invenio.webuser import getUid, collect_user_info, session_param_set
 from invenio.webpage import pageheaderonly, pagefooteronly, create_error_box, write_warning
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.search_engine_query_parser import SearchQueryParenthesisedParser, \
     SpiresToInvenioSyntaxConverter
 
-from invenio import webinterface_handler_config as apache
+from invenio.utils import apache
 from invenio.solrutils_bibindex_searcher import solr_get_bitset
 from invenio.xapianutils_bibindex_searcher import xapian_get_bitset
 

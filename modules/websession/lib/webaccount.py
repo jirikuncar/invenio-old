@@ -39,7 +39,7 @@ from invenio.dbquery import run_sql
 from invenio.webuser import getUid, get_user_preferences, \
         collect_user_info
 from invenio.access_control_admin import acc_find_user_role_actions
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 from invenio.external_authentication import InvenioWebAccessExternalAuthError
 
 import invenio.template

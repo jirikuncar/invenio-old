@@ -30,7 +30,7 @@ from .context_processor import setup_app as context_processor_setup_app
 from flask import g, request, current_app, _request_ctx_stack, url_for
 from jinja2 import FileSystemLoader, ChoiceLoader
 
-from invenio.datastructures import LazyDict
+from invenio.utils.datastructures import LazyDict
 
 ENV_PREFIX = '_collected_'
 
@@ -85,9 +85,9 @@ def inject_utils():
     """
     from werkzeug.routing import BuildError
 
-    from invenio.messages import is_language_rtl
+    from invenio.base.i18n import is_language_rtl
     from flask.ext.login import current_user
-    from invenio.urlutils import create_url, get_canonical_and_alternates_urls
+    from invenio.utils.url import create_url, get_canonical_and_alternates_urls
 
     def invenio_url_for(endpoint, **values):
         try:
@@ -104,8 +104,10 @@ def inject_utils():
         request.environ['PATH_INFO'])
     alternate_urls = dict((ln.replace('_', '-'), alternate_url)
                           for ln, alternate_url in alternate_urls.iteritems())
-
-    from invenio.bibfield import get_record  # should not be global due to bibfield_config
+    try:
+        from invenio.bibfield import get_record  # should not be global due to bibfield_config
+    except:
+        get_record = lambda *args, **kwargs: None
     return dict(_=lambda *args, **kwargs: g._(*args, **kwargs),
                 current_user=user,
                 get_css_bundle=current_app.jinja_env.get_css_bundle,
@@ -115,7 +117,7 @@ def inject_utils():
                 alternate_urls=alternate_urls,
                 get_record=get_record,
                 url_for=invenio_url_for,
-                **TEMPLATE_CONTEXT_FILTERS
+                #**dict(TEMPLATE_CONTEXT_FILTERS)
                 )
 
 
@@ -136,7 +138,6 @@ def setup_app(app):
     from datetime import datetime
     from invenio.utils.date import convert_datetext_to_dategui, \
         convert_datestruct_to_dategui, pretty_date
-    from invenio.webmessage_mailutils import email_quoted_txt2html
 
     context_processor_setup_app(app)
     app.context_processor(inject_utils)
@@ -193,6 +194,7 @@ def setup_app(app):
 
     @app.template_filter('quoted_txt2html')
     def _quoted_txt2html(*args, **kwargs):
+        from invenio.webmessage_mailutils import email_quoted_txt2html
         return email_quoted_txt2html(*args, **kwargs)
 
     @app.template_filter('invenio_format_date')

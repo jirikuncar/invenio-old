@@ -23,16 +23,7 @@
     Implements application factory.
 """
 
-import os
-
-from invenio import config
-from invenio.errorlib import register_exception
-from invenio.config import \
-    CFG_WEBDIR, \
-    CFG_FLASK_DISABLED_BLUEPRINTS, \
-    CFG_SITE_SECRET_KEY, CFG_BINDIR
-
-
+#from invenio.errorlib import register_exception
 from .helpers import with_app_context, unicodifier
 from .utils import collect_blueprints, register_extensions, \
     register_configurations
@@ -65,7 +56,7 @@ def create_app(**kwargs_config):
     """
 
     ## The Flask application instance
-    _app = Flask(__name__, #FIXME .split('.')[0],
+    _app = Flask('.'.join(__name__.split('.')[0:2]),
         ## Static files are usually handled directly by the webserver (e.g. Apache)
         ## However in case WSGI is required to handle static files too (such
         ## as when running simple server), then this flag can be
@@ -74,7 +65,9 @@ def create_app(**kwargs_config):
         ## by the webserver from CFG_WEBDIR. In order to generate independent
         ## url for static files use func:`url_for('static', filename='test')`.
         static_url_path='',
-        static_folder=CFG_WEBDIR)
+        template_folder='templates',
+        instance_relative_config=True,
+        )
 
     # Handle both url with and without trailing slashe by Flask.
     # @blueprint.route('/test')
@@ -82,19 +75,20 @@ def create_app(**kwargs_config):
     _app.url_map.strict_slashes = False
 
     # Load invenio.conf
-    _app.config.from_object(config)
+    _app.config.from_object('invenio.base.config')
+
+    try:
+        print _app.instance_path
+        import os
+        os.makedirs(_app.instance_path)
+    except:
+        pass
 
     # Load invenio.cfg
-    _app.config.from_pyfile('invenio.cfg')
+    _app.config.from_pyfile('invenio.cfg', silent=True)
 
     ## Update application config from parameters.
     _app.config.update(kwargs_config)
-
-    # Register extendsions listed in invenio.cfg
-    register_extensions(_app)
-
-    # Extend application config with packages configuration.
-    register_configurations(_app)
 
     ## Database was here.
 
@@ -102,31 +96,41 @@ def create_app(**kwargs_config):
     #from invenio.bibtask import check_running_process_user
     #check_running_process_user()
 
-    from invenio.messages import language_list_long
+    #from invenio.base.i18n import language_list_long
+    def language_list_long():
+        return []
 
     # Jinja2 hacks were here.
     # See note on Jinja2 string decoding using ASCII codec instead of UTF8 in
     # function documentation
 
     # SECRET_KEY is needed by Flask Debug Toolbar
-    SECRET_KEY = _app.config.get('SECRET_KEY') or CFG_SITE_SECRET_KEY
-    if not SECRET_KEY or SECRET_KEY == '':
+    SECRET_KEY = _app.config.get('SECRET_KEY') or \
+        _app.config.get('CFG_SITE_SECRET_KEY', 'change_me')
+    if not SECRET_KEY or SECRET_KEY == 'change_me':
         fill_secret_key = """
     Set variable CFG_SITE_SECRET_KEY with random string in invenio-local.conf.
 
     You can use following commands:
     $ %s
     $ %s
-        """ % (CFG_BINDIR + os.sep + 'inveniocfg --create-secret-key',
-               CFG_BINDIR + os.sep + 'inveniocfg --update-config-py')
-        try:
-            raise Exception(fill_secret_key)
-        except Exception:
-            register_exception(alert_admin=True,
-                               subject="Missing CFG_SITE_SECRET_KEY")
-            raise Exception(fill_secret_key)
+        """ % ('inveniocfg --create-secret-key',
+               'inveniocfg --update-config-py')
+        print fill_secret_key
+        #try:
+        #    raise Exception(fill_secret_key)
+        #except Exception:
+        #    #register_exception(alert_admin=True,
+        #    #                   subject="Missing CFG_SITE_SECRET_KEY")
+        #    raise Exception(fill_secret_key)
 
     _app.config["SECRET_KEY"] = SECRET_KEY
+
+    # Register extendsions listed in invenio.cfg
+    register_extensions(_app)
+
+    # Extend application config with packages configuration.
+    register_configurations(_app)
 
     # Debug toolbar was here
 
@@ -178,11 +182,11 @@ def create_app(**kwargs_config):
         """
         Handy function to bridge pluginutils with (Invenio) blueprints.
         """
-        from invenio.webinterface_handler_flask_utils import InvenioBlueprint
+        from flask import Blueprint
         if 'blueprint' in dir(plugin):
             candidate = getattr(plugin, 'blueprint')
-            if isinstance(candidate, InvenioBlueprint):
-                if candidate.name in CFG_FLASK_DISABLED_BLUEPRINTS:
+            if isinstance(candidate, Blueprint):
+                if candidate.name in _app.config.get('CFG_FLASK_DISABLED_BLUEPRINTS', []):
                     _app.logger.info('%s is excluded by CFG_FLASK_DISABLED_BLUEPRINTS' % candidate.name)
                     return
                 return candidate
@@ -202,5 +206,8 @@ def create_app(**kwargs_config):
                                     {}).get(plugin.name))
 
     # Flask-Admin was here.
-
+    @_app.route('/testing')
+    def testing():
+        from flask import render_template
+        return render_template('404.html')
     return _app

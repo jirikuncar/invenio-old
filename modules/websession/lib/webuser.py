@@ -73,7 +73,7 @@ from invenio.access_control_admin import acc_get_role_id, acc_get_action_roles, 
 from invenio.access_control_mailcookie import mail_cookie_create_mail_activation
 from invenio.access_control_firerole import acc_firerole_check_user, load_role_definition
 from invenio.access_control_config import SUPERADMINROLE, CFG_EXTERNAL_AUTH_USING_SSO
-from invenio.messages import gettext_set_language, wash_languages, wash_language
+from invenio.base.i18n import gettext_set_language, wash_languages, wash_language
 from invenio.ext.email import send_email
 from invenio.errorlib import register_exception
 from invenio.webgroup_dblayer import get_groups

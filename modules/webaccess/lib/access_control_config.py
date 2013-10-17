@@ -27,7 +27,7 @@ from invenio.config import CFG_SITE_NAME, CFG_SITE_URL, CFG_SITE_LANG, \
      CFG_SITE_SECURE_URL, CFG_SITE_SUPPORT_EMAIL, CFG_CERN_SITE, \
      CFG_OPENAIRE_SITE, CFG_SITE_RECORD, CFG_INSPIRE_SITE, \
      CFG_SITE_ADMIN_EMAIL
-from invenio.messages import gettext_set_language
+from invenio.base.i18n import gettext_set_language
 
 class InvenioWebAccessFireroleError(Exception):
     """Just an Exception to discover if it's a FireRole problem"""
@@ -641,7 +641,8 @@ DEF_DEMO_AUTHS = (
              ('anyuser', 'submit', {'doctype': 'DEMOART', 'act': 'SBI', 'categ': 'ARTICLE'}),
             )
 
-_ = gettext_set_language(CFG_SITE_LANG)
+#_ = gettext_set_language(CFG_SITE_LANG)
+_ = lambda x: x
 
 # Activities (i.e. actions) for which exists an administrative web interface.
 CFG_ACC_ACTIVITIES_URLS = {

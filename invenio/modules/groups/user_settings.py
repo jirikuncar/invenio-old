@@ -22,7 +22,7 @@
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
 from invenio.modules.account.models import User, Usergroup, UserUsergroup
-from invenio.webinterface_handler_flask_utils import _
+from invenio.base.i18n import _
 from invenio.webinterface_handler import wash_urlargd
 from invenio.config import CFG_SITE_LANG
 from invenio.access_control_config import \
@@ -38,7 +38,7 @@ from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
 from invenio.ext.sqlalchemy import db
 from invenio.ext.template import render_template_to_string
 from flask.ext.login import current_user
-from invenio.settings import Settings
+from invenio.modules.dashboard.settings import Settings
 
 class WebGroupSettings(Settings):
 

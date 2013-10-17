@@ -41,7 +41,7 @@ from invenio.utils.date import \
      convert_datestruct_to_dategui, \
      convert_datecvs_to_datestruct
 from invenio.shellutils import mymkdir
-from invenio.messages import \
+from invenio.base.i18n import \
      gettext_set_language, \
      wash_language, \
      language_list_long
