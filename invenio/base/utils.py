@@ -115,16 +115,23 @@ def import_module_from_packages(name, app=None, packages=None):
                              package, name, str(e))
             pass
 
-
-collect_blueprints = lambda app: chain(
-    partial(import_module_from_packages, 'blueprint')(app),
-    partial(import_module_from_packages, 'admin_blueprint')(app)
+def collect_blueprints(app=None):
+    return chain(
+        partial(import_module_from_packages, 'blueprint')(app),
+        partial(import_module_from_packages, 'admin_blueprint')(app)
     )
+
 autodiscover_models = partial(import_module_from_packages, 'model')
 autodiscover_user_settings = partial(import_module_from_packages,
                                      'user_settings')
 autodiscover_configs = partial(import_module_from_packages, 'config')
 autodiscover_managers = partial(import_module_from_packages, 'manage')
+
+
+def autodiscover_template_context_functions(app=None):
+    tcf = partial(import_module_from_packages, 'template_context_functions')
+    return [import_string(m) for p in tcf(app)
+            for m in find_modules(p.__name__)]
 
 
 def register_configurations(app):

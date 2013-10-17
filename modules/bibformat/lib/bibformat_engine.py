@@ -52,6 +52,7 @@ from flask import has_app_context
 from operator import itemgetter
 from werkzeug.utils import cached_property
 
+from invenio.base.utils import autodiscover_template_context_functions
 from invenio.config import \
      CFG_PATH_PHP, \
      CFG_BINDIR, \
@@ -218,19 +219,19 @@ class LazyTemplateContextFunctionsCache(object):
     @cached_property
     def template_context_functions(self):
         """Returns template context functions"""
-        modules = autodiscover_modules(['invenio.template_context_functions'], 'tfn_.+')
+        modules = autodiscover_template_context_functions()
         elem = {}
         for m in modules:
             register_func = getattr(m, 'template_context_function', None)
             if register_func and isinstance(register_func, types.FunctionType):
-                 elem[m.__name__.split('.')[-1]] = register_func
+                elem[m.__name__.split('.')[-1]] = register_func
 
         return elem
 
     @cached_property
     def bibformat_elements(self):
         """Returns bibformat elements."""
-        modules = autodiscover_modules(['invenio.bibformat_elements'], 'bfe_.+')
+        modules = autodiscover_modules(['invenio.bibformat_elements'], '.*\.bfe_.+')
 
         elem = {}
         for m in modules:
