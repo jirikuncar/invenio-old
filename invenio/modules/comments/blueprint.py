@@ -142,7 +142,7 @@ def add_comment(recid):
             c.body = email_quote_txt(comment.body or '')
             c.in_reply_to_id_cmtRECORDCOMMENT = in_reply
             form = AddCmtRECORDCOMMENTForm(request.form, obj=c)
-            return render_template('webcomment_add.html', form=form)
+            return render_template('comments/add.html', form=form)
 
     form = AddCmtRECORDCOMMENTForm(request.values)
     if form.validate_on_submit():
@@ -160,7 +160,7 @@ def add_comment(recid):
         except:
             db.session.rollback()
 
-    return render_template('webcomment_add.html', form=form)
+    return render_template('comments/add.html', form=form)
 
 
 @blueprint.route('/<int:recid>/reviews/add', methods=['GET', 'POST'])
@@ -185,7 +185,7 @@ def add_review(recid):
         except:
             db.session.rollback()
 
-    return render_template('webcomment_add_review.html', form=form)
+    return render_template('comments/add_review.html', form=form)
 
 
 @blueprint.route('/<int:recid>/comments', methods=['GET', 'POST'])
@@ -212,7 +212,7 @@ def comments(recid):
         CmtRECORDCOMMENT.in_reply_to_id_cmtRECORDCOMMENT == 0,
         CmtRECORDCOMMENT.star_score == 0
     )).all()
-    return render_template('webcomment_comments.html', comments=comments)
+    return render_template('comments/comments.html', comments=comments)
 
 
 @blueprint.route('/<int:recid>/reviews', methods=['GET', 'POST'])
@@ -238,7 +238,7 @@ def reviews(recid):
         CmtRECORDCOMMENT.in_reply_to_id_cmtRECORDCOMMENT == 0,
         CmtRECORDCOMMENT.star_score > 0
     )).all()
-    return render_template('webcomment_reviews.html', comments=comments)
+    return render_template('comments/reviews.html', comments=comments)
 
 
 @blueprint.route('/<int:recid>/report/<int:id>', methods=['GET', 'POST'])
@@ -342,7 +342,7 @@ def unsubscribe(recid=None):
 
 @blueprint.route('/comments/subscriptions', methods=['GET', 'POST'])
 @login_required
-@templated('webcomment_subscriptions.html')
+@templated('comments/subscriptions.html')
 @register_menu(blueprint, 'personalize.comment_subscriptions',
                _('Your comment subscriptions'), order=20)
 @register_breadcrumb(blueprint, '.', _("Your comment subscriptions"))
