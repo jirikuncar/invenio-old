@@ -383,7 +383,7 @@ def search(collection, p, of, so, rm):
     if request and not isinstance(request.get_legacy_request(), cStringIO.OutputType):
         # store the last search results page
         session['websearch-last-query'] = request.get_legacy_request().unparsed_uri
-        if len(recids) > CFG_WEBSEARCH_PREV_NEXT_HIT_LIMIT:
+        if len(recids) > current_app.config['CFG_WEBSEARCH_PREV_NEXT_HIT_LIMIT']:
             last_query_hits = None
         else:
             last_query_hits = recids
