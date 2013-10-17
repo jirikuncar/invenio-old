@@ -19,33 +19,11 @@
 
 """WebAlert User Settings"""
 
-from flask import Blueprint, session, make_response, g, render_template, \
-                  request, flash, jsonify, redirect, url_for, current_app
-from invenio.modules.account.models import User, Usergroup, UserUsergroup
 from invenio.webinterface_handler_flask_utils import _
-from invenio.webinterface_handler import wash_urlargd
-from invenio.config import CFG_SITE_LANG
-from invenio.access_control_config import \
-     CFG_EXTERNAL_AUTH_USING_SSO, \
-     CFG_EXTERNAL_AUTH_LOGOUT_SSO
-
-from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
-      CFG_WEBSESSION_USERGROUP_STATUS, \
-      CFG_WEBSESSION_GROUP_JOIN_POLICY, \
-      InvenioWebSessionError, \
-      InvenioWebSessionWarning
-
-from invenio.modules.messages.config import CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \
-                                      CFG_WEBMESSAGE_STATUS_CODE, \
-                                      CFG_WEBMESSAGE_SEPARATOR, \
-                                      CFG_WEBMESSAGE_EMAIL_ALERT
-
-from invenio.ext.sqlalchemy import db
 from invenio.ext.template import render_template_to_string
 from invenio.modules.alerts.models import UserQueryBasket
 from flask.ext.login import current_user
-from invenio.settings import Settings, UserSettingsStorage, \
-                             ModelSettingsStorageBuilder
+from invenio.settings import Settings, UserSettingsStorage
 
 class WebAlertSettings(Settings):
 
