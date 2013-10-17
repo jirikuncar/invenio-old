@@ -29,8 +29,7 @@ from invenio.ext.sqlalchemy import db
 from invenio.webmessage_mailutils import email_quote_txt
 from invenio.modules.comments.models import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
                                      CmtACTIONHISTORY
-from invenio.webcomment_forms import AddCmtRECORDCOMMENTForm, \
-                                     AddCmtRECORDCOMMENTFormReview
+from .forms import AddCmtRECORDCOMMENTForm, AddCmtRECORDCOMMENTFormReview
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
@@ -61,6 +60,7 @@ from invenio.access_control_engine import acc_authorize_action
 
 blueprint = InvenioBlueprint('webcomment', __name__,
                              url_prefix="/" + CFG_SITE_RECORD,
+                             template_folder='templates',
                              config='invenio.webcomment_config')
 
 from invenio.modules.records.blueprint import request_record
