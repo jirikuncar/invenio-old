@@ -20,6 +20,7 @@
 """WebTag Forms"""
 
 from invenio.base.i18n import _
+from invenio.base.globals import cfg
 
 from invenio.utils.forms import InvenioBaseForm
 from flask.ext.login import current_user
@@ -45,8 +46,8 @@ from .models import \
 
 def validate_tag_name(dummy_form, field):
     """ Check validity of tag name """
-    max_len = current_app.config['CFG_TAGS_NAME_MAX_LENGTH']
-    max_char = current_app.config['CFG_TAGS_MAX_CHARACTER']
+    max_len = cfg['CFG_TAGS_NAME_MAX_LENGTH']
+    max_char = cfg['CFG_TAGS_MAX_CHARACTER']
 
     if field.data:
         suggested_silent = wash_tag_silent(field.data)

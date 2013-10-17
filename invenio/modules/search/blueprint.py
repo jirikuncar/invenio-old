@@ -39,7 +39,8 @@ from invenio.base.signals import websearch_before_browse, websearch_before_searc
 from invenio.modules.index import models as BibIndex
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
-from invenio.ext.breadcrumb import register_breadcrumb, breadcrumbs
+from invenio.ext.breadcrumb import \
+    register_breadcrumb, breadcrumbs, default_breadcrumb_root
 from invenio.ext.template.context_processor import \
     register_template_context_processor
 from invenio.utils.pagination import Pagination
@@ -47,6 +48,7 @@ from invenio.utils.pagination import Pagination
 blueprint = Blueprint('search', __name__, url_prefix="",
                       template_folder='templates')
 
+default_breadcrumb_root(blueprint, '.')
 
 FACETS = FacetLoader()
 

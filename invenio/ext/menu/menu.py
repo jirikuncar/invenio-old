@@ -54,6 +54,7 @@ class MenuAlchemy(object):
     @staticmethod
     def register_menu(blueprint, path, text, order=0,
                       endpoint_arguments_constructor=None,
+                      dynamic_list_constructor=None,
                       active_when=CONDITION_FALSE,
                       visible_when=CONDITION_TRUE):
         """Decorate endpoints that should be displayed in a menu.
@@ -71,6 +72,11 @@ class MenuAlchemy(object):
             should be displayed as active.
         :param visible_when: Function returning True when this item
             should be displayed.
+        :param dynamic_list_constructor: Function returning a list of
+            entries to be displayed by this item. Every object should
+            have 'text' and 'url' properties/dict elements. This property
+            will not be directly affect the menu system, but allows
+            other systems to use it while rendering.
         """
 
         #Decorator function
@@ -82,9 +88,14 @@ class MenuAlchemy(object):
                 # str(path) allows path to be a string-convertible object
                 # that may be useful for delayed evaluation of path
                 item = current_menu.submenu(str(path))
-                item.register(endpoint, text, order,
-                              endpoint_arguments_constructor,
-                              active_when, visible_when)
+                item.register(
+                    endpoint,
+                    text,
+                    order,
+                    endpoint_arguments_constructor=endpoint_arguments_constructor,
+                    dynamic_list_constructor=dynamic_list_constructor,
+                    active_when=active_when,
+                    visible_when=visible_when)
             return f
 
         return menu_decorator
@@ -106,11 +117,13 @@ class MenuEntryMixin(object):
         self._text = None
         self._order = 0
         self._endpoint_arguments_constructor = None
+        self._dynamic_list_constructor = None
         self._active_when = CONDITION_FALSE
         self._visible_when = CONDITION_TRUE
 
     def register(self, endpoint, text, order=0,
                  endpoint_arguments_constructor=None,
+                 dynamic_list_constructor=None,
                  active_when=CONDITION_FALSE,
                  visible_when=CONDITION_TRUE):
         """Assigns endpoint and display values."""
@@ -118,6 +131,7 @@ class MenuEntryMixin(object):
         self._text = text
         self._order = order
         self._endpoint_arguments_constructor = endpoint_arguments_constructor
+        self._dynamic_list_constructor = dynamic_list_constructor
         self._active_when = active_when or CONDITION_FALSE
         self._visible_when = visible_when or CONDITION_TRUE
 
@@ -192,6 +206,15 @@ class MenuEntryMixin(object):
     def hide(self):
         """Makes the entry always hidden."""
         self._visible_when = CONDITION_FALSE
+
+    @property
+    def dynamic_list(self):
+        """ Extends this entry into a list if the
+            dynamic list constructor was specified"""
+        if self._dynamic_list_constructor:
+            return self._dynamic_list_constructor()
+        else:
+            return [self]
 
     @property
     def order(self):

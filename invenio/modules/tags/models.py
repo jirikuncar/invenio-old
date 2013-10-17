@@ -28,6 +28,7 @@ from invenio.modules.record_editor.models import Bibrec
 from invenio.modules.account.models import User, Usergroup
 
 # Functions
+from invenio.base.globals import cfg
 from werkzeug import cached_property
 from invenio.textutils import wash_for_xml
 from datetime import datetime, date
@@ -312,7 +313,7 @@ class ReplacementList(object):
 
     @cached_property
     def replacements(self):
-        return current_app.config.get(config_name, [])
+        return cfg.get(self.config_name, [])
 
     @cached_property
     def compiled(self):

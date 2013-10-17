@@ -182,7 +182,7 @@ class InvenioForm(WTForm):
 
 class InvenioBaseForm(Form, SessionSecureForm):
     #SECRET_KEY = CFG_SITE_SECRET_KEY
-    TIME_LIMIT = datetime.timedelta(minutes=20)
+    TIME_LIMIT = 1200.0
 
     def __init__(self, *args, **kwargs):
         super(InvenioBaseForm, self).__init__(*args, csrf_context=session, **kwargs)

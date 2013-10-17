@@ -23,8 +23,6 @@ pylib_DATA = \
 
 jsdir=$(localstatedir)/www/js
 
-js_DATA = webtag_editor.js
-
 EXTRA_DIST = $(pylib_DATA) \
              $(js_DATA)
 

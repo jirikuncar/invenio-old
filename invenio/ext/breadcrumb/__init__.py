@@ -70,7 +70,13 @@ class BreadcrumbAlchemy(MenuAlchemy):
         Returns list of breadcrumbs.
         Backend function for breadcrumbs proxy.
         """
-        return current_menu.list_path(breadcrumb_root_path, current_path) or []
+        # Construct breadcrumbs using their dynamic lists
+        breadcrumb_list = []
+
+        for entry in current_menu.list_path(breadcrumb_root_path, current_path) or []:
+            breadcrumb_list += entry.dynamic_list
+
+        return breadcrumb_list
 
     @staticmethod
     def _breadcrumbs_context_processor():
@@ -110,7 +116,8 @@ class BreadcrumbAlchemy(MenuAlchemy):
 
     @staticmethod
     def register_breadcrumb(blueprint, path, text,
-                            endpoint_arguments_constructor=None):
+                            endpoint_arguments_constructor=None,
+                            dynamic_list_constructor=None):
         """Decorate endpoints that should be displayed as a breadcrumb.
 
         :param blueprint: Blueprint which owns the function.
@@ -120,10 +127,9 @@ class BreadcrumbAlchemy(MenuAlchemy):
         :param order: Index of item among other items in the same menu.
         :param endpoint_arguments_constructor: Function returning dict of
             arguments passed to url_for when creating the link.
-        :param active_when: Function returning True when the item
-            should be displayed as active.
-        :param visible_when: Function returning True when this item
-            should be displayed.
+        :param dynamic_list_constructor: Function returning a list of
+            breadcrumbs to be displayed by this item. Every object should
+            have 'text' and 'url' properties/dict elements.
         """
 
         # Resolve blueprint-relative paths
@@ -139,7 +145,9 @@ class BreadcrumbAlchemy(MenuAlchemy):
 
         # Get standard menu decorator
         menu_decorator = MenuAlchemy.register_menu(
-            blueprint, func_path, text, 0, endpoint_arguments_constructor)
+            blueprint, func_path, text, 0,
+            endpoint_arguments_constructor=endpoint_arguments_constructor,
+            dynamic_list_constructor=dynamic_list_constructor)
 
         def breadcrumb_decorator(f):
             """Applies standard menu decorator and assign breadcrumb."""

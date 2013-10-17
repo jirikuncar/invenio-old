@@ -32,7 +32,7 @@
 {% endblock webtag_editor_body %}
 
 {# Javascript: tag editing box #}
-<script type="text/javascript" src="/js/webtag_editor.js" />
+<script type="text/javascript" src="{{ url_for('.static', filename='record_editor.js') }}" />
 
 {% block webtag_editor_script %}
   {# Javascript: request parameters #}

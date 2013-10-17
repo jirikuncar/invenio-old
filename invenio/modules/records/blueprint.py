@@ -34,8 +34,11 @@ from invenio.modules.search.models import Collection
 from invenio.modules.record_editor.models import Bibrec
 from invenio.base.i18n import _
 from invenio.utils import apache
+from invenio.ext.breadcrumb import default_breadcrumb_root
 
 blueprint = Blueprint('record', __name__, url_prefix="/"+CFG_SITE_RECORD)
+
+default_breadcrumb_root(blueprint, '.')
 
 
 def request_record(f):
@@ -86,9 +89,9 @@ def request_record(f):
         record = get_record(recid)
         title = record.get('title.title', '')
 
-        b = [(_('Home'), '')] + collection.breadcrumbs()[1:]
-        b += [(title, 'record.metadata', dict(recid=recid))]
-        current_app.config['breadcrumbs_map'][request.endpoint] = b
+        # b = [(_('Home'), '')] + collection.breadcrumbs()[1:]
+        # b += [(title, 'record.metadata', dict(recid=recid))]
+        # current_app.config['breadcrumbs_map'][request.endpoint] = b
         g.record_tab_keys = []
         tabs = []
         counts = get_detailed_page_tabs_counts(recid)

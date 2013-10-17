@@ -58,8 +58,8 @@ from .forms import \
     validators
 
 
-blueprint = Blueprint('webtag', __name__, template_folder='templates',
-                             url_prefix='/yourtags')
+blueprint = Blueprint('webtag', __name__, url_prefix='/yourtags',
+                      template_folder='templates', static_folder='static')
 
 default_breadcrumb_root(blueprint, '.webaccount.tags')
 
