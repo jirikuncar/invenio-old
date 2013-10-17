@@ -31,21 +31,18 @@ from invenio.modules.index import models as BibIndex
 from invenio import websearch_receivers
 from invenio.bibindex_engine import get_index_id_from_index_name
 from invenio.bibformat import get_output_format_content_type, print_records
-from invenio.ext.cache import cache
 from invenio.ext.menu import register_menu
-from invenio.config import CFG_WEBSEARCH_RSS_TTL
 from invenio.websearch_cache import \
     get_search_query_id, get_collection_name_from_cache
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_config import VIEWRESTRCOLL
-from invenio.intbitset import intbitset
 from invenio.base.signals import websearch_before_browse, websearch_before_search
 from invenio.websearch_forms import EasySearchForm
 from invenio.modules.search.models import Collection
 from invenio.websearch_webinterface import wash_search_urlargd
 from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.base.decorators import wash_arguments, templated
-from invenio.ext.breadcrumb import register_breadcrumb
+from invenio.ext.breadcrumb import register_breadcrumb, breadcrumbs
 from invenio.ext.template.context_processor import \
     register_template_context_processor
 from flask.ext.login import current_user
@@ -149,7 +146,6 @@ def index():
 @templated('websearch_collection.html')
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
-    b = breadcumbs + collection.breadcrumbs(ln=g.ln)[1:]
 
     @register_template_context_processor
     def index_context():
@@ -157,7 +153,7 @@ def collection(name):
             format_record=print_record,
             easy_search_form=EasySearchForm(csrf_enabled=False),
             get_creation_date=get_creation_date,
-            breadcrumbs=b)
+            breadcrumbs=breadcrumbs + collection.breadcrumbs(ln=g.ln)[1:])
     return dict(collection=collection)
 
 
@@ -313,11 +309,10 @@ websearch_before_browse.connect(websearch_receivers.websearch_before_browse_hand
 
 @blueprint.route('/rss', methods=['GET'])
 # FIXME caching issue of response object
-#@cache.cached(timeout=CFG_WEBSEARCH_RSS_TTL)
 @wash_arguments({'p': (unicode, ''),
-                                 'jrec': (int, 1),
-                                 'so': (unicode, None),
-                                 'rm': (unicode, None)})
+                 'jrec': (int, 1),
+                 'so': (unicode, None),
+                 'rm': (unicode, None)})
 @check_collection(default_collection=True)
 def rss(collection, p, jrec, so, rm):
     of = 'xr'
@@ -344,9 +339,9 @@ def rss(collection, p, jrec, so, rm):
 @blueprint.route('/search', methods=['GET', 'POST'])
 @register_breadcrumb(blueprint, '.browse', _('Search results'))
 @wash_arguments({'p': (unicode, ''),
-                                 'of': (unicode, 'hb'),
-                                 'so': (unicode, None),
-                                 'rm': (unicode, None)})
+                 'of': (unicode, 'hb'),
+                 'so': (unicode, None),
+                 'rm': (unicode, None)})
 @check_collection(default_collection=True)
 def search(collection, p, of, so, rm):
     """
@@ -361,7 +356,6 @@ def search(collection, p, of, so, rm):
             and len(request.args.getlist('c')) == 1:
         return redirect(url_for('.collection', name=request.args.get('c')))
 
-    from invenio.websearch_webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
     argd['of'] = 'id'
 
@@ -427,9 +421,9 @@ def facet(name, qid):
 
 @blueprint.route('/results/<qid>', methods=['GET', 'POST'])
 @wash_arguments({'p': (unicode, ''),
-                                 'of': (unicode, 'hb'),
-                                 'so': (unicode, None),
-                                 'rm': (unicode, None)})
+                 'of': (unicode, 'hb'),
+                 'so': (unicode, None),
+                 'rm': (unicode, None)})
 def results(qid, p, of, so, rm):
     """
     Generates results for cached query using POSTed filter.
@@ -505,7 +499,6 @@ def dispatch():
         # ERROR: parser of GET arguments in 'next' does not parse lists
         # only the first element of a list is passed to webbasket.add
         # (however, this url works in 'master' with the same webbasket module)
-
 
     flash("Not implemented action " + action, 'error')
     return redirect(request.referrer)
