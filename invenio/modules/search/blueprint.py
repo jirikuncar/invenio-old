@@ -149,15 +149,15 @@ def index():
 @templated('websearch_collection.html')
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
-    b = [(_('Home'), '.index')] + collection.breadcrumbs(ln=g.ln)[1:]
-    #current_app.config['breadcrumbs_map'][request.endpoint] = b
+    b = breadcumbs + collection.breadcrumbs(ln=g.ln)[1:]
 
     @register_template_context_processor
     def index_context():
         return dict(
             format_record=print_record,
             easy_search_form=EasySearchForm(csrf_enabled=False),
-            get_creation_date=get_creation_date)
+            get_creation_date=get_creation_date,
+            breadcrumbs=b)
     return dict(collection=collection)
 
 
@@ -249,7 +249,8 @@ def crumb_builder(url):
     def _crumb_builder(collection):
         qargs = request.args.to_dict()
         qargs['cc'] = collection.name
-        return (collection.name_ln, url, qargs)
+        #return (collection.name_ln, url, qargs)
+        return dict(text=collection.name_ln, url=url_for(url, **qargs))
     return _crumb_builder
 
 
@@ -263,7 +264,7 @@ def collection_breadcrumbs(collection, endpoint=None):
         del qargs[k]
         b = [(_('Home'), endpoint, qargs)] + collection.breadcrumbs(
             builder=crumb_builder(endpoint), ln=g.ln)[1:]
-    #current_app.config['breadcrumbs_map'][request.endpoint] = b
+    return b
 
 
 @blueprint.route('/browse', methods=['GET', 'POST'])
@@ -281,8 +282,6 @@ def browse(collection, p, f, of, so, rm, rg, jrec):
 
     from invenio.websearch_webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
-
-    collection_breadcrumbs(collection)
 
     colls = [collection.name] + request.args.getlist('c')
     if f is None and ':' in p[1:]:
@@ -304,6 +303,7 @@ def browse(collection, p, f, of, so, rm, rg, jrec):
                     pagination=Pagination(int(ceil(jrec / float(rg))), rg, len(records)),
                     rg=rg, p=p, f=f,
                     easy_search_form=EasySearchForm(csrf_enabled=False),
+                    breadcrumbs=breadcrumbs+collection_breadcrumbs(collection)
                     )
 
     return dict(records=records)

@@ -24,7 +24,7 @@ WebSearch database models.
 # General imports.
 import re
 from operator import itemgetter
-from flask import g
+from flask import g, url_for
 from invenio.config import CFG_SITE_LANG
 from invenio.intbitset import intbitset
 #from invenio.search_engine_config import CFG_WEBSEARCH_SEARCH_WITHIN
@@ -407,9 +407,10 @@ class Collection(db.Model):
         if builder is not None:
             crumb = builder(self)
         else:
-            crumb = (self.name_ln,
-                     'search.collection',
-                     dict(name=self.name))
+            crumb = dict(
+                text=self.name_ln,
+                url=url_for('search.collection', name=self.name))
+
         breadcrumbs.append(crumb)
         return breadcrumbs
 
