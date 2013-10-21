@@ -56,9 +56,9 @@ def produce_marc(self, fields=None):
                                     try:
                                         tmp_dict[key] = self._try_to_eval(subfield, value=f)
                                     except Exception,e:
-                                        pass
+                                        self['__error_messages.cerror[n]'] = 'Producer CError - Unable to produce %s - %s' % (field, str(e))
                         if tmp_dict:
                             out.append(tmp_dict)
         except KeyError:
-            pass
+            self['__error_messages.cerror[n]'] = 'Producer CError - No producer rule for field %s' % field
     return out
