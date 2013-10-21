@@ -146,11 +146,49 @@ class BibFieldLegacyTests(InvenioTestCase):
     def test_get_legacy_recstruct(self):
         """bibfield - legacy functions"""
         from invenio.search_engine import get_record as search_engine_get_record
+        from invenio.bibrecord import record_get_field_value
+
         bibfield_recstruct = get_record(8).get_legacy_recstruct()
         bibrecord = search_engine_get_record(8)
 
-        self.assertEqual(bibfield_recstruct['100'][0][0], bibrecord['100'][0][0])
+        self.assertEqual(record_get_field_value(bibfield_recstruct, '100', code='a'),
+                         record_get_field_value(bibrecord, '100', code='a'))
         self.assertEqual(len(bibfield_recstruct['999']), len(bibrecord['999']))
+
+    def test_guess_legacy_field_names(self):
+        """bibfied - guess legacy fields"""
+        from invenio.bibfield import guess_legacy_field_names
+
+        legacy_fields = guess_legacy_field_names(('100__a', '245'))
+        self.assertEqual(legacy_fields['100__a'][0], 'authors[0].full_name')
+        self.assertEqual(legacy_fields['245'][0], 'title')
+
+        legacy_fields = guess_legacy_field_names('001', 'marc')
+        self.assertEqual(legacy_fields['001'][0], 'recid')
+
+        self.assertEquals(guess_legacy_field_names('foo', 'marc'), {'foo': []})
+        self.assertEquals(guess_legacy_field_names('foo', 'bar'), {'foo': []})
+
+
+class BibFieldProducerTests(InvenioTestCase):
+    """
+    Low level output tests
+    """
+
+    def test_produce_mar(self):
+        """bibfield - produce marc"""
+        record = get_record(1)
+        produced_marc = record.produce_marc()
+
+        self.assertTrue({'001': '1'} in produced_marc)
+
+    def test_produce_dublin_core(self):
+        """bibfield - produce dublin core"""
+        record = get_record(1)
+        date = record.get('version_id').strftime('%Y-%m-%dT%H:%M:%SZ')
+        produced_dc = record.produce_dublin_core()
+
+        self.assertTrue({'dc:date': date} in produced_dc)
 
 
 TEST_SUITE = make_test_suite(BibFieldRecordFieldValuesTest,
