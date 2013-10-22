@@ -588,27 +588,6 @@ class CollectionExternalcollection(db.Model):
     externalcollection = db.relationship(Externalcollection)
 
 
-class Format(db.Model):
-    """Represents a Format record."""
-    __tablename__ = 'format'
-    id = db.Column(db.MediumInteger(9, unsigned=True),
-                primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
-    code = db.Column(db.String(6), nullable=False, unique=True)
-    description = db.Column(db.String(255), server_default='')
-    content_type = db.Column(db.String(255), server_default='')
-    visibility = db.Column(db.TinyInteger(4), nullable=False,
-                server_default='1')
-    last_updated = db.Column(db.DateTime, nullable=True)
-
-    @classmethod
-    def get_export_formats(cls):
-        return cls.query.filter(db.and_(
-            Format.content_type != 'text/html',
-            Format.visibility == 1)
-        ).order_by(Format.name).all()
-
-
 class CollectionFormat(db.Model):
     """Represents a CollectionFormat record."""
     __tablename__ = 'collection_format'
@@ -622,19 +601,6 @@ class CollectionFormat(db.Model):
                 order_by=db.desc(score))
     format = db.relationship(Format, backref='collections',
                 order_by=db.desc(score))
-
-
-class Formatname(db.Model):
-    """Represents a Formatname record."""
-    __tablename__ = 'formatname'
-    id_format = db.Column(db.MediumInteger(9, unsigned=True),
-                db.ForeignKey(Format.id), primary_key=True)
-    ln = db.Column(db.Char(5), primary_key=True,
-                server_default='')
-    type = db.Column(db.Char(3), primary_key=True,
-                server_default='sn')
-    value = db.Column(db.String(255), nullable=False)
-    format = db.relationship(Format, backref='names')
 
 
 class Field(db.Model):

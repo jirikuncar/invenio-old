@@ -122,21 +122,6 @@ class Bibrec(db.Model):
                                                recreate_cache_if_needed=False)
 
 
-class Bibfmt(db.Model):
-    """Represents a Bibfmt record."""
-    def __init__(self):
-        pass
-    __tablename__ = 'bibfmt'
-    id_bibrec = db.Column(db.MediumInteger(8, unsigned=True),
-                db.ForeignKey(Bibrec.id), nullable=False, server_default='0',
-                primary_key=True, autoincrement=False)
-    format = db.Column(db.String(10), nullable=False,
-                server_default='', primary_key=True, index=True)
-    last_updated = db.Column(db.DateTime, nullable=False,
-                server_default='1900-01-01 00:00:00', index=True)
-    value = db.Column(db.iLargeBinary)
-    bibrec = db.relationship(Bibrec, backref='bibfmt')
-
 class BibHOLDINGPEN(db.Model):
     """Represents a BibHOLDINGPEN record."""
     def __init__(self):
