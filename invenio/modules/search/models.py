@@ -41,6 +41,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 # Create your models here.
 
 from invenio.modules.account.models import User
+from invenio.modules.formatter.models import Format
 
 
 class IntbitsetPickle(object):
@@ -760,9 +761,7 @@ __all__ = ['Collection',
            'CollectionPortalbox',
            'Externalcollection',
            'CollectionExternalcollection',
-           'Format',
            'CollectionFormat',
-           'Formatname',
            'Field',
            'Fieldvalue',
            'Fieldname',

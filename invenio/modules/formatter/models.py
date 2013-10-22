@@ -20,7 +20,8 @@
 """
     invenio.modules.formatter.models
     -----------------------------------
-    Database access related functions for BibFormat engine and
+
+    Database access related functions for Formatter engine and
     administration pages.
 """
 from invenio.ext.sqlalchemy import db
@@ -110,6 +111,7 @@ class Formatname(db.Model):
     value = db.Column(db.String(255), nullable=False)
 
     format = db.relationship(Format, backref='names')
+    #TODO add association proxy with key (id_format, ln, type)
 
 
 class Bibfmt(db.Model):
@@ -144,3 +146,9 @@ class Bibfmt(db.Model):
     value = db.Column(db.iLargeBinary)
 
     bibrec = db.relationship(Bibrec, backref='bibfmt')
+
+__all__ = [
+    'Format',
+    'Formatname',
+    'Bibfmt',
+]
