@@ -184,7 +184,7 @@ def email_alert(mapper, connection, target):
                     u.email,
                     subject = m.subject,
                     content = render_template_to_string(
-                            'webmessage_email_alert.html',
+                            'messages/email_alert.html',
                             message=m, user=u))
             except:
                 # FIXME tests are not in request context

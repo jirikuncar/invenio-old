@@ -23,6 +23,7 @@ from datetime import datetime
 from flask import render_template, request, flash, redirect, url_for, Blueprint
 from invenio import webmessage_dblayer as dbplayer
 from invenio.base.globals import cfg
+from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
 from invenio.ext.menu import register_menu
 from invenio.ext.sqlalchemy import db
 from invenio.webmessage import is_no_quota_user
@@ -59,16 +60,17 @@ class MessagesMenu(object):
 
 not_guest = lambda: not current_user.is_guest
 
-blueprint = Blueprint('webmessage', __name__, url_prefix="/yourmessages")
-                             #breadcrumbs=[(_("Your Account"), 'youraccount.edit'),
-                             #             ('Your Messages', 'webmessage.index')])
+blueprint = Blueprint('webmessage', __name__, url_prefix="/yourmessages",
+                      template_folder='templates', static_folder='static')
+
+default_breadcrumb_root(blueprint, '.webaccount.messages')
 
 
 @blueprint.route('/menu', methods=['GET'])
 #FIXME if request is_xhr then do not return 401
 #@login_required
 #@permission_required('usemessages')
-#@templated('webmessage_menu.html')
+#@templated('messages/menu.html')
 def menu():
     uid = current_user.get_id()
 
@@ -82,7 +84,7 @@ def menu():
         order_by(db.desc(MsgMESSAGE.received_date)).limit(5)
 
     #return dict(messages=messages.all())
-    return render_template('webmessage_menu.html', messages=messages.all())
+    return render_template('messages/menu.html', messages=messages.all())
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
@@ -95,7 +97,8 @@ def menu():
     'subject': operators.startswith_op,
     'user_from.nickname': operators.contains_op},
     form=FilterMsgMESSAGEForm)
-@templated('webmessage_index.html')
+@templated('messages/index.html')
+@register_breadcrumb(blueprint, '.', _('Your Messages'))
 @register_menu(blueprint, 'personalize.messages', _('Your messages'), order=10)
 @register_menu(blueprint, 'main.messages', MessagesMenu(), order=-3,
                visible_when=not_guest)
@@ -137,7 +140,7 @@ def add(msg_reply_id):
                 message.subject = _("Re:") + " " + m.message.subject
                 message.body = email_quote_txt(m.message.body)
                 form = AddMsgMESSAGEForm(request.form, obj=message)
-                return render_template('webmessage_add.html', form=form)
+                return render_template('messages/add.html', form=form)
             except db.sqlalchemy.orm.exc.NoResultFound:
                 # The message exists in table user_msgMESSAGE
                 # but not in table msgMESSAGE => table inconsistency
@@ -182,7 +185,7 @@ def add(msg_reply_id):
             except:
                 db.session.rollback()
 
-    return render_template('webmessage_add.html', form=form)
+    return render_template('messages/add.html', form=form)
 
 
 @blueprint.route("/view")
@@ -191,7 +194,7 @@ def add(msg_reply_id):
 @login_required
 @permission_required('usemessages')
 @wash_arguments({'msgid': (int, 0)})
-@templated('webmessage_view.html')
+@templated('messages/view.html')
 def view(msgid):
     uid = current_user.get_id()
     if (dbquery.check_user_owns_message(uid, msgid) == 0):
@@ -249,7 +252,7 @@ def delete_all(confirmed=0):
     """
     uid = current_user.get_id()
     if confirmed != 1:
-        return render_template('webmessage_confirm_delete.html')
+        return render_template('messages/confirm_delete.html')
 
     if dbquery.delete_all_messages(uid):
         flash(_("Your mailbox has been emptied."), "info")
