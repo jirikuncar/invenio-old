@@ -19,13 +19,12 @@
 
 
 import json
-from flask import  \
+from flask import Blueprint, \
     request, \
     jsonify
 
 from invenio.bibworkflow_config import CFG_WORKFLOW_STATUS
 from invenio.webdeposit_load_deposition_types import deposition_metadata
-from invenio.webinterface_handler_flask_utils import InvenioBlueprint
 from invenio.webdeposit_utils import create_workflow,\
     get_workflow, \
     set_form_status, \
@@ -38,9 +37,8 @@ from invenio.webuser_flask import current_user
 from invenio.modules.api_keys import api_key_required
 from invenio.jsonutils import wash_for_json
 
-blueprint = InvenioBlueprint('webdeposit_api', __name__,
-                             url_prefix='/api/deposit',
-                             config='invenio.websubmit_config')
+blueprint = Blueprint('webdeposit_api', __name__, url_prefix='/api/deposit',
+                      template_folder='templates', static_folder='static')
 
 
 class enum(object):
