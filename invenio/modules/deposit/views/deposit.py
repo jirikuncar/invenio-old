@@ -35,39 +35,23 @@ from flask import current_app, Blueprint, \
 from flask.ext.login import current_user, login_required
 from werkzeug.utils import secure_filename
 
+from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
 from invenio.ext.menu import register_menu
-from invenio.webdeposit_load_deposition_types import deposition_types, \
-    deposition_metadata
 from invenio.base.i18n import _
-from invenio.webdeposit_utils import get_current_form, \
-    get_form, \
-    draft_field_set, \
-    draft_field_list_add, \
-    delete_workflow, \
-    create_workflow, \
-    get_latest_or_new_workflow, \
-    get_workflow, \
-    draft_field_get_all, \
-    draft_field_error_check, \
-    draft_field_get, \
-    set_form_status, \
-    get_form_status, \
-    create_user_file_system, \
-    CFG_DRAFT_STATUS, \
-    url_upload,\
-    get_all_drafts
 from invenio.webdeposit_load_forms import forms
 from invenio.webdeposit_signals import template_context_created
-from invenio.webdeposit_models import Deposition, DepositionType, \
+from invenio.modules.deposit.models import Deposition, DepositionType, \
     DepositionFile, InvalidDepositionType, DepositionDoesNotExists, \
     DraftDoesNotExists, FormDoesNotExists, DepositionNotDeletable, \
     DepositionDraftCacheManager
 from invenio.webdeposit_storage import ChunkedDepositionStorage, \
     DepositionStorage, ExternalFile, UploadError
 
+blueprint = Blueprint('webdeposit', __name__, url_prefix='/deposit',
+                      template_folder='../templates',
+                      static_folder='../static')
 
-blueprint = Blueprint('webdeposit', __name__, url_prefix='/deposit')
-
+default_breadcrumb_root(blueprint, '.webdeposit')
 
 deptypes = "<any(%s):deposition_type>" % (", ".join(
     map(lambda x: '"%s"' % x, DepositionType.keys())
@@ -110,6 +94,7 @@ def deposition_error_handler(endpoint='.index'):
 @blueprint.route('/')
 @login_required
 @register_menu(blueprint, 'main.webdeposit', _('Deposit'), order=2)
+@register_breadcrumb(blueprint, '.', _('Deposit'))
 def index():
     """
     Renders the deposition index page
@@ -133,7 +118,7 @@ def index():
     )
 
     return render_template(
-        'webdeposit_index.html',
+        'deposit/index.html',
         **ctx
     )
 
@@ -168,7 +153,7 @@ def deposition_type_index(deposition_type):
     )
 
     return render_template(
-        'webdeposit_deposition_type.html',
+        'deposit/deposition_type.html',
         **ctx
     )
 

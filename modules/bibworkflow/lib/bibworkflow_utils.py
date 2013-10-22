@@ -21,7 +21,7 @@ import redis
 
 from invenio.legacy.bibrecord import create_record
 from invenio.errorlib import register_exception
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 
 
 REGEXP_RECORD = re.compile("<record.*?>(.*?)</record>", re.DOTALL)

@@ -31,10 +31,9 @@ from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.datastructures import MultiDict
 from werkzeug.utils import secure_filename
 from flask import redirect, render_template, flash, url_for, request, session
+from flask.ext.login import current_user
 
-from invenio.sqlalchemyutils import db
-from invenio.webuser_flask import current_user
-
+from invenio.ext.sqlalchemy import db
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION, CFG_WORKFLOW_STATUS
 from invenio.modules.workflows.models import BibWorkflowObject, Workflow
 from invenio.bibworkflow_engine import BibWorkflowEngine
@@ -157,7 +156,7 @@ class DepositionType(object):
         if ctx:
             return render_template(**ctx)
         else:
-            return render_template('webdeposit_error.html', **dict(
+            return render_template('deposit/error.html', **dict(
                 depostion=deposition,
                 deposition_type=(
                     None if deposition.type.is_default()
@@ -941,7 +940,7 @@ class Deposition(object):
     def get_depositions(cls, user, type=None):
         params = [
             Workflow.module_name == 'webdeposit',
-            BibWorkflowObject.id_user == user.get_id()
+            Workflow.id_user == user.get_id()
         ]
 
         if type:

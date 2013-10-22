@@ -19,14 +19,13 @@
 
 import os
 import tempfile
-import json
 import cPickle
 import base64
 
 from datetime import datetime
 from sqlalchemy import desc
 from sqlalchemy.orm.exc import NoResultFound
-from invenio.sqlalchemyutils import db
+from invenio.ext.sqlalchemy import db
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION,\
     CFG_LOG_TYPE
 from invenio.config import CFG_TMPSHAREDDIR

@@ -33,7 +33,6 @@ from invenio.bibworkflow_hp_load_widgets import widgets
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION
 
 from flask import redirect, url_for, flash
-from invenio.bibformat_engine import format_record
 
 from invenio.bibworkflow_utils import create_hp_containers
 # from invenio.bibworkflow_containers import bwolist
@@ -322,6 +321,7 @@ def _entry_data_preview(data, recformat='hd'):
     """
     if recformat == 'hd' or recformat == 'xm':
         try:
+            from invenio.bibformat_engine import format_record
             data = format_record(recID=None, of=recformat,
                                  xml_record=data)
         except:

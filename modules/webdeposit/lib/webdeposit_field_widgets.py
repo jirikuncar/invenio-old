@@ -47,7 +47,7 @@ def bootstrap_submit(field, **dummy_kwargs):
 
 class PLUploadWidget(object):
     def __init__(self, template=None):
-        self.template = template or "webdeposit_widget_plupload.html"
+        self.template = template or "deposit/widget_plupload.html"
 
     def __call__(self, field, **kwargs):
         field_id = kwargs.pop('id', field.id)

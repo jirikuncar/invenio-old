@@ -1,4 +1,4 @@
-{#
+# -*- coding: utf-8 -*-
 ## This file is part of Invenio.
 ## Copyright (C) 2013 CERN.
 ##
@@ -14,23 +14,9 @@
 ##
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
-## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
-#}
-{% extends "page.html" %}
+## 59 Temple Place, Suite 331, Boston, MA 02111-1307, USA.
 
-{% block body %}
-<div class="row">
-    <div class="span8">
+from .deposit import blueprint as deposit_blueprint
+#from .api import blueprint as api_blueprint
 
-    <div class="progress progress-striped progress-danger" style="height: inherit;">
-        <div class="bar" style="width: 100%;">
-            <h4>Error</h4>
-        </div>
-    </div>
-    </div>
-    <div class="span4">
-        {% include "webdeposit_myview.html" %}
-    </div>
-    </div>
-</div>
-{% endblock %}
+blueprints = [deposit_blueprint]  # , api_blueprint]
