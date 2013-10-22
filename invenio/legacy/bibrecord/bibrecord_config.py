@@ -24,8 +24,9 @@ default behaviours for the parsers used and the parsers available."""
 
 from invenio.config import CFG_ETCDIR
 
+import pkg_resources
 # location of the MARC21 DTD file:
-CFG_MARC21_DTD = "%s/bibrecord/MARC21slim.dtd" % CFG_ETCDIR
+CFG_MARC21_DTD = pkg_resources.resource_filename('invenio.legacy.bibrecord.data', 'MARC21slim.dtd')
 
 # internal dictionary of warning messages:
 CFG_BIBRECORD_WARNING_MSGS = {

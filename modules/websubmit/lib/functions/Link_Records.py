@@ -50,7 +50,7 @@ import os
 
 from os.path import exists, join
 
-from invenio.bibrecord import record_xml_output, record_add_field
+from invenio.legacy.bibrecord import record_xml_output, record_add_field
 from invenio.bibformat_dblayer import get_tag_from_name
 from invenio.search_engine import search_pattern, get_fieldvalues
 from invenio.config import CFG_TMPDIR

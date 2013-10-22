@@ -75,7 +75,7 @@ from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.errorlib import register_exception
 from invenio.intbitset import intbitset
 from invenio.bibrank_citation_searcher import get_cited_by_count
-from invenio.bibrecord import record_get_field_instances
+from invenio.legacy.bibrecord import record_get_field_instances
 
 def getnavtrail(previous = ''):
     """Get the navtrail"""

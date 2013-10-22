@@ -25,7 +25,7 @@ except ImportError:
     HAS_REQUESTS = False
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 from invenio.config import CFG_SITE_URL, CFG_ETCDIR, CFG_INSPIRE_SITE
-from invenio.bibrecord import create_record, record_xml_output, record_delete_field
+from invenio.legacy.bibrecord import create_record, record_xml_output, record_delete_field
 
 if CFG_INSPIRE_SITE:
     EXPECTED_RESPONSE = """<record>

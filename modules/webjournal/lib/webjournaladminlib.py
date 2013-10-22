@@ -74,7 +74,7 @@ from invenio.webjournal_utils import \
      issue_is_later_than, \
      WEBJOURNAL_OPENER
 from invenio.dbquery import run_sql
-from invenio.bibrecord import \
+from invenio.legacy.bibrecord import \
      create_record, \
      print_rec
 from invenio.bibformat import format_record

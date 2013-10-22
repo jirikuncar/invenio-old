@@ -65,7 +65,7 @@ from invenio.webmessage import perform_request_send
 import invenio.webbasket_dblayer as basketdb
 from invenio.webbasket_config import CFG_WEBBASKET_SHARE_LEVELS, CFG_WEBBASKET_CATEGORIES, CFG_WEBBASKET_SHARE_LEVELS_ORDERED
 from invenio.errorlib import register_exception
-from invenio.bibrecord import create_records, record_get_field_value, record_get_field_values
+from invenio.legacy.bibrecord import create_records, record_get_field_value, record_get_field_values
 
 execfile("%s/invenio/websubmit_functions/Retrieve_Data.py" % CFG_PYLIBDIR)
 

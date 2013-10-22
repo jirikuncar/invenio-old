@@ -56,7 +56,7 @@ from invenio.search_engine import get_record
 import invenio.template
 from invenio import oai_harvest_daemon
 from invenio.xmlmarc2textmarc import create_marc_record
-from invenio.bibrecord import create_record
+from invenio.legacy.bibrecord import create_record
 from invenio.utils.url import create_html_link
 
 webstyle_templates = invenio.template.load('webstyle')

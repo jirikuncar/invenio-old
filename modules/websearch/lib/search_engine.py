@@ -94,7 +94,7 @@ from invenio.search_engine_config import \
      CFG_WEBSEARCH_IDXPAIRS_EXACT_SEARCH, \
      CFG_SEARCH_RESULTS_CACHE_PREFIX
 from invenio.search_engine_utils import get_fieldvalues, get_fieldvalues_alephseq_like
-from invenio.bibrecord import create_record, record_xml_output
+from invenio.legacy.bibrecord import create_record, record_xml_output
 from invenio.bibrank_record_sorter import get_bibrank_methods, is_method_valid, rank_records as rank_records_bibrank
 from invenio.bibrank_downloads_similarity import register_page_view_event, calculate_reading_similarity_list
 from invenio.bibindex_engine_stemmer import stem

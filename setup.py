@@ -77,10 +77,13 @@ setup(
     author_email='info@invenio-software.org',
     description='Digital library software',
     long_description=__doc__,
-    packages=['invenio.base',
-              'invenio.ext',
-              'invenio.modules',
-              'invenio.utils'],
+    packages=[
+        'invenio.base',
+        'invenio.ext',
+        'invenio.legacy',
+        'invenio.modules',
+        'invenio.utils',
+    ],
     namespace_packages=['invenio'],
     include_package_data=True,
     zip_safe=False,
@@ -88,6 +91,7 @@ setup(
     entry_points={
         'console_scripts': [
             'inveniomanage = invenio.base.manage:main',
+            'textmarc2xmlmarc = invenio.utils.textmarc2xmlmarc:main'
         ],
     },
     install_requires=install_requires,

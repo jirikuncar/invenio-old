@@ -19,7 +19,7 @@
 import re
 import redis
 
-from invenio.bibrecord import create_record
+from invenio.legacy.bibrecord import create_record
 from invenio.errorlib import register_exception
 from invenio.sqlalchemyutils import db
 

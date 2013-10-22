@@ -43,13 +43,13 @@ from invenio.config import CFG_BINDIR, CFG_TMPSHAREDDIR, CFG_LOGDIR, \
 from invenio.utils.text import encode_for_xml
 from invenio.bibtask import task_low_level_submission
 from invenio.base.i18n import gettext_set_language
-from invenio.textmarc2xmlmarc import transform_file
+from invenio.utils.textmarc2xmlmarc import transform_file
 from invenio.shellutils import run_shell_command
 from invenio.bibupload import xml_marc_to_records, bibupload
 
 import invenio.bibupload as bibupload_module
 
-from invenio.bibrecord import create_records, \
+from invenio.legacy.bibrecord import create_records, \
                               record_strip_empty_volatile_subfields, \
                               record_strip_empty_fields
 
@@ -560,7 +560,7 @@ def _detect_980_values_from_marcxml_file(recs):
     Read MARCXML file and return list of 980 $a values found in that file.
     Useful for checking rights.
     """
-    from invenio.bibrecord import record_get_field_values
+    from invenio.legacy.bibrecord import record_get_field_values
 
     collection_tag = run_sql("SELECT value FROM tag, field_tag, field \
                               WHERE tag.id=field_tag.id_tag AND \
@@ -584,7 +584,7 @@ def _detect_collections_from_marcxml_file(recs):
     Extract all possible recIDs from MARCXML file and guess collections
     for these recIDs.
     """
-    from invenio.bibrecord import record_get_field_values
+    from invenio.legacy.bibrecord import record_get_field_values
     from invenio.search_engine import guess_collection_of_a_record
     from invenio.bibupload import find_record_from_sysno, \
                                   find_records_from_extoaiid, \

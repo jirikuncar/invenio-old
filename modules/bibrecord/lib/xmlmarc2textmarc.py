@@ -23,7 +23,7 @@ from __future__ import generators
 
 __revision__ = "$Id$"
 
-from invenio.bibrecord import \
+from invenio.legacy.bibrecord import \
      create_records, \
      record_get_field_values, \
      record_order_fields

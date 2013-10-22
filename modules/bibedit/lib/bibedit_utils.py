@@ -49,7 +49,7 @@ from invenio.bibedit_config import CFG_BIBEDIT_FILENAME, \
     CFG_BIBEDIT_CACHEDIR
 from invenio.bibedit_dblayer import get_record_last_modification_date, \
     delete_hp_change
-from invenio.bibrecord import create_record, create_records, \
+from invenio.legacy.bibrecord import create_record, create_records, \
     record_get_field_value, record_has_field, record_xml_output, \
     record_strip_empty_fields, record_strip_empty_volatile_subfields, \
     record_order_subfields, record_get_field_instances, \
@@ -78,7 +78,7 @@ from invenio.access_control_engine import acc_authorize_action
 from invenio.refextract_api import extract_references_from_record_xml, \
                                    extract_references_from_string_xml, \
                                    extract_references_from_url_xml
-from invenio.textmarc2xmlmarc import transform_file, ParseError
+from invenio.utils.textmarc2xmlmarc import transform_file, ParseError
 from invenio.bibauthorid_name_utils import split_name_parts, \
                                         create_normalized_name
 from invenio.bibknowledge import get_kbr_values

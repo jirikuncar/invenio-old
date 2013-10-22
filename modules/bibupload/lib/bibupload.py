@@ -59,7 +59,7 @@ from invenio.bibupload_config import CFG_BIBUPLOAD_CONTROLFIELD_TAGS, \
     CFG_BIBUPLOAD_OPT_MODES
 from invenio.dbquery import run_sql, \
                             Error
-from invenio.bibrecord import create_records, \
+from invenio.legacy.bibrecord import create_records, \
                               record_add_field, \
                               record_delete_field, \
                               record_xml_output, \

@@ -3804,8 +3804,8 @@ class Template:
           - 'ln' *string* - The language to display
         """
         from invenio.search_engine import get_record
-        from invenio.bibrecord import field_get_subfield_values
-        from invenio.bibrecord import record_get_field_instances
+        from invenio.legacy.bibrecord import field_get_subfield_values
+        from invenio.legacy.bibrecord import record_get_field_instances
         _ = gettext_set_language(ln)
 
         out = ''

@@ -61,8 +61,8 @@ MoreInfo = lazy_import('invenio.bibdocfile:MoreInfo')
 bibupload = lazy_import('invenio.bibupload')
 print_record = lazy_import('invenio.search_engine:print_record')
 get_record = lazy_import('invenio.search_engine:get_record')
-create_record = lazy_import('invenio.bibrecord:create_record')
-records_identical = lazy_import('invenio.bibrecord:records_identical')
+create_record = lazy_import('invenio.legacy.bibrecord:create_record')
+records_identical = lazy_import('invenio.legacy.bibrecord:records_identical')
 encode_for_xml = lazy_import('invenio.utils.text:encode_for_xml')
 
 # helper functions:
@@ -1440,7 +1440,7 @@ class BibUploadInsertModeTest(GenericBibUploadTest):
     def test_retrieve_005_tag(self):
         """bibupload - insert mode, verifying insertion of 005 control field for record """
         # Convert marc xml into record structure
-        from invenio.bibrecord import record_has_field, record_get_field_value
+        from invenio.legacy.bibrecord import record_has_field, record_get_field_value
         recs = bibupload.xml_marc_to_records(self.test)
         dummy, recid, dummy = bibupload.bibupload(recs[0], opt_mode='insert')
         self.check_record_consistency(recid)
@@ -1563,7 +1563,7 @@ class BibUploadAppendModeTest(GenericBibUploadTest):
 
     def test_retrieve_updated_005_tag(self):
         """bibupload - append mode, updating 005 control tag after modifiction """
-        from invenio.bibrecord import record_get_field_value
+        from invenio.legacy.bibrecord import record_get_field_value
         recs = bibupload.xml_marc_to_records(self.test_to_append)
         _, recid, _ = bibupload.bibupload(recs[0], opt_mode='append')
         self.check_record_consistency(recid)

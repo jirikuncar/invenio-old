@@ -59,7 +59,7 @@ from invenio.config import \
      CFG_SITE_LANG
 from invenio.errorlib import \
      register_exception
-from invenio.bibrecord import \
+from invenio.legacy.bibrecord import \
      create_record, \
      record_get_field_instances, \
      record_get_field_value, \

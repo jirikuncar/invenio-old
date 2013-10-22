@@ -60,7 +60,7 @@ from invenio.bibtask import \
      task_sleep_now_if_required, \
      task_update_progress, \
      task_low_level_submission
-from invenio.bibrecord import record_extract_oai_id, create_records, \
+from invenio.legacy.bibrecord import record_extract_oai_id, create_records, \
                               create_record, record_add_fields, \
                               record_delete_fields, record_xml_output, \
                               record_get_field_instances, \

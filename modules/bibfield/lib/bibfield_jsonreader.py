@@ -200,7 +200,7 @@ class JsonReader(BibFieldDict):
 
         #CHECK: it might be a bit overkilling
         """
-        from invenio.bibrecord import create_record
+        from invenio.legacy.bibrecord import create_record
         return create_record(self.legacy_export_as_marc())[0]
 
     def _prepare_blob(self):

@@ -87,7 +87,7 @@ def reset_recjson(split_by=1000):
 @change_command_name
 def reset_recstruct(split_by=1000):
     """Reset record structure cache."""
-    from invenio.bibrecord_manager import reset
+    from invenio.legacy.bibrecord.bibrecord_manager import reset
     reset(split_by)
 
 

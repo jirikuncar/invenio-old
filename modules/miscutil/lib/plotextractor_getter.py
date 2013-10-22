@@ -26,7 +26,7 @@ from invenio.config import CFG_TMPDIR, \
 from invenio.plotextractor_config import CFG_PLOTEXTRACTOR_DESY_BASE, \
                                          CFG_PLOTEXTRACTOR_DESY_PIECE
 from invenio.search_engine import get_record
-from invenio.bibrecord import record_get_field_instances, \
+from invenio.legacy.bibrecord import record_get_field_instances, \
                               field_get_subfield_values
 from invenio.shellutils import run_shell_command
 from invenio.plotextractor_output_utils import write_message

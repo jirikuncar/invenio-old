@@ -25,7 +25,7 @@ TEXT MARC to XML MARC utility.
 __revision__ = "$Id$"
 
 try:
-    from invenio.textmarc2xmlmarc import main
+    from invenio.utils.textmarc2xmlmarc import main
 except ImportError, err:
     import sys
     sys.stderr.write("Error: %s" % err)

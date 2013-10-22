@@ -73,7 +73,7 @@ from invenio.bibedit_utils import cache_exists, cache_expired, \
     record_is_conference, add_record_cnum, get_xml_from_textmarc, \
     record_locked_by_user_details, crossref_process_template
 
-from invenio.bibrecord import create_record, print_rec, record_add_field, \
+from invenio.legacy.bibrecord import create_record, print_rec, record_add_field, \
     record_add_subfield_into, record_delete_field, \
     record_delete_subfield_from, \
     record_modify_subfield, record_move_subfield, \
