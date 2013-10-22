@@ -26,7 +26,7 @@ from invenio.config import CFG_PYLIBDIR
 from invenio.dbquery import run_sql, IntegrityError
 from invenio.utils.json import json, json_unicode_to_utf8
 from invenio.pluginutils import PluginContainer, get_callable_documentation
-from invenio.textutils import wait_for_user
+from invenio.utils.text import wait_for_user
 
 CFG_GOTO_PLUGINS = PluginContainer(os.path.join(CFG_PYLIBDIR, 'invenio',
 'goto_plugins', 'goto_plugin_*.py'), plugin_builder=lambda name, code: code.goto)

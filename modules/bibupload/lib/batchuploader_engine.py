@@ -40,7 +40,7 @@ from invenio.config import CFG_BINDIR, CFG_TMPSHAREDDIR, CFG_LOGDIR, \
                             CFG_BATCHUPLOADER_WEB_ROBOT_RIGHTS, \
                             CFG_BATCHUPLOADER_WEB_ROBOT_AGENTS, \
                             CFG_PREFIX, CFG_SITE_LANG
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 from invenio.bibtask import task_low_level_submission
 from invenio.base.i18n import gettext_set_language
 from invenio.textmarc2xmlmarc import transform_file

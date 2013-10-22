@@ -24,7 +24,7 @@ __revision__ = "$Id$"
 from zlib import decompress
 from zlib import compress
 from time import localtime
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 
 from invenio.dbquery import run_sql
 from invenio.webcomment import get_reply_order_cache_data

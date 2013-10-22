@@ -38,7 +38,7 @@ from invenio.config import \
      CFG_WEBSEARCH_FULLTEXT_SNIPPETS_GENERATOR
 from invenio.dbquery import run_sql
 from invenio.utils.url import string_to_numeric_char_reference
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 from invenio.shellutils import run_shell_command
 from invenio.search_engine_utils import get_fieldvalues
 from invenio.solrutils_bibindex_searcher import solr_get_snippet

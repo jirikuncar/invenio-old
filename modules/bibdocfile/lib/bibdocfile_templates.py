@@ -23,7 +23,7 @@ from invenio.config import CFG_SITE_URL, \
 from invenio.base.i18n import gettext_set_language
 from invenio.utils.date import convert_datestruct_to_dategui
 from invenio.utils.url import create_html_link
-from invenio.textutils import nice_size
+from invenio.utils.text import nice_size
 
 def list_types_from_array(bibdocs):
     """Retrieves the list of types from the given bibdoc list."""

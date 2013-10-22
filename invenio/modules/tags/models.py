@@ -30,7 +30,7 @@ from invenio.modules.account.models import User, Usergroup
 # Functions
 from invenio.base.globals import cfg
 from werkzeug import cached_property
-from invenio.textutils import wash_for_xml
+from invenio.utils.text import wash_for_xml
 from datetime import datetime, date
 import re
 

@@ -29,7 +29,7 @@ import imp
 
 from invenio.errorlib import register_exception
 from invenio.config import CFG_PYLIBDIR
-from invenio.textutils import wrap_text_in_a_box
+from invenio.utils.text import wrap_text_in_a_box
 
 
 class InvenioPluginContainerError(Exception):

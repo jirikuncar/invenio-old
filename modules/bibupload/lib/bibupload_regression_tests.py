@@ -63,7 +63,7 @@ print_record = lazy_import('invenio.search_engine:print_record')
 get_record = lazy_import('invenio.search_engine:get_record')
 create_record = lazy_import('invenio.bibrecord:create_record')
 records_identical = lazy_import('invenio.bibrecord:records_identical')
-encode_for_xml = lazy_import('invenio.textutils:encode_for_xml')
+encode_for_xml = lazy_import('invenio.utils.text:encode_for_xml')
 
 # helper functions:
 

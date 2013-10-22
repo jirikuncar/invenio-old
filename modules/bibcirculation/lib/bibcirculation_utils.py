@@ -30,7 +30,7 @@ from invenio.search_engine_utils import get_fieldvalues
 from invenio.utils.url import make_invenio_opener
 from invenio.search_engine import get_field_tags
 from invenio.bibtask import task_low_level_submission
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 from invenio.base.i18n import gettext_set_language
 from invenio.config import CFG_SITE_URL, CFG_TMPDIR, CFG_SITE_LANG
 

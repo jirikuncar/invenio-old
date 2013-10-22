@@ -137,7 +137,7 @@ UPGRADE_TEMPLATE = """# -*- coding: utf-8 -*-
 
 import warnings
 from invenio.dbquery import run_sql
-from invenio.textutils import wait_for_user
+from invenio.utils.text import wait_for_user
 
 depends_on = %(depends_on)s
 
@@ -868,7 +868,7 @@ def cmd_upgrade_check(upgrader=None):
 def cmd_upgrade(upgrader=None):
     """ Command for applying upgrades """
     from invenio.config import CFG_LOGDIR
-    from invenio.textutils import wrap_text_in_a_box, wait_for_user
+    from invenio.utils.text import wrap_text_in_a_box, wait_for_user
 
     logfilename = os.path.join(CFG_LOGDIR, 'invenio_upgrader.log')
     if not upgrader:

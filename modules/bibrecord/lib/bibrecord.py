@@ -40,7 +40,7 @@ from invenio.bibrecord_config import CFG_MARC21_DTD, \
     CFG_BIBRECORD_DEFAULT_CORRECT, CFG_BIBRECORD_PARSERS_AVAILABLE, \
     InvenioBibRecordParserError, InvenioBibRecordFieldError
 from invenio.config import CFG_BIBUPLOAD_EXTERNAL_OAIID_TAG
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 
 # Some values used for the RXP parsing.
 TAG, ATTRS, CHILDREN = 0, 1, 2

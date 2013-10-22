@@ -42,7 +42,7 @@ from invenio.base.i18n import gettext_set_language, wash_language, language_list
 from invenio.search_engine import perform_request_search
 from invenio import bibformat_dblayer
 from invenio import bibformat_engine
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 
 import invenio.template
 bibformat_templates = invenio.template.load('bibformat')

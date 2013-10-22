@@ -25,7 +25,7 @@ from invenio.config import CFG_SITE_URL, \
      CFG_MATHJAX_HOSTING, \
      CFG_SITE_LANG, \
      CFG_WEBDIR
-from invenio.textutils import indent_text, encode_for_xml
+from invenio.utils.text import indent_text, encode_for_xml
 import re
 import cgi
 import os

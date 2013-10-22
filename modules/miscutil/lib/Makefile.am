@@ -94,7 +94,6 @@ pylib_DATA = __init__.py \
              solrutils_unit_tests.py \
              testutils.py \
              testutils_regression_tests.py \
-             textutils.py \
              textutils_unit_tests.py \
              urlutils_unit_tests.py \
              w3c_validator.py \

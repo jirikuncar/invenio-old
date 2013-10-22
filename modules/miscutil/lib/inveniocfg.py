@@ -673,7 +673,7 @@ def test_db_connection():
     Useful to be called during table creation.
     """
     print "Testing DB connection...",
-    from invenio.textutils import wrap_text_in_a_box
+    from invenio.utils.text import wrap_text_in_a_box
     from invenio.dbquery import run_sql, Error
 
     ## first, test connection to the DB server:
@@ -868,7 +868,7 @@ def cli_cmd_remove_demo_records(conf):
     print ">>> Going to remove demo records..."
     from invenio.config import CFG_PREFIX
     from invenio.dbquery import run_sql
-    from invenio.textutils import wrap_text_in_a_box, wait_for_user
+    from invenio.utils.text import wrap_text_in_a_box, wait_for_user
     wait_for_user(wrap_text_in_a_box("""WARNING: You are going to destroy
 your records and documents!"""))
     if os.path.exists(CFG_PREFIX + os.sep + 'var' + os.sep + 'data'):
@@ -885,7 +885,7 @@ your records and documents!"""))
 def cli_cmd_drop_demo_site(conf):
     """Drop demo site completely.  Useful when you are finished testing."""
     print ">>> Going to drop demo site..."
-    from invenio.textutils import wrap_text_in_a_box, wait_for_user
+    from invenio.utils.text import wrap_text_in_a_box, wait_for_user
     wait_for_user(wrap_text_in_a_box("""WARNING: You are going to destroy
 your site and documents!"""))
     cli_cmd_drop_tables(conf)

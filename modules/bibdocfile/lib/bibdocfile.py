@@ -91,7 +91,7 @@ from invenio.bibrecord import record_get_field_instances, \
     field_get_subfield_values, field_get_subfield_instances, \
     encode_for_xml
 from invenio.utils.url import create_url, make_user_agent_string
-from invenio.textutils import nice_size
+from invenio.utils.text import nice_size
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_is_user_in_role, acc_get_role_id
 from invenio.access_control_firerole import compile_role_definition, acc_firerole_check_user

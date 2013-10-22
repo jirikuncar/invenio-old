@@ -27,7 +27,7 @@ import invenio.bibauthorid_config as bconfig
 from invenio.bibauthorid_string_utils import string_partition
 from copy import deepcopy
 
-from invenio.textutils import translate_to_ascii
+from invenio.utils.text import translate_to_ascii
 
 from invenio.bibauthorid_general_utils import name_comparison_print
 

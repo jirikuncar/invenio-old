@@ -57,7 +57,7 @@ def create_config(force=False, no_ssl=True):
     from flask import current_app
     from jinja2 import TemplateNotFound
     from invenio.ext.template import render_template_to_string
-    from invenio.textutils import wrap_text_in_a_box
+    from invenio.utils.text import wrap_text_in_a_box
     from invenio.access_control_config import CFG_EXTERNAL_AUTH_USING_SSO
 
     CFG_PREFIX = current_app.config.get('CFG_PREFIX', '')

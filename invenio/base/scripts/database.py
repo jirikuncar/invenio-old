@@ -44,7 +44,7 @@ def drop(yes_i_know=False):
 
     from sqlalchemy import event
     from invenio.utils.date import get_time_estimator
-    from invenio.textutils import wrap_text_in_a_box, wait_for_user
+    from invenio.utils.text import wrap_text_in_a_box, wait_for_user
     from invenio.webstat import destroy_customevents
     from invenio.inveniocfg import test_db_connection
     from invenio.base.utils import autodiscover_models

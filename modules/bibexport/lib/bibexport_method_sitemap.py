@@ -39,7 +39,7 @@ from invenio.config import CFG_SITE_URL, CFG_WEBDIR, CFG_ETCDIR, \
 from invenio.intbitset import intbitset
 from invenio.websearch_webcoll import Collection
 from invenio.bibtask import write_message, task_update_progress, task_sleep_now_if_required
-from invenio.textutils import encode_for_xml
+from invenio.utils.text import encode_for_xml
 from invenio.utils.url import get_canonical_and_alternates_urls
 
 

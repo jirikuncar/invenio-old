@@ -56,7 +56,7 @@ except ImportError:
         return bconfig.CFG_BIBCLASSIFY_USER_AGENT
 
 try:
-    from invenio.textutils import encode_for_xml
+    from invenio.utils.text import encode_for_xml
 except ImportError:
     ## Not in Invenio, we use a simple workaround
     encode_for_xml = lambda text: text.replace('&', '&amp;').replace('<', '&lt;')
