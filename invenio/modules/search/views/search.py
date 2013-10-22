@@ -208,22 +208,22 @@ class SearchUrlargs(object):
 
 
 def _create_neareset_term_box(argd_orig):
-    #try:
-    p = argd_orig.pop('p', '')#.encode('utf-8')
-    f = argd_orig.pop('f', '')#.encode('utf-8')
-    if 'rg' in argd_orig and not 'rg' in request.values:
-        del argd_orig['rg']
-    if f == '' and ':' in p:
-        fx, px = p.split(':', 1)
-        from invenio.search_engine import get_field_name
-        if get_field_name(fx) != "":
-            f, p = fx, px
+    try:
+        p = argd_orig.pop('p', '')#.encode('utf-8')
+        f = argd_orig.pop('f', '')#.encode('utf-8')
+        if 'rg' in argd_orig and not 'rg' in request.values:
+            del argd_orig['rg']
+        if f == '' and ':' in p:
+            fx, px = p.split(':', 1)
+            from invenio.search_engine import get_field_name
+            if get_field_name(fx) != "":
+                f, p = fx, px
 
-    from invenio.search_engine import create_nearest_terms_box
-    return create_nearest_terms_box(argd_orig,
-        p=p, f=f.lower(), ln=g.ln, intro_text_p=True)
-    #except:
-    #return '<!-- not found -->'
+        from invenio.search_engine import create_nearest_terms_box
+        return create_nearest_terms_box(argd_orig,
+            p=p, f=f.lower(), ln=g.ln, intro_text_p=True)
+    except:
+        return '<!-- not found -->'
 
 
 def sort_and_rank_records(recids, so=None, rm=None, p=''):
