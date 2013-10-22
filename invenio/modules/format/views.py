@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+##
 ## This file is part of Invenio.
 ## Copyright (C) 2013 CERN.
 ##
@@ -15,9 +17,9 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-formattemplatesdir = $(sysconfdir)/templates/format_templates/
-formattemplates_DATA =
+"""Formater Blueprint"""
 
-EXTRA_DIST = $(formattemplates_DATA)
+from flask import Blueprint
 
-CLEANFILES = *~ *.tmp
+blueprint = Blueprint('format', __name__,
+                      template_folder='templates', static_folder='static')

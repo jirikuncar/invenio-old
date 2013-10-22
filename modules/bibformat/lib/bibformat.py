@@ -550,9 +550,9 @@ def print_records(recIDs, of='hb', ln=CFG_SITE_LANG, verbose=0,
     )
     context.update(ctx)
     return render_template_to_string(
-        ['format_records_%s.tpl' % of,
-         'format_records_%s.tpl' % of[0],
-         'format_records_%s.tpl' % get_output_format_content_type(of).
+        ['format/records/%s.tpl' % of,
+         'format/records/%s.tpl' % of[0],
+         'format/records/%s.tpl' % get_output_format_content_type(of).
             replace('/', '_')],
         **context)
 

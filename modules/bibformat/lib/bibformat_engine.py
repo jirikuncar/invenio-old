@@ -585,7 +585,7 @@ def format_with_format_template(format_template_filename, bfo,
         record.__getitem__ = encode_utf8(record.__getitem__)
         record.get = encode_utf8(record.get)
         evaluated_format = render_template_to_string(
-            CFG_BIBFORMAT_TEMPLATES_DIR+'/'+format_template_filename,
+            'format/record/'+format_template_filename,
             recid=bfo.recID,
             record=record,
             format_record=_format_record,
