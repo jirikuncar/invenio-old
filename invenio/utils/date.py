@@ -581,3 +581,9 @@ def strftime(fmt, dt):
 
 def strptime(date_string, fmt):
     return real_datetime(*(time.strptime(date_string, fmt)[:6]))
+
+
+def convert_datetime_to_utc_string(datetime_object, fmt="%Y-%m-%dT%H:%M:%SZ"):
+    return time.strftime(
+        fmt,
+        time.gmtime(time.mktime(datetime_object.timetuple())))
