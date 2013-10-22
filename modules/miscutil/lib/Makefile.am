@@ -98,7 +98,6 @@ pylib_DATA = __init__.py \
              textutils_unit_tests.py \
              urlutils_unit_tests.py \
              w3c_validator.py \
-             web_api_key.py \
              web_api_key_unit_tests.py \
              xapianutils_bibindex_indexer.py \
              xapianutils_bibindex_searcher.py \

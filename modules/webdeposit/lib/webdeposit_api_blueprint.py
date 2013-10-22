@@ -35,7 +35,7 @@ from invenio.webdeposit_utils import create_workflow,\
     deposit_files, \
     InvenioWebDepositNoDepositionType
 from invenio.webuser_flask import current_user
-from invenio.web_api_key import api_key_required
+from invenio.modules.api_keys import api_key_required
 from invenio.jsonutils import wash_for_json
 
 blueprint = InvenioBlueprint('webdeposit_api', __name__,

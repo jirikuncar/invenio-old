@@ -45,7 +45,7 @@ from invenio.external_authentication import InvenioWebAccessExternalAuthError
 import invenio.template
 websession_templates = invenio.template.load('websession')
 
-from invenio import web_api_key
+from invenio.modules import api_keys as web_api_key
 
 def perform_info(req, ln):
     """Display the main features of CDS personalize"""

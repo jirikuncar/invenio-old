@@ -48,7 +48,7 @@ def build_web_request(path, params, api_key=None, secret_key=None):
 class APIKeyTest(InvenioTestCase):
     """ Test functions related to the REST authentication API """
     def setUp(self):
-        from invenio import web_api_key
+        from invenio.modules import api_keys as web_api_key
         from invenio.modules.account.models import User
         from invenio.modules.api_keys.models import WebAPIKey
         self.model = WebAPIKey
