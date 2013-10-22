@@ -2294,6 +2294,18 @@ def search_unit(p, f=None, m=None, wl=0, ignore_synonyms=None):
     elif f == 'collection':
         # we are doing search by the collection name or MARC field
         hitset = search_unit_collection(p, m, wl=wl)
+    elif f == 'tag':
+        module_found = False
+        try:
+            from invenio.modules.tags.search_units import search_unit_in_tags
+            module_found = True
+        except:
+            # WebTag module is disabled, so ignore 'tag' selector
+            pass
+
+        if module_found:
+            return search_unit_in_tags(p)
+
     elif m == 'a' or m == 'r':
         # we are doing either phrase search or regexp search
         if f == 'fulltext':
