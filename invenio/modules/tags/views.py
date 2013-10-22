@@ -162,6 +162,20 @@ def tag_details(id_tag):
                               Collection.query.get(1),
                               'hb')
 
+
+@blueprint.route('/record/<int:id_bibrec>/tags', methods=['GET', 'POST'])
+@login_required
+@templated('tags/record_tags.html')
+@register_breadcrumb(blueprint, '.tags_details', _('Tag list'))
+def record_tags(id_bibrec):
+    """ List of documents attached to this tag """
+
+    from .template_context_functions.tfn_webtag_record_tags \
+        import template_context_function
+
+    return dict(tag_list = template_context_function(id_bibrec, current_user.get_id()))
+
+
 @blueprint.route('/tokenize/<int:id_bibrec>', methods=['GET', 'POST'])
 @login_required
 @wash_arguments({'q': (unicode, '')})
