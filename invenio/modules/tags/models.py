@@ -34,10 +34,11 @@ from invenio.textutils import wash_for_xml
 from datetime import datetime, date
 import re
 
+
 class Serializable(object):
     """Class which can present its fields as dict for json serialization"""
     # Set of fields which are to be serialized
-    __public__ = None
+    __public__ = set([])
 
     def _serialize_field(self, value):
         """ Converts value of a field to format suitable for json """
@@ -68,7 +69,7 @@ class Serializable(object):
         if fields:
             public = public.intersection(fields)
 
-        for key, field in  keys:
+        for key, field in keys:
             if key in public:
                 value = self._serialize_field(field.value)
                 if value:
@@ -76,13 +77,14 @@ class Serializable(object):
 
         return data
 
+
 #
 # TAG
 #
 class WtgTAG(db.Model, Serializable):
     """ Represents a Tag """
     __tablename__ = 'wtgTAG'
-    __public__ = ['id', 'name', 'id_owner']
+    __public__ = set(['id', 'name', 'id_owner'])
 
     #
     # Access Rights
@@ -107,7 +109,7 @@ class WtgTAG(db.Model, Serializable):
     }
 
     ACCESS_OWNER_DEFAULT = ACCESS_LEVELS['Manage']
-
+    ACCESS_GROUP_DEFAULT = ACCESS_LEVELS['View']
 
     # Primary key
     id = db.Column(db.Integer(15, unsigned=True),
@@ -131,6 +133,19 @@ class WtgTAG(db.Model, Serializable):
                             nullable=False,
                             default=ACCESS_OWNER_DEFAULT)
 
+    # Group
+    # equal to 0 for private tags
+    id_usergroup = db.Column(
+        db.Integer(15, unsigned=True),
+        db.ForeignKey(Usergroup.id),
+        server_default='0')
+
+    # Group access rights
+    group_access_rights = db.Column(
+        db.Integer(2, unsigned=True),
+        nullable=False,
+        default=ACCESS_GROUP_DEFAULT)
+
     # Access rights of everyone
     public_access_rights = db.Column(db.Integer(2, unsigned=True),
                             nullable=False,
@@ -150,6 +165,10 @@ class WtgTAG(db.Model, Serializable):
                                                     cascade='all',
                                                     lazy='dynamic'))
 
+    usergroup = db.relationship(
+        Usergroup,
+        backref=db.backref('tags', cascade='all'))
+
     # association proxy of "user_keywords" collection
     # to "keyword" attribute
     records = association_proxy('records_association', 'bibrec')
@@ -162,55 +181,18 @@ class WtgTAG(db.Model, Serializable):
     @record_count.expression
     def record_count(cls):
         return db.select([db.func.count(WtgTAGRecord.id_bibrec)]).\
-               where(WtgTAGRecord.id_tag==cls.id).\
+               where(WtgTAGRecord.id_tag == cls.id).\
                label('record_count')
 
-    # Validation
-    @db.validates('name')
-    def validate_name(self, key, value):
-        """
-        Check if the tag is valid for insertion.
-        Should be run after any cleanup, in case it was reduced to the empty string.
-
-        :param value: Single tag.
-        :return: Cleaned version of tag
-
-        Examples:
-        >>> validate_name('It is full of spaces')
-        True
-        >>> validate_name('')
-        False
-        >>> validate_name(None)
-        False
-        >>> validate_name('x' * TAG_MAX_LENGTH)
-        True
-        >>> validate_name('x' * (TAG_MAX_LENGTH + 1)) # Too long
-        False
-        >>> validate_name('α'.decode('utf-8') * TAG_MAX_LENGTH)
-        True
-        >>> validate_name('\\uFFFD' * TAG_MAX_LENGTH) # Last XML compatible character
-        False
-        >>> validate_name(unichr(WEBTAG_MAX_CHARACTER)) # Not XML compatible
-        False
-        >>> validate_name(unichr(WEBTAG_MAX_CHARACTER + 1)) # Outside range
-        False
-        """
-        tag = wash_tag(value)
-
-        # assert tag is not None
-        # assert len(tag) > 0
-        # assert len(tag) <= CFG_WEBTAG_NAME_MAX_LENGTH
-        # assert max(ord(letter) for letter in tag) \
-        #        <= WEBTAG_MAX_CHARACTER
-
-        return tag
 
     @db.validates('user_access_rights')
+    @db.validates('group_access_rights')
     @db.validates('public_access_rights')
     def validate_user_access_rights(self, key, value):
         """ Check if the value is among defined levels """
         assert value in WtgTAG.ACCESS_NAMES
         return value
+
 
 #
 # TAG - RECORD
@@ -219,7 +201,7 @@ class WtgTAGRecord(db.Model, Serializable):
     """ Represents a connection between Tag and Record """
 
     __tablename__ = 'wtgTAG_bibrec'
-    __public__ = ['id_tag', 'id_bibrec', 'date_added']
+    __public__ = set(['id_tag', 'id_bibrec', 'date_added'])
 
     # tagTAG.id
     id_tag = db.Column(db.Integer(15, unsigned=True),
@@ -232,6 +214,11 @@ class WtgTAGRecord(db.Model, Serializable):
                           db.ForeignKey(Bibrec.id),
                           nullable=False,
                           primary_key=True)
+
+    # Annotation
+    annotation = db.Column(
+        db.Text(convert_unicode=True),
+        default='')
 
     # Creation date
     date_added = db.Column(db.DateTime,
@@ -263,49 +250,7 @@ class WtgTAGRecord(db.Model, Serializable):
         self.bibrec = bibrec
 
 
-#
-# TAG - USERGROUP
-#
-class WtgTAGUsergroup(db.Model, Serializable):
-    """ Represents access rights of the group concerning the tag """
-
-    __tablename__ = 'wtgTAG_usergroup'
-    __public__ = ['id_tag', 'id_usergroup', 'group_access_rights']
-
-    # tagTAG.id
-    id_tag = db.Column(db.Integer(15, unsigned=True),
-                       db.ForeignKey(WtgTAG.id),
-                       nullable=False,
-                       primary_key=True)
-
-    # usergroup.id
-    id_usergroup =  id_usergroup = db.Column(db.Integer(15, unsigned=True),
-                    db.ForeignKey(Usergroup.id),
-                    nullable=False, server_default='0',
-                    primary_key=True)
-
-    # Access rights
-    group_access_rights = db.Column(db.Integer(2, unsigned=True),
-                           nullable=False,
-                           default=WtgTAG.ACCESS_LEVELS['View'])
-
-    # Relationships
-    tag = db.relationship(WtgTAG,
-                          backref=db.backref('group_rights', cascade='all'))
-
-    group = db.relationship(Usergroup,
-                            backref=db.backref('tag_rights', cascade='all'))
-
-    # Validation
-    @db.validates('group_access_rights')
-    def validate_user_access_rights(self, key, value):
-        """ Check if the value is among defined levels """
-        assert value in WtgTAG.ACCESS_NAMES
-        return value
-
-
 # Compiling once should improve regexp speed
-
 class ReplacementList(object):
 
     def __init__(self, config_name):
@@ -361,7 +306,7 @@ def wash_tag_silent(tag_name):
     Trailing whitespace
     >>> print(_tag_cleanup('  Preceding and trailing double whitespace  '))
     Preceding and trailing double whitespace
-    >>> _tag_cleanup(unichr(WEBTAG_MAX_CHARACTER))
+    >>> _tag_cleanup(unichr(CFG_WEBTAG_LAST_MYSQL_CHARACTER))
     u''
     >>> from string import whitespace
     >>> _tag_cleanup(whitespace)
@@ -382,6 +327,7 @@ def wash_tag_silent(tag_name):
 
     return tag_name
 
+
 def wash_tag_blocking(tag_name):
     """ Applies list of replacements from CFG_WEBTAG_REPLACEMENTS_BLOCKING """
 
@@ -392,6 +338,7 @@ def wash_tag_blocking(tag_name):
     tag_name = COMPILED_REPLACEMENTS_BLOCKING.apply(tag_name)
 
     return tag_name
+
 
 def wash_tag(tag_name):
     """ Applies all washing procedures in order """

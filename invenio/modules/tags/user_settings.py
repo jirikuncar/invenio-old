@@ -24,34 +24,44 @@ from flask import url_for
 from invenio.ext.template import render_template_to_string
 from invenio.base.i18n import _
 from flask.ext.login import current_user
-from invenio.modules.dashboard.settings import Settings, UserSettingsStorage
-from invenio.ext.sqlalchemy import db
+from invenio.modules.dashboard.settings import \
+    Settings, \
+    UserSettingsAttributeStorage
 
 # Related models
 from invenio.modules.account.models import User
 from invenio.modules.record_editor.models import Bibrec
 
-# Models
+# Internal
 from .models import WtgTAG, WtgTAGRecord
+from .forms import WebTagUserSettingsForm
 
 
 class WebTagSettings(Settings):
 
-    keys = []
-    #form_builder = WebBasketUserSettingsForm
-    storage_builder = UserSettingsStorage
+    keys = \
+        [
+            'display_tags_private',
+            'display_tags_group',
+            'display_tags_public',
+        ]
+
+    form_builder = WebTagUserSettingsForm
+    storage_builder = UserSettingsAttributeStorage('webtag')
 
     def __init__(self):
         super(WebTagSettings, self).__init__()
         self.icon = 'tags'
         self.title = _('Tags')
         self.view = url_for('webtag.display_cloud')
+        self.edit = url_for('webaccount.edit', name=self.name)
 
     def widget(self):
         user = User.query.get(current_user.get_id())
         tag_count = user.tags_query.count()
 
-        record_count = Bibrec.query.join(WtgTAGRecord).join(WtgTAG)\
+        record_count = Bibrec.query.join(WtgTAGRecord)\
+            .join(WtgTAG)\
             .filter(WtgTAG.user == user).count()
 
         return render_template_to_string(

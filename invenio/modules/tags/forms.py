@@ -27,6 +27,8 @@ from flask.ext.login import current_user
 
 from wtforms import \
     IntegerField, \
+    BooleanField, \
+    SelectField, \
     HiddenField, \
     TextField, \
     SelectMultipleField, \
@@ -81,6 +83,7 @@ def validate_name_available(dummy_form, field):
             raise validators.ValidationError(
                 _('Tag with that name already exists.'))
 
+
 def validate_tag_exists(dummy_form, field):
     """ Check if id_tag matches a tag in database """
     if field.data:
@@ -91,6 +94,7 @@ def validate_tag_exists(dummy_form, field):
 
         if not db.session.query(WtgTAG).get(field.data):
             raise validators.ValidationError(_('Tag does not exist.'))
+
 
 def validate_user_owns_tag(dummy_form, field):
     """ Check if id_tag matches a tag in database """
@@ -123,10 +127,10 @@ def validate_bibrec_exists(dummy_form, field):
         if record.deleted:
             raise validators.ValidationError(_('Bibrec has been deleted.'))
 
+
 def validate_user_can_see_bibrec(dummy_form, field):
     """ Check if user has rights to view bibrec """
     if field.data:
-        from invenio.search_engine import check_user_can_view_record
         (auth_code, msg) = check_user_can_view_record(current_user, field.data)
 
         if auth_code > 0:
@@ -143,6 +147,7 @@ def validate_not_already_attached(form, dummy_field):
             if tag_record is not None:
                 raise validators.ValidationError(_('Tag already attached.'))
 
+
 def validate_already_attached(form, dummy_field):
     """ Check if the pair (tag, bibrec) is already connected """
     if form:
@@ -152,6 +157,7 @@ def validate_already_attached(form, dummy_field):
 
             if tag_record is None:
                 raise validators.ValidationError(_('Tag not attached.'))
+
 
 class CreateTagForm(InvenioBaseForm):
     """Defines form for creating a new tag."""
@@ -202,3 +208,35 @@ class DetachTagForm(InvenioBaseForm):
                 [validators.Required(),
                  validate_bibrec_exists,
                  validate_user_can_see_bibrec])
+
+
+# class WebTagUserSettingsForm(InvenioBaseForm):
+#     """User's personal settings influencing WebTag module"""
+
+#     display_tags_private = BooleanField(
+#         _('Show private tags'),
+#         default=True)
+
+#     display_tags_group = BooleanField(
+#         _('Show group tags'),
+#         default=CFG_WEBTAG_DEFAULT_USER_SETTINGS['display_tags_group'])
+
+#     display_tags_public = BooleanField(
+#         _('Show public tags'),
+#         default=CFG_WEBTAG_DEFAULT_USER_SETTINGS['display_tags_public'])
+
+class WebTagUserSettingsForm(InvenioBaseForm):
+    """User's personal settings influencing WebTag module"""
+
+    display_tags_private = SelectField(
+        _('Private tags'),
+        choices=[('1', _('Show')), ('0', _('Hide'))])
+
+    display_tags_group = SelectField(
+        _('Group tags'),
+        choices=[('1', _('Show')), ('0', _('Hide'))])
+
+    display_tags_public = SelectField(
+        _('Public tags'),
+        choices=[('1', _('Show')), ('0', _('Hide'))])
+

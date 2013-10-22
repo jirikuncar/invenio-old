@@ -67,3 +67,16 @@ CFG_TAGS_NAME_REPLACEMENTS_BLOCKING = [
     (r'\s+', ' '),       # merge multiple spaces
     (r'^\s+|\s+$', '')   # remove leading / trailing spaces
 ]
+
+#
+# User settings
+#
+
+CFG_WEBTAG_SETTINGS_SHOW = '1'
+CFG_WEBTAG_SETTINGS_HIDE = '0'
+
+CFG_WEBTAG_DEFAULT_USER_SETTINGS = {
+    'display_tags_private': CFG_WEBTAG_SETTINGS_SHOW,
+    'display_tags_group': CFG_WEBTAG_SETTINGS_SHOW,
+    'display_tags_public': CFG_WEBTAG_SETTINGS_SHOW,
+}

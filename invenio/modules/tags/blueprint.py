@@ -25,11 +25,13 @@
 """
 
 # Flask
+from werkzeug import LocalProxy
 from flask import render_template, request, flash, redirect, url_for, \
         jsonify, Blueprint
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from flask.ext.login import current_user, login_required
+from invenio.base.globals import cfg
 
 # External imports
 from invenio.modules.account.models import User
@@ -44,7 +46,6 @@ from invenio.ext.sqlalchemy import db
 from .models import \
     WtgTAG, \
     WtgTAGRecord, \
-    WtgTAGUsergroup, \
     wash_tag
 
 # Forms
@@ -57,6 +58,9 @@ from .forms import \
     validate_user_owns_tag, \
     validators
 
+# Uset settings
+user_settings = LocalProxy(lambda:
+    current_user['settings'].get('webtag', cfg['CFG_WEBTAG_DEFAULT_USER_SETTINGS']))
 
 blueprint = Blueprint('webtag', __name__, url_prefix='/yourtags',
                       template_folder='templates', static_folder='static')
@@ -163,14 +167,14 @@ def tag_details(id_tag):
 @wash_arguments({'q': (unicode, '')})
 def tokenize(id_bibrec, q):
     """ Data for tokeninput """
-    user = db.session.query(User).get(current_user.get_id())
+    id_user = current_user.get_id()
 
     # Output only tags unattached to this record
-    record = db.session.query(Bibrec).get(id_bibrec)
+    record = Bibrec.query.get(id_bibrec)
 
-    tags = db.session.query(WtgTAG)\
-        .filter_by(user=user)\
-        .filter(WtgTAG.name.like('%'+ q +'%'))\
+    tags = WtgTAG.query\
+        .filter_by(id_user=id_user)\
+        .filter(WtgTAG.name.like('%' + q + '%'))\
         .filter(db.not_(WtgTAG.records.contains(record)))\
         .order_by(WtgTAG.name)
 
@@ -181,7 +185,7 @@ def tokenize(id_bibrec, q):
 
     response_tags = []
     for tag in tags.all():
-        tag_json = tag.serializable_fields(['id', 'name'])
+        tag_json = tag.serializable_fields(set(['id', 'name']))
         response_tags.append(tag_json)
 
         # Check if it matches the search name
@@ -190,8 +194,16 @@ def tokenize(id_bibrec, q):
 
     #If the name was not found
     if add_new_name:
-        tag_json = {'id': 0, 'name': new_name}
-        response_tags.append(tag_json)
+        # Check if a tag with this name is already attached
+        already_attached = WtgTAG.query\
+            .join(WtgTAGRecord)\
+            .filter(WtgTAG.name == new_name)\
+            .filter(WtgTAGRecord.id_bibrec == id_bibrec)\
+            .count()
+
+        if not already_attached:
+            tag_json = {'id': 0, 'name': new_name}
+            response_tags.append(tag_json)
 
     return jsonify(dict(results=response_tags, query=q))
 
@@ -211,7 +223,7 @@ def editor(id_bibrec):
 
     tags_json = []
     for tag in tags.all():
-        fields = tag.serializable_fields(['id', 'name'])
+        fields = tag.serializable_fields(set(['id', 'name']))
         fields['can_remove'] = True
         tags_json.append(fields)
 
@@ -224,6 +236,7 @@ def editor(id_bibrec):
 class Field(object):
     def __init__(self, attr, value):
         setattr(self, attr, value)
+
 
 @blueprint.route('/delete', methods=['GET', 'POST'])
 @login_required
@@ -243,11 +256,17 @@ def delete():
         except validators.ValidationError, ex:
             flash(ex.message, 'error')
 
-    db.session.query(WtgTAG)\
-        .filter(WtgTAG.id.in_(id_tags))\
-        .delete(synchronize_session=False)
+    for id_tag in id_tags:
+        tag = WtgTAG.query.get(id_tag)
+        db.session.delete(tag)
 
-    flash(_('Successfully deleted tags.'),'success')
+    db.session.commit()
+
+    #WtgTAG.query\
+    #    .filter(WtgTAG.id.in_(id_tags))\
+    #    .delete(synchronize_session=False)
+
+    flash(_('Successfully deleted tags.'), 'success')
 
     return redirect(url_for('.display_list'))
 
@@ -264,6 +283,7 @@ def delete():
 #   else:
 #       errors = dict of errors from form
 
+
 @blueprint.route('/create', methods=['GET', 'POST'])
 @login_required
 @register_breadcrumb(blueprint, '.create', _('New tag'))
@@ -273,12 +293,12 @@ def create():
     response = {}
     response['action'] = 'create'
 
-    user = db.session.query(User).get(current_user.get_id())
+    user = User.query.get(current_user.get_id())
 
     form = CreateTagForm(request.values, csrf_enabled=False)
 
     if form.validate_on_submit() or\
-       (request.is_xhr and form.validate()) :
+       (request.is_xhr and form.validate()):
         new_tag = WtgTAG()
         form.populate_obj(new_tag)
         new_tag.user = user
@@ -312,6 +332,7 @@ def create():
         else:
             return dict(form=form)
 
+
 @blueprint.route('/attach', methods=['GET', 'POST'])
 @login_required
 def attach():
@@ -339,6 +360,7 @@ def attach():
         response['errors'] = form.errors
 
     return jsonify(response)
+
 
 @blueprint.route('/detach', methods=['GET', 'POST'])
 @login_required

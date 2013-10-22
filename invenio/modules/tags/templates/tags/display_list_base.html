@@ -59,13 +59,15 @@
                     </td>
                     <td>
                       <span class="label label-info">
-                        <a href="{{ url_for('webtag.tag_details', id_tag=tag.id) }}">
+                        <a href="{{ url_for('search.search', p='tag:"' + tag['name']) + '"' }}">
+                        {#<a href="{{ url_for('webtag.tag_details', id_tag=tag.id) }}">#}
                           {{ tag['name'] }}
                         </a>
                       </span>
                     </td>
                     <td>
-                      <a href="{{ url_for('webtag.tag_details', id_tag=tag.id) }}">
+                      <a href="{{ url_for('search.search', p='tag:"' + tag['name']) + '"' }}">
+                      {#<a href="{{ url_for('webtag.tag_details', id_tag=tag.id) }}">#}
                         {{ tag.record_count }}
                       </a>
                     </td>

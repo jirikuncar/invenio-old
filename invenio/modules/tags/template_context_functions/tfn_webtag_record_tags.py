@@ -22,6 +22,7 @@
 # Flask
 from flask import url_for
 from invenio.ext.template import render_template_to_string
+from invenio.base.globals import cfg
 
 # Models
 from invenio.modules.tags.models import \
@@ -40,14 +41,41 @@ def template_context_function(id_bibrec, id_user):
     """
 
     if id_user and id_bibrec:
-        tags = WtgTAG.query\
-           .join(WtgTAGRecord)\
-           .filter(WtgTAG.id_user==id_user,
-                   WtgTAGRecord.id_bibrec == id_bibrec)\
-           .order_by(WtgTAG.name)\
-           .all()
+        # Get user settings:
+        user = User.query.get(id_user)
+        user_settings = user.settings.get(
+            'webtag', cfg['CFG_WEBTAG_DEFAULT_USER_SETTINGS'])
+
+        # Collect tags
+        tags = []
+
+        # Private tags
+        if user_settings.get(
+            'display_tags_private',
+            cfg['CFG_WEBTAG_SETTINGS_SHOW']) == cfg['CFG_WEBTAG_SETTINGS_SHOW']:
+
+            tags += WtgTAG.query\
+                .join(WtgTAGRecord)\
+                .filter(
+                    WtgTAG.id_user == id_user,
+                    WtgTAGRecord.id_bibrec == id_bibrec)\
+                .order_by(WtgTAG.name)\
+                .all()
+
+
+            #.join(UserUsergroup)
+            #.filter(or_(_and( UserUsergroup.id_user == id_user, UserUsergroup.id_group == WtgTAG.id_usergroup), WtgTAG.id_user == id_user,
+
+
+
+        # Group tags
+        #if user_settings.get('display_tags_group', True):
+
+        # Public tags
+        #if user_settings.get('display_tags_public', True):
+
         return render_template_to_string('tags/record.html',
                                          id_bibrec=id_bibrec,
                                          record_tags=tags)
     else:
-        return None
+        return ''
