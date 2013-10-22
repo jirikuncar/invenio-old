@@ -16,8 +16,14 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
-{% extends "record.html" %}
+{%- if not request.is_xhr -%}
+  {% extends "records/base.html" %}
+{%- endif -%}
 
 {% block record_content %}
-  {{ format_record(recid, of='hd')|safe }}
+  <div class="page-header">
+    {{ format_record(recid, 'hs', ln=g.ln)|safe }}
+  </div>
+
+  {{ format_record(recid, 'HDFILE', ln=g.ln)|safe }}
 {% endblock %}

@@ -17,20 +17,20 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-from invenio.signalutils import _signals as signals
+from invenio.base.signals import _signals as signals
 
 record_viewed = signals.signal(
     'record-viewed')
 """
 This signal is sent when a detailed view of record is displayed.
 Parameters:
-	recid 	- id of record
-	id_user	- id of user or 0 for guest
-	request - flask request object
+    recid 	- id of record
+    id_user	- id of user or 0 for guest
+    request - flask request object
 
 Example subscriber:
 
-	def subscriber(sender, recid=0, id_user=0, request=None):
-		...
+     def subscriber(sender, recid=0, id_user=0, request=None):
+         ...
 
 """

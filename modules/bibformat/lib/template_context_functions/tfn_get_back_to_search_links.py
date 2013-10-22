@@ -52,7 +52,7 @@ def template_context_function(recID):
         return ""
 
     if recids:
-        return render_template_to_string('record_back_to_search_links.html',
+        return render_template_to_string('records/back_to_search_links.html',
                                          recID=int(recID),
                                          last_query=CFG_SITE_URL + last_query,
                                          recids=recids)

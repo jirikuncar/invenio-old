@@ -31,13 +31,14 @@ from invenio.config import CFG_SITE_RECORD
 from invenio.ext.template.context_processor import \
     register_template_context_processor
 from invenio.modules.search.models import Collection
+from invenio.modules.search.signals import record_viewed
 from invenio.modules.record_editor.models import Bibrec
 from invenio.base.i18n import _
 from invenio.utils import apache
 from invenio.ext.breadcrumb import default_breadcrumb_root
-from invenio.websearch_signals import record_viewed
 
-blueprint = Blueprint('record', __name__, url_prefix="/"+CFG_SITE_RECORD)
+blueprint = Blueprint('record', __name__, url_prefix="/"+CFG_SITE_RECORD,
+                      template_folder='templates', static_folder='static')
 
 default_breadcrumb_root(blueprint, '.')
 
@@ -161,19 +162,19 @@ def metadata(recid, of='hd'):
         id_user=current_user.get_id(),
         request=request)
 
-    return render_template('record_metadata.html', of=of)
+    return render_template('records/metadata.html', of=of)
 
 
 @blueprint.route('/<int:recid>/references', methods=['GET', 'POST'])
 @request_record
 def references(recid):
-    return render_template('record_references.html')
+    return render_template('records/references.html')
 
 
 @blueprint.route('/<int:recid>/files', methods=['GET', 'POST'])
 @request_record
 def files(recid):
-    return render_template('record_files.html')
+    return render_template('records/files.html')
 
 
 @blueprint.route('/<int:recid>/citations', methods=['GET', 'POST'])
@@ -186,7 +187,7 @@ def citations(recid):
         selfcited=get_self_cited_by(recid),
         co_cited=calculate_co_cited_with_list(recid)
         )
-    return render_template('record_citations.html',
+    return render_template('records/citations.html',
                            citations=citations)
 
 
@@ -196,7 +197,7 @@ def citations(recid):
 def keywords(recid):
     from invenio.bibclassify_webinterface import record_get_keywords
     found, keywords, record = record_get_keywords(recid)
-    return render_template('record_keywords.html',
+    return render_template('records/keywords.html',
                            found=found,
                            keywords=keywords)
 
@@ -210,7 +211,7 @@ def usage(recid):
     downloadsimilarity = calculate_reading_similarity_list(recid, "downloads")
     downloadgraph = create_download_history_graph_and_box(recid)
 
-    return render_template('record_usage.html',
+    return render_template('records/usage.html',
                            viewsimilarity=viewsimilarity,
                            downloadsimilarity=downloadsimilarity,
                            downloadgraph=downloadgraph)

@@ -16,15 +16,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 templatesdir = $(sysconfdir)/templates
-templates_DATA = record.html \
-		 record_metadata.html \
-		 record_comments.html \
-		 record_citations.html \
-		 record_files.html \
-		 record_keywords.html \
-		 record_references.html \
-		 record_usage.html \
-		 record_back_to_search_links.html
+templates_DATA =
 
 EXTRA_DIST = $(templates_DATA)
 

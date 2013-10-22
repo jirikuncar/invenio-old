@@ -17,7 +17,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
 {%- if not request.is_xhr -%}
-  {% extends "record.html" %}
+  {% extends "records/base.html" %}
 {%- endif -%}
 
 {% block record_content %}
@@ -25,5 +25,5 @@
     {{ format_record(recid, 'hs', ln=g.ln)|safe }}
   </div>
 
-  {{ format_record(recid, 'HDFILE', ln=g.ln)|safe }}
+  {{ format_record(recid, 'HDREF', ln=g.ln)|safe }}
 {% endblock %}

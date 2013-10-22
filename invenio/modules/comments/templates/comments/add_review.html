@@ -40,7 +40,7 @@
 {% endmacro %}
 
 {%- if not request.is_xhr -%}
-  {% extends "record.html" %}
+  {% extends "records/base.html" %}
   {% block record_content %}
   {{ add_comment() }}
   {% endblock %}
