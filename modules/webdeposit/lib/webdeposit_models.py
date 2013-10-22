@@ -36,7 +36,7 @@ from invenio.sqlalchemyutils import db
 from invenio.webuser_flask import current_user
 
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION, CFG_WORKFLOW_STATUS
-from invenio.bibworkflow_model import BibWorkflowObject, Workflow
+from invenio.modules.workflows.models import BibWorkflowObject, Workflow
 from invenio.bibworkflow_engine import BibWorkflowEngine
 from invenio.bibworkflow_api import continue_oid
 

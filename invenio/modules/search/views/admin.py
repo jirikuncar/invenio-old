@@ -19,13 +19,12 @@
 
 """WebSearch Admin Flask Blueprint"""
 
-from flask import Blueprint, session, make_response, g, render_template, \
-        request, flash, jsonify, redirect, url_for, current_app, \
-        abort
+from flask import Blueprint, g, render_template, request, flash, redirect, \
+    url_for, abort
 from invenio.ext.menu import register_menu
 from invenio.ext.sqlalchemy import db
-from invenio.modules.search.models import Collection, CollectionCollection, \
-        Collectionname, CollectionPortalbox
+from ..models import Collection, CollectionCollection, \
+        Collectionname, CollectionPortalbox, Portalbox
 from invenio.base.i18n import _
 from invenio.base.decorators import templated
 from flask.ext.login import current_user, login_required
@@ -39,6 +38,7 @@ not_guest = lambda: not current_user.is_guest
 
 blueprint = Blueprint('websearch_admin', __name__,
                       url_prefix="/admin/websearch",
+                      template_folder='../templates'
                       )
 
 #breadcrumbs=[(_('Configure WebSearch'), 'websearch_admin.index')])
@@ -139,7 +139,7 @@ def managecollectiontree():
             Collection.id != CollectionCollection.id_dad,
             id != CollectionCollection.id_son).get_or_404(1)
 
-    return dict()
+    return dict(collection=collection, orphans=orphans)
 
 
 @blueprint.route('/collection/<name>', methods=['GET', 'POST'])
@@ -255,5 +255,4 @@ def manage_portalboxes_order():
 @permission_required('cfgwebsearch')
 def edit_portalbox():
     portalbox = Portalbox.query.get(request.args.get_or_404('id', 0, type=int))
-
     return dict(portalbox = portalbox)

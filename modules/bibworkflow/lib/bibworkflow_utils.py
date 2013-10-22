@@ -32,7 +32,7 @@ class InvenioWorkflowDefinitionError(Exception):
 
 
 def create_objects(path_to_file):
-    from invenio.bibworkflow_model import BibWorkflowObject
+    from invenio.modules.workflows.models import BibWorkflowObject
 
     list_of_bwo = []
     f = open(path_to_file, "r")
@@ -133,7 +133,7 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None):
     @type hpitems: list
     @return: A list containing all the HPContainers.
     """
-    from invenio.bibworkflow_model import BibWorkflowObject
+    from invenio.modules.workflows.models import BibWorkflowObject
 
     print '-----------------------Setting up HPCONTAINERS!'
 

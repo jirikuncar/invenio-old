@@ -28,12 +28,12 @@ from flask import make_response, g, request, flash, jsonify, \
     redirect, url_for, current_app, abort, session, Blueprint
 from flask.ext.login import current_user
 
-from . import receivers
-from .cache import get_search_query_id, get_collection_name_from_cache
-from .facet_builders import get_current_user_records_that_can_be_displayed, \
+from .. import receivers
+from ..cache import get_search_query_id, get_collection_name_from_cache
+from ..facet_builders import get_current_user_records_that_can_be_displayed, \
     faceted_results_filter, FacetLoader
-from .forms import EasySearchForm
-from .models import Collection
+from ..forms import EasySearchForm
+from ..models import Collection
 from invenio.ext.menu import register_menu
 from invenio.base.signals import websearch_before_browse, websearch_before_search
 from invenio.modules.index import models as BibIndex
@@ -46,7 +46,8 @@ from invenio.ext.template.context_processor import \
 from invenio.utils.pagination import Pagination
 
 blueprint = Blueprint('search', __name__, url_prefix="",
-                      template_folder='templates')
+                      template_folder='../templates',
+                      static_folder='../static')
 
 default_breadcrumb_root(blueprint, '.')
 

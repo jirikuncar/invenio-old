@@ -153,7 +153,7 @@ def start_by_oids(workflow_name, oids, **kwargs):
 
     @return: BibWorkflowEngine that ran the workflow.
     """
-    from invenio.bibworkflow_model import BibWorkflowObject
+    from invenio.modules.workflows.models import BibWorkflowObject
     objects = BibWorkflowObject.query.filter(BibWorkflowObject.id.in_(list(oids))).all()
 
     return start(workflow_name, objects, **kwargs)
@@ -267,7 +267,7 @@ def resume_objects_in_workflow(id_workflow, start_point="continue_next",
 
     @yield: BibWorkflowEngine that ran the workflow
     """
-    from invenio.bibworkflow_model import BibWorkflowObject
+    from invenio.modules.workflows.models import BibWorkflowObject
     from invenio.bibworkflow_config import CFG_OBJECT_VERSION
 
     # Resume workflow if there are objects to resume

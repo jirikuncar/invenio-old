@@ -183,8 +183,14 @@ def create_app(**kwargs_config):
         Handy function to bridge pluginutils with (Invenio) blueprints.
         """
         from flask import Blueprint
-        if 'blueprint' in dir(plugin):
-            candidate = getattr(plugin, 'blueprint')
+        if 'blueprints' in dir(plugin):
+            candidates = getattr(plugin, 'blueprints')
+        elif 'blueprint' in dir(plugin):
+            candidates = [getattr(plugin, 'blueprint')]
+        else:
+            candidates = []
+
+        for candidate in candidates:
             if isinstance(candidate, Blueprint):
                 if candidate.name in _app.config.get('CFG_FLASK_DISABLED_BLUEPRINTS', []):
                     _app.logger.info('%s is excluded by CFG_FLASK_DISABLED_BLUEPRINTS' % candidate.name)

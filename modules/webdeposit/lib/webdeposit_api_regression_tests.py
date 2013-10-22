@@ -23,7 +23,7 @@ from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 class TestWebDepositAPI(InvenioTestCase):
     def clear_tables(self):
-        from invenio.bibworkflow_model import Workflow, WfeObject
+        from invenio.modules.workflows.models import Workflow, WfeObject
         from invenio.sqlalchemyutils import db
 
         Workflow.query.delete()

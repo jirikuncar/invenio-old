@@ -29,7 +29,6 @@ js_DATA = bibworkflow_workflows.js \
 
 
 pylib_DATA = \
-			 bibworkflow_hp_blueprint.py \
 			 bibworkflow_api.py \
 			 bibworkflow_client.py \
 			 bibworkflow_config.py \

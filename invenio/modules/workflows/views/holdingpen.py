@@ -21,10 +21,12 @@ __revision__ = "$Id$"
 
 __lastupdated__ = """$Date$"""
 
-from flask import render_template
-from invenio.bibworkflow_model import BibWorkflowObject, Workflow
-from invenio.config import CFG_LOGDIR
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
+from flask import render_template, Blueprint
+from flask.ext.login import login_required
+
+from ..models import BibWorkflowObject, Workflow
+from invenio.base.decorators import templated, wash_arguments
+#from invenio.base.i18n import _
 from invenio.bibworkflow_utils import get_workflow_definition
 from invenio.bibworkflow_api import continue_oid_delayed
 from invenio.bibworkflow_hp_load_widgets import widgets
@@ -36,19 +38,19 @@ from invenio.bibformat_engine import format_record
 from invenio.bibworkflow_utils import create_hp_containers
 # from invenio.bibworkflow_containers import bwolist
 
-blueprint = InvenioBlueprint('holdingpen', __name__,
-                             url_prefix="/admin/holdingpen",
-                             menubuilder=[('main.admin.holdingpen',
-                                          _('Holdingpen'),
-                                           'holdingpen.index')],
-                             breadcrumbs=[(_('Administration'), 'help.admin'),
-                                          (_('Holdingpen'),
-                                           'holdingpen.index')])
+blueprint = Blueprint('holdingpen', __name__, url_prefix="/admin/holdingpen",
+                      template_folder='templates', static_folder='static')
+                             #menubuilder=[('main.admin.holdingpen',
+                             #             _('Holdingpen'),
+                             #              'holdingpen.index')],
+                             #breadcrumbs=[(_('Administration'), 'help.admin'),
+                             #             (_('Holdingpen'),
+                             #              'holdingpen.index')])
 
 
 @blueprint.route('/index', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_templated('bibworkflow_hp_index.html')
+@login_required
+@templated('bibworkflow_hp_index.html')
 def index():
     """
     Displays main interface of BibHoldingpen.
@@ -58,7 +60,7 @@ def index():
 
 
 @blueprint.route('/refresh', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
+@login_required
 def refresh():
     import invenio.bibworkflow_containers
     reload(invenio.bibworkflow_containers)
@@ -66,8 +68,8 @@ def refresh():
 
 
 @blueprint.route('/load_table', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_templated('bibworkflow_hp_index.html')
+@login_required
+@templated('bibworkflow_hp_index.html')
 def load_table():
     """
     Function used for the passing of JSON data to the DataTable
@@ -133,7 +135,7 @@ def load_table():
 
 
 @blueprint.route('/resolve_approval', methods=['GET', 'POST'])
-@blueprint.invenio_wash_urlargd({'bwobject_id': (int, 0)})
+@wash_arguments({'bwobject_id': (int, 0)})
 def resolve_approval(bwobject_id):
     """
     Resolves the action taken in the approval widget
@@ -149,8 +151,8 @@ def resolve_approval(bwobject_id):
 
 
 @blueprint.route('/details', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_wash_urlargd({'bwobject_id': (int, 0)})
+@login_required
+@wash_arguments({'bwobject_id': (int, 0)})
 def details(bwobject_id):
     """
     Displays info about the hpcontainer, and presents the data
@@ -173,6 +175,8 @@ def details(bwobject_id):
                                        bwobject.id_workflow).first()
     # read the logtext from the file system
     try:
+        #FIXME
+        from invenio.config import CFG_LOGDIR
         f = open(CFG_LOGDIR + "/object_" + str(bwobject.id)
                  + "_w_" + str(bwobject.id_workflow) + ".log", "r")
         logtext = f.read()
@@ -193,8 +197,8 @@ def details(bwobject_id):
 
 
 @blueprint.route('/restart_record', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_wash_urlargd({'bwobject_id': (int, 0)})
+@login_required
+@wash_arguments({'bwobject_id': (int, 0)})
 def restart_record(bwobject_id, start_point='continue_next'):
     """
     Restarts the initial object in its workflow
@@ -204,8 +208,8 @@ def restart_record(bwobject_id, start_point='continue_next'):
 
 
 @blueprint.route('/restart_record_prev', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_wash_urlargd({'bwobject_id': (int, 0)})
+@login_required
+@wash_arguments({'bwobject_id': (int, 0)})
 def restart_record_prev(bwobject_id):
     """
     Restarts the initial object in its workflow from the current task
@@ -215,8 +219,8 @@ def restart_record_prev(bwobject_id):
 
 
 @blueprint.route('/delete_from_db', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_wash_urlargd({'bwobject_id': (int, 0)})
+@login_required
+@wash_arguments({'bwobject_id': (int, 0)})
 def delete_from_db(bwobject_id):
     """
     Deletes all available versions of the object from the db
@@ -238,9 +242,9 @@ def _delete_from_db(bwobject_id):
 
 
 @blueprint.route('/widget', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_wash_urlargd({'bwobject_id': (int, 0),
-                                 'widget': (unicode, ' ')})
+@login_required
+@wash_arguments({'bwobject_id': (int, 0),
+                 'widget': (unicode, ' ')})
 def show_widget(bwobject_id, widget):
     """
     Renders the bibmatch widget for a specific record
@@ -284,9 +288,9 @@ def show_widget(bwobject_id, widget):
 
 
 @blueprint.route('/entry_data_preview', methods=['GET', 'POST'])
-@blueprint.invenio_authenticated
-@blueprint.invenio_wash_urlargd({'oid': (unicode, '0'),
-                                 'recformat': (unicode, 'default')})
+@login_required
+@wash_arguments({'oid': (unicode, '0'),
+                 'recformat': (unicode, 'default')})
 def entry_data_preview(oid, recformat):
     """
     Presents the data in a human readble form or in xml code
