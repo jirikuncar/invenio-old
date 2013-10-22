@@ -50,7 +50,7 @@ Modules
 .. automodule:: invenio.modules.export
    :members:
 
-.. automodule:: invenio.modules.format
+.. automodule:: invenio.modules.formatter
    :members:
 
 .. automodule:: invenio.modules.goto
