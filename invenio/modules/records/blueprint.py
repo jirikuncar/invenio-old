@@ -35,6 +35,7 @@ from invenio.modules.record_editor.models import Bibrec
 from invenio.base.i18n import _
 from invenio.utils import apache
 from invenio.ext.breadcrumb import default_breadcrumb_root
+from invenio.websearch_signals import record_viewed
 
 blueprint = Blueprint('record', __name__, url_prefix="/"+CFG_SITE_RECORD)
 
@@ -152,6 +153,14 @@ def metadata(recid, of='hd'):
     register_page_view_event(recid, current_user.get_id(), str(request.remote_addr))
     if get_output_format_content_type(of) != 'text/html':
         return redirect('/%s/%d/export/%s' % (CFG_SITE_RECORD, recid, of))
+
+    # Send the signal 'document viewed'
+    record_viewed.send(
+        current_app._get_current_object(),
+        recid=recid,
+        id_user=current_user.get_id(),
+        request=request)
+
     return render_template('record_metadata.html', of=of)
 
 
