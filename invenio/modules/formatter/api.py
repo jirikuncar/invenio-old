@@ -18,18 +18,20 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 """
-Database access related functions for BibFormat engine and
-administration pages.
+    invenio.modules.formatter.api
+    -----------------------------------------
+    Database access related functions for BibFormat engine and
+    administration pages.
 """
 import zlib
 from invenio.ext.sqlalchemy import db
 from sqlalchemy.exc import SQLAlchemyError
-from invenio.util.date import convert_datetime_to_utc_string
+from invenio.utils.date import convert_datetime_to_utc_string, strftime
 
 from invenio.modules.record_editor.models import Bibrec
 from invenio.modules.search.models import Tag
 
-from .models import Format, Formatname
+from .models import Format, Formatname, Bibfmt
 
 
 def get_creation_date(sysno, fmt="%Y-%m-%dT%H:%M:%SZ"):
@@ -91,7 +93,8 @@ def get_tags_from_name(name):
     """
     try:
         return [tag.value for tag in
-                Tag.query.filter(Tag.name.like(name)).order_by(Tag.value).all()]
+                Tag.query.filter(Tag.name.like(name))
+                .order_by(Tag.value).all()]
 
     except SQLAlchemyError:
         return None
@@ -136,8 +139,8 @@ def get_all_name_tag_mappings():
     Return the list of mappings name<->tag from 'tag' table.
 
     The returned object is a dict with name as key (if 2 names are the same
-    we will take the value of one of them, as we cannot make the difference in format
-    templates)
+    we will take the value of one of them, as we cannot make the difference
+    in format templates)
 
     :return: a dict containing list of mapping in 'tag' table
     """
@@ -170,7 +173,7 @@ def get_format_by_code(code):
         return None
 
 
-def get_format_property(code, property_name, default_value = None):
+def get_format_property(code, property_name, default_value=None):
     """
     Returns the value of a property of the output format given by code.
 
@@ -196,14 +199,14 @@ def set_format_property(code, property_name, value):
     """
     format = get_format_by_code(code)
     if format is None:
-        format = db.session.merge(Format())
+        format = Format()
 
     setattr(format, property_name, value)
 
     if(property == 'name'):
         format.set_name(value)
 
-    db.session.save(format)
+    db.session.add(format)
     db.session.commit()
 
 
@@ -219,7 +222,8 @@ def get_output_format_id(code):
     return get_format_property(code, 'id', None)
 
 
-def add_output_format(code, name="", description="", content_type="text/html", visibility=1):
+def add_output_format(code, name="", description="",
+                      content_type="text/html", visibility=1):
     """
     Add output format into format table.
 
@@ -228,7 +232,8 @@ def add_output_format(code, name="", description="", content_type="text/html", v
     :param code: the code of the new format
     :param name: a new for the new format
     :param description: a description for the new format
-    :param content_type: the content_type (if applicable) of the new output format
+    :param content_type: the content_type (if applicable)
+        of the new output format
     :param visibility: if the output format is shown to users (1) or not (0)
     :return: None
     """
@@ -367,25 +372,29 @@ def get_output_format_names(code):
     """
     Returns the localized names of the output format designated by 'code'
 
-    The returned object is a dict with keys 'ln' (for long name) and 'sn' (for short name),
-    containing each a dictionary with languages as keys.
-    The key 'generic' contains the generic name of the output format (for use in admin interface)
+    The returned object is a dict with keys 'ln' (for long name)
+    and 'sn' (for short name), containing each a dictionary
+    with languages as keys.
+    The key 'generic' contains the generic name of the output format
+    (for use in admin interface)
     For eg::
-           {'ln':{'en': "a long name", 'fr': "un long nom", 'de': "ein lange Name"},
+           {'ln':
+           {'en': "a long name", 'fr': "un long nom", 'de': "ein lange Name"},
            'sn':{'en': "a name", 'fr': "un nom", 'de': "ein Name"}
            'generic': "a name"}
 
-    The returned dictionary is never None. The keys 'ln' and 'sn' are always present. However
-    only languages present in the database are in dicts 'sn' and 'ln'. language "CFG_SITE_LANG" is always
-    in dict.
+    The returned dictionary is never None.
+    The keys 'ln' and 'sn' are always present.
+    However only languages present in the database are in dicts 'sn' and 'ln'.
+    Language "CFG_SITE_LANG" is always in dict.
 
     The localized names of output formats are located in formatname table.
 
     :param code: the code of the output format to get the names from
     :return: a dict containing output format names
     """
-    out = {'sn':{}, 'ln':{}, 'generic':''}
-    format = get_format_by_code(code);
+    out = {'sn': {}, 'ln': {}, 'generic': ''}
+    format = get_format_by_code(code)
     if format is None:
         return out
 
@@ -405,7 +414,8 @@ def set_output_format_name(code, name, lang="generic", type='ln'):
 
     if 'type' different from 'ln' or 'sn', do nothing
     if 'name' exceeds 256 chars, 'name' is truncated to first 256 chars.
-    if 'code' does not correspond to exisiting output format, create format if "generic" is given as lang
+    if 'code' does not correspond to exisiting output format,
+    create format if "generic" is given as lang
 
     The localized names of output formats are located in formatname table.
 
@@ -415,30 +425,18 @@ def set_output_format_name(code, name, lang="generic", type='ln'):
     :param name: the name to give to the output format
     :return: None
     """
-
-    format =
-
-
-    if len(name) > 256:
-        name = name[:256]
     if type.lower() != "sn" and type.lower() != "ln":
         return
-    output_format_id = get_output_format_id(code);
-    if output_format_id is None and lang == "generic" and type.lower() == "ln":
+
+    format = get_format_by_code(code)
+    if format is None and lang == "generic" and type.lower() == "ln":
         # Create output format inside table if it did not exist
         # Happens when the output format was added not through web interface
-        add_output_format(code, name)
-        output_format_id = get_output_format_id(code) # Reload id, because it was not found previously
+        format = Format()
 
-    if lang =="generic" and type.lower()=="ln":
-        # Save inside format table for main name
-        query = "UPDATE format SET name=%s WHERE code=%s"
-        params = (name, code.lower())
-        run_sql(query, params)
-    else:
-        # Save inside formatname table for name variations
-        run_sql("REPLACE INTO formatname SET id_format=%s, ln=%s, type=%s, value=%s",
-                (output_format_id, lang, type.lower(), name))
+    if format is not None:
+        format.set_name(name, lang, type)
+
 
 def change_output_format_code(old_code, new_code):
     """
@@ -460,7 +458,8 @@ def get_preformatted_record(recID, of, decompress=zlib.decompress):
 
     :param recID: the id of the record to fetch
     :param of: the output format code
-    :param decompress: the method used to decompress the preformatted record in database
+    :param decompress: the method used to decompress
+        the preformatted record in database
     :return: formatted record as String, or None if not exist
     """
     try:
@@ -492,24 +491,22 @@ def get_preformatted_record_date(recID, of):
     :param of: the output format code
     :return: the date of the last update of the cache, or None if not exist
     """
-    # Decide whether to use DB slave:
-    if of in ('xm', 'recstruct'):
-        run_on_slave = False # for master formats, use DB master
-    else:
-        run_on_slave = True # for other formats, we can use DB slave
-    # Try to fetch preformatted record
-    query = "SELECT last_updated FROM bibfmt WHERE id_bibrec='%s' AND format='%s'" % (recID, of)
-    res = run_sql(query, run_on_slave=run_on_slave)
-    if res:
-        # record 'recID' is formatted in 'of', so return it
-        return "%s" % res[0][0]
-    else:
+    try:
+        last_updated = Bibfmt.query\
+            .filter(Bibfmt.id_bibrec == recID)\
+            .filter(Bibfmt.format == of)\
+            .one().last_updated
+
+        return strftime("%Y-%m-%d %H:%M:%S", last_updated)
+
+    except SQLAlchemyError:
         return None
 
 ## def keep_formats_in_db(output_formats):
 ##     """
 ##     Remove from db formats that are not in the list
-##     TOBE USED ONLY ONCE OLD BIBFORMAT IS REMOVED (or old behaviours will be erased...)
+##     TOBE USED ONLY ONCE OLD BIBFORMAT IS REMOVED
+##     (or old behaviours will be erased...)
 ##     """
 ##     query = "SELECT code FROM format"
 ##     res = run_sql(query)

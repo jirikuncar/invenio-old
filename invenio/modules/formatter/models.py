@@ -78,15 +78,24 @@ class Format(db.Model):
         if type.lower() != "sn" and type.lower() != "ln":
             return
 
-        if lang =="generic" and type.lower()=="ln":
-            # Save inside format table for main name
+        if lang == "generic" and type.lower() == "ln":
             self.name = name
-            db.session.save(self)
-
         else:
             # Save inside formatname table for name variations
-            run_sql("REPLACE INTO formatname SET id_format=%s, ln=%s, type=%s, value=%s",
-                    (output_format_id, lang, type.lower(), name))
+            fname = db.session.query(Formatname)\
+                        .get((self.id, lang, type.lower()))
+
+            if not fname:
+                fname = db.session.merge(Formatname())
+                fname.id_format = self.id
+                fname.ln = lang
+                fname.type = type.lower()
+
+            fname.value = name
+            db.session.save(fname)
+
+        db.session.add(self)
+        db.session.commit()
 
 
 class Formatname(db.Model):
