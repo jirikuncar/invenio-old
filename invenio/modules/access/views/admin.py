@@ -38,7 +38,7 @@ blueprint = Blueprint('webaccess_admin', __name__,
 @blueprint.route('/', methods=['GET', 'POST'])
 @login_required
 @permission_required(WEBACCESSACTION)
-@templated('webaccess_admin_index.html')
+@templated('access/admin_index.html')
 @register_menu(blueprint, 'main.admin.webaccess', _('Configure WebAccess'))
 @register_breadcrumb(blueprint, 'admin.webaccess_admin', _('WebAccess'))
 def index():
@@ -72,7 +72,7 @@ def index():
 @login_required
 @permission_required(WEBACCESSACTION)
 @sorted_by(AccACTION)
-@templated('webaccess_admin_actionarea.html')
+@templated('access/admin_actionarea.html')
 def actionarea(sort=False, filter=None):
     if sort is False:
         sort = AccACTION.name
@@ -84,7 +84,7 @@ def actionarea(sort=False, filter=None):
 @login_required
 @permission_required(WEBACCESSACTION)
 @sorted_by(AccROLE)
-@templated('webaccess_admin_rolearea.html')
+@templated('access/admin_rolearea.html')
 def rolearea(sort=False, filter=None):
     if sort is False:
         sort = AccROLE.name
@@ -95,7 +95,7 @@ def rolearea(sort=False, filter=None):
 @blueprint.route('/showroledetails/<int:id_role>', methods=['GET', 'POST'])
 @login_required
 @permission_required(WEBACCESSACTION)
-@templated('webaccess_admin_showroledetails.html')
+@templated('access/admin_showroledetails.html')
 def showroledetails(id_role):
     return dict(role=AccROLE.query.get_or_404(id_role))
 
@@ -104,7 +104,7 @@ def showroledetails(id_role):
 @login_required
 @permission_required(WEBACCESSACTION)
 @sorted_by(User)
-@templated('webaccess_admin_userarea.html')
+@templated('access/admin_userarea.html')
 def userarea(sort=False, filter=None):
     if sort is False:
         sort = User.nickname
