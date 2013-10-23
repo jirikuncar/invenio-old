@@ -15,20 +15,26 @@ instructions for customization of Invenio.
 Admin's Guide
 -------------
 
-TODO
+.. toctree::
+   :maxdepth: 1
 
-Hacking
--------
+   common-concepts
+   pluggable-objects
+
+Developer's Guide
+-----------------
 
 The Invenio Developers' corner. Before diving into the source, make sure you
 don't miss our user-level and admin-level documentation as well. And now, back
 to the source, and happy hacking!
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   common-concepts
    developers/introduction
+   developers/extensions
+   developers/modules
+   developers/templates
 
 API Reference
 -------------
