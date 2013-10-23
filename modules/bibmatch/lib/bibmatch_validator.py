@@ -36,7 +36,7 @@ from invenio.bibmatch_config import CFG_BIBMATCH_VALIDATION_MATCHING_MODES, \
                                     CFG_BIBMATCH_VALIDATION_COMPARISON_MODES, \
                                     CFG_BIBMATCH_LOGGER
 from invenio.legacy.bibrecord import create_records, record_get_field_values
-from invenio.xmlmarc2textmarc import get_sysno_from_record, create_marc_record
+from invenio.legacy.bibrecord.scripts.xmlmarc2textmarc import get_sysno_from_record, create_marc_record
 from invenio.bibauthorid_name_utils import compare_names
 from invenio.bibauthorid_name_utils import string_partition
 from invenio.utils.text import translate_to_ascii

@@ -51,7 +51,7 @@ from invenio import bibconvert
 from invenio.search_engine import get_fieldcodes
 from invenio.search_engine_query_parser import SearchQueryParenthesisedParser
 from invenio.dbquery import run_sql
-from invenio.utils.textmarc2xmlmarc import transform_file
+from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file
 from invenio.bibmatch_validator import validate_matches, transform_record_to_marc, \
                                        validate_tag
 from invenio.utils.text import translate_to_ascii, xml_entities_to_utf8

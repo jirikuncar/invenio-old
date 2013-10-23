@@ -34,7 +34,7 @@ from invenio import bibformat
 
 from invenio.utils.json import json, CFG_JSON_AVAILABLE
 from invenio.utils.url import auto_version_url
-from invenio.xmlmarc2textmarc import create_marc_record
+from invenio.legacy.bibrecord.scripts.xmlmarc2textmarc import create_marc_record
 from invenio.bibedit_config import CFG_BIBEDIT_AJAX_RESULT_CODES, \
     CFG_BIBEDIT_JS_CHECK_SCROLL_INTERVAL, CFG_BIBEDIT_JS_HASH_CHECK_INTERVAL, \
     CFG_BIBEDIT_JS_CLONED_RECORD_COLOR, \
@@ -101,7 +101,7 @@ from invenio.bibcirculation_dblayer import get_number_copies, has_copies
 from invenio.bibcirculation_utils import create_item_details_url
 
 from invenio.refextract_api import FullTextNotAvailable
-from invenio import xmlmarc2textmarc as xmlmarc2textmarc
+from invenio.legacy.bibrecord.scripts import xmlmarc2textmarc as xmlmarc2textmarc
 from invenio.bibdocfile import BibRecDocs, InvenioBibDocFileError
 
 from invenio.crossrefutils import get_marcxml_for_doi, CrossrefError

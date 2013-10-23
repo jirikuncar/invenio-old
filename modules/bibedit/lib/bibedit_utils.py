@@ -78,7 +78,7 @@ from invenio.access_control_engine import acc_authorize_action
 from invenio.refextract_api import extract_references_from_record_xml, \
                                    extract_references_from_string_xml, \
                                    extract_references_from_url_xml
-from invenio.utils.textmarc2xmlmarc import transform_file, ParseError
+from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file, ParseError
 from invenio.bibauthorid_name_utils import split_name_parts, \
                                         create_normalized_name
 from invenio.bibknowledge import get_kbr_values

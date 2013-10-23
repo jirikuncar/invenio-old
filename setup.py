@@ -91,7 +91,9 @@ setup(
     entry_points={
         'console_scripts': [
             'inveniomanage = invenio.base.manage:main',
-            'textmarc2xmlmarc = invenio.utils.textmarc2xmlmarc:main'
+            'textmarc2xmlmarc = invenio.legacy.bibrecord.scripts.textmarc2xmlmarc:main',
+            'xmlmarc2textmarc = invenio.legacy.bibrecord.scripts.xmlmarc2textmarc:main',
+            'xmlmarclint = invenio.legacy.bibrecord.scripts.xmlmarclint:main',
         ],
     },
     install_requires=install_requires,
