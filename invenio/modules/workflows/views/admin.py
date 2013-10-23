@@ -23,28 +23,31 @@ __lastupdated__ = """$Date$"""
 
 from flask import render_template, Blueprint
 from flask.ext.login import login_required
-from invenio.modules.workflows.models import Workflow, BibWorkflowObject
+from .gj.models import Workflow, BibWorkflowObject
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
-from invenio.bibworkflow_utils import getWorkflowDefinition
+from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
+from invenio.ext.menu import register_menu
 from invenio.bibworkflow_api import start_delayed
 from invenio.bibworkflow_load_workflows import loaded_workflows, workflows
-from invenio.webinterface_handler_flask_utils import _, InvenioBlueprint
 from invenio.bibworkflow_utils import (get_workflow_definition,
                                        get_redis_keys as utils_get_redis_keys,
                                        filter_holdingpen_results)
 
 import traceback
 
-blueprint = Blueprint('bibworkflow', __name__,
-                             url_prefix="/admin/bibworkflow",
-                             )
+blueprint = Blueprint('bibworkflow', __name__, url_prefix="/admin/bibworkflow",
+                      template_folder='../templates',
+                      static_folder='../static')
+
+default_breadcrumb_root(blueprint, '.admin.bibworkflow')
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @login_required
-@templated('bibworkflow_index.html')
+@register_breadcrumb(blueprint, '.', _('Workflows'))
+@templated('workflows/index.html')
 def index():
     """
     Dispalys main interface of BibWorkflow.
@@ -63,7 +66,7 @@ def entry_details(id_entry):
     """
     wfe_object = BibWorkflowObject.query.filter(BibWorkflowObject.id == id_entry).first()
 
-    return render_template('bibworkflow_entry_details.html',
+    return render_template('workflows/entry_details.html',
                            entry=wfe_object, log="",
                            data_preview=_entry_data_preview(wfe_object.data, 'hd'),
                            workflow_func=get_workflow_definition(wfe_object.bwlWORKFLOW.name))
@@ -75,7 +78,7 @@ def entry_details(id_entry):
 def workflow_details(id_workflow):
     w_metadata = Workflow.query.filter(Workflow.uuid == id_workflow).first()
 
-    return render_template('bibworkflow_workflow_details.html',
+    return render_template('workflows/workflow_details.html',
                            workflow_metadata=w_metadata,
                            log="",
                            workflow_func=get_workflow_definition(w_metadata.name))
@@ -83,7 +86,7 @@ def workflow_details(id_workflow):
 
 @blueprint.route('/workflows', methods=['GET', 'POST'])
 @login_required
-@templated('bibworkflow_workflows.html')
+@templated('workflows/workflows.html')
 def show_workflows():
     return dict(workflows=workflows,
                 broken_workflows=loaded_workflows.get_broken_plugins())
@@ -104,7 +107,7 @@ def run_workflow(workflow_name, data={"data": 10}):
 @blueprint.route('/entry_data_preview', methods=['GET', 'POST'])
 @login_required
 @wash_arguments({'oid': (int, 0),
-                                'of': (unicode, 'default')})
+                 'of': (unicode, 'default')})
 def entry_data_preview(oid, of):
     workflow_object = BibWorkflowObject.query.filter(BibWorkflowObject.id ==
                                                      oid).first()

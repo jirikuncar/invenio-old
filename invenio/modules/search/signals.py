@@ -26,7 +26,7 @@ This signal is sent when a detailed view of record is displayed.
 Parameters:
     recid 	- id of record
     id_user	- id of user or 0 for guest
-    request - flask request object
+    request     - flask request object
 
 Example subscriber:
 
