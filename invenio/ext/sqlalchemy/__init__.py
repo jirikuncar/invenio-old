@@ -29,7 +29,7 @@ from .expressions import AsBINARY
 from .types import JSONEncodedTextDict, MarshalBinary
 from .utils import get_model_type
 import sqlalchemy
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy as FlaskSQLAlchemy
 from sqlalchemy import event
 from sqlalchemy.pool import Pool
 from sqlalchemy.ext.hybrid import hybrid_property, Comparator
@@ -129,7 +129,7 @@ def autocommit_on_checkin(dbapi_con, con_record):
 #event.listen(Pool, 'checkin', autocommit_on_checkin)
 
 
-class DatabaseInfo(SQLAlchemy):
+class SQLAlchemy(FlaskSQLAlchemy):
     """Database object."""
 
     PasswordComparator = PasswordComparator
@@ -173,8 +173,10 @@ class DatabaseInfo(SQLAlchemy):
             event.listen(Pool, 'checkin', autocommit_on_checkin)
 
 
-db = DatabaseInfo()
-
+db = SQLAlchemy()
+"""
+    Provides access to :class:`~.SQLAlchemy` instance.
+"""
 
 def setup_app(app):
     """Setup SQLAlchemy extension."""
