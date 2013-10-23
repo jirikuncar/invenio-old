@@ -20,13 +20,17 @@
 """WebGroup Flask Blueprint"""
 
 from flask import Blueprint, render_template, request, jsonify
-from invenio.base.decorators import wash_arguments
-from invenio.ext.sqlalchemy import db
 from flask.ext.login import current_user, login_required
+from invenio.base.decorators import wash_arguments
+from invenio.base.i18n import _
+from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
+from invenio.ext.sqlalchemy import db
 from invenio.modules.account.models import User, Usergroup, UserUsergroup
 
-blueprint = Blueprint('webgroup', __name__, url_prefix="/yourgroups")
+blueprint = Blueprint('webgroup', __name__, url_prefix="/yourgroups",
+                      template_folder='templates', static_folder='static')
 
+default_breadcrumb_root(blueprint, '.webaccount.webgroup')
 
 def filter_by_user_status(uid, user_status, login_method='INTERNAL'):
     return db.and_(UserUsergroup.id_user == uid,
@@ -36,6 +40,7 @@ def filter_by_user_status(uid, user_status, login_method='INTERNAL'):
 
 @blueprint.route('/')
 @blueprint.route('/index', methods=['GET', 'POST'])
+@register_breadcrumb(blueprint, '.', _('Your Groups'))
 @login_required
 def index():
     uid = current_user.get_id()
@@ -45,7 +50,7 @@ def index():
         #CFG_WEBSESSION_USERGROUP_STATUS["MEMBER"])).\
         #all()
 
-    return render_template('webgroup_index.html', member_groups=map(dict, mg))
+    return render_template('groups/index.html', member_groups=map(dict, mg))
 
 
 @blueprint.route("/search", methods=['GET', 'POST'])
