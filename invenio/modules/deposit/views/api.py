@@ -38,7 +38,8 @@ from invenio.modules.api_keys import api_key_required
 from invenio.jsonutils import wash_for_json
 
 blueprint = Blueprint('webdeposit_api', __name__, url_prefix='/api/deposit',
-                      template_folder='templates', static_folder='static')
+                      template_folder='../templates',
+                      static_folder='../static')
 
 
 class enum(object):
