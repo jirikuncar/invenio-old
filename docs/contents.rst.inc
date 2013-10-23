@@ -25,9 +25,10 @@ don't miss our user-level and admin-level documentation as well. And now, back
 to the source, and happy hacking!
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    common-concepts
+   developers/introduction
 
 API Reference
 -------------
