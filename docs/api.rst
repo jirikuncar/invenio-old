@@ -15,11 +15,21 @@ Extensions
 .. automodule:: invenio.ext.sqlalchemy
    :members:
 
+.. automodule:: invenio.ext.menu.menu
+   :members:
+
+.. automodule:: invenio.ext.breadcrumb
+   :members:
+
 Modules
 -------
 
 .. automodule:: invenio.modules.tags
    :members:
+
+.. automodule:: invenio.modules.tags.views
+   :members:
+
 
 Legacy
 ------
