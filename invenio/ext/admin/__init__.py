@@ -70,7 +70,6 @@ def setup_app(app):
     """
     Register all administration views with the Flask application
     """
-    from invenio.errorlib import register_exception
     from invenio.importutils import autodiscover_modules
 
     # Initialize app
@@ -90,4 +89,5 @@ def setup_app(app):
             try:
                 register_func(app, admin)
             except Exception:
+                from invenio.errorlib import register_exception
                 register_exception()

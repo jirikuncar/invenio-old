@@ -26,10 +26,6 @@
 import sqlalchemy
 import base64
 from sqlalchemy.orm import class_mapper, properties
-try:
-    from invenio.intbitset import intbitset
-except:
-    from intbitset import intbitset
 
 
 def get_model_type(ModelBase):
@@ -64,6 +60,11 @@ def get_model_type(ModelBase):
                 return value.strftime("%Y-%m-%d %H:%M:%S")
             except:
                 return ''
+
+        try:
+            from invenio.intbitset import intbitset
+        except:
+            from intbitset import intbitset
 
         for c in self.__table__.columns:
             #NOTE   This hack is not needed if you redefine types.TypeDecorator for

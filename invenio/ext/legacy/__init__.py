@@ -19,18 +19,14 @@
 import warnings
 
 ## Import the remote debugger as a first thing, if allowed
-try:
-    from invenio import remote_debugger
-except:
-    remote_debugger = None
+#FIXME enable remote_debugger when invenio.config is ready
+#try:
+#    from invenio import remote_debugger
+#except:
+#    remote_debugger = None
 
 from werkzeug.exceptions import HTTPException
 from werkzeug.wrappers import BaseResponse
-from invenio.errorlib import register_exception
-from invenio.webinterface_handler_wsgi import application as legacy_application
-from invenio.webinterface_handler_wsgi import \
-    is_mp_legacy_publisher_path, \
-    mp_legacy_publisher
 
 from flask import request, g, current_app, render_template, abort
 
@@ -51,14 +47,16 @@ def setup_app(app):
             self.app = app
 
         def __call__(self, environ, start_response):
-            if remote_debugger:
-                remote_debugger.start()
+            #FIXME
+            #if remote_debugger:
+            #    remote_debugger.start()
 
             with self.app.request_context(environ):
                 g.start_response = start_response
                 try:
                     response = self.app.full_dispatch_request()
                 except Exception as e:
+                    from invenio.errorlib import register_exception
                     register_exception(req=request, alert_admin=True)
                     response = self.app.handle_exception(e)
 
@@ -71,6 +69,8 @@ def setup_app(app):
     @app.errorhandler(404)
     def page_not_found(error):
         try:
+            from invenio.webinterface_handler_wsgi import \
+                application as legacy_application
             response = legacy_application(request.environ, g.start_response)
             if not isinstance(response, BaseResponse):
                 response = current_app.make_response(str(response))
@@ -87,6 +87,9 @@ def setup_app(app):
         NOTE: It changes order of url page lookup. First, the invenio_handler
         will be called and on 404 error the mp_legacy_publisher is called.
         """
+        from invenio.webinterface_handler_wsgi import \
+            is_mp_legacy_publisher_path, mp_legacy_publisher, \
+            application as legacy_application
         possible_module, possible_handler = is_mp_legacy_publisher_path(
                                             request.environ['PATH_INFO'])
         if possible_module is not None:

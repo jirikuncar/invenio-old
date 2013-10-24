@@ -28,9 +28,7 @@
 """
 
 from .interface import SessionInterface
-
 #FIXME use application config
-from invenio.config import CFG_WEBSESSION_EXPIRY_LIMIT_REMEMBER
 from invenio.websession_config import CFG_WEBSESSION_COOKIE_NAME, \
     CFG_WEBSESSION_ONE_DAY
 
@@ -41,7 +39,8 @@ def setup_app(app):
     app.config.setdefault('SESSION_COOKIE_NAME', CFG_WEBSESSION_COOKIE_NAME)
     app.config.setdefault(
         'PERMANENT_SESSION_LIFETIME',
-        CFG_WEBSESSION_EXPIRY_LIMIT_REMEMBER * CFG_WEBSESSION_ONE_DAY)
+        app.config.get(
+            'CFG_WEBSESSION_EXPIRY_LIMIT_REMEMBER') * CFG_WEBSESSION_ONE_DAY)
     ## Let's attach our session handling, which is bridging with the native
     ## session handling.
     app.session_interface = SessionInterface()

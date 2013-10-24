@@ -24,7 +24,6 @@ import hmac
 import urllib
 import time
 
-from invenio.access_control_config import CFG_WEB_API_KEY_STATUS
 from invenio.utils.hash import sha1
 from invenio.testutils import InvenioTestCase, make_test_suite, \
     run_test_suite
@@ -68,6 +67,7 @@ class APIKeyTest(InvenioTestCase):
 
     def test_create_remove_show_key(self):
         """apikey - create/list/delete REST key"""
+
         self.assertEqual(0, len(self.web_api_key.show_web_api_keys(uid=self.id_admin)))
 
         self.web_api_key.create_new_web_api_key(self.id_admin, "Test key I")
@@ -85,8 +85,10 @@ class APIKeyTest(InvenioTestCase):
         self.assertEqual(4, len(self.web_api_key.show_web_api_keys(uid=self.id_admin)))
         self.assertEqual(5, len(self.web_api_key.show_web_api_keys(uid=self.id_admin, diff_status='')))
 
-        self.model.mark_as(keys_info[1].id, CFG_WEB_API_KEY_STATUS['WARNING'])
-        self.model.mark_as(keys_info[2].id, CFG_WEB_API_KEY_STATUS['REVOKED'])
+        self.model.mark_as(keys_info[1].id,
+                           self.model.CFG_WEB_API_KEY_STATUS['WARNING'])
+        self.model.mark_as(keys_info[2].id,
+                           self.model.CFG_WEB_API_KEY_STATUS['REVOKED'])
 
         self.assertEqual(4, len(self.web_api_key.show_web_api_keys(uid=self.id_admin)))
         self.assertEqual(5, len(self.web_api_key.show_web_api_keys(uid=self.id_admin, diff_status='')))

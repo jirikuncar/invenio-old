@@ -25,6 +25,7 @@ import os
 from tempfile import mkstemp
 
 from flask import current_app, abort
+from flask.ext.login import current_user
 
 from invenio.bibtask import task_low_level_submission, \
     bibtask_allocate_sequenceid
@@ -33,7 +34,6 @@ from invenio.config import CFG_TMPSHAREDDIR
 from invenio.dbquery import run_sql
 from invenio.modules.deposit.models import Deposition, Agent, \
     DepositionDraftCacheManager
-from invenio.webuser_flask import current_user
 from invenio.errorlib import register_exception
 try:
     from invenio.pidstore_model import PersistentIdentifier

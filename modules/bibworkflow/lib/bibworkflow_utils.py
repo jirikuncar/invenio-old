@@ -70,12 +70,12 @@ def determineDataType(data):
         else:
             data_type = 'dict'
     else:
-        from magic import Magic
-        mime_checker = Magic(mime=True)
 
         # If data is not a dictionary, we try to guess MIME type
         # by using magic library
         try:
+            from magic import Magic
+            mime_checker = Magic(mime=True)
             data_type = mime_checker.from_buffer(data)  # noqa
         except:
             register_exception(stream="warning", prefix=

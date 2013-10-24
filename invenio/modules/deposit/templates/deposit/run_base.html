@@ -48,9 +48,9 @@
     {%- block webdeposit_assets %}
         {% js 'js/jquery-ui.min.js', '20-jquery-ui' %}
         {% js 'js/plupload/plupload.full.js', '50-webdeposit' %}
-        {% js 'js/webdeposit_form.js', '50-webdeposit' %}
+        {% js url_for('webdeposit.static', filename='js/deposit/form.js'), '50-webdeposit' %}
         {% js 'js/hogan.js', '40-webdeposit-hogan' %}
-        {% js 'js/webdeposit_templates.js', '50-webdeposit' %}
+        {% js url_for('webdeposit.static', filename='js/deposit/templates.js'), '50-webdeposit' %}
         {% js 'ckeditor/ckeditor.js', '50-ckeditor' %}
         {% js 'ckeditor/invenio-ckeditor-config.js', '50-ckeditor' %}
         {% css 'img/jquery-ui/themes/base/jquery.ui.theme.css', '20-jquery-ui' %}

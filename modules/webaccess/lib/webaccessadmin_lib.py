@@ -61,7 +61,7 @@ from invenio.access_control_config import DEF_DEMO_USER_ROLES, \
     DEF_DEMO_ROLES, DEF_DEMO_AUTHS, WEBACCESSACTION, MAXPAGEUSERS, \
     SUPERADMINROLE, CFG_EXTERNAL_AUTHENTICATION, DELEGATEADDUSERROLE, \
     CFG_ACC_EMPTY_ROLE_DEFINITION_SRC, InvenioWebAccessFireroleError, \
-    MAXSELECTUSERS, CFG_EXTERNAL_AUTH_DEFAULT, CFG_WEB_API_KEY_STATUS
+    MAXSELECTUSERS, CFG_EXTERNAL_AUTH_DEFAULT
 from invenio.bibtask import authenticate
 from cgi import escape
 
@@ -1271,6 +1271,7 @@ def perform_deleteaccount(req, userID, callback='yes', confirm=0):
 def perform_modifyapikeydata(req, userID, keyID='', status='' , callback='yes', confirm=0):
     """modify REST API keys of an account"""
 
+    from invenio.modules.api_keys.model import WebAPIKey
     (auth_code, auth_message) = is_adminuser(req)
     if auth_code != 0: return mustloginpage(req, auth_message)
 
@@ -1288,7 +1289,7 @@ def perform_modifyapikeydata(req, userID, keyID='', status='' , callback='yes', 
             text += ' <input class="admin_wvar" type="hidden" name="keyID" value="%s" />' % key_info[0]
             text += ' <span class="adminlabel">Description: </span>%s<br />\n' % key_info[1]
             text += ' <select name="status"> '
-            for status in CFG_WEB_API_KEY_STATUS.values():
+            for status in WebAPIKey.CFG_WEB_API_KEY_STATUS.values():
                 text += ' <option %s value="%s">%s</option>' % (("", "selected")[key_info[2] == status], status, status)
             text += ' </select> <br />\n'
             if key_info[0] == keyID:

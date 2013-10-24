@@ -21,3 +21,4 @@ pyparsing==1.5.6
 git+git://github.com/romanchyla/workflow.git@e41299579501704b1486c72cc2509a9f82e63ea6
 requests==1.2.1
 fs==0.4.0
+libmagic==1.0

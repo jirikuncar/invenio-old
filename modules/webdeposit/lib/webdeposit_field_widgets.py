@@ -21,7 +21,7 @@ from werkzeug import MultiDict
 import json
 from wtforms.widgets import html_params, HTMLString, RadioInput, HiddenInput, \
     Input
-from invenio.jinja2utils import render_template_to_string
+from invenio.ext.template import render_template_to_string
 
 
 def date_widget(field, **kwargs):

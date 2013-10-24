@@ -133,9 +133,9 @@ def deposition_type_index(deposition_type):
     if not deptype.is_enabled():
         abort(404)
 
-    current_app.config['breadcrumbs_map'][request.endpoint] = \
-        [(_('Home'), '')] + blueprint.breadcrumbs + \
-         [(deptype.name_plural, None)]
+    #current_app.config['breadcrumbs_map'][request.endpoint] = \
+    #    [(_('Home'), '')] + blueprint.breadcrumbs + \
+    #     [(deptype.name_plural, None)]
 
     draft_cache = DepositionDraftCacheManager.from_request()
     draft_cache.save()
@@ -288,21 +288,21 @@ def run(deposition_type=None, uuid=None):
     deposition = Deposition.get(uuid, current_user, type=deposition_type)
 
     # Set breadcrumb
-    breadcrumb = [(_('Home'), '')] + blueprint.breadcrumbs
-    if not deposition.type.is_default():
-        breadcrumb.append(
-            (deposition.type.name, '.deposition_type_index', {
-                'deposition_type': deposition.type.get_identifier()
-            })
-        )
+    #breadcrumb = [(_('Home'), '')] + blueprint.breadcrumbs
+    #if not deposition.type.is_default():
+    #    breadcrumb.append(
+    #        (deposition.type.name, '.deposition_type_index', {
+    #            'deposition_type': deposition.type.get_identifier()
+    #        })
+    #    )
 
-    breadcrumb.append(
-        (deposition.title or _('Untitled'), '.run', {
-            'deposition_type': deposition.type.get_identifier(),
-            'uuid': deposition.id
-        })
-    )
-    current_app.config['breadcrumbs_map'][request.endpoint] = breadcrumb
+    #breadcrumb.append(
+    #    (deposition.title or _('Untitled'), '.run', {
+    #        'deposition_type': deposition.type.get_identifier(),
+    #        'uuid': deposition.id
+    #    })
+    #)
+    #current_app.config['breadcrumbs_map'][request.endpoint] = breadcrumb
 
     # If normal form handling should be supported, it can be handled here with
     # something like::

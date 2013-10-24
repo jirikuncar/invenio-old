@@ -37,12 +37,6 @@ pylib_DATA = __init__.py \
              webdeposit_validation_utils.py \
              webdeposit_workflow_tasks.py
 
-jsdir=$(localstatedir)/www/js
-
-js_DATA = webdeposit_form.js \
-          webdeposit_templates.js
-
-EXTRA_DIST = $(pylib_DATA) \
-             $(js_DATA)
+EXTRA_DIST = $(pylib_DATA)
 
 CLEANFILES = *~ *.tmp *.pyc

@@ -708,11 +708,3 @@ CFG_WEBACCESS_WARNING_MSGS = {
                                23: """Verification failed. It is probably because the configuration isn't set properly. Please contact with the <a href="mailto:%s">administator</a>""" % CFG_SITE_ADMIN_EMAIL
         }
 
-#There are three status key that must be here: OK, REMOVED and REVOKED
-#the value doesn't matter at all
-CFG_WEB_API_KEY_STATUS = {
-                      'OK':'OK',
-                      'REMOVED':'REMOVED',
-                      'REVOKED':'REVOKED',
-                      'WARNING':'WARNING'
-                      }

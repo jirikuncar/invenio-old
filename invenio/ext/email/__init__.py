@@ -39,30 +39,9 @@ from flask import g
 from formatter import DumbWriter, AbstractFormatter
 from flask.ext.email.message import EmailMultiAlternatives, EmailMessage
 
-from invenio.config import \
-    CFG_EMAIL_BACKEND, \
-    CFG_SITE_SUPPORT_EMAIL, \
-    CFG_SITE_URL, \
-    CFG_SITE_LANG, \
-    CFG_SITE_ADMIN_EMAIL, \
-    CFG_MISCUTIL_SMTP_HOST, \
-    CFG_MISCUTIL_SMTP_PORT, \
-    CFG_VERSION, \
-    CFG_DEVEL_SITE, \
-    CFG_LOGDIR
+from invenio.base.globals import cfg
+default_ln = lambda ln: cfg.get('CFG_SITE_LANG') if ln is None else ln
 
-from invenio.config import CFG_MISCUTIL_SMTP_HOST, CFG_MISCUTIL_SMTP_PORT
-try:
-    from invenio.config import \
-        CFG_MISCUTIL_SMTP_USER,\
-        CFG_MISCUTIL_SMTP_PASS,\
-        CFG_MISCUTIL_SMTP_TLS
-except ImportError:
-    CFG_MISCUTIL_SMTP_USER = ''
-    CFG_MISCUTIL_SMTP_PASS = ''
-    CFG_MISCUTIL_SMTP_TLS = False
-
-from invenio.errorlib import register_exception
 from invenio.miscutil_config import InvenioMiscUtilError
 from invenio.ext.template import render_template_to_string
 from invenio.base.helpers import unicodifier
@@ -74,26 +53,29 @@ def setup_app(app):
 
     @see: https://flask-email.readthedocs.org/en/latest/#configuration
     """
-    app.config['DEFAULT_FROM_EMAIL'] = CFG_SITE_SUPPORT_EMAIL
-    app.config['SERVER_EMAIL'] = CFG_SITE_ADMIN_EMAIL
-    app.config['ADMINS'] = (CFG_SITE_ADMIN_EMAIL, )
-    app.config['MANAGERS'] = (CFG_SITE_SUPPORT_EMAIL, )
+    cfg = app.config
 
-    if app.config.get('EMAIL_BACKEND') is None:
-        if app.config.get('CFG_EMAIL_BACKEND') or CFG_EMAIL_BACKEND:
-            app.config['EMAIL_BACKEND'] = app.config.get('CFG_EMAIL_BACKEND',
-                                                         CFG_EMAIL_BACKEND)
-        elif CFG_MISCUTIL_SMTP_HOST and CFG_MISCUTIL_SMTP_PORT:
-            app.config['EMAIL_BACKEND'] = 'flask.ext.email.backends.smtp.Mail'
-    # Defaults to 'flask.ext.email.backends.locmem.Mail'
-    app.config['EMAIL_HOST'] = CFG_MISCUTIL_SMTP_HOST
-    app.config['EMAIL_PORT'] = CFG_MISCUTIL_SMTP_PORT
-    app.config['EMAIL_HOST_USER'] = CFG_MISCUTIL_SMTP_USER
-    app.config['EMAIL_HOST_PASSWORD'] = CFG_MISCUTIL_SMTP_PASS
-    app.config['EMAIL_USE_TLS'] = CFG_MISCUTIL_SMTP_TLS
+    app.config.setdefault('EMAIL_BACKEND', cfg.get(
+        'CFG_EMAIL_BACKEND', 'flask.ext.email.backends.smtp.Mail'))
+    app.config.setdefault('DEFAULT_FROM_EMAIL', cfg['CFG_SITE_SUPPORT_EMAIL'])
+    app.config.setdefault('SERVER_EMAIL', cfg['CFG_SITE_ADMIN_EMAIL'])
+    app.config.setdefault('ADMINS', (cfg['CFG_SITE_ADMIN_EMAIL'], ))
+    app.config.setdefault('MANAGERS', (cfg['CFG_SITE_SUPPORT_EMAIL'], ))
+
+    CFG_MISCUTIL_SMTP_HOST = cfg.get('CFG_MISCUTIL_SMTP_HOST')
+    CFG_MISCUTIL_SMTP_PORT = cfg.get('CFG_MISCUTIL_SMTP_PORT')
+    CFG_MISCUTIL_SMTP_USER = cfg.get('CFG_MISCUTIL_SMTP_USER', '')
+    CFG_MISCUTIL_SMTP_PASS = cfg.get('CFG_MISCUTIL_SMTP_PASS', '')
+    CFG_MISCUTIL_SMTP_TLS = cfg.get('CFG_MISCUTIL_SMTP_TLS', False)
+
+    app.config.setdefault('EMAIL_HOST', CFG_MISCUTIL_SMTP_HOST)
+    app.config.setdefault('EMAIL_PORT', CFG_MISCUTIL_SMTP_PORT)
+    app.config.setdefault('EMAIL_HOST_USER', CFG_MISCUTIL_SMTP_USER)
+    app.config.setdefault('EMAIL_HOST_PASSWORD', CFG_MISCUTIL_SMTP_PASS)
+    app.config.setdefault('EMAIL_USE_TLS', CFG_MISCUTIL_SMTP_TLS)
     # app.config['EMAIL_USE_SSL']: defaults to False
 
-    app.config['EMAIL_FILE_PATH'] = CFG_LOGDIR
+    app.config.setdefault('EMAIL_FILE_PATH', cfg['CFG_LOGDIR'])
     return app
 
 
@@ -177,7 +159,7 @@ def send_email(fromaddr,
                attempt_times=1,
                attempt_sleeptime=10,
                debug_level=0,
-               ln=CFG_SITE_LANG,
+               ln=None,
                charset=None,
                replytoaddr="",
                attachments=None
@@ -216,6 +198,8 @@ def send_email(fromaddr,
 
     @return: [bool]: True if email was sent okay, False if it was not.
     """
+    from invenio.errorlib import register_exception
+    ln = default_ln(ln)
 
     if html_images is None:
         html_images = {}
@@ -228,8 +212,8 @@ def send_email(fromaddr,
     usebcc = len(toaddr.split(',')) > 1  # More than one address, let's use Bcc in place of To
 
     if copy_to_admin:
-        if CFG_SITE_ADMIN_EMAIL not in toaddr:
-            toaddr.append(CFG_SITE_ADMIN_EMAIL)
+        if cfg['CFG_SITE_ADMIN_EMAIL'] not in toaddr:
+            toaddr.append(cfg['CFG_SITE_ADMIN_EMAIL'])
 
     body = forge_email(fromaddr, toaddr, subject, content, html_content,
                        html_images, usebcc, header, footer, html_header,
@@ -277,7 +261,7 @@ def attach_embed_image(email, image_id, image_path):
 
 def forge_email(fromaddr, toaddr, subject, content, html_content='',
                 html_images=None, usebcc=False, header=None, footer=None,
-                html_header=None, html_footer=None, ln=CFG_SITE_LANG,
+                html_header=None, html_footer=None, ln=None,
                 charset=None, replytoaddr="", attachments=None):
     """Prepare email. Add header and footer if needed.
     @param fromaddr: [string] sender
@@ -299,6 +283,7 @@ def forge_email(fromaddr, toaddr, subject, content, html_content='',
     @param attachments: list of paths of files to be attached. Alternatively,
         every element of the list could be a tuple: (filename, mimetype)
     @return: forged email as a string"""
+    ln = default_ln(ln)
     if html_images is None:
         html_images = {}
 
@@ -329,7 +314,8 @@ def forge_email(fromaddr, toaddr, subject, content, html_content='',
         kwargs['to'] = toaddr.split(',')
     headers['From'] = fromaddr
     headers['Date'] = formatdate(localtime=True)
-    headers['User-Agent'] = 'Invenio %s at %s' % (CFG_VERSION, CFG_SITE_URL)
+    headers['User-Agent'] = 'Invenio %s at %s' % (cfg['CFG_VERSION'],
+                                                  cfg['CFG_SITE_URL'])
 
     if html_content:
         html_content = render_template_to_string(
@@ -384,6 +370,7 @@ def forge_email(fromaddr, toaddr, subject, content, html_content='',
                 part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(attachment))
                 msg_root.attach(part)
             except:
+                from invenio.errorlib import register_exception
                 register_exception(alert_admin=True, prefix="Can't attach %s" % attachment)
 
     return msg_root

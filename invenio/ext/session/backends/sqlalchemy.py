@@ -34,7 +34,7 @@ from flask import current_app
 from flask.helpers import locked_cached_property
 from werkzeug import import_string
 
-from .storage import SessionStorage
+from ..storage import SessionStorage
 
 
 class Storage(SessionStorage):
@@ -43,10 +43,9 @@ class Storage(SessionStorage):
     """
 
     def __init__(self, *args, **kwargs):
-        print '>>> database session backend'
         if not self.db.engine.dialect.has_table(self.db.engine,
                                                 self.model.__tablename__):
-            self.model.create()
+            self.model.__table__.create(bind=self.db.engine)
             self.db.commit()
 
     @locked_cached_property
