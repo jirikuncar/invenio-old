@@ -28,60 +28,21 @@ from werkzeug.utils import import_string, find_modules
 from functools import partial
 from itertools import chain
 
-def import_extension(directories, extension_name):
-    """
-        Searches EXTENSION_DIRECTORIES for the desired extension;
-
-        returns (setup_app, config)
-    """
-
-    for directory in directories:
-        ext_path = '{directory}{dot}{name}'.format(
-            directory=directory,
-            dot=('.' if directory else ''),
-            name=extension_name)
-
-        try:
-            ext_module = import_string(ext_path)
-            ext_setup = getattr(ext_module, 'setup_app', None)
-            ext_config = getattr(ext_module, 'config', None)
-            if not ext_config:
-                try:
-                    ext_config = import_string(ext_path + '.config')
-                except:
-                    pass
-            return (ext_setup, ext_config)
-
-        except:
-            # Extension not found here, keep looking
-            pass
-
-    try:
-        # Maybe it is a callable extensions
-        ext_module = import_string(extension_name)
-        return (ext_module, None)
-    except:
-        # TODO Write to 'missing-extensions.log'
-        return (None, None)
-
 
 def register_extensions(app):
     for ext_name in app.config.get('EXTENSIONS', []):
-        (ext_setup, ext_config) = import_extension(
-            app.config.get('EXTENSION_DIRECTORIES', ['']),
-            ext_name)
-        if ext_config:
-            app.config.from_object(ext_config)
 
-        if ext_setup:
-            try:
-                new_app = ext_setup(app)
-                if new_app is not None:
-                    app = new_app
-            except Exception as e:
-                print ext_name, e
-                # TODO Write to 'broken-extensions.log'
-                pass
+        ext = import_string(ext_name)
+        ext = getattr(ext, 'setup_app', ext)
+        #try:
+
+        #except:
+        #    continue
+
+#        try:
+        ext(app)
+        #except Exception as e:
+        #    app.logger.error('%s: %s' % (ext_name, str(e)))
 
     return app
 

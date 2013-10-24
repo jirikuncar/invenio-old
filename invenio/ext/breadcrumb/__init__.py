@@ -35,6 +35,8 @@ class BreadcrumbAlchemy(MenuAlchemy):
     Breadcrumb organizer for Invenio.
     """
 
+    config = {}
+
     def init_app(self, app, *args, **kwargs):
         super(self.__class__, self).init_app(app, *args, **kwargs)
 
@@ -165,8 +167,3 @@ breadcrumbs = LocalProxy(BreadcrumbAlchemy._breadcrumbs)
 # Decorators and API
 default_breadcrumb_root = BreadcrumbAlchemy.default_breadcrumb_root
 register_breadcrumb = BreadcrumbAlchemy.register_breadcrumb
-
-
-def setup_app(app):
-    BreadcrumbAlchemy(app)
-    return app

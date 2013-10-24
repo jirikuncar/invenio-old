@@ -139,6 +139,9 @@ def setup_app(app):
     from invenio.utils.date import convert_datetext_to_dategui, \
         convert_datestruct_to_dategui, pretty_date
 
+    from . import config
+    app.config.from_object(config)
+
     context_processor_setup_app(app)
     app.context_processor(inject_utils)
 

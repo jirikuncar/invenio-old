@@ -1,24 +1,22 @@
 # -*- coding: utf-8 -*-
-EXTENSION_DIRECTORIES = ['invenio.ext', 'invenio']
-
 EXTENSIONS = [
-    'jinja2hacks',
-    'debug_toolbar',
-    'sqlalchemy',
-    'sslify',
-    'cache',
-    'session',
-    'login',
-    'principal',
-    'email',
-    'legacy',
-    'assets',
-    'template',
-    'admin',
-    'logger',
-    'gravatar',
-    'menu',
-    'breadcrumb'
+    'invenio.ext.jinja2hacks',
+    'invenio.ext.debug_toolbar',
+    'invenio.ext.sqlalchemy',
+    'invenio.ext.sslify',
+    'invenio.ext.cache',
+    'invenio.ext.session',
+    'invenio.ext.login',
+    'invenio.ext.principal',
+    'invenio.ext.email',
+    'invenio.ext.legacy',
+    'invenio.ext.assets',
+    'invenio.ext.template',
+    'invenio.ext.admin',
+    'invenio.ext.logger',
+    'invenio.ext.gravatar',
+    'invenio.ext.menu:MenuAlchemy',
+    'invenio.ext.breadcrumb:BreadcrumbAlchemy'
 ]
 
 PACKAGES = [
