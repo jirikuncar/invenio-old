@@ -35,6 +35,7 @@ to the source, and happy hacking!
    developers/extensions
    developers/modules
    developers/templates
+   developers/git-workflow
 
 API Reference
 -------------
