@@ -23,6 +23,10 @@
     Implements various utils.
 """
 
+import os
+import pkg_resources
+import re
+
 from flask import has_app_context, current_app
 from werkzeug.utils import import_string, find_modules
 from functools import partial
@@ -53,7 +57,8 @@ def import_module_from_packages(name, app=None, packages=None):
             app = current_app
         if app is None:
             raise Exception('Working outside application context or provide app')
-        packages = app.config.get('PACKAGES', [])
+        #FIXME
+        packages = ['invenio.core.*'] + app.config.get('PACKAGES', [])
 
     for package in packages:
         if package.endswith('.*'):
@@ -99,6 +104,26 @@ autodiscover_template_context_functions = partial(
 
 
 
+def autodiscover_non_python_files(file_name, package_name, app=None, packages=None):
+    """
+    Helper function to autodiscover non python files that are included inside
+    the package. (see MANIFEST.in)
+
+    :param file_name: it could be a string or a regex to search for the files
+    inside the package
+    :type file_name: string or string regex
+    :param package_name:
+    :param app:
+    :param packages:
+
+    :return: List of full paths of non python files discovered
+    """
+    return [os.path.join(os.path.dirname(m.__file__), f)
+            for m in import_module_from_packages(package_name, app, packages)
+            for f in pkg_resources.resource_listdir(m.__name__, '')
+            if re.match(file_name, f)]
+
+
 def register_configurations(app):
     """Includes the configuration parameters of the config file.
 
@@ -106,5 +131,7 @@ def register_configurations(app):
     any uppercase variable defined in the module `invenio.messages.config` is
     loaded into the system.
     """
+    for config in import_module_from_packages('config', app, ['invenio.core.*', ]):
+        app.config.from_object(config)
     for config in autodiscover_configs(app):
         app.config.from_object(config)

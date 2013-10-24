@@ -3,13 +3,9 @@
 Pluggable Objects
 =================
 
-- models
-
-- views
-
-- templates
-
-- template_context_functions
-
 - facets
+- models
+- template_context_functions
+- templates
+- views
 

@@ -9,6 +9,15 @@ Base
 .. automodule:: invenio.base.factory
    :members:
 
+Core
+----
+
+.. automodule:: invenio.core.record
+   :members:
+
+.. automodule:: invenio.core.record.storage
+   :members:
+
 Extensions
 ----------
 

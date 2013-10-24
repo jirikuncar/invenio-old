@@ -25,7 +25,7 @@
 import json
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.types import TypeDecorator, TEXT, LargeBinary
-from invenio.utils.serializers import ZlibMarshal
+from invenio.utils.serializers import ZlibMarshal, ZlibPickle
 
 
 @MutableDict.as_mutable
@@ -73,6 +73,21 @@ class MarshalBinary(TypeDecorator):
         return value if value is not None else \
             (self.default_value() if callable(self.default_value) else
              self.default_value)
+
+
+class PickleBinary(TypeDecorator):
+
+    impl = LargeBinary
+
+    def process_bind_param(self, value, dialect):
+        if value is not None:
+            value = ZlibPickle.dumps(value)
+        return value
+
+    def process_result_value(self, value, dialect):
+        if value is not None:
+            value = ZlibPickle.loads(value)
+        return value
 
 
 #@compiles(sqlalchemy.types.LargeBinary, "postgresql")

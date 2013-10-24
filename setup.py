@@ -82,6 +82,7 @@ setup(
     packages=[
         'invenio.base',
         'invenio.celery',
+        'invenio.core',
         'invenio.ext',
         'invenio.legacy',
         'invenio.modules',

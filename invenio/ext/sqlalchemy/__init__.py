@@ -26,7 +26,7 @@
 """
 
 from .expressions import AsBINARY
-from .types import JSONEncodedTextDict, MarshalBinary
+from .types import JSONEncodedTextDict, MarshalBinary, PickleBinary
 from .utils import get_model_type
 import sqlalchemy
 from flask.ext.sqlalchemy import SQLAlchemy as FlaskSQLAlchemy
@@ -92,6 +92,7 @@ def _include_sqlalchemy(obj, engine=None):
     obj.Enum.__init__ = default_enum(obj.Enum.__init__)
     obj.AsBINARY = AsBINARY
     obj.MarshalBinary = MarshalBinary
+    obj.PickleBinary = PickleBinary
 
     ## Overwrite :meth:`MutableDick.update` to detect changes.
     from sqlalchemy.ext.mutable import MutableDict
