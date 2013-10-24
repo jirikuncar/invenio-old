@@ -165,7 +165,7 @@ def tag_details(id_tag):
 
 @blueprint.route('/record/<int:id_bibrec>/tags', methods=['GET', 'POST'])
 @login_required
-@templated('tags/record_tags.html')
+@templated('tags/record_tags_test.html')
 @register_breadcrumb(blueprint, '.tags_details', _('Tag list'))
 def record_tags(id_bibrec):
     """ List of documents attached to this tag """
@@ -173,7 +173,10 @@ def record_tags(id_bibrec):
     from .template_context_functions.tfn_webtag_record_tags \
         import template_context_function
 
-    return dict(tag_list = template_context_function(id_bibrec, current_user.get_id()))
+    from invenio.ext.template import render_template_to_string
+
+    return dict(
+        tag_list = template_context_function(id_bibrec, current_user.get_id()))
 
 
 @blueprint.route('/tokenize/<int:id_bibrec>', methods=['GET', 'POST'])
@@ -243,7 +246,7 @@ def editor(id_bibrec):
 
     # invenio_templated cannot be used,
     # because this view is requested using AJAX
-    return render_template('tags/editor.html', id_bibrec=id_bibrec,
+    return render_template('tags/record_editor.html', id_bibrec=id_bibrec,
                                                  record_tags=tags_json)
 
 #Temporary solution to call validators, we need a better one

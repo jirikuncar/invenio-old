@@ -63,6 +63,9 @@ def template_context_function(id_bibrec, id_user):
                 .all()
 
 
+
+
+
             #.join(UserUsergroup)
             #.filter(or_(_and( UserUsergroup.id_user == id_user, UserUsergroup.id_group == WtgTAG.id_usergroup), WtgTAG.id_user == id_user,
 
@@ -74,8 +77,23 @@ def template_context_function(id_bibrec, id_user):
         # Public tags
         #if user_settings.get('display_tags_public', True):
 
-        return render_template_to_string('tags/record.html',
+        record_tags = []
+
+        for tag in tags:
+            tag_display_properties = dict(
+                id=tag.id,
+                name=tag.name,
+                record_count=tag.record_count,
+                label_classes= ((tag.id_user == id_user) and 'label-tag-owned') or '')
+
+            tag_display_properties['popover_content'] = render_template_to_string(
+                'tags/tag_popover.html',
+                tag=tag_display_properties)
+
+            record_tags.append(tag_display_properties)
+
+        return render_template_to_string('tags/record_tags.html',
                                          id_bibrec=id_bibrec,
-                                         record_tags=tags)
+                                         record_tags=record_tags)
     else:
         return ''

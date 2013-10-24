@@ -21,25 +21,24 @@
 
   "use strict"; // jshint ;_;
 
- /* ENABLE AUTOMATIC MENU LOADING
-  * =============================
-  *
-  * Finds all elements with `data-menu="click"` attributes and loads menu with
-  * AJAX call to url specified in attribute `data-menu-source`.
-  *
-  * Example:
-  * --------
-  *
-  * <li>
-  *   <a href="#">
-  *     <span data-menu="click" data-menu-source="/menu">
-  *       AJAX menu
-  *     </span>
-  *   </a>
-  * </li>
-  */
-
   $(function() {
+    /* ENABLE AUTOMATIC MENU LOADING
+     * =============================
+     *
+     * Finds all elements with `data-menu="click"` attributes and loads menu with
+     * AJAX call to url specified in attribute `data-menu-source`.
+     *
+     * Example:
+     * --------
+     *
+     * <li>
+     *   <a href="#">
+     *     <span data-menu="click" data-menu-source="/menu">
+     *       AJAX menu
+     *     </span>
+     *   </a>
+     * </li>
+     */
 
     $('[data-menu="click"]').each(function (index) {
       var that = this,
@@ -58,6 +57,40 @@
       $menu.attr('data-toggle', "dropdown");
       $menu.dropdown();
     });
+
+    /* ENABLE AUTOMATIC POPOVER REGISTRATION
+     * =============================
+     *
+     * Finds all elements with `data-menu="click"` attributes and loads menu with
+     * AJAX call to url specified in attribute `data-menu-source`.
+     *
+     * Example:
+     * --------
+     *
+     * <li>
+     *   <a href="#">
+     *     <span data-menu="click" data-menu-source="/menu">
+     *       AJAX menu
+     *     </span>
+     *   </a>
+     * </li>
+     */
+    $('[data-toggle="popover"]').each(function(){
+      var bHtml = Boolean($(this).attr('data-html'));
+      var placement = $(this).attr('data-placement');
+
+      if(! placement)
+      {
+        placement = 'bottom';
+      }
+
+      $(this).popover({
+        html: bHtml,
+        placement: placement,
+      });
+    });
   });
 
 }(window.jQuery);
+
+
