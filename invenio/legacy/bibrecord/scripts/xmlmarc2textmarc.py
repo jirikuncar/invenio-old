@@ -19,10 +19,8 @@
 
 """Library of functions for the xmlmarc2textmarc utility."""
 
-__revision__ = "$Id$"
-
-import getopt, sys
 from __future__ import generators
+import getopt, sys
 from os.path import basename
 from random import randint, seed
 
