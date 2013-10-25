@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2011, 2012 CERN.
+## Copyright (C) 2011, 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -17,19 +17,12 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-"""WebMessage Forms"""
+"""Comments Forms"""
 
-from string import strip
-from datetime import datetime
-
-from invenio.ext.sqlalchemy import db
-from invenio.modules.account.models import User, Usergroup
-from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.base.i18n import _
-from flask.ext.wtf import Form
-from invenio.utils.forms import InvenioBaseForm, FilterForm, DateTimePickerWidget, FilterTextField
-from wtforms import DateTimeField, BooleanField, TextField, TextAreaField, \
-                    PasswordField, HiddenField, SelectField, validators
+from invenio.utils.forms import InvenioBaseForm
+from wtforms import TextField, TextAreaField, \
+    HiddenField, SelectField, validators
 
 
 class AddCmtRECORDCOMMENTForm(InvenioBaseForm):

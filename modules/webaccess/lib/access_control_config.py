@@ -22,7 +22,9 @@ __revision__ = \
 
 # pylint: disable=C0301
 
-from invenio import config
+#from invenio import config
+from flask import current_app
+config = current_app.config
 from invenio.config import CFG_SITE_NAME, CFG_SITE_URL, CFG_SITE_LANG, \
      CFG_SITE_SECURE_URL, CFG_SITE_SUPPORT_EMAIL, CFG_CERN_SITE, \
      CFG_OPENAIRE_SITE, CFG_SITE_RECORD, CFG_INSPIRE_SITE, \
@@ -419,23 +421,23 @@ CFG_OAUTH2_CONFIGURATIONS =  {
 }
 
 ## Let's override OpenID/OAuth1/OAuth2 configuration from invenio(-local).conf
-CFG_OPENID_PROVIDERS = config.CFG_OPENID_PROVIDERS
-CFG_OAUTH1_PROVIDERS = config.CFG_OAUTH1_PROVIDERS
-CFG_OAUTH2_PROVIDERS = config.CFG_OAUTH2_PROVIDERS
-if config.CFG_OPENID_CONFIGURATIONS:
-    for provider, configuration in config.CFG_OPENID_CONFIGURATIONS.items():
+CFG_OPENID_PROVIDERS = config['CFG_OPENID_PROVIDERS']
+CFG_OAUTH1_PROVIDERS = config['CFG_OAUTH1_PROVIDERS']
+CFG_OAUTH2_PROVIDERS = config['CFG_OAUTH2_PROVIDERS']
+if config['CFG_OPENID_CONFIGURATIONS']:
+    for provider, configuration in config['CFG_OPENID_CONFIGURATIONS'].items():
         if provider in CFG_OPENID_CONFIGURATIONS:
             CFG_OPENID_CONFIGURATIONS[provider].update(configuration)
         else:
             CFG_OPENID_CONFIGURATIONS[provider] = configuration
-if config.CFG_OAUTH1_CONFIGURATIONS:
-    for provider, configuration in config.CFG_OAUTH1_CONFIGURATIONS.items():
+if config['CFG_OAUTH1_CONFIGURATIONS']:
+    for provider, configuration in config['CFG_OAUTH1_CONFIGURATIONS'].items():
         if provider in CFG_OAUTH1_CONFIGURATIONS:
             CFG_OAUTH1_CONFIGURATIONS[provider].update(configuration)
         else:
             CFG_OAUTH1_CONFIGURATIONS[provider] = configuration
-if config.CFG_OAUTH2_CONFIGURATIONS:
-    for provider, configuration in config.CFG_OAUTH2_CONFIGURATIONS.items():
+if config['CFG_OAUTH2_CONFIGURATIONS']:
+    for provider, configuration in config['CFG_OAUTH2_CONFIGURATIONS'].items():
         if provider in CFG_OAUTH2_CONFIGURATIONS:
             CFG_OAUTH2_CONFIGURATIONS[provider].update(configuration)
         else:

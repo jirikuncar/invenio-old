@@ -37,6 +37,7 @@ blueprint = Blueprint('holdingpen', __name__, url_prefix="/admin/holdingpen",
 default_breadcrumb_root(blueprint, '.admin.holdingpen')
 
 
+@blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @login_required
 @register_breadcrumb(blueprint, '.', _('Holdingpen'))

@@ -161,7 +161,7 @@ class TestWebDepositUtils(InvenioTestCase):
     def test_form_functions(self):
         from invenio.webdeposit_load_deposition_types import \
             deposition_metadata
-        from invenio.webdeposit_load_forms import forms
+        from invenio.modules.deposit import forms
         from invenio.webdeposit_workflow import DepositionWorkflow
         from invenio.webdeposit_utils import get_form, \
             get_form_status, set_form_status, CFG_DRAFT_STATUS

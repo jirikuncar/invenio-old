@@ -64,7 +64,7 @@ def import_module_from_packages(name, app=None, packages=None):
                     pass
                 except Exception as e:
                     import traceback
-                    traceback.print_exc()
+                    traceback.print_stack()
                     app.logger.error('Could not import: "%s.%s: %s',
                                      module, name, str(e))
                     pass
@@ -84,6 +84,7 @@ autodiscover_user_settings = partial(import_module_from_packages,
                                      'user_settings')
 autodiscover_configs = partial(import_module_from_packages, 'config')
 autodiscover_managers = partial(import_module_from_packages, 'manage')
+autodiscover_workflows = partial(import_module_from_packages, 'workflows')
 
 
 def autodiscover_template_context_functions(app=None):

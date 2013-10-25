@@ -24,7 +24,6 @@ import socket
 
 from flask import g, render_template, request, flash, redirect, url_for, \
     current_app, abort, Blueprint
-from invenio.base.decorators import wash_arguments
 from invenio.ext.sqlalchemy import db
 from invenio.webmessage_mailutils import email_quote_txt
 from invenio.modules.comments.models import CmtRECORDCOMMENT, CmtSUBSCRIPTION, \
@@ -36,27 +35,9 @@ from flask.ext.login import current_user, login_required
 from invenio.ext.menu import register_menu
 from invenio.ext.breadcrumb import register_breadcrumb
 from invenio.ext.principal import permission_required
-from invenio.config import CFG_PREFIX, \
-    CFG_SITE_LANG, \
-    CFG_WEBALERT_ALERT_ENGINE_EMAIL,\
-    CFG_SITE_SUPPORT_EMAIL,\
-    CFG_WEBCOMMENT_ALERT_ENGINE_EMAIL,\
-    CFG_SITE_URL,\
-    CFG_SITE_NAME,\
-    CFG_SITE_RECORD, \
-    CFG_WEBCOMMENT_ALLOW_REVIEWS,\
-    CFG_WEBCOMMENT_ALLOW_SHORT_REVIEWS,\
-    CFG_WEBCOMMENT_ALLOW_COMMENTS,\
-    CFG_WEBCOMMENT_ADMIN_NOTIFICATION_LEVEL,\
-    CFG_WEBCOMMENT_NB_REPORTS_BEFORE_SEND_EMAIL_TO_ADMIN,\
-    CFG_WEBCOMMENT_TIMELIMIT_PROCESSING_COMMENTS_IN_SECONDS,\
-    CFG_WEBCOMMENT_DEFAULT_MODERATOR, \
-    CFG_WEBCOMMENT_EMAIL_REPLIES_TO, \
-    CFG_WEBCOMMENT_ROUND_DATAFIELD, \
-    CFG_WEBCOMMENT_RESTRICTION_DATAFIELD, \
-    CFG_WEBCOMMENT_MAX_COMMENT_THREAD_DEPTH
+#from invenio.config import CFG_SITE_RECORD
+CFG_SITE_RECORD = 'record'
 from invenio.webcomment_config import CFG_WEBCOMMENT_ACTION_CODE
-from invenio.access_control_engine import acc_authorize_action
 
 blueprint = Blueprint('webcomment', __name__, url_prefix="/" + CFG_SITE_RECORD,
                       template_folder='templates')
@@ -83,6 +64,10 @@ class CommentRights(object):
         self.uid = uid or current_user.get_id()
         self.id_collection = 0  # FIXME
 
+    def authorize_action(self, *args, **kwargs):
+        from invenio.access_control_engine import acc_authorize_action
+        return acc_authorize_action(*args, **kwargs)
+
     def can_perform_action(self, action=None):
         cond = CmtACTIONHISTORY.id_user == self.uid \
             if self.uid > 0 else \
@@ -100,20 +85,20 @@ class CommentRights(object):
         #restriction =  self.comment.restriction
         if restriction == "":
             return (0, '')
-        return acc_authorize_action(
+        return self.authorize_action(
             self.uid,
             'viewrestrcomment',
             status=restriction)
 
     def can_send_comment(self):
-        return acc_authorize_action(
+        return self.authorize_action(
             self.uid,
             'sendcomment',
             authorized_if_no_roles=True,
             collection=self.id_collection)
 
     def can_attach_comment_file(self):
-        return acc_authorize_action(
+        return self.authorize_action(
             self.uid,
             'attachcommentfile',
             authorized_if_no_roles=False,

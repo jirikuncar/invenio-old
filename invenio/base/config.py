@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 EXTENSIONS = [
+    'invenio.ext.confighacks',
     'invenio.ext.jinja2hacks',
     'invenio.ext.debug_toolbar',
     'invenio.ext.sqlalchemy',
@@ -16,7 +17,8 @@ EXTENSIONS = [
     'invenio.ext.logger',
     'invenio.ext.gravatar',
     'invenio.ext.menu:MenuAlchemy',
-    'invenio.ext.breadcrumb:BreadcrumbAlchemy'
+    'invenio.ext.breadcrumb:BreadcrumbAlchemy',
+    'invenio.modules.deposit.url_converters',
 ]
 
 PACKAGES = [
@@ -514,6 +516,7 @@ CFG_WEBCOMMENT_TIMELIMIT_PROCESSING_COMMENTS_IN_SECONDS = 20
 CFG_WEBCOMMENT_TIMELIMIT_PROCESSING_REVIEWS_IN_SECONDS = 20
 CFG_WEBCOMMENT_USE_MATHJAX_IN_COMMENTS = 1
 CFG_WEBCOMMENT_USE_RICH_TEXT_EDITOR = False
+CFG_WEBDEPOSIT_MAX_UPLOAD_SIZE = 104857600
 CFG_WEBDEPOSIT_UPLOAD_FOLDER = "var/tmp/webdeposit_uploads"
 CFG_WEBDIR = "var/www"
 CFG_WEBLINKBACK_TRACKBACK_ENABLED = 0

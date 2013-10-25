@@ -40,24 +40,32 @@ import time
 import re
 import atexit
 from thread import get_ident
-from invenio import config
-from invenio.config import CFG_ACCESS_CONTROL_LEVEL_SITE, \
-    CFG_MISCUTIL_SQL_USE_SQLALCHEMY, \
-    CFG_MISCUTIL_SQL_RUN_SQL_MANY_LIMIT
+from werkzeug.utils import cached_property
+from invenio.base.globals import cfg
 from invenio.utils.serializers import serialize_via_marshal, \
     deserialize_via_marshal
 
-if CFG_MISCUTIL_SQL_USE_SQLALCHEMY:
-    try:
-        import sqlalchemy.pool as pool
-        import MySQLdb as mysqldb
-        mysqldb = pool.manage(mysqldb, use_threadlocal=True)
-        connect = mysqldb.connect
-    except ImportError:
-        CFG_MISCUTIL_SQL_USE_SQLALCHEMY = False
-        from MySQLdb import connect
-else:
-    from MySQLdb import connect
+
+class DBConnect(object):
+    def __call__(self, *args, **kwargs):
+        return self._connect(*args, **kwargs)
+
+    @cached_property
+    def _connect(self):
+        if cfg['CFG_MISCUTIL_SQL_USE_SQLALCHEMY']:
+            try:
+                import sqlalchemy.pool as pool
+                import MySQLdb as mysqldb
+                mysqldb = pool.manage(mysqldb, use_threadlocal=True)
+                connect = mysqldb.connect
+            except ImportError:
+                cfg['CFG_MISCUTIL_SQL_USE_SQLALCHEMY'] = False
+                from MySQLdb import connect
+        else:
+            from MySQLdb import connect
+        return connect
+
+connect = DBConnect()
 
 ## DB config variables.  These variables are to be set in
 ## invenio-local.conf by admins and then replaced in situ in this file
@@ -120,7 +128,7 @@ def _db_login(dbhost=CFG_DATABASE_HOST, relogin=0):
     ## older MySQLdb versions here, since we are recommending to
     ## upgrade to more recent versions anyway.
 
-    if CFG_MISCUTIL_SQL_USE_SQLALCHEMY:
+    if cfg['CFG_MISCUTIL_SQL_USE_SQLALCHEMY']:
         return connect(host=dbhost, port=int(CFG_DATABASE_PORT),
                        db=CFG_DATABASE_NAME, user=CFG_DATABASE_USER,
                        passwd=CFG_DATABASE_PASS,
@@ -195,7 +203,7 @@ def run_sql(sql, param=None, n=0, with_desc=False, with_dict=False, run_on_slave
     this file and catch them.
     """
 
-    if CFG_ACCESS_CONTROL_LEVEL_SITE == 3:
+    if cfg['CFG_ACCESS_CONTROL_LEVEL_SITE'] == 3:
         # do not connect to the database as the site is closed for maintenance:
         return []
 
@@ -206,7 +214,7 @@ def run_sql(sql, param=None, n=0, with_desc=False, with_dict=False, run_on_slave
     if run_on_slave and CFG_DATABASE_SLAVE:
         dbhost = CFG_DATABASE_SLAVE
 
-    if 'sql-logger' in getattr(config, 'CFG_DEVEL_TOOLS', []):
+    if 'sql-logger' in cfg.get('CFG_DEVEL_TOOLS', []):
         log_sql_query(dbhost, sql, param)
 
     try:
@@ -252,7 +260,7 @@ def run_sql(sql, param=None, n=0, with_desc=False, with_dict=False, run_on_slave
             rc = cur.lastrowid
         return rc
 
-def run_sql_many(query, params, limit=CFG_MISCUTIL_SQL_RUN_SQL_MANY_LIMIT, run_on_slave=False):
+def run_sql_many(query, params, limit=None, run_on_slave=False):
     """Run SQL on the server with PARAM.
     This method does executemany and is therefore more efficient than execute
     but it has sense only with queries that affect state of a database
@@ -266,9 +274,12 @@ def run_sql_many(query, params, limit=CFG_MISCUTIL_SQL_RUN_SQL_MANY_LIMIT, run_o
 
     @return: SQL result as provided by database
     """
-    dbhost = CFG_DATABASE_HOST
-    if run_on_slave and CFG_DATABASE_SLAVE:
-        dbhost = CFG_DATABASE_SLAVE
+    if limit is None:
+        limit = cfg['CFG_MISCUTIL_SQL_RUN_SQL_MANY_LIMIT']
+
+    dbhost = cfg['CFG_DATABASE_HOST']
+    if run_on_slave and cfg['CFG_DATABASE_SLAVE']:
+        dbhost = cfg['CFG_DATABASE_SLAVE']
     i = 0
     r = None
     while i < len(params):
@@ -335,7 +346,6 @@ def log_sql_query(dbhost, sql, param=None):
        in run_sql() above. Useful for fine-level debugging only!
     """
     from flask import current_app
-    from invenio.config import CFG_LOGDIR
     from invenio.utils.date import convert_datestruct_to_datetext
     from invenio.utils.text import indent_text
     date_of_log = convert_datestruct_to_datetext(time.localtime())
@@ -437,9 +447,9 @@ def real_escape_string(unescaped_string, run_on_slave=False):
     @return: Returns the escaped string
     @rtype: str
     """
-    dbhost = CFG_DATABASE_HOST
-    if run_on_slave and CFG_DATABASE_SLAVE:
-        dbhost = CFG_DATABASE_SLAVE
+    dbhost = cfg['CFG_DATABASE_HOST']
+    if run_on_slave and cfg['CFG_DATABASE_SLAVE']:
+        dbhost = cfg['CFG_DATABASE_SLAVE']
     connection_object = _db_login(dbhost)
     escaped_string = connection_object.escape_string(unescaped_string)
     return escaped_string

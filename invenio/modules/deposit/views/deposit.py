@@ -38,7 +38,7 @@ from werkzeug.utils import secure_filename
 from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
 from invenio.ext.menu import register_menu
 from invenio.base.i18n import _
-from invenio.webdeposit_load_forms import forms
+from invenio.modules.deposit import forms
 from invenio.webdeposit_signals import template_context_created
 from invenio.modules.deposit.models import Deposition, DepositionType, \
     DepositionFile, InvalidDepositionType, DepositionDoesNotExists, \
@@ -52,13 +52,6 @@ blueprint = Blueprint('webdeposit', __name__, url_prefix='/deposit',
                       static_folder='../static')
 
 default_breadcrumb_root(blueprint, '.webdeposit')
-
-deptypes = "<any(%s):deposition_type>" % (", ".join(
-    map(lambda x: '"%s"' % x, DepositionType.keys())
-))
-"""
-URL pattern of matching all deposition types.
-"""
 
 
 def deposition_error_handler(endpoint='.index'):
@@ -123,7 +116,7 @@ def index():
     )
 
 
-@blueprint.route('/%s/' % deptypes)
+@blueprint.route('/<depositions:deposition_type>')
 @login_required
 def deposition_type_index(deposition_type):
     if len(DepositionType.keys()) <= 1 and DepositionType.get_default():
@@ -158,7 +151,7 @@ def deposition_type_index(deposition_type):
     )
 
 
-@blueprint.route('/%s/create/' % deptypes, methods=['POST', 'GET'])
+@blueprint.route('/<depositions:deposition_type>/create', methods=['POST', 'GET'])
 @blueprint.route('/create/', methods=['POST', 'GET'])
 @login_required
 @deposition_error_handler()
@@ -182,7 +175,7 @@ def create(deposition_type=None):
     ))
 
 
-@blueprint.route('/%s/<uuid>/<draft_id>/' % deptypes, methods=['POST'])
+@blueprint.route('/<depositions:deposition_type>/<uuid>/<draft_id>', methods=['POST'])
 @blueprint.route('/<uuid>/<draft_id>/', methods=['POST'])
 @login_required
 @deposition_error_handler()
@@ -261,8 +254,8 @@ def save(deposition_type=None, uuid=None, draft_id=None):
         return jsonify(None)
 
 
-@blueprint.route('/%s/<uuid>/delete/' % deptypes)
-@blueprint.route('/<uuid>/delete/')
+@blueprint.route('/<depositions:deposition_type>/delete')
+@blueprint.route('/<uuid>/delete')
 @login_required
 @deposition_error_handler()
 def delete(deposition_type=None, uuid=None):
@@ -277,7 +270,7 @@ def delete(deposition_type=None, uuid=None):
     return redirect(url_for(".index"))
 
 
-@blueprint.route('/%s/<uuid>/' % deptypes, methods=['GET', 'POST'])
+@blueprint.route('/<depositions:deposition_type>/<uuid>', methods=['GET', 'POST'])
 @blueprint.route('/<uuid>/', methods=['GET', 'POST'])
 @login_required
 @deposition_error_handler()
@@ -318,8 +311,8 @@ def run(deposition_type=None, uuid=None):
     return deposition.run_workflow()
 
 
-@blueprint.route('/%s/<uuid>/<draft_id>/status/' % deptypes,
-                 methods=['GET', 'POST'])
+#@blueprint.route('/%s/<uuid>/<draft_id>/status/' % deptypes,
+#                 methods=['GET', 'POST'])
 @blueprint.route('/<uuid>/<draft_id>/status/', methods=['GET', 'POST'])
 @login_required
 @deposition_error_handler()
@@ -332,7 +325,7 @@ def status(deposition_type=None, uuid=None, draft_id=None):
     return jsonify({"status": 1 if completed else 0})
 
 
-@blueprint.route('/%s/<uuid>/file/url/' % deptypes, methods=['POST'])
+#@blueprint.route('/%s/<uuid>/file/url/' % deptypes, methods=['POST'])
 @blueprint.route('/<uuid>/file/url/', methods=['POST'])
 @login_required
 @deposition_error_handler()
@@ -362,7 +355,7 @@ def upload_url(deposition_type=None, uuid=None):
     )
 
 
-@blueprint.route('/%s/<uuid>/file/' % deptypes, methods=['POST'])
+#@blueprint.route('/%s/<uuid>/file/' % deptypes, methods=['POST'])
 @blueprint.route('/<uuid>/file/', methods=['POST'])
 @login_required
 @deposition_error_handler()
@@ -398,8 +391,8 @@ def upload_file(deposition_type=None, uuid=None):
     return jsonify(dict(filename=df.name, id=df.uuid, checksum=None))
 
 
-@blueprint.route('/%s/<uuid>/file/delete/' % deptypes,
-                 methods=['POST'])
+#@blueprint.route('/%s/<uuid>/file/delete/' % deptypes,
+#                 methods=['POST'])
 @blueprint.route('/<uuid>/file/delete/', methods=['POST'])
 @login_required
 @deposition_error_handler()
@@ -421,7 +414,7 @@ def delete_file(deposition_type=None, uuid=None):
         return ('', 400)
 
 
-@blueprint.route('/%s/<uuid>/file/' % deptypes, methods=['GET'])
+#@blueprint.route('/%s/<uuid>/file/' % deptypes, methods=['GET'])
 @blueprint.route('/<uuid>/file/', methods=['GET'])
 @login_required
 @deposition_error_handler()

@@ -21,5 +21,5 @@
 
 from flask import Blueprint
 
-blueprint = Blueprint('format', __name__,
+blueprint = Blueprint('formatter', __name__,
                       template_folder='templates', static_folder='static')

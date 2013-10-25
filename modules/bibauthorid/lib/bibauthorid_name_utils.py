@@ -788,6 +788,7 @@ def generate_last_name_cluster_str(name):
     return artifact_removal.sub("", family).lower()
 
 
-GLOBAL_gendernames = _load_gender_firstnames_dict()
-GLOBAL_name_variations = _load_firstname_variations()
+from invenio.utils.datastructures import LazyDict
+GLOBAL_gendernames = LazyDict(_load_gender_firstnames_dict)
+GLOBAL_name_variations = [] #_load_firstname_variations()
 

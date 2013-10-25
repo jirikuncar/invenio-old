@@ -29,22 +29,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <h1>Broken workflows</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Workflow name</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for workflow in broken_workflows %}
-            <tr>
-                <td>{{ workflow }}</td>
-                <td><input class="btn" type="submit" name="{{ workflow }}"/></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
 {% endblock %}

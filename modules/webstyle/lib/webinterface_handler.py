@@ -40,10 +40,9 @@ import re
 import os
 import gc
 
-from flask import current_app, session
+from flask import session
 from invenio.utils import apache
-from invenio import config
-from invenio.config import CFG_SITE_URL, CFG_SITE_SECURE_URL, CFG_TMPDIR, \
+from invenio.config import CFG_SITE_URL, CFG_SITE_SECURE_URL, \
     CFG_SITE_RECORD, CFG_ACCESS_CONTROL_LEVEL_SITE
 from invenio.base.i18n import wash_language
 from invenio.utils.url import redirect_to_url
@@ -51,7 +50,6 @@ from invenio.errorlib import register_exception
 from invenio.webuser import get_preferred_user_language, isGuestUser, \
     getUid, isUserSuperAdmin, collect_user_info, setUid
 from invenio.webinterface_handler_wsgi_utils import StringField
-from invenio.session import get_session
 from invenio.modules import api_keys as web_api_key
 
 

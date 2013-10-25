@@ -73,7 +73,7 @@ class TestWebDepositAPI(InvenioTestCase):
             deposition_metadata
         from invenio.webdeposit_utils import create_workflow
         from wtforms import TextAreaField
-        from invenio.webdeposit_load_forms import forms
+        from invenio.modules.deposit import forms
         from invenio.modules.api_keys import build_web_request
 
         self.uuid = create_workflow(self.deposition, user_id=1).get_uuid()
