@@ -764,7 +764,7 @@ def cli_cmd_create_secret_key(conf):
 
 def cli_cmd_create_tables(conf):
     """Create and fill Invenio DB tables.  Useful for the installation process."""
-    from invenio.database_manager import main
+    from invenio.base.scripts.database import main
 
     warn('inveniocfg --create-tables is deprecated. Using instead: inveniomanage database create')
 
@@ -799,7 +799,7 @@ def cli_cmd_drop_tables(conf):
     """Drop Invenio DB tables.  Useful for the uninstallation process."""
     print ">>> Going to drop tables and related data on filesystem ..."
 
-    from invenio.database_manager import main
+    from invenio.base.scripts.database import main
 
     warn('inveniocfg --drop-tables is deprecated. Using instead: inveniomanage database drop')
 

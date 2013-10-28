@@ -68,7 +68,7 @@ Example subscriber::
         pass
 
     from invenio.base.signals import pre_command
-    from invenio.database_manager import drop
+    from invenio.base.scripts.database import drop
     pre_command.connect(
         backup_database,
         sender=drop
@@ -85,7 +85,7 @@ Example subscriber::
         pass
 
     from invenio.base.signals import post_command
-    from invenio.database_manager import demosite
+    from invenio.base.scripts.database import demosite
     pre_command.connect(
         modify_demosite,
         sender=demosite

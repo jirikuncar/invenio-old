@@ -85,7 +85,7 @@ def detect_system_details():
         print >> sys.stderr, '* Apache manager could not be imported.'
 
     try:
-        from invenio.database_manager import \
+        from invenio.base.scripts.database import \
             mysql_info, \
             version as detect_database_driver_version, \
             driver as detect_database_driver_name

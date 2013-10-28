@@ -113,7 +113,7 @@ class InveniomanageTest(InvenioTestCase):
 
     def test_signals_usage(self):
         """ Test signal handling. """
-        from invenio.database_manager import main as db_main
+        from invenio.base.scripts.database import main as db_main
         from invenio.base.signals import pre_command, post_command
         from invenio.inveniomanage import main, version as im_version
 
