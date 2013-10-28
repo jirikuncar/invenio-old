@@ -28,7 +28,8 @@ import warnings
 from werkzeug.exceptions import HTTPException
 from werkzeug.wrappers import BaseResponse
 
-from flask import request, g, current_app, render_template, abort
+from flask import request, g, current_app, render_template, abort, \
+    safe_join, send_from_directory
 
 from .request_class import LegacyRequest
 
@@ -115,7 +116,11 @@ def setup_app(app):
             if request.method in ['POST', 'PUT']:
                 abort(405)
             else:
+                if static_file_response.status_code == 404:
+                    static_file_response = send_from_directory(
+                        safe_join(app.instance_path, 'static'), *args, **kwargs)
                 return static_file_response
+
     try:
         # pylint: disable=E0611
         from invenio.webinterface_handler_local import customize_app
