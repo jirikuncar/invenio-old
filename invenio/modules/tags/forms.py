@@ -211,6 +211,21 @@ class DetachTagForm(InvenioBaseForm):
                  validate_bibrec_exists,
                  validate_user_can_see_bibrec])
 
+class TagAnnotationForm(InvenioBaseForm):
+    """Defines a form validating attaching a tag to record"""
+    # Ajax requests only:
+    id_tag = IntegerField('Tag ID',
+             [validators.Required(),
+              validate_tag_exists,
+              validate_already_attached,
+              validate_user_owns_tag])
+
+    # validate user rights on tag
+    id_bibrec = IntegerField('Record ID',
+                [validate_bibrec_exists,
+                 validate_user_can_see_bibrec])
+
+    annotation_value = TextField('Annotation')
 
 # class WebTagUserSettingsForm(InvenioBaseForm):
 #     """User's personal settings influencing WebTag module"""
@@ -230,15 +245,8 @@ class DetachTagForm(InvenioBaseForm):
 class WebTagUserSettingsForm(InvenioBaseForm):
     """User's personal settings influencing WebTag module"""
 
-    display_tags_private = SelectField(
-        _('Private tags'),
-        choices=[('1', _('Show')), ('0', _('Hide'))])
+    display_tags = BooleanField(_('Display tags with records'))
 
-    display_tags_group = SelectField(
-        _('Group tags'),
-        choices=[('1', _('Show')), ('0', _('Hide'))])
+    display_tags_group = BooleanField(_('Show group tags'))
 
-    display_tags_public = SelectField(
-        _('Public tags'),
-        choices=[('1', _('Show')), ('0', _('Hide'))])
-
+    display_tags_public = BooleanField(_('Show public tags'))

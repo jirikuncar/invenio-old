@@ -41,7 +41,7 @@ class WebTagSettings(Settings):
 
     keys = \
         [
-            'display_tags_private',
+            'display_tags',
             'display_tags_group',
             'display_tags_public',
         ]

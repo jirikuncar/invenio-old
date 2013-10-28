@@ -27,11 +27,12 @@
 # Flask
 from werkzeug import LocalProxy
 from flask import render_template, request, flash, redirect, url_for, \
-        jsonify, Blueprint
+    jsonify, Blueprint
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from flask.ext.login import current_user, login_required
 from invenio.base.globals import cfg
+from sqlalchemy.exc import SQLAlchemyError
 
 # External imports
 from invenio.modules.account.models import User
@@ -54,6 +55,7 @@ from .forms import \
     AttachTagForm, \
     DetachTagForm, \
     DeleteTagForm, \
+    TagAnnotationForm, \
     validate_tag_exists, \
     validate_user_owns_tag, \
     validators
@@ -161,6 +163,45 @@ def tag_details(id_tag):
     return response_formated_records([bibrec.id for bibrec in tag.records],
                               Collection.query.get(1),
                               'hb')
+
+
+@blueprint.route('/tag/<int:id_tag>/edit', methods=['GET', 'POST'])
+@login_required
+@register_breadcrumb(blueprint, '.tag_edit', _('Edit tag'))
+def tag_edit(id_tag):
+    """ List of documents attached to this tag """
+
+    return ''
+
+
+@blueprint.route('/tag/<int:id_tag>/annotations/<int:id_bibrec>', methods=['GET', 'POST'])
+@login_required
+def update_annotation(id_tag, id_bibrec):
+    """ Change the annotation on relationship between record and tag """
+
+    from werkzeug.datastructures import MultiDict
+
+    values = MultiDict(request.values)
+    values['id_tag'] = id_tag
+    values['id_bibrec'] = id_bibrec
+
+    form = TagAnnotationForm(values, csrf_enabled=False)
+
+    if form.validate():
+
+        relation = db.session.query(WtgTAGRecord)\
+            .filter(WtgTAGRecord.id_tag == id_tag)\
+            .filter(WtgTAGRecord.id_bibrec == id_bibrec)\
+            .one()
+
+        relation.annotation = form.data.get('annotation_value', '')
+        db.session.add(relation)
+        db.session.commit()
+
+        return relation.annotation
+
+    else:
+        return str(form.errors)
 
 
 @blueprint.route('/record/<int:id_bibrec>/tags', methods=['GET', 'POST'])

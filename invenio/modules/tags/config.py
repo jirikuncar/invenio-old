@@ -72,11 +72,8 @@ CFG_TAGS_NAME_REPLACEMENTS_BLOCKING = [
 # User settings
 #
 
-CFG_WEBTAG_SETTINGS_SHOW = '1'
-CFG_WEBTAG_SETTINGS_HIDE = '0'
-
 CFG_WEBTAG_DEFAULT_USER_SETTINGS = {
-    'display_tags_private': CFG_WEBTAG_SETTINGS_SHOW,
-    'display_tags_group': CFG_WEBTAG_SETTINGS_SHOW,
-    'display_tags_public': CFG_WEBTAG_SETTINGS_SHOW,
+    'display_tags': True,
+    'display_tags_group': True,
+    'display_tags_public': True,
 }

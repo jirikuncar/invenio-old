@@ -17,9 +17,4 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
 
-<p class="invenio-popover-content">
-<a href="{{ url_for('search.search', p='tag:"' + tag.name) + '"' }}"
-	class="btn btn-link">
-	{{ _('Browse tagged records') }}
-</a>
-</p>
+{% extends "tags/tag_popover_content_base.html" %}

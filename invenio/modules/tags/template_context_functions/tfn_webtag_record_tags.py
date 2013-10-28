@@ -23,6 +23,7 @@
 from flask import url_for
 from invenio.ext.template import render_template_to_string
 from invenio.base.globals import cfg
+from invenio.ext.sqlalchemy import db
 
 # Models
 from invenio.modules.tags.models import \
@@ -32,6 +33,7 @@ from invenio.modules.tags.models import \
 # Related models
 from invenio.modules.account.models import User
 from invenio.modules.record_editor.models import Bibrec
+
 
 def template_context_function(id_bibrec, id_user):
     """
@@ -46,54 +48,49 @@ def template_context_function(id_bibrec, id_user):
         user_settings = user.settings.get(
             'webtag', cfg['CFG_WEBTAG_DEFAULT_USER_SETTINGS'])
 
+        if not user_settings['display_tags']:
+            # Do not display if user turned off tags in settings
+            return ''
+
         # Collect tags
-        tags = []
-
-        # Private tags
-        if user_settings.get(
-            'display_tags_private',
-            cfg['CFG_WEBTAG_SETTINGS_SHOW']) == cfg['CFG_WEBTAG_SETTINGS_SHOW']:
-
-            tags += WtgTAG.query\
-                .join(WtgTAGRecord)\
-                .filter(
-                    WtgTAG.id_user == id_user,
-                    WtgTAGRecord.id_bibrec == id_bibrec)\
-                .order_by(WtgTAG.name)\
-                .all()
-
-
-
-
-
-            #.join(UserUsergroup)
-            #.filter(or_(_and( UserUsergroup.id_user == id_user, UserUsergroup.id_group == WtgTAG.id_usergroup), WtgTAG.id_user == id_user,
-
-
+        query_results = db.session.query(WtgTAG, WtgTAGRecord.annotation)\
+            .filter(WtgTAG.id == WtgTAGRecord.id_tag)\
+            .filter(WtgTAGRecord.id_bibrec == id_bibrec).all()
 
         # Group tags
         #if user_settings.get('display_tags_group', True):
+        #.join(UserUsergroup)
+        #.filter(or_(_and( UserUsergroup.id_user == id_user, UserUsergroup.id_group == WtgTAG.id_usergroup), WtgTAG.id_user == id_user,
 
         # Public tags
         #if user_settings.get('display_tags_public', True):
 
-        record_tags = []
+        tag_infos = []
 
-        for tag in tags:
-            tag_display_properties = dict(
+        for (tag, annotation_text) in query_results:
+            tag_info = dict(
                 id=tag.id,
                 name=tag.name,
+                owned=(tag.id_user == id_user),
                 record_count=tag.record_count,
-                label_classes= ((tag.id_user == id_user) and 'label-tag-owned') or '')
+                annotation=annotation_text,
+                label_classes='') #((tag.id_user == id_user) and 'label-tag-owned') or '')
 
-            tag_display_properties['popover_content'] = render_template_to_string(
-                'tags/tag_popover.html',
-                tag=tag_display_properties)
+            tag_info['popover_title'] = render_template_to_string(
+                'tags/tag_popover_title.html',
+                tag=tag_info,
+                id_bibrec=id_bibrec)
 
-            record_tags.append(tag_display_properties)
+            tag_info['popover_content'] = render_template_to_string(
+                'tags/tag_popover_content.html',
+                tag=tag_info,
+                id_bibrec=id_bibrec)
 
-        return render_template_to_string('tags/record_tags.html',
-                                         id_bibrec=id_bibrec,
-                                         record_tags=record_tags)
+            tag_infos.append(tag_info)
+
+        return render_template_to_string(
+            'tags/record_tags.html',
+            tag_infos=tag_infos,
+            id_bibrec=id_bibrec)
     else:
         return ''

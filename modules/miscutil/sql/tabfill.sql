@@ -57,6 +57,7 @@ INSERT INTO field VALUES (29,'exact first author','exactfirstauthor');
 INSERT INTO field VALUES (30,'author count','authorcount');
 INSERT INTO field VALUES (31,'reference to','rawref');
 INSERT INTO field VALUES (32,'exact title','exacttitle');
+INSERT INTO field VALUES (33,'tag','tag');
 
 INSERT INTO field_tag VALUES (1,100,10);
 INSERT INTO field_tag VALUES (1,102,10);

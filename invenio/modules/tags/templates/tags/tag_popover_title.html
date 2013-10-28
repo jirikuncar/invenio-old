@@ -17,12 +17,4 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
 
-{% extends "page.html" %}
-{% set title = _("Your Tags") %}
-{% set personalize_selected = True %}
-
-{% block body %}
-<div class="well">
-  {{ tag_list|safe }}
-</div>
-{% endblock body %}
+{% extends "tags/tag_popover_title_base.html" %}

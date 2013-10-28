@@ -645,7 +645,9 @@ def wsgi_handler_test(port=80):
     check_wsgiref_testing_feasability()
     from invenio.base.factory import create_app
     app = create_app(wsgi_serve_static_files=True)
-    app.run(debug=True, port=port)
+    #app.run(debug=True, port=port)
+    app.run(debug=True, port=port, host='0.0.0.0')
+
 
 def main():
     from optparse import OptionParser
