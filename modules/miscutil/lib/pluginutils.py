@@ -149,6 +149,10 @@ class PluginContainer(object):
         @param plugin_pathnames: one or more plugins_pathnames
         @type plugin_pathnames: string/list
         """
+
+        if type(plugin_pathnames) is unicode:
+            plugin_pathnames = str(plugin_pathnames)
+
         if type(plugin_pathnames) is str:
             self._plugin_pathnames.append(plugin_pathnames)
         else:
@@ -261,6 +265,7 @@ class PluginContainer(object):
         if not self._external and not os.path.abspath(plugin_path).startswith(invenio_path):
             raise ValueError('A plugin should be stored under "%s" ("%s" was'
                 ' specified)' % (invenio_path, plugin_path))
+
         return plugin_path
 
     def _plugin_pathnames_iterator(self):
