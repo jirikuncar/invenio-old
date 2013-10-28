@@ -73,7 +73,7 @@ def create(data='demosite'):
     from invenio.ext.sqlalchemy import db
     from invenio.config import CFG_PREFIX
     from invenio.modules.account.models import User
-    from invenio.config_manager import get_conf
+    from invenio.base.scripts.config import get_conf
 
     print ">>> Going to create demo site..."
     db.session.execute("TRUNCATE schTASK")

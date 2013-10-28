@@ -370,7 +370,7 @@ def cli_cmd_update_config_py(conf):
     config.py in a backup copy.
     """
     update_config_py(conf)
-    # from invenio.config_manager import main
+    # from invenio.base.scripts.config import main
 
     # warn('inveniocfg --update-config-py is deprecated. Using instead: inveniomanage config update')
 
@@ -752,7 +752,7 @@ before continuing.""" % err)
 def cli_cmd_create_secret_key(conf):
     """Generate and append CFG_SITE_SECRET_KEY to invenio-local.conf.
     Useful for the installation process."""
-    from invenio.config_manager import main
+    from invenio.base.scripts.config import main
 
     warn('inveniocfg --create-secret-key is deprecated. Using instead: inveniomanage config create secret-key')
 
@@ -959,7 +959,7 @@ def cli_cmd_get(conf, varname):
     third-party programs to access values of conf options such as
     CFG_PREFIX.  Return None if VARNAME is not found.
     """
-    from invenio.config_manager import main
+    from invenio.base.scripts.config import main
 
     warn('inveniocfg --get="%(varname)s" is deprecated. '
          'Using instead: inveniomanage config get "%(varname)s"' % {
@@ -980,7 +980,7 @@ def cli_cmd_list(conf):
     """
     Print a list of all conf options and values from CONF.
     """
-    from invenio.config_manager import main
+    from invenio.base.scripts.config import main
 
     warn('inveniocfg --list is deprecated. '
          'Using instead: inveniomanage config list')

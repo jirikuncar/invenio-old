@@ -1,8 +1,5 @@
-#!@PYTHON@
-## -*- mode: python; coding: utf-8; -*-
-
 ## This file is part of Invenio.
-## Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2010, 2011 CERN.
+## Copyright (C) 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -18,16 +15,3 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-"""WebAccess Admin -- reset or add default authorization settings"""
-
-__revision__ = "$Id$"
-
-try:
-    from invenio.flaskshell import *
-    from invenio.webaccessadmin_lib import main
-except ImportError, e:
-    print "Error: %s" % e
-    import sys
-    sys.exit(1)
-
-main()

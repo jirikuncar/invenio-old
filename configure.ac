@@ -795,7 +795,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/webaccess/Makefile \
      modules/webaccess/bin/Makefile \
      modules/webaccess/bin/authaction \
-     modules/webaccess/bin/webaccessadmin \
      modules/webaccess/etc/Makefile \
      modules/webaccess/etc/templates/Makefile \
      modules/webaccess/doc/Makefile \

@@ -94,6 +94,7 @@ setup(
             'textmarc2xmlmarc = invenio.legacy.bibrecord.scripts.textmarc2xmlmarc:main',
             'xmlmarc2textmarc = invenio.legacy.bibrecord.scripts.xmlmarc2textmarc:main',
             'xmlmarclint = invenio.legacy.bibrecord.scripts.xmlmarclint:main',
+            'webaccessadmin = invenio.modules.access.scripts.webaccessadmin:main',
         ],
     },
     install_requires=install_requires,

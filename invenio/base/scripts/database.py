@@ -56,7 +56,7 @@ def drop(yes_i_know=False):
 
     ## Step 1: test database connection
     test_db_connection()
-    autodiscover_models()
+    list(autodiscover_models())
 
     ## Step 2: disable foreign key checks
     if db.engine.name == 'mysql':
@@ -123,7 +123,7 @@ def create(default_data=True):
     from invenio.ext.sqlalchemy import db
 
     test_db_connection()
-    autodiscover_models()
+    list(autodiscover_models())
 
     def cfv_after_create(target, connection, **kw):
         print
@@ -181,19 +181,18 @@ def uri():
 
 
 def load_fixtures(suffix='', truncate_tables_first=False):
-    from invenio.base.utils import autodiscover_models
+    from invenio.base.utils import autodiscover_models, \
+        import_module_from_packages
     from invenio.ext.sqlalchemy import db
     from fixture import SQLAlchemyFixture
-    from invenio.importutils import autodiscover_modules
 
     if len(suffix) > 0:
-        related_name_re = ".+_fixtures_%s" % (suffix, )
+        related_name_re = "fixtures_%s" % (suffix, )
     else:
-        related_name_re = ".+_fixtures"
+        related_name_re = "fixtures"
 
-    fixture_modules = autodiscover_modules(['invenio'],
-                                           related_name_re=related_name_re)
-    model_modules = autodiscover_models()
+    fixture_modules = list(import_module_from_packages(related_name_re))
+    model_modules = list(autodiscover_models())
     fixtures = dict((f, getattr(ff, f)) for ff in fixture_modules
                     for f in dir(ff) if f[-4:] == 'Data')
     fixture_names = fixtures.keys()
@@ -203,7 +202,6 @@ def load_fixtures(suffix='', truncate_tables_first=False):
     dbfixture = SQLAlchemyFixture(env=models, engine=db.metadata.bind,
                                   session=db.session)
     data = dbfixture.data(*fixtures.values())
-
     if len(models) != len(fixtures):
         print ">>> ERROR: There are", len(models), "tables and", len(fixtures), "fixtures."
     else:
@@ -211,7 +209,7 @@ def load_fixtures(suffix='', truncate_tables_first=False):
 
     if truncate_tables_first:
         print ">>> Going to truncate following tables:",
-        print map(lambda t: t.__name__, models.values())
+        print map(lambda t: t.__tablename__, models.values())
         db.session.execute("TRUNCATE %s" % ('collectionname', ))
         db.session.execute("TRUNCATE %s" % ('collection_externalcollection', ))
         for m in models.values():
@@ -223,11 +221,13 @@ def load_fixtures(suffix='', truncate_tables_first=False):
 
 
 @option_default_data
-def populate(default_data=True):
+@manager.option('--truncate', action='store_true',
+                dest='truncate_tables_first', help='use with care!')
+def populate(default_data=True, truncate_tables_first=False):
     """Populate database with default data"""
 
     from invenio.config import CFG_PREFIX
-    from invenio.config_manager import get_conf
+    from invenio.base.scripts.config import get_conf
 
     if not default_data:
         print '>>> No data filled...'
@@ -235,7 +235,7 @@ def populate(default_data=True):
 
     print ">>> Going to fill tables..."
 
-    load_fixtures()
+    load_fixtures(suffix='', truncate_tables_first=truncate_tables_first)
 
     conf = get_conf()
 
