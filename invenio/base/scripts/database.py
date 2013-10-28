@@ -180,18 +180,14 @@ def uri():
     print current_app.config['SQLALCHEMY_DATABASE_URI']
 
 
-def load_fixtures(suffix='', truncate_tables_first=False):
+def load_fixtures(packages=None, truncate_tables_first=False):
     from invenio.base.utils import autodiscover_models, \
         import_module_from_packages
     from invenio.ext.sqlalchemy import db
     from fixture import SQLAlchemyFixture
 
-    if len(suffix) > 0:
-        related_name_re = "fixtures_%s" % (suffix, )
-    else:
-        related_name_re = "fixtures"
-
-    fixture_modules = list(import_module_from_packages(related_name_re))
+    fixture_modules = list(import_module_from_packages('fixtures',
+                                                       packages=packages))
     model_modules = list(autodiscover_models())
     fixtures = dict((f, getattr(ff, f)) for ff in fixture_modules
                     for f in dir(ff) if f[-4:] == 'Data')
@@ -201,9 +197,10 @@ def load_fixtures(suffix='', truncate_tables_first=False):
 
     dbfixture = SQLAlchemyFixture(env=models, engine=db.metadata.bind,
                                   session=db.session)
-    data = dbfixture.data(*fixtures.values())
+    data = dbfixture.data(*[f for (n, f) in fixtures.iteritems() if n in models])
     if len(models) != len(fixtures):
         print ">>> ERROR: There are", len(models), "tables and", len(fixtures), "fixtures."
+        print ">>>", set(fixture_names) ^ set(models.keys())
     else:
         print ">>> There are", len(models), "tables to be loaded."
 
@@ -235,7 +232,7 @@ def populate(default_data=True, truncate_tables_first=False):
 
     print ">>> Going to fill tables..."
 
-    load_fixtures(suffix='', truncate_tables_first=truncate_tables_first)
+    load_fixtures(truncate_tables_first=truncate_tables_first)
 
     conf = get_conf()
 

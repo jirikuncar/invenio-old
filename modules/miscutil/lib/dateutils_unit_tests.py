@@ -26,8 +26,10 @@ import datetime
 import calendar
 from time import strptime
 
-from invenio import dateutils
-from invenio.config import CFG_SITE_LANGS
+import invenio.utils.date as dateutils
+#FIXME
+#from invenio.config import CFG_SITE_LANGS
+CFG_SITE_LANGS = ['en', 'sk']
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 if 'en' in CFG_SITE_LANGS:

@@ -104,6 +104,9 @@ def inject_utils():
         request.environ['PATH_INFO'])
     alternate_urls = dict((ln.replace('_', '-'), alternate_url)
                           for ln, alternate_url in alternate_urls.iteritems())
+    if not hasattr(g, '_'):
+        from invenio.base.before_request_functions import guess_language
+        guess_language()
     try:
         from invenio.bibfield import get_record  # should not be global due to bibfield_config
     except:

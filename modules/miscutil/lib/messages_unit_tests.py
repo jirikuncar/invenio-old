@@ -22,7 +22,7 @@
 __revision__ = "$Id$"
 
 
-from invenio import messages
+from invenio.base import i18n as messages
 from invenio.config import CFG_SITE_LANG, CFG_SITE_LANGS
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 

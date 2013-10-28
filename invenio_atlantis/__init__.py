@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+#
 ## This file is part of Invenio.
-## Copyright (C) 2009, 2010, 2011, 2013 CERN.
+## Copyright (C) 2011, 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -13,19 +15,10 @@
 ##
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
-## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+## 59 Temple Place, Suite 330, Boston, MA 02D111-1307, USA.
 
-pylibdir = $(libdir)/python/invenio
+from .receivers import post_handler_demosite_populate
+from invenio.base.scripts.demosite import populate as demosite_populate
+from invenio.base.signals import post_command
 
-pylib_DATA = bibknowledge_webinterface.py \
-             bibknowledge.py \
-             bibknowledgeadmin.py \
-             bibknowledgeadminlib.py \
-             bibknowledge_templates.py \
-             bibknowledge_dblayer.py \
-             bibknowledge_unit_tests.py \
-             bibknowledge_regression_tests.py
-
-EXTRA_DIST = $(pylib_DATA)
-
-CLEANFILES = *~ *.tmp *.pyc
+post_command.connect(post_handler_demosite_populate, sender=demosite_populate)

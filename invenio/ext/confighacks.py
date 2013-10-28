@@ -52,6 +52,6 @@ def setup_app(app):
 
     # STEP 3: enable `from invenio import config` by setting an attribute.
     import invenio
-    setattr(invenio, 'config', app.config)
+    setattr(invenio, 'config', Wrapper(app.config))
 
     return app

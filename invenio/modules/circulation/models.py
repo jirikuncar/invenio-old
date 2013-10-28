@@ -27,12 +27,6 @@ from invenio.ext.sqlalchemy import db
 # Create your models here.
 
 from invenio.modules.record_editor.models import Bibrec
-from invenio.bibcirculation_receivers import \
-    post_handler_demosite_populate
-from invenio.demosite_manager import populate as demosite_populate
-from invenio.base.signals import post_command
-
-post_command.connect(post_handler_demosite_populate, sender=demosite_populate)
 
 
 class CrcBORROWER(db.Model):

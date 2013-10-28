@@ -33,11 +33,15 @@ option_default_data = manager.option('--no-data', action='store_false',
 
 
 @option_default_data
-def populate(default_data=True):
+def populate(packages=['invenio_atlantis'], default_data=True):
     """Load demo records.  Useful for testing purposes."""
     if not default_data:
         print '>>> Default data has been skiped (--no-data).'
         return
+
+    from werkzeug.utils import import_string
+    map(import_string, packages)
+
     from invenio.config import CFG_PREFIX
     from invenio.ext.sqlalchemy import db
     print ">>> Going to load demo records..."
@@ -67,7 +71,7 @@ def populate(default_data=True):
 
 
 @manager.command
-def create(data='demosite'):
+def create(packages=['invenio_atlantis']):
     """Populate database with demo site data."""
 
     from invenio.ext.sqlalchemy import db
@@ -81,8 +85,11 @@ def create(data='demosite'):
     User.query.filter(User.email == '').delete()
     db.session.commit()
 
-    from invenio.database_manager import load_fixtures
-    load_fixtures(suffix=data, truncate_tables_first=True)
+    from werkzeug.utils import import_string
+    map(import_string, packages)
+
+    from invenio.base.scripts.database import load_fixtures
+    load_fixtures(packages=packages, truncate_tables_first=True)
 
     db.session.execute("UPDATE idxINDEX SET stemming_language='en' WHERE name IN ('global','abstract','keyword','title','fulltext');")
     db.session.commit()

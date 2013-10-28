@@ -91,7 +91,7 @@ class InveniomanageTest(InvenioTestCase):
 
     def test_upgrade_show_applied_cmd(self):
         """ Test `upgrade show applied` command. """
-        from invenio.upgrade_manager import main
+        from invenio.modules.upgrader.manage import main
         out, dummy_exit_code = run('upgrade show applied', main)
 
         expected = ['>>> Following upgrade(s) have been applied:',
@@ -101,7 +101,7 @@ class InveniomanageTest(InvenioTestCase):
 
     def test_upgrade_show_pending_cmd(self):
         """ Test `upgrade show pending` command. """
-        from invenio.upgrade_manager import main
+        from invenio.modules.upgrader.manage import main
         out, dummy_exit_code = run('upgrade show pending', main)
 
         lines = out.split('\n')

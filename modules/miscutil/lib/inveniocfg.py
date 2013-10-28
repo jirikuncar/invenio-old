@@ -1029,12 +1029,12 @@ def cli_cmd_upgrade(conf):
     """
     Command for applying upgrades
     """
-    from invenio.upgrade_manager import main
+    from invenio.modules.upgrader.manage import main
 
     warn('inveniocfg --upgrade-check is deprecated. Using instead: inveniomanage upgrade run')
 
     sys_argv = sys.argv
-    sys.argv = 'upgrade_manager.py run'.split()
+    sys.argv = 'modules.upgrader.manage.py run'.split()
     main()
     sys.argv = sys_argv
 
@@ -1043,12 +1043,12 @@ def cli_cmd_upgrade_check(conf):
     """
     Command for running pre-upgrade checks
     """
-    from invenio.upgrade_manager import main
+    from invenio.modules.upgrader.manage import main
 
     warn('inveniocfg --upgrade-check is deprecated. Using instead: inveniomanage upgrade check')
 
     sys_argv = sys.argv
-    sys.argv = 'upgrade_manager.py check'.split()
+    sys.argv = 'modules.upgrader.manage.py check'.split()
     main()
     sys.argv = sys_argv
 
@@ -1057,12 +1057,12 @@ def cli_cmd_upgrade_show_pending(conf):
     """
     Command for showing upgrades ready to be applied
     """
-    from invenio.upgrade_manager import main
+    from invenio.modules.upgrader.manage import main
 
     warn('inveniocfg --upgrade-show-pending is deprecated. Using instead: inveniomanage upgrade show pending')
 
     sys_argv = sys.argv
-    sys.argv = 'upgrade_manager.py show pending'.split()
+    sys.argv = 'modules.upgrader.manage.py show pending'.split()
     main()
     sys.argv = sys_argv
 
@@ -1071,12 +1071,12 @@ def cli_cmd_upgrade_show_applied(conf):
     """
     Command for showing all upgrades already applied.
     """
-    from invenio.upgrade_manager import main
+    from invenio.modules.upgrader.manage import main
 
     warn('inveniocfg --upgrade-show-applied is deprecated. Using instead: inveniomanage upgrade show applied')
 
     sys_argv = sys.argv
-    sys.argv = 'upgrade_manager.py show applied'.split()
+    sys.argv = 'modules.upgrader.manage.py show applied'.split()
     main()
     sys.argv = sys_argv
 

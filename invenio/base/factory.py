@@ -78,7 +78,7 @@ def create_app(**kwargs_config):
     _app.config.from_object('invenio.base.config')
 
     try:
-        print _app.instance_path
+        #print _app.instance_path
         import os
         os.makedirs(_app.instance_path)
     except:

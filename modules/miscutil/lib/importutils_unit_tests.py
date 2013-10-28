@@ -22,7 +22,7 @@ Test unit for the miscutil/importutils module.
 """
 
 from invenio.importutils import autodiscover_modules
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase, nottest
 
 
 class TestImportUtils(InvenioTestCase):
@@ -30,6 +30,7 @@ class TestImportUtils(InvenioTestCase):
     importutils TestSuite.
     """
 
+    @nottest
     def test_autodiscover_modules(self):
         modules = autodiscover_modules(['invenio.bibformat_elements'], related_name_re='bfe_.+')
         assert(len(modules) > 10)

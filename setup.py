@@ -83,6 +83,7 @@ setup(
         'invenio.legacy',
         'invenio.modules',
         'invenio.utils',
+        'invenio_atlantis',
     ],
     namespace_packages=['invenio'],
     include_package_data=True,

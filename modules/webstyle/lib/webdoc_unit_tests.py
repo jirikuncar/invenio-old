@@ -25,7 +25,7 @@ __revision__ = "$Id$"
 from invenio.config import CFG_SITE_LANG, CFG_SITE_LANGS, CFG_SITE_URL
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
-gettext_set_language = lazy_import('invenio.messages:gettext_set_language')
+gettext_set_language = lazy_import('invenio.base.i18n:gettext_set_language')
 transform = lazy_import('invenio.webdoc:transform')
 
 if 'en' in CFG_SITE_LANGS:

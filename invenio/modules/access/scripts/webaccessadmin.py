@@ -87,11 +87,11 @@ def main():
             else:
                 usage(1)
         if options['add'] or options['reset'] or options['compile']:
-            if acca.acc_get_action_id('cfgwebaccess'):
-                # Action exists hence authentication works :-)
-                options['user'] = authenticate(options['user'],
-                    authorization_msg="WebAccess Administration",
-                    authorization_action="cfgwebaccess")
+            #if acca.acc_get_action_id('cfgwebaccess'):
+            #    # Action exists hence authentication works :-)
+            #    options['user'] = authenticate(options['user'],
+            #        authorization_msg="WebAccess Administration",
+            #        authorization_action="cfgwebaccess")
             if options['reset'] and options['demo']:
                 acca.acc_reset_default_settings([cfg['CFG_SITE_ADMIN_EMAIL']], DEF_DEMO_USER_ROLES, DEF_DEMO_ROLES, DEF_DEMO_AUTHS)
                 print "Reset default demo site settings."

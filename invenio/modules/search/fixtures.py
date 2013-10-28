@@ -23,7 +23,6 @@ from fixture import DataSet
 
 class CollectionData(DataSet):
     class siteCollection:
-        print 'xxx'
         id = 1
         name = CFG_SITE_NAME
         dbquery = None
