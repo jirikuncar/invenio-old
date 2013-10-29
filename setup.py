@@ -53,12 +53,14 @@ Links
 from __future__ import print_function
 from setuptools import Command, setup
 
+import os
+
 def requirements():
     req = []
     dep = []
     for filename in ['requirements.txt', 'requirements-extras.txt',
                      'requirements-flask.txt', 'requirements-flask-ext.txt']:
-        with open(filename, 'r') as f:
+        with open(os.path.join(os.path.dirname(__file__), filename), 'r') as f:
             for line in f.readlines():
                 if '://' in line:
                     dep.append(line)
