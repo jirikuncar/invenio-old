@@ -43,7 +43,7 @@ def load():
 def reset(split_by=1000):
     """Reset record json structure cache."""
     from invenio.bibfield import get_record
-    from invenio.cache_manager import reset_rec_cache
+    from invenio.base.scripts.cache import reset_rec_cache
     reset_rec_cache('recjson', get_record, split_by=split_by)
 
 

@@ -32,7 +32,7 @@ manager.add_command("cache", bibrecord_cache)
 def reset(split_by=1000):
     """Reset bibrecord structure cache."""
     from invenio.modules.record_editor.models import Bibfmt
-    from invenio.cache_manager import reset_rec_cache
+    from invenio.base.scripts.cache import reset_rec_cache
     from invenio.dbquery import run_sql, serialize_via_marshal
     from invenio.search_engine import get_record
     from invenio.ext.sqlalchemy import db

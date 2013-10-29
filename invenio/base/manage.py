@@ -78,7 +78,7 @@ def detect_system_details():
     print "* Python version: " + sys.version.replace("\n", " ")
 
     try:
-        from invenio.apache_manager import version as detect_apache_version
+        from invenio.base.scripts.apache import version as detect_apache_version
         print "* Apache version: " + detect_apache_version(
             separator=";\n                  ")
     except ImportError:
