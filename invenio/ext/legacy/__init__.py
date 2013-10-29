@@ -25,7 +25,7 @@ import warnings
 #except:
 #    remote_debugger = None
 
-from werkzeug.exceptions import HTTPException
+from werkzeug.exceptions import HTTPException, NotFound
 from werkzeug.wrappers import BaseResponse
 
 from flask import request, g, current_app, render_template, abort, \
@@ -112,13 +112,14 @@ def setup_app(app):
         if not app.config.get('CFG_FLASK_SERVE_STATIC_FILES'):
             abort(404)
         else:
-            static_file_response = app.send_static_file(*args, **kwargs)
+            try:
+                static_file_response = app.send_static_file(*args, **kwargs)
+            except NotFound:
+                static_file_response = send_from_directory(
+                    safe_join(app.instance_path, 'static'), kwargs['filename'])
             if request.method in ['POST', 'PUT']:
                 abort(405)
             else:
-                if static_file_response.status_code == 404:
-                    static_file_response = send_from_directory(
-                        safe_join(app.instance_path, 'static'), *args, **kwargs)
                 return static_file_response
 
     try:

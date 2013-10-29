@@ -45,14 +45,6 @@ pylib_DATA = \
 	websearch_external_collections_utils.py \
 	websearch_admin_forms.py
 
-
-jsdir=$(localstatedir)/www/js
-
-js_DATA = websearch_facet.js \
-          websearch_hotkeys.js \
-          websearch_typeahead.js
-
-EXTRA_DIST = $(pylib_DATA) \
-             $(js_DATA)
+EXTRA_DIST = $(pylib_DATA)
 
 CLEANFILES = *~ *.tmp *.pyc

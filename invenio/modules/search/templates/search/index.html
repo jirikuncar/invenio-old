@@ -29,8 +29,8 @@
 
 {% block header %}
   {{ super() }}
-  {% js "js/websearch_typeahead.js" %}
-  {% js "js/bootstrap-select.js" %}
+  {% js url_for('static.search', filename='js/search/typeahead.js') %}
+  {% js url_for('static', filename='js/bootstrap-select.js') %}
 {% endblock %}
 
 {% block title %}
