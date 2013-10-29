@@ -17,7 +17,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
 
-	{% if False and tag.owned %}
+	{% if tag.owned %}
 		<div class="alert alert-info">
 			{{ _('You are the owner of this tag.') }}
 			&nbsp;
@@ -40,7 +40,9 @@
 	 id="webtag_annotation_{{id_bibrec}}_{{tag.id}}">{{ tag.annotation or _('No annotation')}}</p>
 
 	<p class="muted">({{ _('Click to edit annotation') }})</p>
-
-	<a href='#' data-dismiss="popover" class="btn btn-success pull-right">
-	 {{ _('Done') }}
-	</a>
+	<hr/>
+	<p style="text-align: right;">
+		<a href='#' data-dismiss="popover" class="btn btn-success">
+	 	{{ _('Done') }}
+		</a>
+	</p>
