@@ -24,8 +24,8 @@ __lastupdated__ = """$Date$"""
 import MySQLdb
 
 from invenio import bibformatadminlib, \
-                    bibformat_dblayer,\
                     bibformat_engine
+import invenio.modules.formatter.api as bibformat_dblayer
 from invenio.bibrankadminlib import check_user
 from invenio.webpage import page, error_page
 from invenio.webuser import getUid, page_not_authorized, collect_user_info

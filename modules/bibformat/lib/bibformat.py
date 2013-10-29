@@ -38,7 +38,7 @@ __revision__ = "$Id$"
 
 import zlib
 
-from invenio import bibformat_dblayer
+import invenio.modules.formatter.api as bibformat_dblayer
 from invenio import bibformat_engine
 from invenio import bibformat_utils
 from invenio.errorlib import register_exception

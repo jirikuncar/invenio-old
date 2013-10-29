@@ -40,7 +40,7 @@ from invenio.utils.url import wash_url_argument
 from invenio.errorlib import register_exception
 from invenio.base.i18n import gettext_set_language, wash_language, language_list_long
 from invenio.search_engine import perform_request_search
-from invenio import bibformat_dblayer
+import invenio.modules.formatter.api as bibformat_dblayer
 from invenio import bibformat_engine
 from invenio.utils.text import encode_for_xml
 
