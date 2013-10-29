@@ -28,8 +28,6 @@ import re
 from werkzeug.routing import BaseConverter, ValidationError
 from werkzeug.utils import cached_property
 
-from .models import DepositionType
-
 
 class DepositionConverter(BaseConverter):
     """Matches one of the items provided.  Items can either be Python
@@ -55,6 +53,7 @@ class DepositionConverter(BaseConverter):
         try:
             #FIXME there is a problem with the first request when
             # `match_request` is call ouside application context.
+            from .models import DepositionType
             keys = DepositionType.keys()
         except:
             keys = []
