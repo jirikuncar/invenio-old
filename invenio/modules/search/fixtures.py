@@ -190,6 +190,11 @@ class FieldData(DataSet):
         id = 32
         name = u'exact title'
 
+    class Field_33:
+        code = u'tag'
+        id = 33
+        name = u'tag'
+
 
 class TagData(DataSet):
 
