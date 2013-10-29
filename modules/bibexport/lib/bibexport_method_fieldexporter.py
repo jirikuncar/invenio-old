@@ -30,7 +30,7 @@ from invenio.bibtask import write_message
 
 # imports used in FieldExporter class
 from invenio import search_engine
-from invenio import bibrecord
+from invenio.legacy import bibrecord
 from invenio import bibdocfile
 import os
 

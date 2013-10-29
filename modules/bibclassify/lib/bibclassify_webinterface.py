@@ -41,7 +41,7 @@ from invenio.webuser import collect_user_info
 from invenio import access_control_engine as acce
 from invenio import dbquery
 from invenio import bibtask
-from invenio import bibrecord
+from invenio.legacy import bibrecord
 
 from invenio import bibclassify_config as bconfig
 from invenio import bibclassify_text_extractor

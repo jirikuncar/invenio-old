@@ -25,7 +25,8 @@ The BibRecord test suite.
 
 from invenio.config import CFG_TMPDIR, \
      CFG_BIBUPLOAD_EXTERNAL_OAIID_TAG
-from invenio import bibrecord, bibrecord_config
+from invenio.legacy import bibrecord
+from invenio.legacy.bibrecord import bibrecord_config
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 try:
