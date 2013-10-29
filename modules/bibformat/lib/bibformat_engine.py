@@ -71,7 +71,7 @@ from invenio.base.i18n import \
      language_list_long, \
      wash_language, \
      gettext_set_language
-from invenio import bibformat_dblayer
+import invenio.modules.formatter.api as bibformat_dblayer
 from invenio.bibformat_config import \
      CFG_BIBFORMAT_TEMPLATES_DIR, \
      CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION, \
