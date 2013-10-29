@@ -19,15 +19,6 @@ SUBDIRS = workers widgets tasks workflows
 
 pylibdir = $(libdir)/python/invenio
 
-jsdir=$(localstatedir)/www/js
-
-js_DATA = bibworkflow_workflows.js \
-          bibworkflow_index.js \
-          bibworkflow_entry_details.js \
-          bibworkflow_hp_index.js \
-          bibworkflow_hp_details.js
-
-
 pylib_DATA = \
 			 bibworkflow_api.py \
 			 bibworkflow_client.py \
@@ -42,7 +33,6 @@ pylib_DATA = \
 			 bibworkflow_load_workflows.py \
 			 bibworkflow_containers.py
 
-EXTRA_DIST = $(pylib_DATA) \
-			 $(js_DATA)
+EXTRA_DIST = $(pylib_DATA)
 
 CLEANFILES = *~ *.tmp *.pyc
