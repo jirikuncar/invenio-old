@@ -46,6 +46,7 @@
 
 from functools import wraps
 from flask import Flask as FlaskBase, current_app
+from werkzeug.exceptions import NotFound
 
 
 def _decorate_url_adapter_build(f):
@@ -73,3 +74,20 @@ class Flask(FlaskBase):
         if url_adapter is not None and hasattr(url_adapter, 'build'):
             url_adapter.build = _decorate_url_adapter_build(url_adapter.build)
         return url_adapter
+
+    def static_dispatchers(self):
+        yield super(self.__class__, self).send_static_file
+        for blueprint in self.blueprints.values():
+            yield blueprint.send_static_file
+
+    def send_static_file(self, filename):
+        last_exception = NotFound
+        for static_dispatcher in self.static_dispatchers():
+            try:
+                return static_dispatcher(filename)
+            except NotFound as e:
+                last_exception = e
+            except Exception as e:
+                self.logger.error(e)
+                last_exception = e
+        raise last_exception

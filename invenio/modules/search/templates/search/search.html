@@ -35,11 +35,11 @@
 {% endblock %}
 {% block header %}
   {{ super() }}
-  {% js url_for('search.static', filename='typeahead.js') %}
-  {% js url_for('search.static', filename='facet.js') %}
+  {% js url_for('search.static', filename='js/search/typeahead.js') %}
+  {% js url_for('search.static', filename='js/search/facet.js') %}
   {% js url_for('static', filename='js/bootstrap-select.js') %}
   {% js "js/jquery.hotkeys.js" %}
-  {% js url_for('search.static', filename='hotkeys.js') %}
+  {% js url_for('search.static', filename='js/search/hotkeys.js') %}
   {%- set args = request.args.copy().to_dict() -%}
   {%- set jrec = (pagination.page-2)*pagination.per_page+1 if pagination.has_prev else 1 -%}
   {%- do args.update({'jrec': jrec}) -%}
