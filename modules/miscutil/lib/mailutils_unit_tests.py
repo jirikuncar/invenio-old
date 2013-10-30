@@ -209,7 +209,7 @@ To: Undisclosed.Recipients:"""
 
 class TestAdminMailBackend(MailTestCase):
 
-    EMAIL_BACKEND = 'invenio.ext.email.backend_adminonly.ConsoleMail'
+    EMAIL_BACKEND = 'invenio.ext.email.backends.console_adminonly.Mail'
     ADMIN_MESSAGE = "This message would have been sent to the following recipients"
 
     def test_simple_email_header(self):
@@ -228,9 +228,10 @@ To: %s""" % (CFG_SITE_ADMIN_EMAIL, )
 
         msg = render_template_to_string('mail_text.tpl', content='Content')
 
+        self.flush_mailbox()
         send_email('from@example.com', ['to@example.com'], subject='Subject',
                    content='Content')
-        email = sys.stdout.getvalue()
+        email = self.stream.getvalue()
         self.assertIn(msg_content, email)
         self.assertIn(self.ADMIN_MESSAGE, email)
         self.assertNotIn('Bcc:', email)
@@ -239,7 +240,7 @@ To: %s""" % (CFG_SITE_ADMIN_EMAIL, )
 
         send_email('from@example.com', 'to@example.com', subject='Subject',
                    content='Content')
-        email = sys.stdout.getvalue()
+        email = self.stream.getvalue()
         self.assertIn(msg_content, email)
         self.assertIn(self.ADMIN_MESSAGE, email)
         self.assertNotIn('Bcc:', email)
@@ -261,7 +262,7 @@ To: %s""" % (CFG_SITE_ADMIN_EMAIL, )
 
         send_email('from@example.com', ['to@example.com', 'too@example.com'],
                    subject='Subject', content='Content')
-        email = sys.stdout.getvalue()
+        email = self.stream.getvalue()
         self.assertIn(msg_content, email)
         self.assertIn(self.ADMIN_MESSAGE, email)
         self.assertIn('to@example.com,too@example.com', email)
@@ -270,7 +271,7 @@ To: %s""" % (CFG_SITE_ADMIN_EMAIL, )
 
         send_email('from@example.com', 'to@example.com, too@example.com',
                    subject='Subject', content='Content')
-        email = sys.stdout.getvalue()
+        email = self.stream.getvalue()
         self.assertIn(msg_content, email)
         self.assertIn(self.ADMIN_MESSAGE, email)
         self.assertIn('to@example.com,too@example.com', email)

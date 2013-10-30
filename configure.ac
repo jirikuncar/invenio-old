@@ -936,7 +936,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibworkflow/lib/Makefile \
      modules/bibworkflow/lib/workflows/Makefile \
      modules/bibworkflow/lib/tasks/Makefile \
-     modules/bibworkflow/lib/workers/Makefile \
      modules/bibworkflow/lib/widgets/Makefile \
      modules/bibworkflow/web/Makefile \
      modules/webtag/Makefile \

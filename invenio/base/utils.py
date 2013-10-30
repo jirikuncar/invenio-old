@@ -85,6 +85,7 @@ autodiscover_user_settings = partial(import_module_from_packages,
 autodiscover_configs = partial(import_module_from_packages, 'config')
 autodiscover_managers = partial(import_module_from_packages, 'manage')
 autodiscover_workflows = partial(import_module_from_packages, 'workflows')
+autodiscover_celery_tasks = partial(import_module_from_packages, 'tasks')
 
 
 def autodiscover_template_context_functions(app=None):

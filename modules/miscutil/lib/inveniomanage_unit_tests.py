@@ -115,7 +115,7 @@ class InveniomanageTest(InvenioTestCase):
         """ Test signal handling. """
         from invenio.base.scripts.database import main as db_main
         from invenio.base.signals import pre_command, post_command
-        from invenio.inveniomanage import main, version as im_version
+        from invenio.base.manage import main, version as im_version
 
         def pre_handler_version(sender, *args, **kwargs):
             print '>>> pre_handler_version'

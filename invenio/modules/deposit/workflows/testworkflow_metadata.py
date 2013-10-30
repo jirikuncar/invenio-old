@@ -19,7 +19,7 @@
 
 from invenio.modules.deposit import forms
 from invenio.modules.deposit.models import DepositionType
-from invenio.webdeposit_workflow_tasks import render_form
+from invenio.modules.deposit.tasks import render_form
 
 __all__ = ['TestWorkflow']
 

@@ -20,9 +20,6 @@ SUBDIRS = upgrades
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
-             celery.py \
-             celery_config.py \
-             celery_tasks.py \
              celery_unit_tests.py \
              crossrefutils.py \
              data_cacher.py \

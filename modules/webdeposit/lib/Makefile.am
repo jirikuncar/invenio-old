@@ -31,8 +31,7 @@ pylib_DATA = __init__.py \
              webdeposit_regression_tests.py \
              webdeposit_signals.py \
              webdeposit_storage.py \
-             webdeposit_validation_utils.py \
-             webdeposit_workflow_tasks.py
+             webdeposit_validation_utils.py
 
 EXTRA_DIST = $(pylib_DATA)
 

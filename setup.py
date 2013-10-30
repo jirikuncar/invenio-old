@@ -81,6 +81,7 @@ setup(
     long_description=__doc__,
     packages=[
         'invenio.base',
+        'invenio.celery',
         'invenio.ext',
         'invenio.legacy',
         'invenio.modules',
