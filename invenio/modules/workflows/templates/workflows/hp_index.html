@@ -6,7 +6,7 @@
 {%- js url_for('workflows.static', filename='js/workflows/hp_index.js') -%}
 
     <style type="text/css" title="currentStyle">
-        @import "../../css/DT_bootstrap.css";
+      @import "{{ url_for('workflows.static', filename='css/workflows/DT_bootstrap.css') }}";
     </style>
 
     <h1>Records in Holding Pen</h1>

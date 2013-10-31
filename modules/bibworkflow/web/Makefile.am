@@ -17,7 +17,7 @@
 
 cssdir=$(localstatedir)/www/css
 
-css_DATA = bibworkflow_style.css DT_bootstrap.css
+css_DATA =
 
 EXTRA_DIST = $(css_DATA)
 

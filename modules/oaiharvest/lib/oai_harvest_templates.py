@@ -536,7 +536,7 @@ class Template:
 
         return """ %(scriptsstring)s
     <link rel="stylesheet" href="%(baseurl)s/js/jquery-treeview/jquery.treeview.css" />
-    <link rel="stylesheet" href="%(baseurl)s/img/jquery.ajaxPager.css" />
+    <link rel="stylesheet" href="%(baseurl)s/css/jquery.ajaxPager.css" />
     <script type="text/javascript">
         var serverAddress = '%(baseurl)s';
     </script>
