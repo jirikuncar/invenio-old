@@ -74,4 +74,4 @@ from invenio.base.factory import with_app_context
 @with_app_context()
 def main():
     from invenio.bibrank import main as bibrank_main
-    return bibrank_main
+    return bibrank_main()
