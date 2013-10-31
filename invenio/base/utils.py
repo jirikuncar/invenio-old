@@ -78,20 +78,25 @@ def import_module_from_packages(name, app=None, packages=None):
                              package, name, str(e))
             pass
 
+
+def import_submodules_from_packages(name, app=None, packages=None):
+    discover = partial(import_module_from_packages, name)
+    return [import_string(m) for p in discover(app=app, packages=packages)
+            for m in find_modules(p.__name__)]
+
+
 collect_blueprints = partial(import_module_from_packages, 'views')
 autodiscover_models = partial(import_module_from_packages, 'models')
 autodiscover_user_settings = partial(import_module_from_packages,
                                      'user_settings')
 autodiscover_configs = partial(import_module_from_packages, 'config')
+autodiscover_facets = partial(import_submodules_from_packages, 'facets')
 autodiscover_managers = partial(import_module_from_packages, 'manage')
 autodiscover_workflows = partial(import_module_from_packages, 'workflows')
 autodiscover_celery_tasks = partial(import_module_from_packages, 'tasks')
+autodiscover_template_context_functions = partial(
+    import_submodules_from_packages, 'template_context_functions')
 
-
-def autodiscover_template_context_functions(app=None):
-    tcf = partial(import_module_from_packages, 'template_context_functions')
-    return [import_string(m) for p in tcf(app)
-            for m in find_modules(p.__name__)]
 
 
 def register_configurations(app):

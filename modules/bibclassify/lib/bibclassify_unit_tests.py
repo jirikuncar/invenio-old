@@ -34,7 +34,6 @@ import time
 import stat
 import shutil
 
-from invenio import config
 from invenio.testutils import make_test_suite, run_test_suite, nottest, \
     InvenioTestCase
 
@@ -46,6 +45,7 @@ class BibClassifyTestCase(InvenioTestCase):
         """Initialize stuff"""
         ## NOTE next time please make sure that you change global variables
         ## back to initial values in tearDown. Thank you!!!
+        from invenio import config
         self.__CFG_TMPDIR = config.CFG_TMPDIR
         config.CFG_TMPDIR = tempfile.gettempdir()
 
@@ -61,6 +61,7 @@ class BibClassifyTestCase(InvenioTestCase):
         bconfig.set_global_level(bconfig.logging.CRITICAL)
 
     def tearDown(self):
+        from invenio import config
         if self.stdout:
             self.unredirect()
         from invenio import bibclassify_config as bconfig

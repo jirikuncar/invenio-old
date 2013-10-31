@@ -21,7 +21,6 @@
 
 
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
-from invenio.inveniocfg_upgrader import InvenioUpgrader
 
 
 def dictify(ls, value=None):
@@ -58,6 +57,7 @@ class TestInvenioUpgraderOrdering(InvenioTestCase):
         """
         Normal dependency graph
         """
+        from invenio.inveniocfg_upgrader import InvenioUpgrader
         upgrades = dictify([
             TestUpgrade('1', [], 'invenio'),
             TestUpgrade('2', ['1'], 'invenio'),
@@ -75,6 +75,7 @@ class TestInvenioUpgraderOrdering(InvenioTestCase):
         """
         Two independent graphs
         """
+        from invenio.inveniocfg_upgrader import InvenioUpgrader
         upgrades = dictify([
             TestUpgrade('1', [], 'invenio'),
             TestUpgrade('2', ['1'], 'invenio'),
@@ -101,6 +102,7 @@ class TestInvenioUpgraderOrdering(InvenioTestCase):
         """
         Cycle 2, 4, 3.
         """
+        from invenio.inveniocfg_upgrader import InvenioUpgrader
         upgrades = dictify([
             TestUpgrade('1', [], 'invenio'),
             TestUpgrade('2', ['1', '3'], 'invenio'),
@@ -117,6 +119,7 @@ class TestInvenioUpgraderOrdering(InvenioTestCase):
         """
         Missing dependency 0
         """
+        from invenio.inveniocfg_upgrader import InvenioUpgrader
         upgrades = dictify([
             TestUpgrade('1', [], 'invenio'),
             TestUpgrade('2', ['1'], 'invenio'),
@@ -130,6 +133,7 @@ class TestInvenioUpgraderOrdering(InvenioTestCase):
         """
         Missing dependency 0
         """
+        from invenio.inveniocfg_upgrader import InvenioUpgrader
         upgrades = dictify([
             TestUpgrade('1', [], 'invenio'),
             TestUpgrade('2', ['1'], 'invenio'),
@@ -146,6 +150,7 @@ class TestInvenioUpgraderOrdering(InvenioTestCase):
         """
         History
         """
+        from invenio.inveniocfg_upgrader import InvenioUpgrader
         upgrades = dictify([
             TestUpgrade('1', [], 'invenio'),
             TestUpgrade('2', ['1'], 'invenio'),

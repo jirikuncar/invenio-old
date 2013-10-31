@@ -47,6 +47,8 @@ from invenio.utils.pagination import Pagination
 
 blueprint = Blueprint('search', __name__, url_prefix="",
                       template_folder='../templates',
+                      static_url_path='',  # static url path has to be empty
+                                           # if url_prefix is empty
                       static_folder='../static')
 
 default_breadcrumb_root(blueprint, '.')

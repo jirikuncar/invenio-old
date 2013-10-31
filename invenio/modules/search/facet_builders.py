@@ -29,7 +29,7 @@ from .models import Collection
 
 from invenio.base.globals import cfg
 from invenio.intbitset import intbitset
-from invenio.importutils import autodiscover_modules
+from invenio.base.utils import autodiscover_facets
 
 
 def get_current_user_records_that_can_be_displayed(qid):
@@ -105,7 +105,6 @@ def _facet_plugin_checker(plugin_code):
         candidate = getattr(plugin_code, 'facet')
         if isinstance(candidate, FacetBuilder):
             return candidate
-    raise ValueError('%s is not a valid facet plugin' % plugin_code.__name__)
 
 
 class FacetLoader(object):
@@ -113,9 +112,7 @@ class FacetLoader(object):
     @cached_property
     def plugins(self):
         """Loaded facet plugins."""
-        return map(_facet_plugin_checker,
-                   autodiscover_modules(['invenio.websearch_facets'],
-                                        'facet_.+'))
+        return filter(None, map(_facet_plugin_checker, autodiscover_facets()))
 
     @cached_property
     def elements(self):

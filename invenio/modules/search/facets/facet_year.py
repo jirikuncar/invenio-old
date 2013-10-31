@@ -19,6 +19,6 @@
 
 """Year Facet"""
 
-from invenio...facet_builders import FacetBuilder
+from ..facet_builders import FacetBuilder
 
 facet = FacetBuilder('year', order=3)

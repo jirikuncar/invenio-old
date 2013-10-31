@@ -46,7 +46,7 @@ def drop(yes_i_know=False):
     from invenio.utils.date import get_time_estimator
     from invenio.utils.text import wrap_text_in_a_box, wait_for_user
     from invenio.webstat import destroy_customevents
-    from invenio.inveniocfg import test_db_connection
+    from invenio.legacy.inveniocfg import test_db_connection
     from invenio.base.utils import autodiscover_models
     from invenio.ext.sqlalchemy import db
     from invenio.bibdocfile import _make_base_dir
@@ -118,7 +118,7 @@ def create(default_data=True):
 
     from sqlalchemy import event
     from invenio.utils.date import get_time_estimator
-    from invenio.inveniocfg import test_db_connection
+    from invenio.legacy.inveniocfg import test_db_connection
     from invenio.base.utils import autodiscover_models
     from invenio.ext.sqlalchemy import db
 
@@ -236,7 +236,7 @@ def populate(default_data=True, truncate_tables_first=False):
 
     conf = get_conf()
 
-    from invenio.inveniocfg import cli_cmd_reset_sitename, \
+    from invenio.legacy.inveniocfg import cli_cmd_reset_sitename, \
         cli_cmd_reset_siteadminemail, cli_cmd_reset_fieldnames
 
     cli_cmd_reset_sitename(conf)

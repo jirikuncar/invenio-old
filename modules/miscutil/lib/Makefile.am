@@ -45,7 +45,6 @@ pylib_DATA = __init__.py \
              intbitset_unit_tests.py \
              invenio_connector.py \
              invenio_connector_regression_tests.py \
-             inveniocfg.py \
              inveniocfg_unit_tests.py \
              inveniocfg_upgrader.py \
              inveniocfg_upgrader_unit_tests.py \

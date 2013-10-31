@@ -21,7 +21,6 @@ __revision__ = "$Id$"
 
 
 import cgi
-from invenio.config import CFG_SITE_LANG
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
@@ -88,6 +87,7 @@ class TestWashArgs(InvenioTestCase):
         result = webinterface_handler.wash_urlargd(form, default)
 
         if not 'ln' in expected:
+            from invenio.config import CFG_SITE_LANG
             expected['ln'] = CFG_SITE_LANG
 
         self.failUnlessEqual(result, expected)

@@ -25,7 +25,6 @@ __revision__ = "$Id$"
 import time
 import os
 
-from invenio.config import CFG_TMPDIR
 
 from invenio.shellutils import escape_shell_arg, run_shell_command, \
     run_process_with_timeout, Timeout, split_cli_ids_arg
@@ -120,6 +119,7 @@ class RunShellCommandTest(InvenioTestCase):
 class RunProcessWithTimeoutTest(InvenioTestCase):
     """Testing of running a process with timeout."""
     def setUp(self):
+        from invenio.config import CFG_TMPDIR
         self.script_path = os.path.join(CFG_TMPDIR, 'test_sleeping.sh')
         script = open(self.script_path, 'w')
         print >> script, "#!/bin/sh"

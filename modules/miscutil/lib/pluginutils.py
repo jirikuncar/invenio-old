@@ -27,8 +27,6 @@ import glob
 import inspect
 import imp
 
-from invenio.errorlib import register_exception
-from invenio.config import CFG_PYLIBDIR
 from invenio.utils.text import wrap_text_in_a_box
 
 
@@ -260,6 +258,7 @@ class PluginContainer(object):
         @rtype: string
         @raise ValueError: if the path is not under CFG_PYLIBDIR/invenio
         """
+        from invenio.config import CFG_PYLIBDIR
         invenio_path = os.path.abspath(os.path.join(CFG_PYLIBDIR, 'invenio'))
         plugin_path = os.path.abspath(plugin_path)
         if not self._external and not os.path.abspath(plugin_path).startswith(invenio_path):
@@ -364,6 +363,7 @@ class PluginContainer(object):
             }
         except Exception:
             if self._register_exception:
+                from invenio.errorlib import register_exception
                 register_exception()
             self._plugin_map[plugin_name] = {
                 'plugin': None,

@@ -22,13 +22,13 @@ There should always be at least one test class for each class in b_e_t.
 """
 
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
-from invenio import bibindex_engine_tokenizer as tokenizer_lib
 
 
 class TestFuzzyNameTokenizerScanning(InvenioTestCase):
     """Test BibIndex name tokenization"""
 
     def setUp(self):
+        from invenio import bibindex_engine_tokenizer as tokenizer_lib
         self.tokenizer = tokenizer_lib.BibIndexFuzzyNameTokenizer()
         self.scan = self.tokenizer.scan
 
@@ -138,6 +138,7 @@ class TestFuzzyNameTokenizerTokens(InvenioTestCase):
     """Test BibIndex name variant token generation from scanned and tagged sets"""
 
     def setUp(self):
+        from invenio import bibindex_engine_tokenizer as tokenizer_lib
         self.tokenizer = tokenizer_lib.BibIndexFuzzyNameTokenizer()
         self.get_index_tokens = self.tokenizer.parse_scanned
 
@@ -280,6 +281,7 @@ class TestExactNameTokenizer(InvenioTestCase):
 
     def setUp(self):
         """setup"""
+        from invenio import bibindex_engine_tokenizer as tokenizer_lib
         self.tokenizer = tokenizer_lib.BibIndexExactNameTokenizer()
 
     def test_exact_author_name_tokenizer_bare(self):

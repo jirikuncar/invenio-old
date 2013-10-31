@@ -19,6 +19,6 @@
 
 """Author Facet"""
 
-from invenio...facet_builders import FacetBuilder
+from ..facet_builders import FacetBuilder
 
 facet = FacetBuilder('author', order=2)

@@ -66,7 +66,6 @@ class CeleryTest(InvenioTestCase):
 
     def test_loader(self):
         """ Test if `workers.py` files are correctly registered. """
-        print celery.tasks
         self.assertTrue('invenio.celery.tasks.invenio_version' in celery.tasks)
 
     def test_task_invenio_version(self):

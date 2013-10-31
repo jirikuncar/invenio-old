@@ -301,6 +301,10 @@ Please, update your invenio-local.conf file accordingly.""")
 
 
 def update_config_py(conf):
+    print '>>> NOT NEEDED!!!'
+    print '>>> quiting ...'
+    return
+
     import sys
     print ">>> Going to update config.py..."
     ## location where config.py is:

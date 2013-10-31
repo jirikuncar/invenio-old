@@ -22,7 +22,6 @@
 __revision__ = "$Id$"
 
 from cgi import parse_qs
-from invenio.config import CFG_SITE_URL
 from invenio.importutils import lazy_import
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
@@ -183,6 +182,7 @@ class TestUrls(InvenioTestCase):
 
     def test_same_urls_p(self):
         """urlutils - test checking URLs equality"""
+        from invenio.config import CFG_SITE_URL
         self.assertEqual(same_urls_p(CFG_SITE_URL + '?a=b&c=d&e=f',
                                      CFG_SITE_URL + '?e=f&c=d&a=b'),
                          True)
@@ -302,6 +302,7 @@ class TestEmailObfuscationMode(InvenioTestCase):
 
     def test_html_mailto_obfuscation_mode_4(self):
         """urlutils - test creation of HTML "mailto" links, obfuscation mode 4"""
+        from invenio.config import CFG_SITE_URL
         self.assertEqual(create_html_mailto('juliet@cds.cern.ch',
                                             subject='Hey there',
                                             body='Lunch at 8pm?\ncu!',

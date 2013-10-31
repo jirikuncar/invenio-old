@@ -35,20 +35,25 @@ def setup_app(app):
     class Wrapper(object):
         def __init__(self, wrapped):
             self.wrapped = wrapped
+
         def __getattr__(self, name):
             # Perform custom logic here
             if name == '__file__':
                 return __file__
             elif name == '__path__':
-                return os.dirname(__file__)
+                return os.path.dirname(__file__)
             try:
                 return self.wrapped[name]
             except:
-                import traceback
-                traceback.print_stack()
+                pass
+                #import traceback
+                #traceback.print_stack()
 
     # STEP 2: wrap application config and sets it as `invenio.config` module.
     sys.modules['invenio.config'] = Wrapper(app.config)
+    sys.modules['invenio.dbquery_config'] = Wrapper(dict(
+        (k, v) for (k, v) in app.config.iteritems()
+        if k.startswith('CFG_DATABASE')))
 
     # STEP 3: enable `from invenio import config` by setting an attribute.
     import invenio

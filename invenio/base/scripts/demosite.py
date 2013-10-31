@@ -96,7 +96,7 @@ def create(packages=['invenio_atlantis']):
 
     conf = get_conf()
 
-    from invenio.inveniocfg import cli_cmd_reset_sitename, \
+    from invenio.legacy.inveniocfg import cli_cmd_reset_sitename, \
         cli_cmd_reset_siteadminemail, cli_cmd_reset_fieldnames
 
     cli_cmd_reset_sitename(conf)

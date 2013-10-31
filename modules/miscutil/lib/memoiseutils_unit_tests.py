@@ -21,17 +21,15 @@
 Unit tests for the memoise facility.
 """
 
-import unittest
-from invenio.testutils import make_test_suite, run_test_suite
-
-from invenio.utils.memoise import Memoise
+from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
 
-class MemoiseTest(unittest.TestCase):
+class MemoiseTest(InvenioTestCase):
     """Unit test cases for Memoise."""
 
     def test_memoise_fib(self):
         """memoiseutils - test fib() memoisation"""
+        from invenio.utils.memoise import Memoise
         from invenio.bibtaskex import fib
         fib_memoised = Memoise(fib)
         self.assertEqual(fib(17), fib_memoised(17))

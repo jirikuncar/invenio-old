@@ -21,16 +21,15 @@
 
 __revision__ = "$Id$"
 
-from invenio.errorlib import get_emergency_recipients
+import datetime
 from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
 
-
-import datetime
 
 class TestGetEmergencyRecipients(InvenioTestCase):
 
     def test_get_emergency_recipients(self):
         """errorlib - test return of proper set of recipients"""
+        from invenio.errorlib import get_emergency_recipients
 
         now = datetime.datetime.today()
         tomorrow = now + datetime.timedelta(days=1)

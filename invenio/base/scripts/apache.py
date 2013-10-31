@@ -31,7 +31,7 @@ def version(separator='\n'):
     returned format is 'apache_version [apache_path]'.)  Return empty
     list if no success.
     """
-    from invenio.inveniocfg import _grep_version_from_executable
+    from invenio.legacy.inveniocfg import _grep_version_from_executable
     from invenio.shellutils import run_shell_command
     out = []
     dummy1, cmd_out, dummy2 = run_shell_command("locate bin/httpd bin/apache")
@@ -63,7 +63,7 @@ def create_config(force=False, no_ssl=True):
     CFG_PREFIX = current_app.config.get('CFG_PREFIX', '')
 
     def get_context():
-        from invenio.inveniocfg import _detect_ip_address
+        from invenio.legacy.inveniocfg import _detect_ip_address
 
         conf = current_app.config
 

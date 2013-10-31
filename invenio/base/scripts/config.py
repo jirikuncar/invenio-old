@@ -28,7 +28,7 @@ def get_conf():
         from invenio.config import CFG_ETCDIR
     except:
         CFG_ETCDIR = None
-    from invenio.inveniocfg import prepare_conf
+    from invenio.legacy.inveniocfg import prepare_conf
 
     class TmpOptions(object):
         conf_dir = CFG_ETCDIR
@@ -84,7 +84,7 @@ def update():
     Update new config.py from conf options, keeping previous
     config.py in a backup copy.
     """
-    from invenio.inveniocfg import update_config_py
+    from invenio.legacy.inveniocfg import update_config_py
     conf = get_conf()
     update_config_py(conf)
 
@@ -99,7 +99,7 @@ def secret_key(key=None):
     Useful for the installation process."""
     import os
     import sys
-    from invenio.inveniocfg import _grep_version_from_executable
+    from invenio.legacy.inveniocfg import _grep_version_from_executable
     print ">>> Going to generate random CFG_SITE_SECRET_KEY..."
     try:
         from invenio.config import CFG_ETCDIR, CFG_SITE_SECRET_KEY
@@ -123,12 +123,8 @@ def secret_key(key=None):
 
 
 def main():
-    from invenio.config import CFG_SITE_SECRET_KEY
     from invenio.base.factory import create_app
-    if not CFG_SITE_SECRET_KEY or CFG_SITE_SECRET_KEY == '':
-        CFG_SITE_SECRET_KEY = generate_secret_key()
-    app = create_app(SECRET_KEY=CFG_SITE_SECRET_KEY)
-    manager.app = app
+    manager.app = create_app()
     manager.run()
 
 if __name__ == '__main__':

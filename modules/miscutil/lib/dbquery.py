@@ -42,6 +42,7 @@ import atexit
 from thread import get_ident
 from werkzeug.utils import cached_property
 from invenio.base.globals import cfg
+from invenio.utils.datastructures import LazyDict
 from invenio.utils.serializers import serialize_via_marshal, \
     deserialize_via_marshal
 
@@ -65,37 +66,16 @@ class DBConnect(object):
             from MySQLdb import connect
         return connect
 
+
+def _db_conn():
+    out = {}
+    out[cfg['CFG_DATABASE_HOST']] = {}
+    out[cfg['CFG_DATABASE_SLAVE']] = {}
+    return out
+
 connect = DBConnect()
+_DB_CONN = LazyDict(_db_conn)
 
-## DB config variables.  These variables are to be set in
-## invenio-local.conf by admins and then replaced in situ in this file
-## by calling "inveniocfg --update-dbexec".
-## Note that they are defined here and not in config.py in order to
-## prevent them from being exported accidentally elsewhere, as no-one
-## should know DB credentials but this file.
-## FIXME: this is more of a blast-from-the-past that should be fixed
-## both here and in inveniocfg when the time permits.
-try:
-    from invenio.dbquery_config import CFG_DATABASE_HOST, \
-                                       CFG_DATABASE_PORT, \
-                                       CFG_DATABASE_NAME, \
-                                       CFG_DATABASE_USER, \
-                                       CFG_DATABASE_PASS, \
-                                       CFG_DATABASE_TYPE, \
-                                       CFG_DATABASE_SLAVE
-except ImportError:
-    CFG_DATABASE_HOST = 'localhost'
-    CFG_DATABASE_PORT = '3306'
-    CFG_DATABASE_NAME = 'invenio'
-    CFG_DATABASE_USER = 'invenio'
-    CFG_DATABASE_PASS = 'my123p$ss'
-    CFG_DATABASE_TYPE = 'mysql'
-    CFG_DATABASE_SLAVE = ''
-
-
-_DB_CONN = {}
-_DB_CONN[CFG_DATABASE_HOST] = {}
-_DB_CONN[CFG_DATABASE_SLAVE] = {}
 
 def unlock_all():
     for dbhost in _DB_CONN.keys():
@@ -114,7 +94,7 @@ class InvenioDbQueryWildcardLimitError(Exception):
         """Initialization."""
         self.res = res
 
-def _db_login(dbhost=CFG_DATABASE_HOST, relogin=0):
+def _db_login(dbhost=None, relogin=0):
     """Login to the database."""
 
     ## Note: we are using "use_unicode=False", because we want to
@@ -127,20 +107,22 @@ def _db_login(dbhost=CFG_DATABASE_HOST, relogin=0):
     ## would constitute an equivalent.  But we are not bothering with
     ## older MySQLdb versions here, since we are recommending to
     ## upgrade to more recent versions anyway.
+    if dbhost is None:
+        dbhost = cfg['CFG_DATABASE_HOST']
 
     if cfg['CFG_MISCUTIL_SQL_USE_SQLALCHEMY']:
-        return connect(host=dbhost, port=int(CFG_DATABASE_PORT),
-                       db=CFG_DATABASE_NAME, user=CFG_DATABASE_USER,
-                       passwd=CFG_DATABASE_PASS,
+        return connect(host=dbhost, port=int(cfg['CFG_DATABASE_PORT']),
+                       db=cfg['CFG_DATABASE_NAME'], user=cfg['CFG_DATABASE_USER'],
+                       passwd=cfg['CFG_DATABASE_PASS'],
                        use_unicode=False, charset='utf8')
     else:
         thread_ident = (os.getpid(), get_ident())
     if relogin:
         connection = _DB_CONN[dbhost][thread_ident] = connect(host=dbhost,
-                                         port=int(CFG_DATABASE_PORT),
-                                         db=CFG_DATABASE_NAME,
-                                         user=CFG_DATABASE_USER,
-                                         passwd=CFG_DATABASE_PASS,
+                                         port=int(cfg['CFG_DATABASE_PORT']),
+                                         db=cfg['CFG_DATABASE_NAME'],
+                                         user=cfg['CFG_DATABASE_USER'],
+                                         passwd=cfg['CFG_DATABASE_PASS'],
                                          use_unicode=False, charset='utf8')
         connection.autocommit(True)
         return connection
@@ -149,26 +131,30 @@ def _db_login(dbhost=CFG_DATABASE_HOST, relogin=0):
             return _DB_CONN[dbhost][thread_ident]
         else:
             connection = _DB_CONN[dbhost][thread_ident] = connect(host=dbhost,
-                                             port=int(CFG_DATABASE_PORT),
-                                             db=CFG_DATABASE_NAME,
-                                             user=CFG_DATABASE_USER,
-                                             passwd=CFG_DATABASE_PASS,
+                                             port=int(cfg['CFG_DATABASE_PORT']),
+                                             db=cfg['CFG_DATABASE_NAME'],
+                                             user=cfg['CFG_DATABASE_USER'],
+                                             passwd=cfg['CFG_DATABASE_PASS'],
                                              use_unicode=False, charset='utf8')
             connection.autocommit(True)
             return connection
 
-def _db_logout(dbhost=CFG_DATABASE_HOST):
+def _db_logout(dbhost=None):
     """Close a connection."""
+    if dbhost is None:
+        dbhost = cfg['CFG_DATABASE_HOST']
     try:
         del _DB_CONN[dbhost][(os.getpid(), get_ident())]
     except KeyError:
         pass
 
-def close_connection(dbhost=CFG_DATABASE_HOST):
+def close_connection(dbhost=None):
     """
     Enforce the closing of a connection
     Highly relevant in multi-processing and multi-threaded modules
     """
+    if dbhost is None:
+        dbhost = cfg['CFG_DATABASE_HOST']
     try:
         _DB_CONN[dbhost][(os.getpid(), get_ident())].close()
         del(_DB_CONN[dbhost][(os.getpid(), get_ident())])
@@ -210,9 +196,9 @@ def run_sql(sql, param=None, n=0, with_desc=False, with_dict=False, run_on_slave
     if param:
         param = tuple(param)
 
-    dbhost = CFG_DATABASE_HOST
-    if run_on_slave and CFG_DATABASE_SLAVE:
-        dbhost = CFG_DATABASE_SLAVE
+    dbhost = cfg['CFG_DATABASE_HOST']
+    if run_on_slave and cfg['CFG_DATABASE_SLAVE']:
+        dbhost = cfg['CFG_DATABASE_SLAVE']
 
     if 'sql-logger' in cfg.get('CFG_DEVEL_TOOLS', []):
         log_sql_query(dbhost, sql, param)
