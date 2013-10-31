@@ -19,21 +19,45 @@
 
 #FIXME: add signal management and relation between them
 
+from invenio.utils.datastructures import LazyDict
 from invenio.ext.cache import cache
 
-field_definitions = cache.get('RECORD_FIELD_DEFINITIONS')
-legacy_field_matchings = cache.get('LEGACY_FIELD_MATCHINGS')
+__all__ = ['field_definitions', 'legacy_field_matchings', 'model_definitions']
 
-if field_definitions is None or legacy_field_matchings is None:
+
+def _rebuild_cache():
     print ">>> Recreating the cache for fields!"
     from invenio.core.record.config_engine import FieldParser
     field_definitions, legacy_field_matchings = FieldParser().create()
     cache.set('RECORD_FIELD_DEFINITIONS', field_definitions)
     cache.set('LEGACY_FIELD_MATCHINGS', legacy_field_matchings)
+    return field_definitions, legacy_field_matchings
 
-model_definitions = cache.get('RECORD_MODEL_DEFINITIONS')
-if model_definitions is None:
-    print ">>> Recreating the cache for models"
-    from invenio.core.record.config_engine import ModelParser
-    model_definitions = ModelParser().create()
-    cache.set('RECORD_MODEL_DEFINITIONS', model_definitions)
+
+def _field_definitions():
+    field_definitions = cache.get('RECORD_FIELD_DEFINITIONS')
+    if field_definitions is None:
+        field_definitions, _ = _rebuild_cache()
+    return field_definitions
+
+
+def _legacy_field_matchings():
+    legacy_field_matchings = cache.get('LEGACY_FIELD_MATCHINGS')
+    if field_definitions is None:
+        _, legacy_field_matchings = _rebuild_cache()
+    return legacy_field_matchings
+
+
+def _model_definitions():
+    model_definitions = cache.get('RECORD_MODEL_DEFINITIONS')
+    if model_definitions is None:
+        print ">>> Recreating the cache for models"
+        from invenio.core.record.config_engine import ModelParser
+        model_definitions = ModelParser().create()
+        cache.set('RECORD_MODEL_DEFINITIONS', model_definitions)
+    return model_definitions
+
+
+field_definitions = LazyDict(_field_definitions)
+legacy_field_matchings = LazyDict(_legacy_field_matchings)
+model_definitions = LazyDict(_model_definitions)

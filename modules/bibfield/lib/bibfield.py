@@ -33,7 +33,6 @@ except:
 from pprint import pformat
 from werkzeug import import_string
 
-from invenio.config import CFG_PYLIBDIR, CFG_LOGDIR
 from invenio.utils.datastructures import LaziestDict
 from invenio.dbquery import run_sql
 from invenio.errorlib import register_exception

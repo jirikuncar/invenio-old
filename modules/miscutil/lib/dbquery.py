@@ -38,8 +38,8 @@ import os
 import string
 import time
 import re
-import atexit
 from thread import get_ident
+from flask import current_app
 from werkzeug.utils import cached_property
 from invenio.base.globals import cfg
 from invenio.utils.datastructures import LazyDict
@@ -67,7 +67,19 @@ class DBConnect(object):
         return connect
 
 
+def unlock_all(app):
+    for dbhost in _DB_CONN.keys():
+        for db in _DB_CONN[dbhost].values():
+            try:
+                cur = db.cur()
+                cur.execute("UNLOCK TABLES")
+            except:
+                pass
+    return app
+
+
 def _db_conn():
+    current_app.teardown_appcontext(unlock_all)
     out = {}
     out[cfg['CFG_DATABASE_HOST']] = {}
     out[cfg['CFG_DATABASE_SLAVE']] = {}
@@ -76,17 +88,6 @@ def _db_conn():
 connect = DBConnect()
 _DB_CONN = LazyDict(_db_conn)
 
-
-def unlock_all():
-    for dbhost in _DB_CONN.keys():
-        for db in _DB_CONN[dbhost].values():
-            try:
-                cur = db.cur()
-                cur.execute("UNLOCK TABLES")
-            except:
-                pass
-
-atexit.register(unlock_all)
 
 class InvenioDbQueryWildcardLimitError(Exception):
     """Exception raised when query limit reached."""

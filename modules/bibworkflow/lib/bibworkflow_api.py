@@ -20,28 +20,34 @@
 BibWorkflow API - functions to run workflows
 """
 
-import os
-from pprint import pformat
+from werkzeug import cached_property
 from werkzeug.utils import import_string
-from invenio.config import (CFG_BIBWORKFLOW_WORKER,
-                            CFG_PYLIBDIR,
-                            CFG_LOGDIR)
-from invenio.errorlib import register_exception
-import cPickle
+from invenio.base.globals import cfg
 
 
 class InvenioBibWorkflowWorkerUnavailable(Exception):
     pass
 
 
-if CFG_BIBWORKFLOW_WORKER:
-    try:
-        WORKER = import_string('invenio.bibworkflow_workers.%s:%s' % (
-            CFG_BIBWORKFLOW_WORKER, CFG_BIBWORKFLOW_WORKER))
-        USE_TASK_QUEUE = True
-    except:
-        ## Let's report about broken plugins
-        register_exception(alert_admin=True)
+class WorkerBackend(object):
+
+    @cached_property
+    def worker(self):
+        try:
+            return import_string('invenio.bibworkflow_workers.%s:%s' % (
+                cfg['CFG_BIBWORKFLOW_WORKER'], cfg['CFG_BIBWORKFLOW_WORKER']))
+        except:
+            from invenio.errorlib import register_exception
+            ## Let's report about broken plugins
+            register_exception(alert_admin=True)
+
+    def __call__(self, *args, **kwargs):
+        if not self.worker:
+            raise InvenioBibWorkflowWorkerUnavailable('No worker configured')
+        return self.worker(*args, **kwargs)
+
+
+WORKER = WorkerBackend()
 
 
 def start(workflow_name, data, **kwargs):
@@ -90,8 +96,6 @@ def start_delayed(workflow_name, data, **kwargs):
 
     @return: BibWorkflowEngine that ran the workflow.
     """
-    if not CFG_BIBWORKFLOW_WORKER:
-        raise InvenioBibWorkflowWorkerUnavailable('No worker configured')
     return WORKER().run_worker(workflow_name, data, **kwargs)
 
 
@@ -131,8 +135,6 @@ def start_by_wid_delayed(wid, **kwargs):
 
     @return: BibWorkflowEngine that ran the workflow.
     """
-    if not CFG_BIBWORKFLOW_WORKER:
-        raise InvenioBibWorkflowWorkerUnavailable('No worker configured')
     return WORKER().restart_worker(wid, **kwargs)
 
 
@@ -238,8 +240,6 @@ def continue_oid_delayed(oid, start_point="continue_next", **kwargs):
 
     @return: BibWorkflowEngine that ran the workflow
     """
-    if not CFG_BIBWORKFLOW_WORKER:
-        raise InvenioBibWorkflowWorkerUnavailable('No worker configured')
     return WORKER().continue_worker(oid, start_point, **kwargs)
 
 

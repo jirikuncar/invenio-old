@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ## This file is part of Invenio.
 ## Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013 CERN.
 ##
@@ -965,41 +966,6 @@ def set_cache_last_updated_timestamp(timestamp):
         # FIXME: do something here
         pass
     return timestamp
-
-def main():
-    """Main that construct all the bibtask."""
-    task_init(authorization_action="runwebcoll",
-            authorization_msg="WebColl Task Submission",
-            description="""Description:
-    webcoll updates the collection cache (record universe for a
-    given collection plus web page elements) based on invenio.conf and DB
-    configuration parameters. If the collection name is passed as an argument,
-    only this collection's cache will be updated. If the recursive option is
-    set as well, the collection's descendants will also be updated.\n""",
-            help_specific_usage="  -c, --collection\t Update cache for the given "
-                     "collection only. [all]\n"
-                    "  -r, --recursive\t Update cache for the given collection and all its\n"
-                    "\t\t\t descendants (to be used in combination with -c). [no]\n"
-                    "  -q, --quick\t\t Skip webpage cache update for those collections whose\n"
-                    "\t\t\t reclist was not changed. Note: if you use this option, it is advised\n"
-                    "\t\t\t to schedule, e.g. a nightly 'webcoll --force'. [no]\n"
-                    "  -f, --force\t\t Force update even if cache is up to date. [no]\n"
-                    "  -p, --part\t\t Update only certain cache parts (1=reclist,"
-                    " 2=webpage). [both]\n"
-                    "  -l, --language\t Update pages in only certain language"
-                    " (e.g. fr,it,...). [all]\n",
-            version=__revision__,
-            specific_params=("c:rqfp:l:", [
-                    "collection=",
-                    "recursive",
-                    "quick",
-                    "force",
-                    "part=",
-                    "language="
-                ]),
-            task_submit_elaborate_specific_parameter_fnc=task_submit_elaborate_specific_parameter,
-            task_submit_check_options_fnc=task_submit_check_options,
-            task_run_fnc=task_run_core)
 
 def task_submit_elaborate_specific_parameter(key, value, opts, args):
     """ Given the string key it checks it's meaning, eventually using the value.

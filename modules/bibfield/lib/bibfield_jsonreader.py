@@ -39,9 +39,6 @@ if sys.version_info < (2,5):
                 return True
         return False
 
-from invenio.config import CFG_PYLIBDIR
-from invenio.pluginutils import PluginContainer
-
 from invenio.bibfield_utils import BibFieldDict, \
                                    InvenioBibFieldContinuableError, \
                                    InvenioBibFieldError
@@ -60,6 +57,8 @@ class JsonReader(BibFieldDict):
         blob -> _prepare_blob(...) -> rec_tree -> _translate(...) -> rec_json -> check_record(...)
         """
 
+        from invenio.config import CFG_PYLIBDIR
+        from invenio.pluginutils import PluginContainer
         for key, value in PluginContainer(os.path.join(CFG_PYLIBDIR, 'invenio', 'bibfield_functions', 'produce_*.py')).iteritems():
             setattr(JsonReader, key, value)
 

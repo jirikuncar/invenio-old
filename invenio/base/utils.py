@@ -69,7 +69,7 @@ def import_module_from_packages(name, app=None, packages=None):
                     pass
                 except Exception as e:
                     import traceback
-                    traceback.print_stack()
+                    traceback.print_exc()
                     app.logger.error('Could not import: "%s.%s: %s',
                                      module, name, str(e))
                     pass
@@ -79,6 +79,8 @@ def import_module_from_packages(name, app=None, packages=None):
         except ImportError:
             pass
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             app.logger.error('Could not import: "%s.%s: %s',
                              package, name, str(e))
             pass
