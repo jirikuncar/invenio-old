@@ -27,7 +27,7 @@
     {% for tag in tag_infos %}
 
       <a href="#" data-toggle="popover" data-html="true" data-original-title="{{ tag.popover_title }}" data-content="{{ tag.popover_content }}">
-        <span class="label label-info {{ tag.label_classes }}">
+        <span class="label {{ tag.label_classes }}">
         {{ tag.name }} ({{ tag.record_count }})
         </span>
       </a>
@@ -55,7 +55,7 @@
    data-webtageditor-recid="{{id_bibrec}}"
    tabindex="-1" role="dialog" aria-labelledby="tags_label_{{ id_bibrec }}" aria-hidden="true">
     <div class="modal-header">
-      <h4 id="tags_label_{{ id_bibrec }}">{#{{ record['title.title'] }}#} cannot get record</h4>
+      <h4 id="tags_label_{{ id_bibrec }}">{#{{ record['title.title'] }}#} {{ _('Edit tags') }}</h4>
     </div>
     <div class="modal-body">
       <div class="alert alert-info">{{ _('Loading tags.') }}</div>

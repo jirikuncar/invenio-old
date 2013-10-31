@@ -55,6 +55,7 @@ from .forms import \
     AttachTagForm, \
     DetachTagForm, \
     DeleteTagForm, \
+    EditTagForm, \
     TagAnnotationForm, \
     validate_tag_exists, \
     validate_user_owns_tag, \
@@ -108,6 +109,7 @@ def display_cloud():
 
     return dict(user_tags=tags,
                 display_mode='cloud')
+
 
 @blueprint.route('/display/list', methods=['GET', 'POST'])
 @login_required
@@ -167,11 +169,38 @@ def tag_details(id_tag):
 
 @blueprint.route('/tag/<int:id_tag>/edit', methods=['GET', 'POST'])
 @login_required
+@templated('tags/edit.html')
 @register_breadcrumb(blueprint, '.tag_edit', _('Edit tag'))
 def tag_edit(id_tag):
     """ List of documents attached to this tag """
+    id_user = current_user.get_id()
+    tag = WtgTAG.query.get(id_tag)
 
-    return ''
+    if not tag:
+        flash(_('Invalid tag id'), "error")
+        return redirect(url_for('.display_cloud'))
+
+    if tag.id_user != id_user:
+        flash(_('You are not authorized to view this tag'), "error")
+        return redirect(url_for('.display_cloud'))
+
+    form = EditTagForm(request.values, csrf_enabled=False, obj=tag)
+
+    if form.validate_on_submit():
+        form.populate_obj(tag)
+
+        name_count = db.session.query(WtgTAG).\
+            filter_by(id_user=id_user, name=tag.name).count()
+
+        if name_count == 1:
+            db.session.add(tag)
+            db.session.commit()
+            flash(_('Tag Successfully edited.'), 'success')
+
+        else:
+            flash(_('Tag name') + ' <strong>' + tag.name + '</strong> ' + _('is already in use.'), 'error')
+
+    return dict(tag=tag, form=form)
 
 
 @blueprint.route('/tag/<int:id_tag>/annotations/<int:id_bibrec>', methods=['GET', 'POST'])
@@ -289,6 +318,7 @@ def editor(id_bibrec):
     # because this view is requested using AJAX
     return render_template('tags/record_editor.html', id_bibrec=id_bibrec,
                                                  record_tags=tags_json)
+
 
 #Temporary solution to call validators, we need a better one
 class Field(object):

@@ -32,10 +32,12 @@ from wtforms import \
     HiddenField, \
     TextField, \
     SelectMultipleField, \
+    SelectField, \
     validators
 
 #Models
 from invenio.modules.record_editor.models import Bibrec
+from invenio.modules.account.models import User, Usergroup, UserUsergroup
 
 # Internal
 from invenio.ext.sqlalchemy import db
@@ -72,6 +74,7 @@ def validate_tag_name(dummy_form, field):
         if max(ord(letter) for letter in suggested_silent) > max_char:
             raise validators.ValidationError( _('Forbidden character.'))
 
+
 def validate_name_available(dummy_form, field):
     """ Check if the user already has tag named this way """
     if field.data:
@@ -104,6 +107,7 @@ def validate_user_owns_tag(dummy_form, field):
         if tag and tag.id_user != current_user.get_id():
             raise validators.ValidationError(
                   _('You are not the owner of this tag.'))
+
 
 def validate_bibrec_exists(dummy_form, field):
     """ Check if id_bibrec matches a bibrec in database """
@@ -138,6 +142,7 @@ def validate_user_can_see_bibrec(dummy_form, field):
         if auth_code > 0:
             raise validators.ValidationError(
                   _('Unauthorized to view record: ')+msg)
+
 
 def validate_not_already_attached(form, dummy_field):
     """ Check if the pair (tag, bibrec) is already connected """
@@ -174,12 +179,14 @@ class CreateTagForm(InvenioBaseForm):
                             [validate_bibrec_exists,
                              validate_user_can_see_bibrec])
 
+
 class DeleteTagForm(InvenioBaseForm):
     """Defines form for deleting a tag."""
     id_tag = SelectMultipleField('Tag ID',
                               [validators.Required(),
                                validate_tag_exists,
                                validate_user_owns_tag])
+
 
 class AttachTagForm(InvenioBaseForm):
     """Defines a form validating attaching a tag to record"""
@@ -196,6 +203,7 @@ class AttachTagForm(InvenioBaseForm):
                 [validate_bibrec_exists,
                  validate_user_can_see_bibrec])
 
+
 class DetachTagForm(InvenioBaseForm):
     """Defines a form validating detaching a tag from record"""
     # Ajax requests only:
@@ -210,6 +218,7 @@ class DetachTagForm(InvenioBaseForm):
                 [validators.Required(),
                  validate_bibrec_exists,
                  validate_user_can_see_bibrec])
+
 
 class TagAnnotationForm(InvenioBaseForm):
     """Defines a form validating attaching a tag to record"""
@@ -227,20 +236,36 @@ class TagAnnotationForm(InvenioBaseForm):
 
     annotation_value = TextField('Annotation')
 
-# class WebTagUserSettingsForm(InvenioBaseForm):
-#     """User's personal settings influencing WebTag module"""
+class GetGroupOptions(object):
+    def __iter__(self):
+        id_user = current_user.get_id()
 
-#     display_tags_private = BooleanField(
-#         _('Show private tags'),
-#         default=True)
+        options = [('0', _('Private'))]
 
-#     display_tags_group = BooleanField(
-#         _('Show group tags'),
-#         default=CFG_WEBTAG_DEFAULT_USER_SETTINGS['display_tags_group'])
+        options += db.session.query(Usergroup.id, Usergroup.name)\
+            .join(UserUsergroup)\
+            .filter(UserUsergroup.id_user == id_user)\
+            .all()
 
-#     display_tags_public = BooleanField(
-#         _('Show public tags'),
-#         default=CFG_WEBTAG_DEFAULT_USER_SETTINGS['display_tags_public'])
+        for (gid, name) in options:
+            yield (str(gid), name)
+
+class EditTagForm(InvenioBaseForm):
+    """Defines form for editing an existing tag."""
+    name = TextField(_('Name'), [validators.Required(),
+                                 validate_tag_name])
+
+    id_usergroup = SelectField(
+        _('Group sharing options'),
+        choices=GetGroupOptions())
+
+    group_access_rights = SelectField(
+        _('Group access rights'),
+        choices=[
+            (str(WtgTAG.ACCESS_LEVELS['View']), 'View'),
+            (str(WtgTAG.ACCESS_LEVELS['Add and remove']), 'Attach to documents')
+            ])
+
 
 class WebTagUserSettingsForm(InvenioBaseForm):
     """User's personal settings influencing WebTag module"""

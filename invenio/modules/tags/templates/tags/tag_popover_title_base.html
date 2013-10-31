@@ -17,7 +17,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
 
-<b>{{ tag.name }}</b>
+{{ tag.group_name }}.<b>{{ tag.name }}</b>
 
 <a href="{{ url_for('search.search', p='tag:"' + tag.name) + '"' }}"
     class="btn btn-link">

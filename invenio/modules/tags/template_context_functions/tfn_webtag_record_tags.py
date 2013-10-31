@@ -20,7 +20,6 @@
 """WebTag List of tags in document view"""
 
 # Flask
-from flask import url_for
 from invenio.ext.template import render_template_to_string
 from invenio.base.globals import cfg
 from invenio.ext.sqlalchemy import db
@@ -31,8 +30,7 @@ from invenio.modules.tags.models import \
     WtgTAGRecord
 
 # Related models
-from invenio.modules.account.models import User
-from invenio.modules.record_editor.models import Bibrec
+from invenio.modules.account.models import User, Usergroup, UserUsergroup
 
 
 def template_context_function(id_bibrec, id_user):
@@ -52,15 +50,31 @@ def template_context_function(id_bibrec, id_user):
             # Do not display if user turned off tags in settings
             return ''
 
-        # Collect tags
+
+        # Private
         query_results = db.session.query(WtgTAG, WtgTAGRecord.annotation)\
             .filter(WtgTAG.id == WtgTAGRecord.id_tag)\
-            .filter(WtgTAGRecord.id_bibrec == id_bibrec).all()
+            .filter(WtgTAGRecord.id_bibrec == id_bibrec)\
+            .filter(WtgTAG.id_user == id_user)\
+            .all()
+
 
         # Group tags
-        #if user_settings.get('display_tags_group', True):
-        #.join(UserUsergroup)
-        #.filter(or_(_and( UserUsergroup.id_user == id_user, UserUsergroup.id_group == WtgTAG.id_usergroup), WtgTAG.id_user == id_user,
+        if user_settings.get('display_tags_group', True):
+            group_results = db.session.query(WtgTAG, WtgTAGRecord.annotation, Usergroup.name)\
+            .join(UserUsergroup, UserUsergroup.id_user == id_user)\
+            .filter(WtgTAG.id == WtgTAGRecord.id_tag)\
+            .filter(WtgTAGRecord.id_bibrec == id_bibrec)\
+            .filter(WtgTAG.group_access_rights >= WtgTAG.ACCESS_LEVELS['View'])\
+            .filter(WtgTAG.id_usergroup == Usergroup.id)\
+            .filter(WtgTAG.id_user != id_user)\
+            .filter(Usergroup.id == UserUsergroup.id_usergroup)\
+            .all()
+
+            for (tag, annotation, group_name) in group_results:
+                tag.group_name = group_name
+                query_results.append((tag, annotation))
+
 
         # Public tags
         #if user_settings.get('display_tags_public', True):
@@ -71,10 +85,23 @@ def template_context_function(id_bibrec, id_user):
             tag_info = dict(
                 id=tag.id,
                 name=tag.name,
-                owned=(tag.id_user == id_user),
                 record_count=tag.record_count,
                 annotation=annotation_text,
-                label_classes='') #((tag.id_user == id_user) and 'label-tag-owned') or '')
+                label_classes='')
+
+            tag_info['owned'] = (tag.id_user == id_user)
+            tag_info['is_group'] = (tag.id_usergroup != 0)
+            tag_info['is_private'] = not tag_info['is_group']
+
+            if tag_info['is_private']:
+                tag_info['label_classes'] += ' label-info'
+
+            if tag_info['is_group']:
+                tag_info['group_name'] = getattr(tag, 'group_name', '')
+
+                tag_info['label_classes'] += ' label-success'
+                if tag_info['owned']:
+                    tag_info['label_classes'] += ' label-tag-owned'
 
             tag_info['popover_title'] = render_template_to_string(
                 'tags/tag_popover_title.html',
