@@ -507,7 +507,7 @@ def post_handler_demosite_populate(sender, default_data='', *args, **kwargs):
     try:
         from invenio.ext.sqlalchemy import db
         from fixture import SQLAlchemyFixture
-        from invenio import bibcirculation_model
+        from invenio.modules.circulation import models as bibcirculation_model
 
         models = dict((m.__name__, getattr(bibcirculation_model, m.__name__[:-4]))
                       for m in fixtures)

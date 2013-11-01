@@ -60,7 +60,7 @@ In order to write back such a record into the system you should use the BibUploa
 Please referer to bibrecord.py for a complete and up-to-date description of the API, see :func:`~invenio.legacy.bibrecordcreate_record`, :func:`~invenio.legacy.bibrecordrecord_get_field_instances` and friends in the source code of this file in the section entitled INTERFACE.
 
 
-As always, a good entry point to the bibrecord library and its record structure manipulating functions 
+As always, a good entry point to the bibrecord library and its record structure manipulating functions
 is to read the unit test cases that are located in bibrecord_tests.py and bibupload_regression_tests.py.
 
 
@@ -1107,7 +1107,7 @@ def field_xml_output(field, tag):
             (tag, field[1], field[2]))
         marcxml += [_subfield_xml_output(subfield) for subfield in field[0]]
         marcxml.append('  </datafield>')
-    return '\n'.join(marcxml)
+    return '\n'.join(map(str, marcxml))
 
 def record_extract_oai_id(record):
     """Returns the OAI ID of the record."""
