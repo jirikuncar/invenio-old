@@ -26,7 +26,7 @@ from flask import session
 
 def setup_app(app):
     # Enable Flask Debug Toolbar early to also catch HTTPS redirects
-    if 'debug-toolbar' in getattr(app.config, 'CFG_DEVEL_TOOLS', []):
+    if 'debug-toolbar' in app.config['CFG_DEVEL_TOOLS']:
         app.config["DEBUG_TB_ENABLED"] = True
         app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = \
             'intercept-redirects' in getattr(app.config, 'CFG_DEVEL_TOOLS', [])
