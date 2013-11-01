@@ -341,8 +341,8 @@ def view(name):
 
 
 @blueprint.route('/lost', methods=['GET', 'POST'])
-@blueprint.invenio_set_breadcrumb(_("Lost"))
-@blueprint.invenio_force_https
+@register_breadcrumb(blueprint, '.edit', _('Edit'))
+@ssl_required
 def lost():
     form = LostPasswordForm(request.values)
     if form.validate_on_submit():
