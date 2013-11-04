@@ -39,10 +39,10 @@ from invenio.ext.principal import permission_required
 CFG_SITE_RECORD = 'record'
 from invenio.webcomment_config import CFG_WEBCOMMENT_ACTION_CODE
 
-blueprint = Blueprint('webcomment', __name__, url_prefix="/" + CFG_SITE_RECORD,
+blueprint = Blueprint('comments', __name__, url_prefix="/" + CFG_SITE_RECORD,
                       template_folder='templates')
 
-from invenio.modules.records.blueprint import request_record
+from invenio.modules.records.views import request_record
 
 
 def log_comment_action(action_code, id, recid, uid=None):
@@ -139,7 +139,7 @@ def add_comment(recid):
             db.session.add(c)
             db.session.commit()
             flash(_('Comment was sent'), "info")
-            return redirect(url_for('webcomment.comments', recid=recid))
+            return redirect(url_for('comments.comments', recid=recid))
         except:
             db.session.rollback()
 
@@ -164,7 +164,7 @@ def add_review(recid):
             db.session.add(c)
             db.session.commit()
             flash(_('Review was sent'), "info")
-            return redirect(url_for('webcomment.reviews', recid=recid))
+            return redirect(url_for('comments.reviews', recid=recid))
         except:
             db.session.rollback()
 
@@ -237,7 +237,7 @@ def report(recid, id):
     else:
         flash(_('Comment has been already reported.'), 'error')
 
-    return redirect(url_for('webcomment.comments', recid=recid))
+    return redirect(url_for('comments.comments', recid=recid))
 
 
 @blueprint.route('/<int:recid>/vote/<int:id>/<value>',
@@ -257,7 +257,7 @@ def vote(recid, id, value):
     else:
         flash(_('You can not vote for this comment.'), 'error')
 
-    return redirect(url_for('webcomment.comments', recid=recid))
+    return redirect(url_for('comments.comments', recid=recid))
 
 
 @blueprint.route('/<int:recid>/toggle/<int:id>', methods=['GET', 'POST'])
@@ -277,7 +277,7 @@ def toggle(recid, id, show=None):
         comment.collapse(uid)
 
     if not request.is_xhr:
-        return redirect(url_for('webcomment.comments', recid=recid))
+        return redirect(url_for('comments.comments', recid=recid))
     else:
         return 'OK'
 

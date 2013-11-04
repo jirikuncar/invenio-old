@@ -104,7 +104,7 @@ def request_record(f):
             if k == '':
                 k = 'metadata'
             if k == 'comments' or k == 'reviews':
-                b = 'webcomment'
+                b = 'comments'
             if k == 'linkbacks':
                 b = 'weblinkback'
                 k = 'index'
