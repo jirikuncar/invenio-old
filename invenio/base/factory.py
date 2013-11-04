@@ -109,13 +109,11 @@ def create_app(**kwargs_config):
         _app.config.get('CFG_SITE_SECRET_KEY', 'change_me')
     if not SECRET_KEY or SECRET_KEY == 'change_me':
         fill_secret_key = """
-    Set variable CFG_SITE_SECRET_KEY with random string in invenio-local.conf.
+    Set variable SECRET_KEY with random string in invenio.cfg.
 
     You can use following commands:
     $ %s
-    $ %s
-        """ % ('inveniocfg --create-secret-key',
-               'inveniocfg --update-config-py')
+        """ % ('inveniomanage config create secret-key', )
         print fill_secret_key
         #try:
         #    raise Exception(fill_secret_key)

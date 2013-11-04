@@ -22,6 +22,8 @@ import sys
 import shutil
 import datetime
 
+from pipes import quote
+from flask import current_app
 from invenio.ext.script import Manager, change_command_name, print_progress
 
 manager = Manager(usage="Perform database operations")
@@ -34,7 +36,49 @@ option_default_data = manager.option('--no-data', action='store_false',
                                      help='do not populate tables with default data')
 
 
+@manager.option('-u', '--user', dest='user', default="root")
+@manager.option('-p', '--password', dest='password', default="")
+@option_yes_i_know
+def install(user='root', password='', yes_i_know=False):
+    """Creates database and user."""
+    from invenio.ext.sqlalchemy import db
+    from invenio.utils.text import wrap_text_in_a_box, wait_for_user
 
+    ## Step 0: confirm deletion
+    wait_for_user(wrap_text_in_a_box("""WARNING: You are going to destroy your database tables! Run first `inveniomanage database drop`."""))
+
+    ## Step 1: drop database and recreate it
+    if db.engine.name == 'mysql':
+        #FIXME improve escaping
+        args = dict((k, str(v).replace('$', '\$'))
+                    for (k, v) in current_app.config.iteritems()
+                    if k.startswith('CFG_DATABASE'))
+        args = dict(zip(args, map(quote, args.values())))
+        prefix = ('{cmd} -u {user} --password={password} '
+                  '-h {CFG_DATABASE_HOST} -P {CFG_DATABASE_PORT} ')
+        cmd_prefix = prefix.format(cmd='mysql', user=user, password=password,
+                                   **args)
+        cmd_admin_prefix = prefix.format(cmd='mysqladmin', user=user,
+                                         password=password,
+                                         **args)
+        cmds = [
+            cmd_prefix + '-e "DROP DATABASE IF EXISTS {CFG_DATABASE_NAME}"',
+            (cmd_prefix + '-e "CREATE DATABASE IF NOT EXISTS '
+             '{CFG_DATABASE_NAME} DEFAULT CHARACTER SET utf8 '
+             'COLLATE utf8_general_ci"'),
+            # Create user and grant access to database.
+            (cmd_prefix + '-e "GRANT ALL PRIVILEGES ON '
+             '{CFG_DATABASE_USER}.* TO {CFG_DATABASE_NAME}@localhost '
+             'IDENTIFIED BY {CFG_DATABASE_PASS}"'),
+            cmd_admin_prefix + 'flush-privileges'
+        ]
+        for cmd in cmds:
+            cmd = cmd.format(**args)
+            print cmd
+            if os.system(cmd):
+                print "ERROR: failed execution of", cmd
+                sys.exit(1)
+        print '>>> Database has been installed.'
 
 @option_yes_i_know
 def drop(yes_i_know=False):
@@ -121,8 +165,12 @@ def create(default_data=True):
     from invenio.legacy.inveniocfg import test_db_connection
     from invenio.base.utils import autodiscover_models
     from invenio.ext.sqlalchemy import db
+    try:
+        test_db_connection()
+    except:
+        from invenio.errorlib import get_tracestack
+        print get_tracestack()
 
-    test_db_connection()
     list(autodiscover_models())
 
     def cfv_after_create(target, connection, **kw):

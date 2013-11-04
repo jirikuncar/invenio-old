@@ -684,8 +684,9 @@ def test_db_connection():
     try:
         run_sql("SHOW TABLES")
     except Error, err:
-        from invenio.dbquery import CFG_DATABASE_HOST, CFG_DATABASE_PORT, \
-             CFG_DATABASE_NAME, CFG_DATABASE_USER, CFG_DATABASE_PASS
+        from invenio.dbquery_config import CFG_DATABASE_HOST, \
+            CFG_DATABASE_PORT, CFG_DATABASE_NAME, CFG_DATABASE_USER, \
+            CFG_DATABASE_PASS
         print wrap_text_in_a_box("""\
 DATABASE CONNECTIVITY ERROR %(errno)d: %(errmsg)s.\n
 

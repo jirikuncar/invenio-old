@@ -34,6 +34,6 @@ def setup_app(app):
     """Setup cache extension."""
 
     app.config.setdefault('CACHE_TYPE',
-                          app.config.get('CFG_FLASK_CACHE_TYPE', 'null'))
+                          app.config.get('CFG_FLASK_CACHE_TYPE', 'redis'))
     cache.init_app(app)
     return app
