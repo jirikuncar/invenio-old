@@ -39,8 +39,8 @@ option_default_data = manager.option('--no-data', action='store_false',
 @manager.option('-u', '--user', dest='user', default="root")
 @manager.option('-p', '--password', dest='password', default="")
 @option_yes_i_know
-def install(user='root', password='', yes_i_know=False):
-    """Creates database and user."""
+def init(user='root', password='', yes_i_know=False):
+    """Initializes database and user."""
     from invenio.ext.sqlalchemy import db
     from invenio.utils.text import wrap_text_in_a_box, wait_for_user
 
