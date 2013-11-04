@@ -87,12 +87,9 @@ from invenio.config import \
      CFG_XAPIAN_ENABLED, \
      CFG_BIBINDEX_CHARS_PUNCTUATION
 
-from invenio.search_engine_config import \
+from invenio.modules.search.errors import \
      InvenioWebSearchUnknownCollectionError, \
      InvenioWebSearchWildcardLimitError, \
-     CFG_WEBSEARCH_IDXPAIRS_FIELDS,\
-     CFG_WEBSEARCH_IDXPAIRS_EXACT_SEARCH, \
-     CFG_SEARCH_RESULTS_CACHE_PREFIX
 from invenio.search_engine_utils import get_fieldvalues, get_fieldvalues_alephseq_like
 from invenio.legacy.bibrecord import create_record, record_xml_output
 from invenio.bibrank_record_sorter import get_bibrank_methods, is_method_valid, rank_records as rank_records_bibrank
@@ -2339,7 +2336,7 @@ def search_unit(p, f=None, m=None, wl=0, ignore_synonyms=None):
 def get_idxpair_field_ids():
     """Returns the list of ids for the fields that idxPAIRS should be used on"""
     index_dict = dict(run_sql("SELECT name, id FROM idxINDEX"))
-    return [index_dict[field] for field in index_dict if field in CFG_WEBSEARCH_IDXPAIRS_FIELDS]
+    return [index_dict[field] for field in index_dict if field in cfg['CFG_WEBSEARCH_IDXPAIRS_FIELDS']]
 
 
 def search_unit_in_bibwords(word, f, m=None, decompress=zlib.decompress, wl=0):
@@ -2529,7 +2526,7 @@ def search_unit_in_idxpairs(p, f, type, wl=0):
         raise InvenioWebSearchWildcardLimitError(result_set)
 
     # check if we need to eliminate the false positives
-    if CFG_WEBSEARCH_IDXPAIRS_EXACT_SEARCH and do_exact_search:
+    if cfg['CFG_WEBSEARCH_IDXPAIRS_EXACT_SEARCH'] and do_exact_search:
         # we need to eliminate the false positives
         idxphrase_table_washed = wash_table_column_name("idxPHRASE%02dR" % index_id)
         not_exact_search = intbitset()

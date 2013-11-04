@@ -70,7 +70,7 @@ def setup_app(app):
     """
     Register all administration views with the Flask application
     """
-    from invenio.importutils import autodiscover_modules
+    from invenio.base.utils import autodiscover_admin_views
 
     # Initialize app
     admin = Admin(
@@ -81,8 +81,7 @@ def setup_app(app):
     admin.init_app(app)
 
     # Call register() in admin module to register views.
-    modules = autodiscover_modules(['invenio'],
-                                   '(?!oai_harvest_admin).+_admin\.py')
+    modules = autodiscover_admin_views(app)
     for m in modules:
         register_func = getattr(m, 'register_admin', None)
         if register_func and callable(register_func):

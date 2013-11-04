@@ -26,8 +26,7 @@ import re
 from operator import itemgetter
 from flask import g, url_for
 from invenio.base.globals import cfg
-from invenio.intbitset import intbitset
-#from invenio.search_engine_config import CFG_WEBSEARCH_SEARCH_WITHIN
+from intbitset import intbitset
 #from invenio.search_engine import collection_restricted_p
 from invenio.ext.sqlalchemy import db
 from sqlalchemy.orm.collections import InstrumentedList
@@ -321,13 +320,12 @@ class Collection(db.Model):
         """
         Collect search within options.
         """
-        from invenio.search_engine_config import CFG_WEBSEARCH_SEARCH_WITHIN
         default = [('', g._('any field'))]
         found = [(o.field.code, o.field.name_ln) for o in self._search_within]
         if not found:
             found = [(f.name.replace(' ', ''), f.name_ln)
                 for f in Field.query.filter(Field.name.in_(
-                    CFG_WEBSEARCH_SEARCH_WITHIN)).all()]
+                    cfg['CFG_WEBSEARCH_SEARCH_WITHIN'])).all()]
         return default + sorted(found, key=itemgetter(1))
 
     @property

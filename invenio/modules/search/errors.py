@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-##
+#
 ## This file is part of Invenio.
-## Copyright (C) 2005, 2006, 2007, 2008, 2010, 2011 CERN.
+## Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2010, 2011, 2012,
+## 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -17,19 +18,22 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-""" Configuration file for miscutil module.
-- Contains standard error messages for errorlib
-  e.g. No error message given, etc.
-"""
 
-__revision__ = "$Id$"
+class InvenioWebSearchUnknownCollectionError(Exception):
+    """Exception for bad collection."""
 
-# Exceptions: errors
-class InvenioMiscUtilError(Exception):
-    """A generic error for MiscUtil."""
-    def __init__(self, message):
+    def __init__(self, colname):
         """Initialisation."""
-        self.message = message
+        self.colname = colname
+
     def __str__(self):
         """String representation."""
-        return repr(self.message)
+        return repr(self.colname)
+
+
+class InvenioWebSearchWildcardLimitError(Exception):
+    """Exception raised when query limit reached."""
+
+    def __init__(self, res):
+        """Initialization."""
+        self.res = res

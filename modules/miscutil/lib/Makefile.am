@@ -56,7 +56,6 @@ pylib_DATA = __init__.py \
              memoiseutils_unit_tests.py \
              messages_unit_tests.py \
              mimetypeutils_unit_tests.py \
-             miscutil_config.py \
              miscutil_model.py \
              orcid.py \
              paginationutils_unit_tests.py \

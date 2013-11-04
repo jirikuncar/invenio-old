@@ -81,7 +81,10 @@ def create(packages=['invenio_atlantis']):
 
     print ">>> Going to create demo site..."
     db.session.execute("TRUNCATE schTASK")
-    db.session.execute("TRUNCATE session")
+    try:
+        db.session.execute("TRUNCATE session")
+    except:
+        pass
     User.query.filter(User.email == '').delete()
     db.session.commit()
 

@@ -65,10 +65,9 @@ from invenio.config import \
      CFG_SITE_RECORD, \
      CFG_WEBSEARCH_PREV_NEXT_HIT_LIMIT
 
-from invenio.search_engine_config import CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT
-
 from invenio.dbquery import run_sql
 from invenio.base.i18n import gettext_set_language
+from invenio.base.globals import cfg
 from invenio.utils.url import make_canonical_urlargd, drop_default_urlargd, create_html_link, create_url
 from invenio.htmlutils import nmtoken_from_string
 from invenio.webinterface_handler import wash_urlargd
@@ -3029,7 +3028,7 @@ class Template:
                 count += 1
                 out += """
                       <span %(collclass)s><strong><a href="#%(coll)s">%(coll_name)s</a></strong>, <a href="#%(coll)s">%(number)s</a><br /></span>""" % \
-                                      {'collclass' : count > CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT and 'class="morecollslist" style="display:none"' or '',
+                                      {'collclass' : count > cfg['CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT'] and 'class="morecollslist" style="display:none"' or '',
                                        'coll' : coll['id'],
                                        'coll_name' : cgi.escape(coll['name']),
                                        'number' : _("%s records found") % \
@@ -3040,12 +3039,12 @@ class Template:
                 count += 1
                 out += """
                       <span %(collclass)s><strong><a href="#%(coll)s">%(coll_name)s</a></strong><br /></span>""" % \
-                                      {'collclass' : count > CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT and 'class="morecollslist" style="display:none"' or '',
+                                      {'collclass' : count > cfg['CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT'] and 'class="morecollslist" style="display:none"' or '',
                                        'coll' : coll['id'],
                                        'coll_name' : cgi.escape(coll['name']),
                                        'number' : _("%s records found") % \
                                        ('<strong>' + self.tmpl_nice_number(results_final_nb[coll['code']], ln) + '</strong>')}
-        if count > CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT:
+        if count > cfg['CFG_WEBSEARCH_RESULTS_OVERVIEW_MAX_COLLS_TO_PRINT']:
             out += """<a class="lesscolls" style="display:none; color:red; font-size:small" href="#"><i>%s</i></a>""" % _("Show less collections")
             out += """<a class="morecolls" style="color:red; font-size:small" href="#"><i>%s</i></a>""" % _("Show all collections")
 

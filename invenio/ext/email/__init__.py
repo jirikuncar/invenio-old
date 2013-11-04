@@ -42,7 +42,7 @@ from flask.ext.email.message import EmailMultiAlternatives, EmailMessage
 from invenio.base.globals import cfg
 default_ln = lambda ln: cfg.get('CFG_SITE_LANG') if ln is None else ln
 
-from invenio.miscutil_config import InvenioMiscUtilError
+from .errors import EmailError
 from invenio.ext.template import render_template_to_string
 from invenio.base.helpers import unicodifier
 
@@ -221,8 +221,8 @@ def send_email(fromaddr,
 
     if attempt_times < 1 or not toaddr:
         try:
-            raise InvenioMiscUtilError(g._('The system is not attempting to send an email from %s, to %s, with body %s.') % (fromaddr, toaddr, body))
-        except InvenioMiscUtilError:
+            raise EmailError(g._('The system is not attempting to send an email from %s, to %s, with body %s.') % (fromaddr, toaddr, body))
+        except EmailError:
             register_exception()
         return False
     sent = False
@@ -233,8 +233,8 @@ def send_email(fromaddr,
             register_exception()
             if debug_level > 1:
                 try:
-                    raise InvenioMiscUtilError(g._('Error in sending message. Waiting %s seconds. Exception is %s, while sending email from %s to %s with body %s.') % (attempt_sleeptime, sys.exc_info()[0], fromaddr, toaddr, body))
-                except InvenioMiscUtilError:
+                    raise EmailError(g._('Error in sending message. Waiting %s seconds. Exception is %s, while sending email from %s to %s with body %s.') % (attempt_sleeptime, sys.exc_info()[0], fromaddr, toaddr, body))
+                except EmailError:
                     register_exception()
         if not sent:
             attempt_times -= 1
@@ -242,8 +242,8 @@ def send_email(fromaddr,
                 sleep(attempt_sleeptime)
     if not sent:
         try:
-            raise InvenioMiscUtilError(g._('Error in sending email from %s to %s with body %s.') % (fromaddr, toaddr, body))
-        except InvenioMiscUtilError:
+            raise EmailError(g._('Error in sending email from %s to %s with body %s.') % (fromaddr, toaddr, body))
+        except EmailError:
             register_exception()
     return sent
 
