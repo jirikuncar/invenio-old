@@ -36,23 +36,27 @@ install:
   - "sudo a2enmod rewrite"
   - "sudo mkdir /etc/apache2/ssl"
   - "sudo /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem"
-  - "sudo pip install nose==1.2.1"
-  - "sudo pip install -r requirements.txt"
-  - "sudo pip install -r requirements-flask.txt"
-  - "sudo python setup.py install"
+  - sudo pip install --upgrade pip
+  - sudo pip install --upgrade setuptools
+  - sudo pip install --upgrade distribute
+  - sudo pip install --upgrade virtualenvwrapper
+  - ". `which virtualenvwrapper.sh`"
+  - mkvirtualenv invenio
+  - workon invenio
+  - "pip install nose==1.2.1"
+  - "pip install -r requirements.txt"
+  - "pip install -r requirements-flask.txt"
+  - "python setup.py install"
   - "aclocal"
   - "automake --add-missing"
   - "autoconf"
-  - "./configure"
+  - "./configure --prefix=$WORKON_HOME/invenio --with-python=$WORKON_HOME/invenio/bin/python"
   - "make"
-  - "sudo mkdir -p /opt/invenio/lib/python/invenio"
-  - "sudo mkdir -p /usr/var/invenio.base-instance"
-  - "sudo chown -R `whoami`:`whoami` /usr/var/invenio.base-instance"
-  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/local/lib/python2.7/dist-packages/invenio || echo 'not 2.7'"
-  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/lib/python2.7/dist-packages/invenio || echo 'not 2.7'"
-  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/local/lib/python2.6/dist-packages/invenio || echo 'not 2.6'"
-  - "sudo ln -s /opt/invenio/lib/python/invenio /usr/lib/python2.6/dist-packages/invenio || echo 'not 2.6'"
-  - "sudo chown -R `whoami`:`whoami` /opt/invenio"
+  - "sudo mkdir -p $WORKON_HOME/invenio/lib/python/invenio"
+  - "ln -s $WORKON_HOME/invenio/lib/python/invenio $WORKON_HOME/invenio/local/lib/python2.7/dist-packages/invenio || echo 'not 2.7'"
+  - "ln -s $WORKON_HOME/invenio/lib/python/invenio $WORKON_HOME/invenio/lib/python2.7/dist-packages/invenio || echo 'not 2.7'"
+  - "ln -s $WORKON_HOME/invenio/lib/python/invenio $WORKON_HOME/invenio/local/lib/python2.6/dist-packages/invenio || echo 'not 2.6'"
+  - "ln -s $WORKON_HOME/invenio/lib/python/invenio $WORKON_HOME/invenio/lib/python2.6/dist-packages/invenio || echo 'not 2.6'"
   - "make install"
   - "make install-hogan-plugin || echo ':('"
   - "make install-mathjax-plugin || echo ':('"
@@ -60,15 +64,15 @@ install:
   - "make install-pdfa-helper-files || echo ':('"
   - "make install-jquery-plugins || echo ':('"
   - "make install-bootstrap || echo ':('"
-  - "sudo python setup.py install"
+  - "python setup.py install"
   - "inveniomanage config create secret-key"
   - "inveniomanage config set CFG_EMAIL_BACKEND flask.ext.email.backends.console.Mail"
   - "inveniomanage config set CFG_BIBSCHED_PROCESS_USER `whoami`"
 
 before_script:
   - "inveniomanage apache create-config"
-  - "sudo ln -s /opt/invenio/etc/apache/invenio-apache-vhost.conf /etc/apache2/sites-available/invenio"
-  - "sudo ln -s /opt/invenio/etc/apache/invenio-apache-vhost-ssl.conf /etc/apache2/sites-available/invenio-ssl"
+  - "sudo ln -s $WORKON_HOME/invenio/etc/apache/invenio-apache-vhost.conf /etc/apache2/sites-available/invenio"
+  - "sudo ln -s $WORKON_HOME/invenio/etc/apache/invenio-apache-vhost-ssl.conf /etc/apache2/sites-available/invenio-ssl"
   - "sudo /usr/sbin/a2dissite default || echo ':('"
   - "sudo /usr/sbin/a2ensite invenio" # enable Invenio web site
   - "sudo /usr/sbin/a2ensite invenio-ssl" # enable Invenio secure web site
@@ -81,5 +85,5 @@ before_script:
   - "inveniomanage demosite populate"
 
 script:
-  - "nosetests /opt/invenio/lib/python/invenio/*_unit_tests.py"
-  - "nosetests /opt/invenio/lib/python/invenio/*_regression_tests.py"
+  - "nosetests $WORKON_HOME/invenio/lib/python/invenio/*_unit_tests.py"
+  - "nosetests $WORKON_HOME/invenio/lib/python/invenio/*_regression_tests.py"
