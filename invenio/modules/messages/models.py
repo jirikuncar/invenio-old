@@ -27,7 +27,7 @@ from invenio.ext.sqlalchemy import db
 
 # Create your models here.
 from string import strip
-from invenio.modules.account.models import User, Usergroup
+from invenio.modules.accounts.models import User, Usergroup
 from sqlalchemy.ext.associationproxy import association_proxy
 
 

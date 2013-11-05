@@ -25,7 +25,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 
 # Related models
 from invenio.modules.record_editor.models import Bibrec
-from invenio.modules.account.models import User, Usergroup
+from invenio.modules.accounts.models import User, Usergroup
 
 # Functions
 from invenio.base.globals import cfg

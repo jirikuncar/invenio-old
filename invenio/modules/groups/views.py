@@ -25,7 +25,7 @@ from invenio.base.decorators import wash_arguments
 from invenio.base.i18n import _
 from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
 from invenio.ext.sqlalchemy import db
-from invenio.modules.account.models import User, Usergroup, UserUsergroup
+from invenio.modules.accounts.models import User, Usergroup, UserUsergroup
 
 blueprint = Blueprint('webgroup', __name__, url_prefix="/yourgroups",
                       template_folder='templates', static_folder='static')

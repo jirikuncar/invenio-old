@@ -43,8 +43,10 @@ from invenio.access_control_config import CFG_EXTERNAL_AUTH_USING_SSO, \
 from invenio.utils.url import make_canonical_urlargd, create_url, create_html_link
 from invenio.htmlutils import escape_html, nmtoken_from_string
 from invenio.base.i18n import gettext_set_language, language_list_long
-from invenio.modules.api_keys.models import WebAPIKey
+from invenio.modules.apikeys.models import WebAPIKey
 from invenio.websession_config import CFG_WEBSESSION_GROUP_JOIN_POLICY
+
+
 class Template:
     def tmpl_back_form(self, ln, message, url, link):
         """

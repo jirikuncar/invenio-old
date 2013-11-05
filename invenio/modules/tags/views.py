@@ -35,7 +35,7 @@ from invenio.base.globals import cfg
 from sqlalchemy.exc import SQLAlchemyError
 
 # External imports
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.modules.record_editor.models import Bibrec
 from invenio.modules.search.models import Collection
 from invenio.modules.search.blueprint import response_formated_records

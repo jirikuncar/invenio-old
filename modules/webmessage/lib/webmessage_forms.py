@@ -24,7 +24,7 @@ from datetime import datetime
 
 from invenio.modules.messages.config import CFG_WEBMESSAGE_MAX_SIZE_OF_MESSAGE
 from invenio.ext.sqlalchemy import db
-from invenio.modules.account.models import User, Usergroup
+from invenio.modules.accounts.models import User, Usergroup
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
 from invenio.base.i18n import _
 from flask.ext.wtf import Form

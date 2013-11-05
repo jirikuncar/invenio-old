@@ -50,7 +50,7 @@ from invenio.errorlib import register_exception
 from invenio.webuser import get_preferred_user_language, isGuestUser, \
     getUid, isUserSuperAdmin, collect_user_info, setUid
 from invenio.webinterface_handler_wsgi_utils import StringField
-from invenio.modules import api_keys as web_api_key
+from invenio.modules import apikeys as web_api_key
 
 
 ## The following variable is True if the installation make any difference

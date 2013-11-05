@@ -76,7 +76,7 @@ def create(packages=['invenio_atlantis']):
 
     from invenio.ext.sqlalchemy import db
     from invenio.config import CFG_PREFIX
-    from invenio.modules.account.models import User
+    from invenio.modules.accounts.models import User
     from invenio.base.scripts.config import get_conf
 
     print ">>> Going to create demo site..."

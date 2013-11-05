@@ -89,7 +89,7 @@ from invenio.config import \
 
 from invenio.modules.search.errors import \
      InvenioWebSearchUnknownCollectionError, \
-     InvenioWebSearchWildcardLimitError, \
+     InvenioWebSearchWildcardLimitError
 from invenio.search_engine_utils import get_fieldvalues, get_fieldvalues_alephseq_like
 from invenio.legacy.bibrecord import create_record, record_xml_output
 from invenio.bibrank_record_sorter import get_bibrank_methods, is_method_valid, rank_records as rank_records_bibrank

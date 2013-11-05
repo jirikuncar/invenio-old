@@ -21,14 +21,14 @@
 
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.base.i18n import _
 from flask.ext.login import current_user
 from invenio.ext.template import render_template_to_string
 from invenio.modules.dashboard.settings import Settings, UserSettingsStorage, \
                              ModelSettingsStorageBuilder, \
                              UserSettingsAttributeStorage
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.webaccount_forms import ChangeUserEmailSettingsForm
 
 class DashboardSettings(Settings):

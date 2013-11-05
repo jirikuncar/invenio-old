@@ -26,7 +26,7 @@ from invenio.ext.sqlalchemy import db
 
 # Create your models here.
 from invenio.modules.record_editor.models import Bibrec
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 
 class LnkADMINURL(db.Model):
     """Represents a LnkADMINURL record."""

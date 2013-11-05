@@ -32,7 +32,7 @@ except ImportError:
 
 from functools import wraps
 from flask import request, abort
-from invenio.modules.api_keys.models import WebAPIKey
+from .models import WebAPIKey
 
 
 def create_new_web_api_key(uid, key_description=None):

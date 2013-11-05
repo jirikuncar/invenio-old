@@ -20,7 +20,7 @@
 """WebAccount User Settings"""
 
 from flask import url_for, g
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from flask.ext.login import current_user
 from invenio.ext.template import render_template_to_string
 from invenio.modules.dashboard.settings import Settings, ModelSettingsStorageBuilder

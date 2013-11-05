@@ -71,7 +71,7 @@ from invenio.access_control_config import CFG_WEBACCESS_WARNING_MSGS, \
     CFG_OAUTH1_AUTHENTICATION, CFG_OAUTH2_AUTHENTICATION
 from invenio.session import get_session
 
-from invenio.modules import api_keys as web_api_key
+from invenio.modules import apikeys as web_api_key
 
 
 import invenio.template

@@ -28,7 +28,10 @@ from .cache import search_results_cache, \
 from .models import Collection
 
 from invenio.base.globals import cfg
-from intbitset import intbitset
+try:
+    from invenio.intbitset import intbitset
+except:
+    from intbitset import intbitset
 from invenio.base.utils import autodiscover_facets
 
 

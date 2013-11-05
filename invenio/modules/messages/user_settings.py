@@ -21,7 +21,7 @@
 
 from flask import Blueprint, session, make_response, g, render_template, \
                   request, flash, jsonify, redirect, url_for, current_app
-from invenio.modules.account.models import User, Usergroup, UserUsergroup
+from invenio.modules.accounts.models import User, Usergroup, UserUsergroup
 from invenio.base.i18n import _
 from invenio.ext.sqlalchemy import db
 from invenio.ext.template import render_template_to_string

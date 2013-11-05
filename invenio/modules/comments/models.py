@@ -29,7 +29,7 @@ from flask.ext.login import current_user
 # Create your models here.
 
 from invenio.modules.record_editor.models import Bibrec
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.base.signals import record_after_update
 
 

@@ -32,7 +32,7 @@ class TestWebDepositAPI(InvenioTestCase):
 
     def setUp(self):
         from random import randint
-        from invenio.modules.api_keys import create_new_web_api_key, \
+        from invenio.modules.apikeys import create_new_web_api_key, \
             get_available_web_api_keys
         from invenio.webdeposit_load_deposition_types import \
             deposition_metadata
@@ -52,7 +52,7 @@ class TestWebDepositAPI(InvenioTestCase):
 
     def test_create(self):
         from flask import current_app, url_for
-        from invenio.modules.api_keys import build_web_request
+        from invenio.modules.apikeys import build_web_request
 
         url = url_for('webdeposit_api.deposition_create',
                       deposition_type=self.deposition)
@@ -74,7 +74,7 @@ class TestWebDepositAPI(InvenioTestCase):
         from invenio.webdeposit_utils import create_workflow
         from wtforms import TextAreaField
         from invenio.modules.deposit import forms
-        from invenio.modules.api_keys import build_web_request
+        from invenio.modules.apikeys import build_web_request
 
         self.uuid = create_workflow(self.deposition, user_id=1).get_uuid()
 

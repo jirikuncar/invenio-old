@@ -26,7 +26,10 @@ import re
 from operator import itemgetter
 from flask import g, url_for
 from invenio.base.globals import cfg
-from intbitset import intbitset
+try:
+    from invenio.intbitset import intbitset
+except:
+    from intbitset import intbitset
 #from invenio.search_engine import collection_restricted_p
 from invenio.ext.sqlalchemy import db
 from sqlalchemy.orm.collections import InstrumentedList
@@ -39,7 +42,7 @@ from sqlalchemy.ext.orderinglist import ordering_list
 
 # Create your models here.
 
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.modules.formatter.models import Format
 
 

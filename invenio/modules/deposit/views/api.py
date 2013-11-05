@@ -33,9 +33,9 @@ from invenio.webdeposit_utils import create_workflow,\
     validate_preingested_data, \
     deposit_files, \
     InvenioWebDepositNoDepositionType
-from invenio.webuser_flask import current_user
-from invenio.modules.api_keys import api_key_required
-from invenio.jsonutils import wash_for_json
+from flask.ext.login import current_user
+from invenio.modules.apikeys import api_key_required
+from invenio.utils.json import wash_for_json
 
 blueprint = Blueprint('webdeposit_api', __name__, url_prefix='/api/deposit',
                       template_folder='../templates',

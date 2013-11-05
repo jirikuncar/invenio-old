@@ -37,7 +37,7 @@ from wtforms import \
 
 #Models
 from invenio.modules.record_editor.models import Bibrec
-from invenio.modules.account.models import User, Usergroup, UserUsergroup
+from invenio.modules.accounts.models import User, Usergroup, UserUsergroup
 
 # Internal
 from invenio.ext.sqlalchemy import db

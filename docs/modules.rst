@@ -7,20 +7,20 @@ Modules
    :members:
    :undoc-members:
 
-.. automodule:: invenio.modules.account
+.. automodule:: invenio.modules.accounts
    :members:
    :undoc-members:
 
 .. automodule:: invenio.modules.alerts
    :members:
 
-.. automodule:: invenio.modules.api_keys
+.. automodule:: invenio.modules.apikeys
    :members:
 
-.. automodule:: invenio.modules.author_id
+.. automodule:: invenio.modules.authorids
    :members:
 
-.. automodule:: invenio.modules.author_profile
+.. automodule:: invenio.modules.authorprofiles
    :members:
 
 .. automodule:: invenio.modules.baskets

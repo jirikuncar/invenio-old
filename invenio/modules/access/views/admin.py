@@ -22,7 +22,7 @@
 from flask import redirect, url_for, Blueprint
 from flask.ext.login import login_required
 from invenio.modules.access.models import AccACTION, AccROLE
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.base.i18n import _
 from invenio.base.decorators import templated, sorted_by
 from invenio.ext.menu import register_menu

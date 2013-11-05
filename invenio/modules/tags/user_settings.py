@@ -29,7 +29,7 @@ from invenio.modules.dashboard.settings import \
     UserSettingsAttributeStorage
 
 # Related models
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 from invenio.modules.record_editor.models import Bibrec
 
 # Internal

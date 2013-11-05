@@ -35,7 +35,7 @@ from invenio.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
 
 from invenio.ext.sqlalchemy import db
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
-from invenio.modules.account.models import User
+from invenio.modules.accounts.models import User
 
 def filter_messages_from_user_with_status(uid, status):
     """

@@ -30,7 +30,7 @@ from invenio.modules.tags.models import \
     WtgTAGRecord
 
 # Related models
-from invenio.modules.account.models import User, Usergroup, UserUsergroup
+from invenio.modules.accounts.models import User, Usergroup, UserUsergroup
 
 
 def template_context_function(id_bibrec, id_user):
