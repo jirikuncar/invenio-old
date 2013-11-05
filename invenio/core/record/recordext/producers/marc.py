@@ -18,7 +18,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 
-def produce_marc(self, fields=None):
+def produce(self, fields=None):
     """
     Export the record in marc format.
 

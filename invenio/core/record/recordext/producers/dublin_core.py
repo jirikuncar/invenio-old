@@ -17,7 +17,7 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-def produce_dublin_core(self, fields=None):
+def produce(self, fields=None):
     """
     Export the record in dublin core format.
 

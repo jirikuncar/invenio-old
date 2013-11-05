@@ -23,9 +23,7 @@ BibField Json Reader
 
 __revision__ = "$Id$"
 
-import os
 import re
-
 import sys
 if sys.version_info < (2,5):
     def all(list):
@@ -39,10 +37,13 @@ if sys.version_info < (2,5):
                 return True
         return False
 
+from werkzeug import cached_property
+
 from invenio.bibfield_utils import BibFieldDict, \
                                    InvenioBibFieldContinuableError, \
                                    InvenioBibFieldError
 from invenio.core.record.definitions import field_definitions
+from invenio.base.utils import import_submodules_from_packages
 
 class JsonReader(BibFieldDict):
     """
@@ -56,12 +57,6 @@ class JsonReader(BibFieldDict):
         """
         blob -> _prepare_blob(...) -> rec_tree -> _translate(...) -> rec_json -> check_record(...)
         """
-
-        from invenio.config import CFG_PYLIBDIR
-        from invenio.pluginutils import PluginContainer
-        for key, value in PluginContainer(os.path.join(CFG_PYLIBDIR, 'invenio', 'bibfield_functions', 'produce_*.py')).iteritems():
-            setattr(JsonReader, key, value)
-
         super(JsonReader, self).__init__()
         self.blob_wrapper = blob_wrapper
         self.rec_tree = None  # all record information represented as a tree (intermediate structure)
@@ -82,6 +77,13 @@ class JsonReader(BibFieldDict):
             self.is_init_phase = False
         else:
             self['__master_format'] = 'json'
+
+    @cached_property
+    def producers(self):
+        def _produce(module):
+            return module.__name__.split('.')[-1], module.produce
+        return dict(map(
+            _produce, import_submodules_from_packages('recordext.producers')))
 
     @staticmethod
     def split_blob(blob, schema):
@@ -162,7 +164,7 @@ class JsonReader(BibFieldDict):
             return encode_for_xml(str(value))
 
         export = '<record>'
-        marc_dicts = self.produce_marc()
+        marc_dicts = self.producers['marc'](self)
         for marc_dict in marc_dicts:
             content = ''
             tag = ''
