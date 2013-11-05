@@ -672,18 +672,18 @@ def get_main_field(field):
 
 def get_producer_rules(field, code):
     """docstring for get_producer_rules"""
-    from invenio.core.record.definitions import field_definitions
+    from invenio.core.record.definitions import legacy_field_matchings
 
-    rule = field_definitions[field]
+    rule = legacy_field_matchings[field]
     if isinstance(rule, list):
         if len(rule) == 1:
             # case field[n]
-            return [(rule[0].replace('[n]', ''), field_definitions[rule[0]]['producer'].get(code, {}))]
+            return [(rule[0].replace('[n]', ''), legacy_field_matchings[rule[0]]['producer'].get(code, {}))]
         else:
             # case field[1], field[n]
             rules = []
             for new_field in rule:
-                rules.append((new_field.replace('[n]', '[1:]'), field_definitions[new_field]['producer'].get(code, {})))
+                rules.append((new_field.replace('[n]', '[1:]'), legacy_field_matchings[new_field]['producer'].get(code, {})))
             return rules
     else:
         return [(field, rule['producer'].get(code, {}))]
