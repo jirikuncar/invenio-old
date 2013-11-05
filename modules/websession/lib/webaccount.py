@@ -21,8 +21,7 @@ import re
 import MySQLdb
 import urllib
 
-from invenio.dbquery import CFG_DATABASE_HOST, \
-                            CFG_DATABASE_NAME
+from invenio.base.globals import cfg
 from invenio.config import \
      CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS, \
      CFG_CERN_SITE, \
@@ -177,7 +176,7 @@ def superuser_account_warnings():
 
     #Try and connect to the mysql database with the default invenio password
     try:
-        conn = MySQLdb.connect (host = CFG_DATABASE_HOST,
+        conn = MySQLdb.connect (host = cfg['CFG_DATABASE_HOST'],
                                 user = "root",
                                 passwd = "my123p$ss",
                                 db = "mysql")
@@ -188,10 +187,10 @@ def superuser_account_warnings():
 
     #Try and connect to the invenio database with the default invenio password
     try:
-        conn = MySQLdb.connect (host = CFG_DATABASE_HOST,
+        conn = MySQLdb.connect (host = cfg['CFG_DATABASE_HOST'],
                                 user = "invenio",
                                 passwd = "my123p$ss",
-                                db = CFG_DATABASE_NAME)
+                                db = cfg['CFG_DATABASE_NAME'])
         conn.close ()
         warning_array.append("warning_invenio_password_equal_to_default")
     except:
