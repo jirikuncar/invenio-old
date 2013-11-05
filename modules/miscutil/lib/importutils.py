@@ -30,7 +30,7 @@ standalone Python modules.
 
 import imp
 import re
-from werkzeug.local import LocalProxy
+
 from werkzeug import find_modules, import_string
 
 _RACE_PROTECTION = False
@@ -117,8 +117,3 @@ def import_related_module(package, pkg_path, related_name, ignore_exceptions=Fal
             raise e
 
 
-def lazy_import(name):
-    """
-    Lazy import of name using `Werzeug.local.import_string`.
-    """
-    return LocalProxy(lambda: import_string(name))

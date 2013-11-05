@@ -22,8 +22,8 @@
 __revision__ = "$Id$"
 
 from cgi import parse_qs
-from invenio.importutils import lazy_import
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 HASHLIB_IMPORTED = lazy_import('invenio.utils.url:HASHLIB_IMPORTED')
 create_AWS_request_url = lazy_import('invenio.utils.url:create_AWS_request_url')

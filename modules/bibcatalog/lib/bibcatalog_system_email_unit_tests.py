@@ -20,7 +20,7 @@
 
 """Unit tests for bibcatalog_system_email library."""
 
-from invenio.testutils import make_test_suite, run_test_suite
+from invenio.testsuite import make_test_suite, run_test_suite
 from invenio.mailutils_unit_tests import MailTestCase
 
 

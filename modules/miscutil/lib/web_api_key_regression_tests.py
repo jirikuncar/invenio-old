@@ -25,7 +25,7 @@ import urllib
 import time
 
 from invenio.utils.hash import sha1
-from invenio.testutils import InvenioTestCase, make_test_suite, \
+from invenio.testsuite import InvenioTestCase, make_test_suite, \
     run_test_suite
 
 

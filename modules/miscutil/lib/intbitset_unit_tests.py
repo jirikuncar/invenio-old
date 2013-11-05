@@ -33,7 +33,7 @@ if sys.hexversion < 0x2040000:
     # pylint: enable=W0622
 
 from werkzeug.local import LocalProxy
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 
 def _check_enough_ram():

@@ -23,8 +23,8 @@ __revision__ = "$Id$"
 
 from flask import current_app
 from invenio.base.globals import cfg
-from invenio.importutils import lazy_import
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 gettext_set_language = lazy_import('invenio.base.i18n:gettext_set_language')
 transform = lazy_import('invenio.webdoc:transform')
 

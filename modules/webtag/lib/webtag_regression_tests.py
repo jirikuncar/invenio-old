@@ -19,8 +19,8 @@
 
 """WebTag Regression Tests"""
 
-from invenio.importutils import lazy_import
-from invenio.testutils import \
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import \
     InvenioTestCase, \
     make_test_suite, \
     run_test_suite

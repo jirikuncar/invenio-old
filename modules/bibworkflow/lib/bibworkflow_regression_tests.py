@@ -21,7 +21,7 @@ BibWorkflow Unit tests - functions to test workflows
 """
 
 from invenio.inveniomanage import db
-from invenio.testutils import (make_test_suite,
+from invenio.testsuite import (make_test_suite,
                                run_test_suite,
                                FlaskSQLAlchemyTest)
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION

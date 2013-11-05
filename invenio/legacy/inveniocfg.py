@@ -900,31 +900,31 @@ your site and documents!"""))
 
 def cli_cmd_run_unit_tests(conf):
     """Run unit tests, usually on the working demo site."""
-    from invenio.testutils import build_and_run_unit_test_suite
+    from invenio.testsuite import build_and_run_unit_test_suite
     if not build_and_run_unit_test_suite():
         sys.exit(1)
 
 def cli_cmd_run_js_unit_tests(conf):
     """Run JavaScript unit tests, usually on the working demo site."""
-    from invenio.testutils import build_and_run_js_unit_test_suite
+    from invenio.testsuite import build_and_run_js_unit_test_suite
     if not build_and_run_js_unit_test_suite():
         sys.exit(1)
 
 def cli_cmd_run_regression_tests(conf):
     """Run regression tests, usually on the working demo site."""
-    from invenio.testutils import build_and_run_regression_test_suite
+    from invenio.testsuite import build_and_run_regression_test_suite
     if not build_and_run_regression_test_suite():
         sys.exit(1)
 
 def cli_cmd_run_web_tests(conf):
     """Run web tests in a browser. Requires Firefox with Selenium."""
-    from invenio.testutils import build_and_run_web_test_suite
+    from invenio.testsuite import build_and_run_web_test_suite
     if not build_and_run_web_test_suite():
         sys.exit(1)
 
 def cli_cmd_run_flask_tests(conf):
     """Run flask tests."""
-    from invenio.testutils import build_and_run_flask_test_suite
+    from invenio.testsuite import build_and_run_flask_test_suite
     build_and_run_flask_test_suite()
 
 def _detect_ip_address():

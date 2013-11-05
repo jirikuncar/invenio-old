@@ -30,7 +30,7 @@ import invenio.utils.date as dateutils
 #FIXME
 #from invenio.config import CFG_SITE_LANGS
 CFG_SITE_LANGS = ['en', 'sk']
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 if 'en' in CFG_SITE_LANGS:
     lang_english_configured = True

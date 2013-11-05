@@ -21,8 +21,8 @@
 The BibRecord test suite.
 """
 
-from invenio.importutils import lazy_import
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 bibrecord = lazy_import('invenio.legacy.bibrecord')
 bibrecord_config = lazy_import('invenio.legacy.bibrecord.bibrecord_config')

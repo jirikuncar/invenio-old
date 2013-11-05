@@ -46,7 +46,9 @@
 
 from functools import wraps
 from flask import Flask as FlaskBase, current_app
+from werkzeug import import_string
 from werkzeug.exceptions import NotFound
+from werkzeug.local import LocalProxy
 
 
 def _decorate_url_adapter_build(f):
@@ -91,3 +93,10 @@ class Flask(FlaskBase):
                 self.logger.error(e)
                 last_exception = e
         raise last_exception
+
+
+def lazy_import(name):
+    """
+    Lazy import of name using `Werzeug.local.import_string`.
+    """
+    return LocalProxy(lambda: import_string(name))

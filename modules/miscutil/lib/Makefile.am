@@ -20,13 +20,10 @@ SUBDIRS = upgrades
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
-             celery_unit_tests.py \
              crossrefutils.py \
              data_cacher.py \
              dataciteutils.py \
              dataciteutils_tester.py \
-             datastructures_unit_tests.py \
-             dateutils_unit_tests.py \
              dbdump.py \
              dbquery.py \
              dbquery_regression_tests.py \
@@ -55,7 +52,6 @@ pylib_DATA = __init__.py \
              mailutils_unit_tests.py \
              memoiseutils_unit_tests.py \
              messages_unit_tests.py \
-             mimetypeutils_unit_tests.py \
              miscutil_model.py \
              orcid.py \
              paginationutils_unit_tests.py \
@@ -87,7 +83,6 @@ pylib_DATA = __init__.py \
              solrutils_config.py \
              solrutils_regression_tests.py \
              solrutils_unit_tests.py \
-             testutils.py \
              testutils_regression_tests.py \
              textutils_unit_tests.py \
              urlutils_unit_tests.py \

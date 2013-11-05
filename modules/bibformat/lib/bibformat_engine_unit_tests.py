@@ -28,8 +28,8 @@ import os
 import sys
 
 from invenio.base.globals import cfg
-from invenio.importutils import lazy_import
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 bibformat = lazy_import('invenio.bibformat')
 bibformat_engine = lazy_import('invenio.bibformat_engine')

@@ -29,7 +29,7 @@ from flask import url_for
 from urllib2 import urlopen, HTTPError
 
 from invenio.config import CFG_SITE_URL, CFG_SITE_SECURE_URL, CFG_PREFIX, CFG_DEVEL_SITE
-from invenio.testutils import InvenioTestCase, make_test_suite, run_test_suite, nottest
+from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite, nottest
 
 def get_final_url(url):
     """Perform a GET request to the given URL, discarding the result and return

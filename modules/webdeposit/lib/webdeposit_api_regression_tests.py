@@ -18,7 +18,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 
 class TestWebDepositAPI(InvenioTestCase):

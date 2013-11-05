@@ -57,20 +57,6 @@ def render_template_to_string(input, _from_string=False, **context):
     return template.render(context)
 
 
-def load_template_context_filters():
-    from invenio.importutils import autodiscover_modules
-    modules = autodiscover_modules(['invenio.template_context_filters'],
-                                   'tfi_.+')
-    filters = {}
-    for m in modules:
-        register_func = getattr(m, 'template_context_filter', None)
-        if register_func and isinstance(register_func, types.FunctionType):
-            filters[m.__name__.split('.')[-1]] = register_func
-    return filters
-
-TEMPLATE_CONTEXT_FILTERS = LazyDict(load_template_context_filters)
-
-
 def inject_utils():
     """
     This will add some more variables and functions to the Jinja2 to execution
@@ -111,6 +97,7 @@ def inject_utils():
         from invenio.bibfield import get_record  # should not be global due to bibfield_config
     except:
         get_record = lambda *args, **kwargs: None
+    # from invenio.bibformat_engine import TEMPLATE_CONTEXT_FUNCTIONS_CACHE
     return dict(_=lambda *args, **kwargs: g._(*args, **kwargs),
                 current_user=user,
                 get_css_bundle=current_app.jinja_env.get_css_bundle,
@@ -120,7 +107,7 @@ def inject_utils():
                 alternate_urls=alternate_urls,
                 get_record=get_record,
                 url_for=invenio_url_for,
-                #**dict(TEMPLATE_CONTEXT_FILTERS)
+                #**TEMPLATE_CONTEXT_FUNCTIONS_CACHE.template_context_functions
                 )
 
 

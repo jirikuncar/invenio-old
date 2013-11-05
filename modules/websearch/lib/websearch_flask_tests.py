@@ -19,7 +19,7 @@
 
 from fixture import SQLAlchemyFixture
 from invenio.ext.sqlalchemy import db
-from invenio.testutils import make_flask_test_suite, run_test_suite, \
+from invenio.testsuite import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture
 from invenio.websearch_fixtures import CollectionData, \
     CollectionCollectionData, ExternalcollectionData

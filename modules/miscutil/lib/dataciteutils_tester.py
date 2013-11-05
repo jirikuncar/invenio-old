@@ -29,7 +29,7 @@ from invenio.flaskshell import *
 import unittest
 from invenio import dataciteutils
 from invenio import config
-from invenio.testutils import make_test_suite, run_test_suite
+from invenio.testsuite import make_test_suite, run_test_suite
 import random
 import string
 import os

@@ -34,7 +34,7 @@ import time
 import stat
 import shutil
 
-from invenio.testutils import make_test_suite, run_test_suite, nottest, \
+from invenio.testsuite import make_test_suite, run_test_suite, nottest, \
     InvenioTestCase
 
 

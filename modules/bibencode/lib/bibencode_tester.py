@@ -39,7 +39,7 @@ from urlparse import urlsplit
 import shutil
 import urllib2
 
-from invenio.testutils import make_test_suite, run_test_suite
+from invenio.testsuite import make_test_suite, run_test_suite
 
 BIBENCODE_OPENER = make_invenio_opener('BibEncode')
 

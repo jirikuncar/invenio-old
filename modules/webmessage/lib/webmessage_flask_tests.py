@@ -19,7 +19,7 @@
 
 from invenio.ext.sqlalchemy import db
 from invenio.modules.messages.config import CFG_WEBMESSAGE_STATUS_CODE
-from invenio.testutils import make_flask_test_suite, run_test_suite, \
+from invenio.testsuite import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture
 
 from fixture import SQLAlchemyFixture

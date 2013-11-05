@@ -21,7 +21,7 @@
 
 
 
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 TEST_SUITE = make_test_suite()
 

@@ -25,8 +25,8 @@ import os
 import shutil
 import time
 from datetime import datetime
-from invenio.importutils import lazy_import
-from invenio.testutils import InvenioTestCase, make_test_suite, run_test_suite
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite
 
 from invenio.access_control_config import CFG_WEBACCESS_WARNING_MSGS
 from invenio.config import \

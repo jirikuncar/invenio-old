@@ -22,8 +22,8 @@
 __revision__ = "$Id$"
 
 from invenio.config import CFG_SITE_URL, CFG_SITE_LANG, CFG_SITE_RECORD
-from invenio.importutils import lazy_import
-from invenio.testutils import InvenioTestCase, make_test_suite, \
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import InvenioTestCase, make_test_suite, \
     run_test_suite, test_web_page_content
 
 format_record = lazy_import('invenio.bibformat:format_record')

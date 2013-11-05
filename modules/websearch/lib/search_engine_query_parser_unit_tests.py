@@ -26,8 +26,8 @@ from invenio.base.globals import cfg
 from invenio.utils.date import GOT_DATEUTIL as DATEUTIL_AVAILABLE
 if DATEUTIL_AVAILABLE:
     from invenio.utils.date import dateutil, du_delta
-from invenio.importutils import lazy_import
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 search_engine_query_parser = lazy_import('invenio.search_engine_query_parser')
 create_basic_search_units = lazy_import('invenio.search_engine:create_basic_search_units')

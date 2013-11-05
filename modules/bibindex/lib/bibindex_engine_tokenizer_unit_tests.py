@@ -21,7 +21,7 @@
 There should always be at least one test class for each class in b_e_t.
 """
 
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 
 class TestFuzzyNameTokenizerScanning(InvenioTestCase):

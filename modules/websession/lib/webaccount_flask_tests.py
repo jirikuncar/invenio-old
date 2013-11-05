@@ -19,7 +19,7 @@
 
 from invenio.ext.sqlalchemy import db
 from invenio.ext.login import current_user, login_user, logout_user
-from invenio.testutils import make_flask_test_suite, run_test_suite, \
+from invenio.testsuite import make_flask_test_suite, run_test_suite, \
     FlaskSQLAlchemyTest, InvenioFixture
 from fixture import SQLAlchemyFixture
 from invenio.webaccount_fixtures import UserData, UsergroupData, \

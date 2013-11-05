@@ -102,7 +102,7 @@ def faceted_results_filter(recids, filter_data, facets):
 
 def _facet_plugin_checker(plugin_code):
     """
-    Handy function to bridge importutils with (Invenio) facets.
+    Handy function to check facet plugin.
     """
     if 'facet' in dir(plugin_code):
         candidate = getattr(plugin_code, 'facet')

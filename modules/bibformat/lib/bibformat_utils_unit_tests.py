@@ -19,8 +19,8 @@
 
 """BibFormat - Unit Test Suite"""
 
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
-from invenio.importutils import lazy_import
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.base.wrappers import lazy_import
 
 words_start_with_patterns = lazy_import('invenio.bibformat_utils:words_start_with_patterns')
 cut_out_snippet_core_creation = lazy_import('invenio.bibformat_utils:cut_out_snippet_core_creation')

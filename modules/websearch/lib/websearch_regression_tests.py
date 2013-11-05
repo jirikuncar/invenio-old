@@ -40,8 +40,8 @@ from mechanize import Browser, LinkNotFoundError, HTTPError
 from invenio.config import CFG_SITE_URL, CFG_SITE_NAME, CFG_SITE_LANG, \
     CFG_SITE_RECORD, CFG_SITE_LANGS, \
     CFG_SITE_SECURE_URL, CFG_WEBSEARCH_SPIRES_SYNTAX
-from invenio.importutils import lazy_import
-from invenio.testutils import make_test_suite, \
+from invenio.base.wrappers import lazy_import
+from invenio.testsuite import make_test_suite, \
                               run_test_suite, \
                               nottest, \
                               make_url, make_surl, test_web_page_content, \

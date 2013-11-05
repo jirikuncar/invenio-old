@@ -29,7 +29,7 @@ import urlparse
 import socket
 from urllib import urlencode
 
-from invenio.testutils import make_test_suite, run_test_suite
+from invenio.testsuite import make_test_suite, run_test_suite
 from invenio.dbquery import run_sql
 from invenio.utils.json import json
 from invenio.config import CFG_DEVEL_SITE, CFG_SITE_URL, CFG_TMPDIR, CFG_BINDIR

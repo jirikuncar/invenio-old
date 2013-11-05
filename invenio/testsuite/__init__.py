@@ -1131,6 +1131,7 @@ class InvenioWebTestCaseException(Exception):
         return repr(self.message)
 
 
+@nottest
 def build_and_run_flask_test_suite():
     """
     Detect all Invenio modules with names ending by

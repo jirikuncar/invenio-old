@@ -22,7 +22,7 @@ Test unit for the miscutil/importutils module.
 """
 
 from invenio.importutils import autodiscover_modules
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase, nottest
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase, nottest
 
 
 class TestImportUtils(InvenioTestCase):

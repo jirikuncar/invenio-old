@@ -28,7 +28,7 @@ from StringIO import StringIO
 from flask import current_app
 
 from invenio.ext.email import send_email
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 
 class MailTestCase(InvenioTestCase):

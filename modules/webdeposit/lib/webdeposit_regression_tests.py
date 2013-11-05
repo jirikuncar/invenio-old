@@ -17,7 +17,7 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-from invenio.testutils import make_test_suite, run_test_suite, \
+from invenio.testsuite import make_test_suite, run_test_suite, \
     InvenioTestCase, make_pdf_fixture
 
 

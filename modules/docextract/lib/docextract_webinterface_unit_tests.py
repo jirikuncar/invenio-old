@@ -23,7 +23,7 @@ try:
     HAS_REQUESTS = True
 except ImportError:
     HAS_REQUESTS = False
-from invenio.testutils import make_test_suite, run_test_suite, InvenioTestCase
+from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 
 def expected_response():
     from invenio.config import CFG_INSPIRE_SITE
