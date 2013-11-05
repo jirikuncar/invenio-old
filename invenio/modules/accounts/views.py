@@ -142,7 +142,7 @@ def login(nickname=None, password=None, login_method=None, action='',
     #                          vars(websession_config).iteritems()
     #                          if "CFG_" == k[:4]))
 
-    return render_template('account/login.html', form=form)
+    return render_template('accounts/login.html', form=form)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
@@ -199,7 +199,7 @@ def register():
         title = _("Registration failure")
         state = "warning"
 
-    return render_template('account/register.html', form=form, title=title,
+    return render_template('accounts/register.html', form=form, title=title,
                            messages=messages, state=state)
 
 
@@ -216,7 +216,7 @@ def logout():
     if CFG_EXTERNAL_AUTH_USING_SSO:
         return redirect(CFG_EXTERNAL_AUTH_LOGOUT_SSO)
 
-    return render_template('account/logout.html',
+    return render_template('accounts/logout.html',
                            using_sso=CFG_EXTERNAL_AUTH_USING_SSO,
                            logout_sso=CFG_EXTERNAL_AUTH_LOGOUT_SSO)
 
@@ -284,7 +284,7 @@ def index():
     else:
         plugins = sorted(plugins, key=lambda w: plugin_sort(w, plugins))
         plugins = [plugins[i:i+3] for i in range(0, len(plugins), 3)]
-    return render_template('account/index.html',
+    return render_template('accounts/index.html',
                            plugins=plugins, closed_plugins=closed_plugins)
 
 
@@ -323,7 +323,7 @@ def edit(name):
         form = plugin.build_form()
 
     return render_template(getattr(plugin, 'edit_template', '') or
-                           'account/edit.html', plugin=plugin, form=form)
+                           'accounts/edit.html', plugin=plugin, form=form)
 
 
 @blueprint.route('/view', methods=['GET'])
@@ -335,7 +335,7 @@ def view(name):
 
     widget = _USER_SETTINGS[name]()
     if widget.is_authorized and widget.widget:
-        return render_template('account/widget.html', widget=widget)
+        return render_template('accounts/widget.html', widget=widget)
     else:
         return "2", 406
 
@@ -351,4 +351,4 @@ def lost():
     else:
         pass
     logout_user()  # makes no sense to have the user logged-in here
-    return render_template('account/lost.html', form=form)
+    return render_template('accounts/lost.html', form=form)
