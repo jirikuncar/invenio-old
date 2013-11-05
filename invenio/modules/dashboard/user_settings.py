@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2012 CERN.
+## Copyright (C) 2012, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -19,23 +19,18 @@
 
 """Dashboard User Settings"""
 
-from flask import Blueprint, session, make_response, g, render_template, \
-                  request, flash, jsonify, redirect, url_for, current_app
-from invenio.modules.accounts.models import User
 from invenio.base.i18n import _
 from flask.ext.login import current_user
-from invenio.ext.template import render_template_to_string
-from invenio.modules.dashboard.settings import Settings, UserSettingsStorage, \
-                             ModelSettingsStorageBuilder, \
-                             UserSettingsAttributeStorage
-from invenio.modules.accounts.models import User
-from invenio.webaccount_forms import ChangeUserEmailSettingsForm
+from invenio.modules.dashboard.settings import Settings, \
+    UserSettingsAttributeStorage
+
 
 class DashboardSettings(Settings):
 
     keys = ['orderLeft', 'orderMiddle', 'orderRight']
     storage_builder = UserSettingsAttributeStorage('dashboard_settings')
     widget = None
+
     def __init__(self):
         super(DashboardSettings, self).__init__()
         self.icon = 'user'

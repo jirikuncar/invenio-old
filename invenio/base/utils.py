@@ -101,6 +101,8 @@ autodiscover_configs = partial(import_module_from_packages, 'config')
 autodiscover_facets = partial(import_submodules_from_packages, 'facets')
 autodiscover_managers = partial(import_module_from_packages, 'manage')
 autodiscover_workflows = partial(import_module_from_packages, 'workflows')
+autodiscover_redirect_methods = partial(import_submodules_from_packages,
+                                        'redirect_methods')
 autodiscover_celery_tasks = partial(import_module_from_packages, 'tasks')
 autodiscover_template_context_functions = partial(
     import_submodules_from_packages, 'template_context_functions')

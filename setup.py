@@ -110,6 +110,7 @@ setup(
             'bibdocfile = invenio.legacy.bibdocfile.scripts.bibdocfile:main',
             'bibreformat = invenio.legacy.bibformat.scripts.bibreformat:main',
             'oairepositoryupdater = invenio.legacy.oairepository.scripts.oairepositoryupdater:main',
+            'gotoadmin = invenio.modules.redirector.scripts.redirector:main',
         ],
     },
     install_requires=install_requires,
