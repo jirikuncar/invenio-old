@@ -109,7 +109,7 @@ class ChangePasswordForm(InvenioBaseForm):
             raise validators.ValidationError(
                 _("Please enter your current password"))
 
-        from invenio.webaccount_blueprint import update_login
+        from invenio.modules.account.views import update_login
         if update_login(current_user['nickname'], field.data) is None:
             raise validators.ValidationError(
                 _("The current password you entered does\

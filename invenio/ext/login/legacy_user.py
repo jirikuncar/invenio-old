@@ -227,7 +227,10 @@ class UserInfo(CombinedMultiDict, UserMixin):
             user_info, 'usemessages')[0] == 0
         data['precached_usestats'] = acc_authorize_action(
             user_info, 'runwebstatadmin')[0] == 0
-        data['precached_viewsubmissions'] = isUserSubmitter(user_info)
+        try:
+            data['precached_viewsubmissions'] = isUserSubmitter(user_info)
+        except:
+            data['precached_viewsubmissions'] = None
         data['precached_useapprove'] = isUserReferee(user_info)
         data['precached_useadmin'] = isUserAdmin(user_info)
         data['precached_usesuperadmin'] = isUserSuperAdmin(user_info)

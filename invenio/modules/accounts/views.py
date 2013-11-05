@@ -92,8 +92,7 @@ def login(nickname=None, password=None, login_method=None, action='',
     try:
         user = None
         from invenio.access_control_config import \
-            CFG_EXTERNAL_AUTH_USING_SSO, \
-            CFG_EXTERNAL_AUTH_LOGOUT_SSO
+            CFG_EXTERNAL_AUTH_USING_SSO
         if not CFG_EXTERNAL_AUTH_USING_SSO:
             if login_method == 'Local':
                 if form.validate_on_submit():
@@ -132,10 +131,11 @@ def login(nickname=None, password=None, login_method=None, action='',
                                  url_for('webaccount.lost')]
                     if not urlparse(referer).path in blacklist:
                         # Change HTTP method to https if needed.
-                        referer = referer.replace(CFG_SITE_URL, CFG_SITE_SECURE_URL)
+                        referer = rewrite_to_secure_url(referer)
                         return redirect(referer)
                     return redirect('/')
-    except:
+    except Exception as e:
+        current_app.logger.error('Exception during login process: %s', str(e))
         flash(_("Problem with login."), "error")
 
     #current_app.config.update(dict((k, v) for k, v in
