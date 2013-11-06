@@ -34,8 +34,6 @@ pylib_DATA = __init__.py \
              hashutils_unit_tests.py \
              htmlutils.py \
              htmlutils_unit_tests.py \
-             importutils.py \
-             importutils_unit_tests.py \
              intbitset_helper.py \
              intbitset_unit_tests.py \
              invenio_connector.py \
