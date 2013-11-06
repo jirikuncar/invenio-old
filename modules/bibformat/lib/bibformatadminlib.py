@@ -1522,7 +1522,7 @@ def check_format_element(name):
                 if module_name.endswith(".py"):
                     module_name = module_name[:-3]
 
-                module = __import__("invenio.bibformat_elements."+module_name)
+                module = __import__("invenio.modules.formatter.format_elements."+module_name)
                 try:
                     function_format  = module.bibformat_elements.__dict__[module_name].format_element
                 except AttributeError, e:

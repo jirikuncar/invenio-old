@@ -31,7 +31,7 @@ L{BibFormatObject} class directly. For eg:
    >>> bfo = BibFormatObject(102)
    >>> bfo.field('245__a')
    The order Rodentia in South America
-   >>> from invenio.bibformat_elements import bfe_title
+   >>> from invenio.modules.formatter.format_elements import bfe_title
    >>> bfe_title.format_element(bfo)
    The order Rodentia in South America
 
@@ -52,7 +52,8 @@ from flask import has_app_context
 from operator import itemgetter
 from werkzeug.utils import cached_property
 
-from invenio.base.utils import autodiscover_template_context_functions
+from invenio.base.utils import (autodiscover_template_context_functions,
+                                autodiscover_format_elements)
 from invenio.config import \
      CFG_PATH_PHP, \
      CFG_BINDIR, \
@@ -91,7 +92,6 @@ from invenio.htmlutils import \
      CFG_HTML_BUFFER_ALLOWED_ATTRIBUTE_WHITELIST
 from invenio.webuser import collect_user_info
 from invenio.bibknowledge import get_kbr_values
-from invenio.importutils import autodiscover_modules
 from invenio.ext.template import render_template_to_string
 from HTMLParser import HTMLParseError
 from invenio.shellutils import escape_shell_arg
@@ -231,13 +231,19 @@ class LazyTemplateContextFunctionsCache(object):
     @cached_property
     def bibformat_elements(self):
         """Returns bibformat elements."""
-        modules = autodiscover_modules(['invenio.bibformat_elements'], '.*\.bfe_.+')
+        modules = autodiscover_format_elements(silent=True)
 
         elem = {}
         for m in modules:
-            register_func = getattr(m, 'format_element', None)
+            name = m.__name__.split('.')[-1]
+            if not name.startswith('bfe_'):
+                continue
+            register_func = getattr(m, 'format_element',
+                                    getattr(m, 'format', None))
+            escape_values = getattr(m, 'escape_values', None)
             if register_func and isinstance(register_func, types.FunctionType):
-                elem[m.__name__.split('.')[-1]] = register_func
+                register_func._escape_values = escape_values
+                elem[name] = register_func
 
         return elem
 
@@ -1168,26 +1174,13 @@ def get_format_element(element_name, verbose=0, with_built_in_params=False):
         if module_name.endswith(".py"):
             module_name = module_name[:-3]
 
-        # Load element
+        # Load function 'format_element()' inside element
         try:
-            module = __import__(CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH + \
-                                "." + module_name)
-            # Load last module in import path
-            # For eg. load bfe_name in
-            # invenio.bibformat_elements.bfe_name
-            # Used to keep flexibility regarding where elements
-            # directory is (for eg. test cases)
-            components = CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH.split(".")
-            for comp in components[1:]:
-                module = getattr(module, comp)
-
-        except Exception, e:
-            # We catch all exceptions here, as we just want to print
-            # traceback in all cases
-            tb = sys.exc_info()[2]
-            stack = traceback.format_exception(Exception, e, tb, limit=None)
+            function_format = TEMPLATE_CONTEXT_FUNCTIONS_CACHE.bibformat_elements[module_name]
+            format_element['code'] = function_format
+        except KeyError:
             try:
-                raise InvenioBibFormatError(_('Error in format element %s. %s.') % (element_name,"\n" + "\n".join(stack[-2:-1])))
+                raise InvenioBibFormatError(_('Format element %s has no function named "format".') % element_name)
             except InvenioBibFormatError, exc:
                 register_exception()
                 errors.append(exc.message)
@@ -1200,35 +1193,8 @@ def get_format_element(element_name, verbose=0, with_built_in_params=False):
                 raise Exception, exc.message
             return None
 
-        # Load function 'format_element()' inside element
-        try:
-            function_format  = module.__dict__[module_name].format_element
-            format_element['code'] = function_format
-        except AttributeError, e:
-            # Try to load 'format()' function
-            try:
-                function_format  = module.__dict__[module_name].format
-                format_element['code'] = function_format
-            except AttributeError, e:
-                try:
-                    raise InvenioBibFormatError(_('Format element %s has no function named "format".') % element_name)
-                except InvenioBibFormatError, exc:
-                    register_exception()
-                    errors.append(exc.message)
-
-                if verbose >= 5:
-                    sys.stderr.write(exc.message)
-
-        if errors:
-            if verbose >= 7:
-                raise Exception, exc.message
-            return None
-
         # Load function 'escape_values()' inside element
-        function_escape  = getattr(module.__dict__[module_name],
-                                   'escape_values',
-                                   None)
-        format_element['escape_function'] = function_escape
+        format_element['escape_function'] = function_format._escape_values
 
         # Prepare, cache and return
         format_element['attrs'] = get_format_element_attrs_from_function( \

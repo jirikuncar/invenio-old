@@ -1605,7 +1605,7 @@ def get_article_page_from_cache(journal_name, category, recid, issue, ln, bfo=No
 
     if CFG_CERN_SITE and bfo:
         try:
-            from invenio.bibformat_elements import bfe_webjournal_cern_toolbar
+            from invenio.modules.formatter.format_elements import bfe_webjournal_cern_toolbar
             cached_file = NOT_FOR_ALERT_COMMENTS_RE.sub(bfe_webjournal_cern_toolbar.format_element(bfo), cached_file, 1)
         except ImportError, e:
             pass
