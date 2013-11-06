@@ -30,8 +30,8 @@ from invenio.ext.sqlalchemy import db
 from invenio.base.globals import cfg
 from invenio.bibworkflow_config import CFG_OBJECT_VERSION
 from invenio.bibworkflow_utils import determineDataType, redis_create_search_entry
-from invenio.bibworkflow_logging_model import (get_logger,
-                                               BibWorkflowObjectHandler)
+from .logger import (get_logger,
+                     BibWorkflowLogHandler)
 
 
 def get_default_data():
@@ -228,8 +228,9 @@ class BibWorkflowObject(db.Model):
     @property
     def log(self):
         if not self._log:
+            db_handler_obj = BibWorkflowLogHandler(BibWorkflowObjectLog, "id")
             self._log = get_logger(logger_name="object.%s_%s" % (self.id_workflow, self.id),
-                                   db_handler_class=BibWorkflowObjectHandler,
+                                   db_handler_obj=db_handler_obj,
                                    loglevel=logging.DEBUG,
                                    obj=self)
         return self._log
@@ -430,4 +431,88 @@ BibWorkflowObject
         self.uri = other.uri
 
 
-__all__ = ['Workflow', 'BibWorkflowObject']
+class BibWorkflowObjectLog(db.Model):
+    """
+    This class represent a record of a log emit by an object
+    into the database the object must be saved before using
+    this class. Indeed it needs the id of the object into
+    the database.
+    """
+    __tablename__ = 'bwlOBJECTLOGGING'
+    id = db.Column(db.Integer, primary_key=True)
+    id_object = db.Column(db.Integer(255),
+                          db.ForeignKey('bwlOBJECT.id'),
+                          nullable=False)
+    log_type = db.Column(db.Integer, default=0, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.now)
+    message = db.Column(db.TEXT, default="", nullable=False)
+
+    def __repr__(self):
+        return "<BibWorkflowObjectLog(%i, %s, %s, %s)>" % \
+               (self.id, self.id_object, self.message, self.created)
+
+    @classmethod
+    def get(cls, *criteria, **filters):
+        """ A wrapper for the filter and filter_by functions of sqlalchemy.
+        Define a dict with which columns should be filtered by which values.
+
+        look up also sqalchemy BaseQuery's filter and filter_by documentation
+        """
+        return cls.query.filter(*criteria).filter_by(**filters)
+
+    @classmethod
+    def get_most_recent(cls, *criteria, **filters):
+        """ Returns the most recently created log. """
+
+        most_recent = cls.get(*criteria, **filters).\
+            order_by(desc(BibWorkflowObjectLog.created)).first()
+        if most_recent is None:
+            raise NoResultFound
+        else:
+            return most_recent
+
+    @classmethod
+    def delete(cls, id=None):
+        cls.get(BibWorkflowObjectLog.id == id).delete()
+        db.session.commit()
+
+
+class BibWorkflowEngineLog(db.Model):
+    __tablename__ = "bwlWORKFLOWLOGGING"
+    id = db.Column(db.Integer, primary_key=True)
+    id_object = db.Column(db.String(255), nullable=False)
+    log_type = db.Column(db.Integer, default=0, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.now)
+    message = db.Column(db.TEXT, default="", nullable=False)
+
+    def __repr__(self):
+        return "<BibWorkflowEngineLog(%i, %s, %s, %s)>" % \
+               (self.id, self.id_object, self.message, self.created)
+
+    @classmethod
+    def get(cls, *criteria, **filters):
+        """ A wrapper for the filter and filter_by functions of sqlalchemy.
+        Define a dict with which columns should be filtered by which values.
+
+        look up also sqalchemy BaseQuery's filter and filter_by documentation
+        """
+        return cls.query.filter(*criteria).filter_by(**filters)
+
+    @classmethod
+    def get_most_recent(cls, *criteria, **filters):
+        """ Returns the most recently created log. """
+
+        most_recent = cls.get(*criteria, **filters).\
+            order_by(desc(BibWorkflowEngineLog.created)).first()
+        if most_recent is None:
+            raise NoResultFound
+        else:
+            return most_recent
+
+    @classmethod
+    def delete(cls, uuid=None):
+        cls.get(BibWorkflowEngineLog.id == uuid).delete()
+        db.session.commit()
+
+
+__all__ = ['Workflow', 'BibWorkflowObject', 'BibWorkflowObjectLog', 'BibWorkflowEngineLog']

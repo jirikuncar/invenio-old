@@ -71,9 +71,9 @@ distances from it.
     def tearDown(self):
         """ Clean up created objects """
         from invenio.modules.workflows.models import (BibWorkflowObject,
-                                                      Workflow)
-        from invenio.bibworkflow_logging_model import (BibWorkflowEngineLog,
-                                                       BibWorkflowObjectLog)
+                                                      Workflow,
+                                                      BibWorkflowEngineLog,
+                                                      BibWorkflowObjectLog)
         from invenio.bibworkflow_utils import get_redis_keys, set_up_redis
 
         workflows = Workflow.get(Workflow.module_name == "unit_tests").all()
@@ -279,8 +279,8 @@ distances from it.
     def test_logging_for_workflow_objects_without_workflow(self):
         """This test run a virtual object out of a workflow for
         test purpose, this object will log several things"""
-        from invenio.modules.workflows.models import BibWorkflowObject
-        from invenio.bibworkflow_logging_model import BibWorkflowObjectLog
+        from invenio.modules.workflows.models import (BibWorkflowObject,
+                                                      BibWorkflowObjectLog)
 
         initial_data = {'data': 20}
         obj_init = BibWorkflowObject(id_workflow=11,
@@ -297,7 +297,7 @@ distances from it.
         obj_init.log.debug("This is a debug message")
         obj_init._update_db()
         obj_test = BibWorkflowObjectLog.query.filter(
-            BibWorkflowObjectLog.id_bibworkflowobject == obj_init.id).all()
+            BibWorkflowObjectLog.id_object == obj_init.id).all()
         messages_found = 0
         for current_obj in obj_test:
             if current_obj.message == "I am a test object" \
@@ -491,8 +491,9 @@ distances from it.
         pass
 
     def test_data_object_created_outside(self):
-        from invenio.bibworkflow_model import BibWorkflowObject
+        from invenio.modules.workflows.models import BibWorkflowObject
         from invenio.bibworkflow_api import start
+
         obj = BibWorkflowObject()
         initial_data = {'data': 20}
         obj.set_data(initial_data)

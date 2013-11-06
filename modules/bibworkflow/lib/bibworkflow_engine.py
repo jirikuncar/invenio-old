@@ -20,7 +20,8 @@ import cPickle
 import sys
 
 from invenio.modules.workflows.models import (Workflow,
-                                              BibWorkflowObject)
+                                              BibWorkflowObject,
+                                              BibWorkflowEngineLog)
 from workflow.engine import (GenericWorkflowEngine,
                              ContinueNextToken,
                              HaltProcessing,
@@ -37,8 +38,8 @@ from uuid import uuid1 as new_uuid
 from invenio.bibworkflow_utils import dictproperty
 from invenio.bibworkflow_config import (CFG_WORKFLOW_STATUS,
                                         CFG_OBJECT_VERSION)
-from invenio.bibworkflow_logging_model import (get_logger,
-                                               BibWorkflowEngineHandler)
+from invenio.modules.workflows.logger import (get_logger,
+                                              BibWorkflowLogHandler)
 
 
 DEBUG = CFG_DEVEL_SITE > 0
@@ -68,8 +69,9 @@ class BibWorkflowEngine(GenericWorkflowEngine):
                                        module_name=module_name, uuid=uuid)
                 self._create_db_obj()
 
+        db_handler_obj = BibWorkflowLogHandler(BibWorkflowEngineLog, "uuid")
         self.log = get_logger(logger_name="workflow.%s" % self.db_obj.uuid,
-                              db_handler_class=BibWorkflowEngineHandler,
+                              db_handler_obj=db_handler_obj,
                               obj=self)
 
         self.set_workflow_by_name(self.name)
@@ -130,8 +132,9 @@ class BibWorkflowEngine(GenericWorkflowEngine):
                                       "inconsistent state, "
                                       "too few objects")
 
+        db_handler_obj = BibWorkflowLogHandler(BibWorkflowEngineLog, "uuid")
         state['log'] = get_logger(logger_name="workflow.%s" % state['uuid'],
-                                  db_handler_class=BibWorkflowEngineHandler,
+                                  db_handler_obj=db_handler_obj,
                                   obj=self)
 
         self.__dict__ = state
