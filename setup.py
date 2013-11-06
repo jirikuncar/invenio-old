@@ -124,5 +124,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
-    #test_suite='invenio.testsuite.suite'
+    test_suite='invenio.testsuite.suite'
 )
