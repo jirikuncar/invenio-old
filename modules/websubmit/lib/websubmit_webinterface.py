@@ -63,7 +63,7 @@ from flask import session
 webstyle_templates = invenio.template.load('webstyle')
 websearch_templates = invenio.template.load('websearch')
 
-from invenio.websubmit_engine import home, action, interface, endaction, makeCataloguesTable
+from invenio.legacy.websubmit.engine import home, action, interface, endaction, makeCataloguesTable
 
 class WebInterfaceSubmitPages(WebInterfaceDirectory):
 
@@ -243,7 +243,7 @@ class WebInterfaceSubmitPages(WebInterfaceDirectory):
         from invenio.bibencode_encode import determine_aspect
         from invenio.bibencode_utils import probe
         from invenio.bibencode_metadata import ffprobe_metadata
-        from invenio.websubmit_config import CFG_WEBSUBMIT_TMP_VIDEO_PREFIX
+        from invenio.legacy.websubmit.config import CFG_WEBSUBMIT_TMP_VIDEO_PREFIX
 
         argd = wash_urlargd(form, {
             'doctype': (str, ''),
