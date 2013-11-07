@@ -7,7 +7,6 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="row-fluid">
-                    {% set widget = widget() %}
                     <div class="span6">
                         <div id="record_preview_container">
                             Submitted Record
@@ -28,7 +27,9 @@
                                 {{ match.get_data() }}
                             </pre>
                         </div>
-                        {{ widget.accept }}
+                        <div id="accept-btn-bibmatch">
+                            {{ widget.accept }}
+                        </div>
                         </br>
 
                         {% set i = i+1 %}

@@ -126,7 +126,8 @@ class dictproperty(object):
         return self._proxy(obj, self._fget, self._fset, self._fdel)
 
 
-def create_hp_containers(iSortCol_0=None, sSortDir_0=None):
+def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
+                         sSearch=None):
     """
     Looks for related HPItems and groups them together in HPContainers
 
@@ -135,24 +136,48 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None):
     """
     from invenio.modules.workflows.models import BibWorkflowObject
 
-    print '-----------------------Setting up HPCONTAINERS!'
+    redis_server = redis.Redis()
 
     if iSortCol_0:
         iSortCol_0 = int(iSortCol_0)
 
-    if iSortCol_0 == 6:
+    bwobject_list = BibWorkflowObject.query.filter(
+        BibWorkflowObject.id_parent != 0).all()
+
+    if sSearch:
+        if len(sSearch) < 4:
+            pass
+        else:
+            bwobject_list2 = []
+            for bwo in bwobject_list:
+                extra_data = bwo.get_extra_data()
+                if bwo.id_parent == sSearch:
+                    bwobject_list2.append(bwo)
+                elif bwo.id_user == sSearch:
+                    bwobject_list2.append(bwo)
+                elif sSearch in bwo.id_workflow:
+                    bwobject_list2.append(bwo)
+                elif sSearch in extra_data['widget']:
+                    bwobject_list2.append(bwo)
+                elif sSearch in extra_data['last_task_name']:
+                    bwobject_list2.append(bwo)
+                try:
+                    if sSearch in extra_data['redis_search']['category']:
+                        bwobject_list2.append(bwo)
+                    elif sSearch in extra_data['redis_search']['source']:
+                        bwobject_list2.append(bwo)
+                    elif sSearch in extra_data['redis_search']['title']:
+                        bwobject_list2.append(bwo)
+                except KeyError:
+                    pass
+            bwobject_list = bwobject_list2
+
+    if iSortCol_0 == -6:
         column = 'created'
         if sSortDir_0 == 'desc':
-            bwobject_list = BibWorkflowObject.query.order_by(
-                db.desc(column)).all()
-        elif sSortDir_0 == 'asc':
-            bwobject_list = BibWorkflowObject.query.order_by(db.asc(
-                column)).all()
+            bwobject_list.reverse()
 
-        return bwobject_list
-    else:
-        return BibWorkflowObject.query.filter(
-            BibWorkflowObject.id_parent != 0).all()
+    return bwobject_list
 
 
 def redis_create_search_entry(bwobject):
@@ -160,6 +185,7 @@ def redis_create_search_entry(bwobject):
 
     extra_data = bwobject.get_extra_data()
     #creates database entries to not loose key value pairs in redis
+
     for key, value in extra_data["redis_search"].iteritems():
         redis_server.sadd("holdingpen_sort", str(key))
         redis_server.sadd("holdingpen_sort:%s" % (str(key),), str(value))
@@ -170,8 +196,8 @@ def redis_create_search_entry(bwobject):
     redis_server.sadd("holdingpen_sort:owner", extra_data['owner'])
     redis_server.sadd("holdingpen_sort:owner:%s" % (extra_data['owner'],),
                       bwobject.id)
-    redis_server.sadd("holdingpen_sort:last_task_name:%s" % (extra_data['last_task_name'],),
-                      bwobject.id)
+    redis_server.sadd("holdingpen_sort:last_task_name:%s" %
+                     (extra_data['last_task_name'],), bwobject.id)
 
 
 def filter_holdingpen_results(key, *args):
@@ -210,3 +236,121 @@ def set_up_redis():
         current_app.config.get('CACHE_REDIS_URL', 'redis://localhost:6379')
     )
     return redis_server
+
+
+def empty_redis():
+    redis_server = set_up_redis()
+    redis_server.flushall()
+
+
+def pretty_date(time=False):
+    """
+    Get a datetime object or a int() Epoch timestamp and return a
+    pretty string like 'an hour ago', 'Yesterday', '3 months ago',
+    'just now', etc
+    """
+    from datetime import datetime
+    now = datetime.now()
+    if type(time) is int:
+        diff = now - datetime.fromtimestamp(time)
+    elif isinstance(time, datetime):
+        diff = now - time
+    elif not time:
+        diff = now - now
+    second_diff = diff.seconds
+    day_diff = diff.days
+
+    if day_diff < 0:
+        return ''
+
+    if day_diff == 0:
+        if second_diff < 10:
+            return "just now"
+        if second_diff < 60:
+            return str(second_diff) + " seconds ago"
+        if second_diff < 120:
+            return "a minute ago"
+        if second_diff < 3600:
+            return str(second_diff / 60) + " minutes ago"
+        if second_diff < 7200:
+            return "an hour ago"
+        if second_diff < 86400:
+            return str(second_diff / 3600) + " hours ago"
+    if day_diff == 1:
+        return "Yesterday"
+    if day_diff < 7:
+        return str(day_diff) + " days ago"
+    if day_diff < 31:
+        if (day_diff/7) == 1:
+            return "1 week ago"
+        return str(day_diff/7) + " weeks ago"
+    if day_diff < 365:
+        if (day_diff/30) == 1:
+            return "1 month ago"
+        return str(day_diff/30) + " months ago"
+    if (day_diff/365) == 1:
+        return "1 year ago"
+    return str(day_diff/365) + " years ago"
+
+
+def sort_bwolist(bwolist, iSortCol_0, sSortDir_0):
+    if iSortCol_0 == 0:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.id, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.id, reverse=False)
+    elif iSortCol_0 == 1:
+        pass
+        # if sSortDir_0 == 'desc':
+        #     bwolist.sort(key=lambda x: x.id_user, reverse=True)
+        # else:
+        #     bwolist.sort(key=lambda x: x.id_user, reverse=False)
+    elif iSortCol_0 == 2:
+        pass
+        # if sSortDir_0 == 'desc':
+        #     bwolist.sort(key=lambda x: x.id_user, reverse=True)
+        # else:
+        #     bwolist.sort(key=lambda x: x.id_user, reverse=False)
+    elif iSortCol_0 == 3:
+        pass
+        # if sSortDir_0 == 'desc':
+        #     bwolist.sort(key=lambda x: x.id_user, reverse=True)
+        # else:
+        #     bwolist.sort(key=lambda x: x.id_user, reverse=False)
+    elif iSortCol_0 == 4:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.id_workflow, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.id_workflow, reverse=False)
+    elif iSortCol_0 == 5:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.id_user, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.id_user, reverse=False)
+    elif iSortCol_0 == 6:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.created, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.created, reverse=False)
+    elif iSortCol_0 == 7:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.version, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.version, reverse=False)
+    elif iSortCol_0 == 8:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.version, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.version, reverse=False)
+    elif iSortCol_0 == 9:
+        if sSortDir_0 == 'desc':
+            bwolist.sort(key=lambda x: x.version, reverse=True)
+        else:
+            bwolist.sort(key=lambda x: x.version, reverse=False)
+
+    return bwolist
+
+
+def parse_bwids(bwlist):
+    import ast
+    return [item.encode('ascii') for item in ast.literal_eval(bwlist)]

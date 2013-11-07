@@ -19,12 +19,15 @@ SUBDIRS = tasks workflows
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = \
-			 bibworkflow_api.py \
+jsdir=$(localstatedir)/www/js
+
+js_DATA = bibworkflow_hp_maintable.js \
+          bibworkflow_hp_datapreview.js
+
+pylib_DATA = bibworkflow_api.py \
 			 bibworkflow_client.py \
 			 bibworkflow_config.py \
 			 bibworkflow_engine.py \
-			 bibworkflow_hp_container.py \
 			 bibworkflow_hp_field_widgets.py \
 			 bibworkflow_regression_tests.py \
 			 bibworkflow_utils.py \
