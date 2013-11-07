@@ -103,6 +103,7 @@ setup(
             'xmlmarclint = invenio.legacy.bibrecord.scripts.xmlmarclint:main',
             'webaccessadmin = invenio.modules.access.scripts.webaccessadmin:main',
             'webcoll = invenio.legacy.websearch.scripts.webcoll:main',
+            'bibclassify = invenio.modules.classifier.scripts.classifier:main',
             'bibsort = invenio.legacy.bibsort.scripts.bibsort:main',
             'bibrank = invenio.legacy.bibrank.scripts.bibrank:main',
             'bibindex = invenio.legacy.bibindex.scripts.bibindex:main',

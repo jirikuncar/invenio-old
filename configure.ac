@@ -591,8 +591,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibcirculation/web/Makefile \
      modules/bibcirculation/web/admin/Makefile \
      modules/bibclassify/Makefile \
-     modules/bibclassify/bin/Makefile \
-     modules/bibclassify/bin/bibclassify \
      modules/bibclassify/doc/Makefile \
      modules/bibclassify/doc/admin/Makefile \
      modules/bibclassify/doc/hacking/Makefile \
