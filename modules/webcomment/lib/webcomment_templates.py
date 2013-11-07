@@ -46,7 +46,7 @@ from invenio.config import CFG_SITE_URL, \
                            CFG_WEBCOMMENT_MAX_ATTACHMENT_SIZE
 from invenio.htmlutils import get_html_text_editor, create_html_select
 from invenio.base.i18n import gettext_set_language
-from invenio.bibformat import format_record
+from invenio.modules.formatter import format_record
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_get_user_roles_from_user_info, acc_get_role_id
 from invenio.search_engine_utils import get_fieldvalues

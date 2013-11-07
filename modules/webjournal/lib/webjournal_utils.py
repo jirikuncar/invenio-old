@@ -42,7 +42,7 @@ from invenio.config import \
      CFG_DEVEL_SITE, \
      CFG_CERN_SITE
 from invenio.dbquery import run_sql
-from invenio.bibformat_engine import BibFormatObject
+from invenio.modules.formatter.engine import BibFormatObject
 from invenio.search_engine import search_pattern, record_exists
 from invenio.base.i18n import gettext_set_language
 from invenio.errorlib import register_exception

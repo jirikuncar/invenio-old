@@ -27,7 +27,7 @@ X{BibFormatObject} in function L{escape_field}
 Still it is useful sometimes for debugging purpose to use the
 L{BibFormatObject} class directly. For eg:
 
-   >>> from invenio.bibformat_engine import BibFormatObject
+   >>> from invenio.modules.formatter.engine import BibFormatObject
    >>> bfo = BibFormatObject(102)
    >>> bfo.field('245__a')
    The order Rodentia in South America
@@ -72,8 +72,8 @@ from invenio.base.i18n import \
      language_list_long, \
      wash_language, \
      gettext_set_language
-import invenio.modules.formatter.api as bibformat_dblayer
-from invenio.bibformat_config import \
+from . import api as bibformat_dblayer
+from .config import \
      CFG_BIBFORMAT_TEMPLATES_DIR, \
      CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION, \
      CFG_BIBFORMAT_FORMAT_JINJA_TEMPLATE_EXTENSION, \
@@ -83,14 +83,13 @@ from invenio.bibformat_config import \
      CFG_BIBFORMAT_OUTPUTS_PATH, \
      CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH, \
      InvenioBibFormatError
-from invenio.bibformat_utils import \
+from invenio.modules.formatter.utils import \
      record_get_xml, \
      parse_tag
 from invenio.htmlutils import \
      HTMLWasher, \
      CFG_HTML_BUFFER_ALLOWED_TAG_WHITELIST, \
      CFG_HTML_BUFFER_ALLOWED_ATTRIBUTE_WHITELIST
-from invenio.webuser import collect_user_info
 from invenio.bibknowledge import get_kbr_values
 from invenio.ext.template import render_template_to_string
 from HTMLParser import HTMLParseError
@@ -1905,7 +1904,8 @@ class BibFormatObject:
         self.output_format = output_format
         self.user_info = user_info
         if self.user_info is None:
-            self.user_info = collect_user_info(None)
+            from invenio.ext.login.legacy_user import UserInfo
+            self.user_info = UserInfo(None)
 
     def get_record(self):
         """

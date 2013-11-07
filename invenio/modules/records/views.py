@@ -150,7 +150,7 @@ def request_record(f):
 @request_record
 def metadata(recid, of='hd'):
     from invenio.bibrank_downloads_similarity import register_page_view_event
-    from invenio.bibformat import get_output_format_content_type
+    from invenio.modules.formatter import get_output_format_content_type
     register_page_view_event(recid, current_user.get_id(), str(request.remote_addr))
     if get_output_format_content_type(of) != 'text/html':
         return redirect('/%s/%d/export/%s' % (CFG_SITE_RECORD, recid, of))
