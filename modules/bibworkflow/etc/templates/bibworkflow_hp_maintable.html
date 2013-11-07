@@ -1,0 +1,88 @@
+{% extends "bibworkflow_hp_layout.html" %}
+{% block body2 %}
+    
+{%- js 'js/jquery.dataTables.min.js' -%}
+{%- js 'js/DT_bootstrap.js' -%}
+{%- js 'js/bibworkflow_hp_maintable.js' -%}
+{%- js 'js/ColVis.js' -%}
+{%- js 'js/ColVis.min.js' -%}
+
+
+    <style type="text/css" title="currentStyle">
+        @import "../../css/DT_bootstrap.css";
+        @import "../../css/ColVis.css";
+    </style>
+
+    <div id="alert-message"></div>
+
+    <h1>Records in Holding Pen</h1>
+
+    <div class="row">
+        <div class="span6 pull-left">
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Assigned to me</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                    data-toggle="dropdown"
+                    href="#">
+                        Pending Tasks
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                    {% set i = 0 %}
+                    {% for task in widget_list.iterkeys() %}
+                        <li><a id="task{{i}}" class="task-btn" tabindex="-1" name="{{task}}">{{task}}: {{widget_list[task][0]}}</a></li>
+                        {% set i = i+1 %}
+                    {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="span3 pull-left">
+            <button id="refresh_button" class="btn btn-primary">Refresh!</button>
+        </div>
+        <div class="span3 pull-right">
+            <a id="batch_btn" class="btn btn-info pull-right" href="#"><i class="icon-wrenchwhite icon-wrench"></i>Group Widget</a>
+        </div>        
+    </div>
+    <div class="tag-area row">
+    </div> 
+    
+    <div class="container">
+        <div class="row-fluid">
+            <table id="example" cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Source</th>
+                        <th>Category</th>
+                        <th>Workflow ID</th>
+                        <th>Owner</th>
+                        <th>Created</th>
+                        <th>Version</th>
+                        <th>Details</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

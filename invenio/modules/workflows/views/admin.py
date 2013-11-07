@@ -64,12 +64,15 @@ def entry_details(id_entry):
     """
     Displays entry details.
     """
-    wfe_object = BibWorkflowObject.query.filter(BibWorkflowObject.id == id_entry).first()
+    wfe_object = BibWorkflowObject.query.filter(BibWorkflowObject.id ==
+                                                id_entry).first()
 
     return render_template('workflows/entry_details.html',
                            entry=wfe_object, log="",
-                           data_preview=_entry_data_preview(wfe_object.data, 'hd'),
-                           workflow_func=get_workflow_definition(wfe_object.bwlWORKFLOW.name))
+                           data_preview=_entry_data_preview(
+                               wfe_object.data, 'hd'),
+                           workflow_func=get_workflow_definition(
+                               wfe_object.bwlWORKFLOW.name))
 
 
 @blueprint.route('/workflow_details', methods=['GET', 'POST'])
@@ -81,7 +84,8 @@ def workflow_details(id_workflow):
     return render_template('workflows/workflow_details.html',
                            workflow_metadata=w_metadata,
                            log="",
-                           workflow_func=get_workflow_definition(w_metadata.name))
+                           workflow_func=get_workflow_definition(
+                               w_metadata.name))
 
 
 @blueprint.route('/workflows', methods=['GET', 'POST'])
@@ -129,8 +133,8 @@ def get_redis_keys(key):
 @wash_arguments({'key': (unicode, "")})
 def get_redis_values(key):
     keys = key.split()
-    print keys
-    values = filter_holdingpen_results(*keys)
+    # values = filter_holdingpen_results(*keys)
+    values = filter_holdingpen_results(key)
     return str(values)
 
 
