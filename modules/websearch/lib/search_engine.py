@@ -51,6 +51,7 @@ if sys.hexversion < 0x2040000:
     # pylint: enable=W0622
 
 ## import Invenio stuff:
+from invenio.base.globals import cfg
 from invenio.config import \
      CFG_CERN_SITE, \
      CFG_INSPIRE_SITE, \
