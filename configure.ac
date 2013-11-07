@@ -626,8 +626,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibedit/lib/Makefile \
      modules/bibedit/web/Makefile \
      modules/bibencode/Makefile \
-     modules/bibencode/bin/Makefile \
-     modules/bibencode/bin/bibencode \
      modules/bibencode/lib/Makefile \
      modules/bibencode/etc/Makefile \
      modules/bibencode/www/Makefile \

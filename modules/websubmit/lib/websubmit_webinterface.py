@@ -238,11 +238,11 @@ class WebInterfaceSubmitPages(WebInterfaceDirectory):
                 a, b = b % a, a
             return b
 
-        from invenio.bibencode_extract import extract_frames
-        from invenio.bibencode_config import CFG_BIBENCODE_WEBSUBMIT_ASPECT_SAMPLE_DIR, CFG_BIBENCODE_WEBSUBMIT_ASPECT_SAMPLE_FNAME
-        from invenio.bibencode_encode import determine_aspect
-        from invenio.bibencode_utils import probe
-        from invenio.bibencode_metadata import ffprobe_metadata
+        from invenio.modules.encoder.extract import extract_frames
+        from invenio.modules.encoder.config import CFG_BIBENCODE_WEBSUBMIT_ASPECT_SAMPLE_DIR, CFG_BIBENCODE_WEBSUBMIT_ASPECT_SAMPLE_FNAME
+        from invenio.modules.encoder.encode import determine_aspect
+        from invenio.modules.encoder.utils import probe
+        from invenio.modules.encoder.metadata import ffprobe_metadata
         from invenio.legacy.websubmit.config import CFG_WEBSUBMIT_TMP_VIDEO_PREFIX
 
         argd = wash_urlargd(form, {

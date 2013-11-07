@@ -19,7 +19,7 @@
 
 """
 
-from invenio.bibencode_utils import probe
+from invenio.modules.encoder.utils import probe
 from invenio.legacy.websubmit.config import InvenioWebSubmitFunctionStop
 import os
 
