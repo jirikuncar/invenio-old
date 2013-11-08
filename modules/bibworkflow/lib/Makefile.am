@@ -32,7 +32,6 @@ pylib_DATA = bibworkflow_api.py \
 			 bibworkflow_regression_tests.py \
 			 bibworkflow_utils.py \
 			 bibworkflow_worker_engine.py \
-			 bibworkflow_load_workflows.py \
 			 bibworkflow_containers.py
 
 EXTRA_DIST = $(pylib_DATA)

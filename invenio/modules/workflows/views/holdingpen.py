@@ -20,8 +20,8 @@
 from flask import render_template, Blueprint, redirect, url_for, flash, request, current_app
 from flask.ext.login import login_required
 
-from .. import wfwidgets
 from ..models import BibWorkflowObject, Workflow
+from ..loader import widgets
 from invenio.base.decorators import templated, wash_arguments
 from invenio.modules.formatter.engine import format_record
 from invenio.base.i18n import _
@@ -55,9 +55,7 @@ def index():
 
     # FIXME: need to autodiscover widgets properly
     widget_list = {}
-    for widget in dir(wfwidgets):
-        if widget.startswith("__"):
-            continue
+    for widget in widgets:
         widget_list[widget] = [0, []]
 
     for bwo in bwolist:
@@ -82,9 +80,7 @@ def maintable():
 
     # FIXME: need to autodiscover widgets properly
     widget_list = {}
-    for widget in dir(wfwidgets):
-        if widget.startswith("__"):
-            continue
+    for widget in widgets:
         widget_list[widget] = [0, []]
 
     for bwo in bwolist:
@@ -146,7 +142,7 @@ def batch_widget(bwolist):
         if bwobject.get_extra_data()['widget'] not in widgetlist:
             widgetlist.append(bwobject.get_extra_data()['widget'])
 
-    widget_form = getattr(wfwidgets, widgetlist[0])
+    widget_form = widgets[widgetlist[0]]
 
     result = widget_form().render(objlist, bwo_parent_list, info_list,
                                   logtext_list, w_metadata_list,
@@ -167,7 +163,7 @@ def load_table():
 
     # sSearch will be used for searching later
     sSearch = request.args.get('sSearch')
-    for widget in dir(wfwidgets):
+    for widget in widgets:
         if widget == sSearch:
             sSearch = widget
     iSortCol_0 = request.args.get('iSortCol_0')
@@ -346,7 +342,7 @@ def show_widget(bwobject_id, widget):
             bwobject_id, 'holdingpen.details', {'bwobject_id': bwobject_id}),
             (widget, None)]
 
-    widget_form = getattr(wfwidgets, widget)
+    widget_form = widgets[widget]
 
     extracted_data = extract_data(bwobject)
 
@@ -370,7 +366,7 @@ def resolve_widget(bwobject_id, widget):
     Resolves the action taken in a widget.
     Calls the run_widget function of the specific widget.
     """
-    widget_form = getattr(wfwidgets, widget)
+    widget_form = widgets[widget]
     widget_form().run_widget(bwobject_id, request)
     return "Done"
 
