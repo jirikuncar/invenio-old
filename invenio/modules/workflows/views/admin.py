@@ -17,24 +17,20 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 """Holding Pen & BibWorkflow web interface"""
 
-__revision__ = "$Id$"
-
-__lastupdated__ = """$Date$"""
-
+import traceback
 from flask import render_template, Blueprint
 from flask.ext.login import login_required
-from ..models import Workflow, BibWorkflowObject
+
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
-from invenio.ext.menu import register_menu
 from invenio.bibworkflow_api import start_delayed
-from invenio.bibworkflow_load_workflows import workflows
 from invenio.bibworkflow_utils import (get_workflow_definition,
                                        get_redis_keys as utils_get_redis_keys,
                                        filter_holdingpen_results)
 
-import traceback
+from ..models import Workflow, BibWorkflowObject
+from ..loader import workflows
 
 blueprint = Blueprint('bibworkflow', __name__, url_prefix="/admin/bibworkflow",
                       template_folder='../templates',
@@ -144,9 +140,7 @@ def _entry_data_preview(data, of='default'):
         try:
             data['record'] = format_record(recID=None, of=of,
                                            xml_record=data['record'])
-        except:
+            return data['record']
+        except ValueError:
             print "This is not a XML string"
-    try:
-        return data['record']
-    except:
-        return data
+    return data
