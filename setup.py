@@ -51,7 +51,7 @@ Links
 
 """
 from __future__ import print_function
-from setuptools import Command, setup
+from setuptools import Command, setup, find_packages
 
 import os
 
@@ -79,16 +79,7 @@ setup(
     author_email='info@invenio-software.org',
     description='Digital library software',
     long_description=__doc__,
-    packages=[
-        'invenio.base',
-        'invenio.celery',
-        'invenio.core',
-        'invenio.ext',
-        'invenio.legacy',
-        'invenio.modules',
-        'invenio.utils',
-        'invenio_atlantis',
-    ],
+    packages=find_packages(),
     namespace_packages=['invenio'],
     include_package_data=True,
     zip_safe=False,

@@ -52,6 +52,7 @@ from flask import has_app_context
 from operator import itemgetter
 from werkzeug.utils import cached_property
 
+from invenio.base.globals import cfg
 from invenio.base.utils import (autodiscover_template_context_functions,
                                 autodiscover_format_elements)
 from invenio.config import \
@@ -78,10 +79,7 @@ from .config import \
      CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION, \
      CFG_BIBFORMAT_FORMAT_JINJA_TEMPLATE_EXTENSION, \
      CFG_BIBFORMAT_FORMAT_OUTPUT_EXTENSION, \
-     CFG_BIBFORMAT_TEMPLATES_PATH, \
-     CFG_BIBFORMAT_ELEMENTS_PATH, \
      CFG_BIBFORMAT_OUTPUTS_PATH, \
-     CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH, \
      InvenioBibFormatError
 from invenio.modules.formatter.utils import \
      record_get_xml, \
@@ -212,6 +210,9 @@ sub_non_alnum = re.compile('[^0-9a-zA-Z]+')
 fix_tag_name = lambda s: sub_non_alnum.sub('_', s.lower())
 
 
+from invenio.utils.memoise import memoize
+
+
 class LazyTemplateContextFunctionsCache(object):
     """Loads bibformat elements using plugin builder and caches results."""
 
@@ -227,16 +228,16 @@ class LazyTemplateContextFunctionsCache(object):
 
         return elem
 
-    @cached_property
-    def bibformat_elements(self):
+    @memoize
+    def bibformat_elements(self, packages=None):
         """Returns bibformat elements."""
-        modules = autodiscover_format_elements(silent=True)
+        if cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] is not None:
+            packages = [cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH']]
+        modules = autodiscover_format_elements(packages=packages, silent=True)
 
         elem = {}
         for m in modules:
             name = m.__name__.split('.')[-1]
-            if not name.startswith('bfe_'):
-                continue
             register_func = getattr(m, 'format_element',
                                     getattr(m, 'format', None))
             escape_values = getattr(m, 'escape_values', None)
@@ -245,6 +246,10 @@ class LazyTemplateContextFunctionsCache(object):
                 elem[name] = register_func
 
         return elem
+
+    #@cached_property
+    #def bibformat_elements(self):
+    #    return self._bibformat_elements()
 
     @cached_property
     def functions(self):
@@ -264,7 +269,7 @@ class LazyTemplateContextFunctionsCache(object):
 
         # Old bibformat templates
         tfn_from_files = dict((name.lower(), insert(name.lower()))
-                              for name in self.bibformat_elements.keys())
+                              for name in self.bibformat_elements().keys())
         # Update with new template context functions
         tfn_from_files.update(self.template_context_functions)
 
@@ -436,7 +441,7 @@ def format_record(recID, of, ln=CFG_SITE_LANG, verbose=0,
         </span>""" % (template, recID)
 
     ############### FIXME: REMOVE WHEN MIGRATION IS DONE ###############
-    path = "%s%s%s" % (CFG_BIBFORMAT_TEMPLATES_PATH, os.sep, template)
+    path = "%s%s%s" % (cfg['CFG_BIBFORMAT_TEMPLATES_PATH'], os.sep, template)
     if template is None or not (
       os.access(path, os.R_OK) or
       template.endswith("." + CFG_BIBFORMAT_FORMAT_JINJA_TEMPLATE_EXTENSION)):
@@ -995,7 +1000,7 @@ def get_format_template(filename, with_attributes=False):
     format_template = {'code':""}
     try:
 
-        path = "%s%s%s" % (CFG_BIBFORMAT_TEMPLATES_PATH, os.sep, filename)
+        path = "%s%s%s" % (cfg['CFG_BIBFORMAT_TEMPLATES_PATH'], os.sep, filename)
 
         format_file = open(path)
         format_content = format_file.read()
@@ -1044,7 +1049,7 @@ def get_format_templates(with_attributes=False):
     @return: the list of format templates (with code and info)
     """
     format_templates = {}
-    files = os.listdir(CFG_BIBFORMAT_TEMPLATES_PATH)
+    files = os.listdir(cfg['CFG_BIBFORMAT_TEMPLATES_PATH'])
 
     for filename in files:
         if filename.endswith("."+CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION) or \
@@ -1069,7 +1074,7 @@ def get_format_template_attrs(filename):
     attrs['name'] = ""
     attrs['description'] = ""
     try:
-        template_file = open("%s%s%s" % (CFG_BIBFORMAT_TEMPLATES_PATH,
+        template_file = open("%s%s%s" % (cfg['CFG_BIBFORMAT_TEMPLATES_PATH'],
                                          os.sep,
                                          filename))
         code = template_file.read()
@@ -1175,7 +1180,10 @@ def get_format_element(element_name, verbose=0, with_built_in_params=False):
 
         # Load function 'format_element()' inside element
         try:
-            function_format = TEMPLATE_CONTEXT_FUNCTIONS_CACHE.bibformat_elements[module_name]
+            packages = cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH']
+            packages = [packages] if packages is not None else None
+            function_format = TEMPLATE_CONTEXT_FUNCTIONS_CACHE.\
+                bibformat_elements(packages)[module_name]
             format_element['code'] = function_format
         except KeyError:
             try:
@@ -1231,7 +1239,7 @@ def get_format_elements(with_built_in_params=False):
     for name in mappings:
         format_elements[name.upper().replace(" ", "_").strip()] = get_format_element(name, with_built_in_params=with_built_in_params)
 
-    files = os.listdir(CFG_BIBFORMAT_ELEMENTS_PATH)
+    files = os.listdir(cfg['CFG_BIBFORMAT_ELEMENTS_PATH'])
     for filename in files:
         filename_test = filename.upper().replace(" ", "_")
         if filename_test.endswith(".PY") and filename.upper() != "__INIT__.PY":
@@ -1682,7 +1690,7 @@ def resolve_format_element_filename(element_name):
     else:
         name = element_name.replace(" ", "_").upper()
 
-    files = os.listdir(CFG_BIBFORMAT_ELEMENTS_PATH)
+    files = os.listdir(cfg['CFG_BIBFORMAT_ELEMENTS_PATH'])
     for filename in files:
         test_filename = filename.replace(" ", "_").upper()
 
@@ -1751,13 +1759,13 @@ def get_fresh_format_template_filename(name):
     filename = name
     # Remove non alphanumeric chars (except .)
     filename = re.sub(r"[^.0-9a-zA-Z]", "", filename)
-    path = CFG_BIBFORMAT_TEMPLATES_PATH + os.sep + filename \
+    path = cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] + os.sep + filename \
            + "." + CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION
     index = 1
     while os.path.exists(path):
         index += 1
         filename = name + str(index)
-        path = CFG_BIBFORMAT_TEMPLATES_PATH + os.sep + filename \
+        path = cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] + os.sep + filename \
                + "." + CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION
 
     if index > 1:
