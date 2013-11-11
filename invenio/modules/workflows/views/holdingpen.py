@@ -37,14 +37,14 @@ blueprint = Blueprint('holdingpen', __name__, url_prefix="/admin/holdingpen",
                       template_folder='../templates',
                       static_folder='../static')
 
-default_breadcrumb_root(blueprint, '.admin.holdingpen')
+default_breadcrumb_root(blueprint, '.holdingpen')
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/index', methods=['GET', 'POST'])
 @login_required
-@register_breadcrumb(blueprint, '.', _('Holdingpen'))
 @register_menu(blueprint, 'main.admin.holdingpen', _('Holdingpen'))
+@register_breadcrumb(blueprint, '.', _('Holdingpen'))
 @templated('workflows/hp_index.html')
 def index():
     """
@@ -70,8 +70,9 @@ def index():
 
 
 @blueprint.route('/maintable', methods=['GET', 'POST'])
+@register_breadcrumb(blueprint, '.records', _('Records'))
 @login_required
-@templated('bibworkflow_hp_maintable.html')
+@templated('workflows/hp_maintable.html')
 def maintable():
     """
     Displays main table interface of Holdingpen.
@@ -91,7 +92,7 @@ def maintable():
     for key in widget_list:
         widget_list[key][0] = len(widget_list[key][1])
 
-    return dict(hpcontainers=create_hp_containers(), widget_list=widget_list)
+    return dict(hpcontainers=bwolist, widget_list=widget_list)
 
 
 @blueprint.route('/refresh', methods=['GET', 'POST'])
@@ -173,6 +174,7 @@ def load_table():
     iDisplayLength = int(request.args.get('iDisplayLength'))
 
     if sSearch:
+        from invenio.bibworkflow_containers import create_hp_containers
         bwolist = create_hp_containers(sSearch=sSearch)
 
     if 'iSortCol_0' in current_app.config:
