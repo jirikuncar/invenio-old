@@ -34,10 +34,6 @@ etc_DATA = Default_HTML_captions.bft Picture_HTML_brief.bft \
            WebAuthorProfile_affiliations_helper.bft DataCite.xsl \
            Default_Mobile_brief.bft Default_Mobile_detailed.bft
 
-tmpdir = $(prefix)/var/tmp
-
-tmp_DATA = Test1.bft Test3.bft Test_2.bft Test_no_template.test
-
-EXTRA_DIST = $(etc_DATA) $(tmp_DATA)
+EXTRA_DIST = $(etc_DATA)
 
 CLEANFILES = *.tmp
