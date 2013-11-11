@@ -6,12 +6,9 @@
 {%- js 'js/bibworkflow_hp_maintable.js' -%}
 {%- js 'js/ColVis.js' -%}
 {%- js 'js/ColVis.min.js' -%}
+{%- css 'css/ColVis.min.js' -%}
 
-
-    <style type="text/css" title="currentStyle">
-        @import "../../css/DT_bootstrap.css";
-        @import "../../css/ColVis.css";
-    </style>
+{% css url_for('workflow.static', filename='css/workflows/DT_bootstrap.css' %}
 
     <div id="alert-message"></div>
 
