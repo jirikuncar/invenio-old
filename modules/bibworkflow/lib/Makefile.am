@@ -15,14 +15,9 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-SUBDIRS = tasks workflows
+SUBDIRS =
 
 pylibdir = $(libdir)/python/invenio
-
-jsdir=$(localstatedir)/www/js
-
-js_DATA = bibworkflow_hp_maintable.js \
-          bibworkflow_hp_datapreview.js
 
 pylib_DATA = bibworkflow_api.py \
 			 bibworkflow_client.py \

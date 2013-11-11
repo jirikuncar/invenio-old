@@ -1,14 +1,16 @@
-{% extends "bibworkflow_hp_layout.html" %}
+{% extends "workflows/hp_layout.html" %}
 {% block body2 %}
-    
-{%- js 'js/jquery.dataTables.min.js' -%}
-{%- js 'js/DT_bootstrap.js' -%}
-{%- js 'js/bibworkflow_hp_maintable.js' -%}
-{%- js 'js/ColVis.js' -%}
-{%- js 'js/ColVis.min.js' -%}
-{%- css 'css/ColVis.min.js' -%}
 
-{% css url_for('workflow.static', filename='css/workflows/DT_bootstrap.css' %}
+{% block header %}
+  {{ super() }}
+  {% js url_for('static', filename='js/jquery.dataTables.min.js') %}
+  {% js url_for('static', filename='js/ColVis.js') %}
+  {% js url_for('workflows.static', filename='js/workflows/DT_bootstrap.js') %}
+  {% js url_for('workflows.static', filename='js/workflows/hp_maintable.js') %}
+
+  {% css url_for('static', filename='css/ColVis.css') %}
+  {% css url_for('workflows.static', filename='css/workflows/DT_bootstrap.css') %}
+{% endblock %}
 
     <div id="alert-message"></div>
 

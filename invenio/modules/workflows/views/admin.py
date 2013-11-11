@@ -32,11 +32,11 @@ from invenio.bibworkflow_utils import (get_workflow_definition,
 from ..models import Workflow, BibWorkflowObject
 from ..loader import workflows
 
-blueprint = Blueprint('bibworkflow', __name__, url_prefix="/admin/bibworkflow",
+blueprint = Blueprint('workflows', __name__, url_prefix="/admin/workflows",
                       template_folder='../templates',
                       static_folder='../static')
 
-default_breadcrumb_root(blueprint, '.admin.bibworkflow')
+default_breadcrumb_root(blueprint, '.admin.workflows')
 
 
 @blueprint.route('/', methods=['GET', 'POST'])

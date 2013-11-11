@@ -21,7 +21,7 @@ def add_metadata_to_extra_data(obj, eng):
     Creates bibrecord from object data and
     populates extra_data with metadata
     """
-    from invenio.bibrecord import create_record, record_get_field_value
+    from invenio.legacy.bibrecord import create_record, record_get_field_value
     record = create_record(obj.data)
 
     obj.extra_data['redis_search']['category'] =\

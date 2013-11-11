@@ -1,8 +1,7 @@
 {% extends "workflows/hp_layout.html" %}
 {% import 'workflows/hp_utils.html' as utils %}
-{%- js 'js/prettify.js' -%}
 {%- js url_for('workflows.static', filename='js/workflows/hp_details.js') -%}
-{%- js 'js/bibworkflow_hp_datapreview.js' -%}
+{%- js url_for('workflows.static', filename='js/workflows/hp_datapreview.js' -%}
 {% block body2 %}
 
     <div class="row-fluid">
@@ -10,8 +9,10 @@
         <!-- check with Jan | debate if we should have headers in pages in HP -->
         <!-- <div class="span3"><h1>Record Details</h1></div> -->
     </div>
+
+    <!-- FIXME: temporary external loading of prettify -->
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp;skin=desert"></script> 
-    <link href="../../js/google-code-prettify/src/prettify.css" type="text/css" rel="stylesheet"/>
+    <link href="https://google-code-prettify.googlecode.com/svn/loader/prettify.css" type="text/css" rel="stylesheet"/>
 
     <div id = "alert_placeholder"></div>
 
