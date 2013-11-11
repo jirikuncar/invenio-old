@@ -27,8 +27,8 @@ from invenio.modules.formatter.engine import format_record
 from invenio.base.i18n import _
 from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
 from invenio.ext.menu import register_menu
+from invenio.utils.date import pretty_date
 from invenio.bibworkflow_utils import (get_workflow_definition,
-                                       pretty_date,
                                        sort_bwolist)
 from invenio.bibworkflow_api import continue_oid_delayed, start
 
