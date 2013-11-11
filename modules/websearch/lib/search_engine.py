@@ -4516,7 +4516,7 @@ def print_records(req, recIDs, jrec=1, rg=CFG_WEBSEARCH_DEF_RECORDS_IN_GROUPS, f
                         if len(tabs) > 0:
                             # Add the mini box at bottom of the page
                             if CFG_WEBCOMMENT_ALLOW_REVIEWS:
-                                from invenio.webcomment import get_mini_reviews
+                                from invenio.modules.comments.api import get_mini_reviews
                                 reviews = get_mini_reviews(recid = recIDs[irec], ln=ln)
                             else:
                                 reviews = ''

@@ -812,7 +812,7 @@ class Template:
                 else:
                     (uid, _nickname, display) = get_user_info(comment[c_user_id])
                 messaging_link = self.create_messaging_link(_nickname, comment_user_fullname or display, ln)
-                from invenio.webcomment import get_attached_files # FIXME
+                from invenio.modules.comments.api import get_attached_files # FIXME
                 files = get_attached_files(recID, comment[c_id])
                 # do NOT delete the HTML comment below. It is used for parsing... (I plead unguilty!)
                 comments_rows += """

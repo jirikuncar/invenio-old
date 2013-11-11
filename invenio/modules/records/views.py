@@ -129,7 +129,7 @@ def request_record(f):
 
         @register_template_context_processor
         def record_context():
-            from invenio.webcomment import get_mini_reviews
+            from invenio.modules.comments.api import get_mini_reviews
             return dict(recid=recid,
                         record=record,
                         tabs=tabs,
