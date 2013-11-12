@@ -41,7 +41,7 @@ class approval_widget(Form):
         for bwo in bwobject_list:
             data_preview_list.append(_entry_data_preview(bwo.get_data()))
 
-        return ('bibworkflow_hp_approval_widget.html',
+        return ('hp_approval_widget.html',
                 {'bwobject_list': bwobject_list,
                  'bwparent_list': bwparent_list,
                  'widget': approval_widget(),
