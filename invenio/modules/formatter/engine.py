@@ -724,6 +724,8 @@ def eval_format_element(format_element, bfo, parameters=None, verbose=0):
     escape = parameters.get('escape', "")
     output_text = ''
 
+    _ = gettext_set_language(bfo.lang)
+
     # 3 possible cases:
     # a) format element file is found: we execute it
     # b) format element file is not found, but exist in tag table (e.g. bfe_isbn)
