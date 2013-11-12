@@ -1,18 +1,22 @@
 {% extends "workflows/hp_layout.html" %}
 {% import 'workflows/hp_utils.html' as utils %}
-{%- js url_for('holdingpen.static', filename='js/workflows/hp_details.js') -%}
-{%- js url_for('holdingpen.static', filename='js/workflows/hp_datapreview.js' -%}
-{% block hpbody %}
 
+{%- block header %}
+    {{ super() }}
+    {%- block holdingpen_assets %}
+        {% js url_for('holdingpen.static', filename='js/workflows/hp_details.js'), '50-workflows' %}
+        {% js url_for('holdingpen.static', filename='js/workflows/hp_datapreview.js'), '50-workflows' %}
+
+        {% js url_for('static', filename='js/google-code-prettify/run_prettify.js'), '50-workflows' %}
+        {% css url_for('static', filename='css/prettify.css') %}
+    {%- endblock holdingpen_assets %}
+{%- endblock header %}
+
+{% block hpbody %}
     <div class="row-fluid">
         <div class="span3 pull-left"><a href="{{url_for('holdingpen.maintable')}}"><i class="icon-hand-left"></i> Back to Main Table</a></div>
-        <!-- check with Jan | debate if we should have headers in pages in HP -->
-        <!-- <div class="span3"><h1>Record Details</h1></div> -->
+        <div class="span3"><h1>Record Details</h1></div>
     </div>
-
-    <!-- FIXME: temporary external loading of prettify -->
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp;skin=desert"></script> 
-    <link href="https://google-code-prettify.googlecode.com/svn/loader/prettify.css" type="text/css" rel="stylesheet"/>
 
     <div id = "alert_placeholder"></div>
 
@@ -85,11 +89,11 @@
                                 <h3 id="myModalLabel">Please Confirm</h3>
                               </div>
                               <div class="modal-body">
-                                <p>Are you sure you want to delete record #{{hpcontainer.id}}</p>
+                                <p>Are you sure you want to delete record #{{bwobject.id}}</p>
                               </div>
                               <div class="modal-footer">
                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                <a class="btn btn-danger" href="{{ url_for('holdingpen.delete_from_db', hpcontainerid=hpcontainer.id) }}" >Delete Record</a>
+                                <a class="btn btn-danger" href="{{ url_for('holdingpen.delete_from_db', bwobject_id=bwobject.id) }}" >Delete Record</a>
                               </div>
                             </div>
                         </div>

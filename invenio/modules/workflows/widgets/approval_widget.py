@@ -33,15 +33,14 @@ class approval_widget(Form):
     def render(self, bwobject_list, bwparent_list, info_list,
                logtext_list, w_metadata_list,
                workflow_func_list, *args, **kwargs):
-        from invenio.bibworkflow_hp_blueprint import _entry_data_preview
-        from flask import render_template
+        from ..views.holdingpen import _entry_data_preview
 
         data_preview_list = []
         # setting up approval widget
         for bwo in bwobject_list:
             data_preview_list.append(_entry_data_preview(bwo.get_data()))
 
-        return ('hp_approval_widget.html',
+        return ('workflows/hp_approval_widget.html',
                 {'bwobject_list': bwobject_list,
                  'bwparent_list': bwparent_list,
                  'widget': approval_widget(),
@@ -58,8 +57,8 @@ class approval_widget(Form):
         """
         from flask import request, flash, redirect, url_for
         from invenio.bibworkflow_api import continue_oid_delayed
-        from invenio.bibworkflow_hp_blueprint import _delete_from_db
-        from invenio.bibworkflow_model import BibWorkflowObject
+        from ..views.holdingpen import _delete_from_db
+        from ..models import BibWorkflowObject
         from invenio.sqlalchemyutils import db
 
         bwobject = BibWorkflowObject.query.filter(

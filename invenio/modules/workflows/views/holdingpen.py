@@ -25,7 +25,7 @@ from ..loader import widgets
 from invenio.base.decorators import templated, wash_arguments
 from invenio.modules.formatter.engine import format_record
 from invenio.base.i18n import _
-from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
+from invenio.ext.breadcrumb import default_breadcrumb_root, breadcrumbs, register_breadcrumb
 from invenio.ext.menu import register_menu
 from invenio.utils.date import pretty_date
 from invenio.bibworkflow_utils import (get_workflow_definition,
@@ -92,7 +92,7 @@ def maintable():
     for key in widget_list:
         widget_list[key][0] = len(widget_list[key][1])
 
-    return dict(hpcontainers=bwolist, widget_list=widget_list)
+    return dict(bwolist=bwolist, widget_list=widget_list)
 
 
 @blueprint.route('/refresh', methods=['GET', 'POST'])
@@ -230,17 +230,14 @@ def load_table():
 
 
 @blueprint.route('/details', methods=['GET', 'POST'])
+@register_breadcrumb(blueprint, '.details', "Record Details")
 @login_required
 @wash_arguments({'bwobject_id': (int, 0)})
 def details(bwobject_id):
     """
-    Displays info about the hpcontainer, and presents the data
+    Displays info about the object, and presents the data
     of all available versions of the object. (Initial, Error, Final)
     """
-    current_app.config['breadcrumbs_map'][request.endpoint] = \
-        [(_('Home'), '')] + blueprint.breadcrumbs + \
-        [('Record id:%d' % bwobject_id, None)]
-
     bwobject = BibWorkflowObject.query.get(bwobject_id)
 
     extracted_data = extract_data(bwobject)
@@ -329,6 +326,7 @@ def delete_multi(bwolist):
 
 
 @blueprint.route('/widget', methods=['GET', 'POST'])
+@register_breadcrumb(blueprint, '.widget', "Widget")
 @login_required
 @wash_arguments({'bwobject_id': (int, 0),
                  'widget': (unicode, 'default')})
@@ -337,12 +335,6 @@ def show_widget(bwobject_id, widget):
     Renders the widget assigned to a specific record
     """
     bwobject = BibWorkflowObject.query.get(bwobject_id)
-
-    current_app.config['breadcrumbs_map'][request.endpoint] = \
-        [(_('Home'), '')] + blueprint.breadcrumbs + \
-        [('Record id:%d' %
-            bwobject_id, 'holdingpen.details', {'bwobject_id': bwobject_id}),
-            (widget, None)]
 
     widget_form = widgets[widget]
 

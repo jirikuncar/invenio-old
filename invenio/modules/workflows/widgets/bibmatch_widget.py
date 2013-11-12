@@ -27,8 +27,8 @@ class bibmatch_widget(Form):
     widget_title = "Bibmatch Widget"
 
     def render(self, bwobject, *args, **kwargs):
-        from invenio.bibworkflow_model import BibWorkflowObject
-        from invenio.bibworkflow_hp_blueprint import _entry_data_preview
+        from ..models import BibWorkflowObject
+        from ..views.holdingpen import _entry_data_preview
 
         # setting up bibmatch widget
         try:
@@ -45,7 +45,7 @@ class bibmatch_widget(Form):
 
         data_preview = _entry_data_preview(bwobject.get_data())
 
-        return ('hp_bibmatch_widget.html',
+        return ('workflows/hp_bibmatch_widget.html',
                 {'bwobject': bwobject,
                  'widget': bibmatch_widget(),
                  'match_preview': match_preview,
