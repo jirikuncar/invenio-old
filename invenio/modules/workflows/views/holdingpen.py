@@ -163,36 +163,36 @@ def load_table():
     from invenio.bibworkflow_containers import bwolist
 
     # sSearch will be used for searching later
-    sSearch = request.args.get('sSearch')
+    a_search = request.args.get('sSearch')
     for widget in widgets:
-        if widget == sSearch:
-            sSearch = widget
-    iSortCol_0 = request.args.get('iSortCol_0')
-    sSortDir_0 = request.args.get('sSortDir_0')
+        if widget == a_search:
+            a_search = widget
+    i_sortcol_0 = request.args.get('iSortCol_0')
+    s_sortdir_0 = request.args.get('sSortDir_0')
 
-    iDisplayStart = int(request.args.get('iDisplayStart'))
-    iDisplayLength = int(request.args.get('iDisplayLength'))
+    i_display_start = int(request.args.get('iDisplayStart'))
+    i_display_length = int(request.args.get('iDisplayLength'))
 
-    if sSearch:
+    if a_search:
         from invenio.bibworkflow_containers import create_hp_containers
-        bwolist = create_hp_containers(sSearch=sSearch)
+        bwolist = create_hp_containers(sSearch=a_search)
 
     if 'iSortCol_0' in current_app.config:
-        iSortCol_0 = int(iSortCol_0)
-        if iSortCol_0 != current_app.config['iSortCol_0'] \
-           or sSortDir_0 != current_app.config['sSortDir_0']:
-            bwolist = sort_bwolist(bwolist, iSortCol_0, sSortDir_0)
+        i_sortcol_0 = int(i_sortcol_0)
+        if i_sortcol_0 != current_app.config['iSortCol_0'] \
+           or s_sortdir_0 != current_app.config['sSortDir_0']:
+            bwolist = sort_bwolist(bwolist, i_sortcol_0, s_sortdir_0)
 
-    current_app.config['iDisplayStart'] = iDisplayStart
-    current_app.config['iDisplayLength'] = iDisplayLength
-    current_app.config['iSortCol_0'] = iSortCol_0
-    current_app.config['sSortDir_0'] = sSortDir_0
+    current_app.config['iDisplayStart'] = i_display_start
+    current_app.config['iDisplayLength'] = i_display_length
+    current_app.config['iSortCol_0'] = i_sortcol_0
+    current_app.config['sSortDir_0'] = s_sortdir_0
 
     table_data = {
         "aaData": []
     }
 
-    for bwo in bwolist[iDisplayStart:iDisplayStart+iDisplayLength]:
+    for bwo in bwolist[i_display_start:i_display_start+i_display_length]:
         try:
             widgetname = widgets[bwo.get_extra_data()['widget']].__title__
         except KeyError:
@@ -202,15 +202,15 @@ def load_table():
         table_data['iTotalRecords'] = len(bwolist)
         table_data['iTotalDisplayRecords'] = len(bwolist)
         #This will be simplified once Redis is utilized.
-        if ('title' in bwo.get_extra_data()['redis_search']):
+        if 'title' in bwo.get_extra_data()['redis_search']:
             title = bwo.get_extra_data()['redis_search']['title']
         else:
             title = None
-        if ('source' in bwo.get_extra_data()['redis_search']):
+        if 'source' in bwo.get_extra_data()['redis_search']:
             source = bwo.get_extra_data()['redis_search']['source']
         else:
             source = None
-        if ('category' in bwo.get_extra_data()['redis_search']):
+        if 'category' in bwo.get_extra_data()['redis_search']:
             category = bwo.get_extra_data()['redis_search']['category']
         else:
             category = None
