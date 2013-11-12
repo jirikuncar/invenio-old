@@ -45,7 +45,7 @@ class bibmatch_widget(Form):
 
         data_preview = _entry_data_preview(bwobject.get_data())
 
-        return ('bibworkflow_hp_bibmatch_widget.html',
+        return ('hp_bibmatch_widget.html',
                 {'bwobject': bwobject,
                  'widget': bibmatch_widget(),
                  'match_preview': match_preview,

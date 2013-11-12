@@ -1,8 +1,8 @@
 {% extends "workflows/hp_layout.html" %}
 {% import 'workflows/hp_utils.html' as utils %}
-{%- js url_for('workflows.static', filename='js/workflows/hp_details.js') -%}
-{%- js url_for('workflows.static', filename='js/workflows/hp_datapreview.js' -%}
-{% block body2 %}
+{%- js url_for('holdingpen.static', filename='js/workflows/hp_details.js') -%}
+{%- js url_for('holdingpen.static', filename='js/workflows/hp_datapreview.js' -%}
+{% block hpbody %}
 
     <div class="row-fluid">
         <div class="span3 pull-left"><a href="{{url_for('holdingpen.maintable')}}"><i class="icon-hand-left"></i> Back to Main Table</a></div>
