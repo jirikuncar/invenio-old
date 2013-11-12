@@ -178,7 +178,8 @@ install-jquery-plugins:
 	 git clone 'https://github.com/DataTables/Plugins.git' && \
 	 cp Plugins/integration/bootstrap/2/dataTables.bootstrap.css ${prefix}/var/www/css/dataTables.bootstrap.css && \
 	 cp Plugins/integration/bootstrap/2/dataTables.bootstrap.js ${prefix}/var/www/js/dataTables.bootstrap.js && \
-	 cp Plugins/integration/bootstrap/images/*.png ${prefix}/var/www/img/) && \
+	 cp Plugins/integration/bootstrap/images/*.png ${prefix}/var/www/img/ && \
+	 ln -s ${prefix}/var/www/img/ ${prefix}/var/www/images) && \
 	rm -rf /tmp/invenio-dt-bootstrap/plugins && \
 	mkdir /tmp/invenio-dt-bootstrap/plugins && \
 	(cd /tmp/invenio-dt-bootstrap/plugins && \

@@ -6,11 +6,11 @@
     {%- block holdingpen_assets %}
       {% js url_for('static', filename='js/jquery.dataTables.min.js'), '30-datatables' %}
       {% js url_for('static', filename='js/ColVis.js'), '30-datatables' %}
-      {% js url_for('holdingpen.static', filename='js/workflows/DT_bootstrap.js'), '50-workflows' %}
+      {% js url_for('static', filename='js/dataTables.bootstrap.js'), '30-datatables' %}
       {% js url_for('holdingpen.static', filename='js/workflows/hp_maintable.js'), '50-workflows' %}
 
       {% css url_for('static', filename='css/ColVis.css') %}
-      {% css url_for('holdingpen.static', filename='css/workflows/DT_bootstrap.css') %}
+      {% css url_for('static', filename='css/dataTables.bootstrap.css') %}
     {%- endblock holdingpen_assets %}
 {%- endblock header %}
 
