@@ -1,21 +1,21 @@
-// -*- coding: utf-8 -*-
-// This file is part of Invenio.
-// Copyright (C) 2013 CERN.
-//
-// Invenio is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License as
-// published by the Free Software Foundation; either version 2 of the
-// License, or (at your option) any later version.
-//
-// Invenio is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Invenio; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
-
+/*
+ * This file is part of Invenio.
+ * Copyright (C) 2013 CERN.
+ *
+ * Invenio is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * Invenio is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Invenio; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+ */
 
 var oTable;
 var selectedRow;
@@ -24,6 +24,14 @@ var rowIndexList = [];
 var hoveredRow = -1;
 var tagList = [];
 var defaultcss='#example tbody tr.even:hover, #example tbody tr.odd:hover {background-color: #FFFFCC;}';
+
+var url_base = "/admin/holdingpen";
+var url_delete_multi = url_base + "/delete_multi";
+var url_load_table = url_base + "/load_table";
+var url_details = url_base + "/details";
+var url_widget = url_base + "/widget";
+var url_refresh = url_base + "/refresh";
+var url_batch_widget = url_base + "/batch_widget";
 
 function isInt(n) {
    return typeof n === 'number' && n % 1 === 0;
@@ -174,7 +182,7 @@ window.addEventListener("keydown", function(e){
             var rowList_out = JSON.stringify(rowList);
             console.log(rowList_out);
             jQuery.ajax({
-                url: "/admin/holdingpen/delete_multi?bwolist="+rowList_out,
+                url: url_delete_multi + "?bwolist=" + rowList_out,
                 success: function(){
                     // console.log(url);
                 }
@@ -227,7 +235,7 @@ $(document).ready(function() {
         "bProcessing": true,
         "bServerSide": true,
         "bDestroy": true,
-        "sAjaxSource": "/admin/holdingpen/load_table",
+        "sAjaxSource": url_load_table,
         "oColVis": {
             "buttonText": "Select Columns",
             "bRestore": true,
@@ -240,9 +248,9 @@ $(document).ready(function() {
             {"mRender": function (data) {if (data == 1) {return '<span class="label label-success">Final</span>';}
                                          else if (data == 2) {return '<span class="label label-warning">Halted</span>';}
                                          else if (data == 3) {return '<span class="label label-info">Running</span>';}}, "aTargets": [7]},
-            {"mRender": function (data) {return '<a href=/admin/holdingpen/details?bwobject_id='
-            + data + '>' + 'Details' + '</a>';}, "aTargets": [8]},
-            {"mRender": function (data, type, full) {if (data.substring(0,data.indexOf('#')) != 'None') {return '<a href=/admin/holdingpen/widget?bwobject_id='
+            {"mRender": function (data) {return '<a href=' + url_details + '?bwobject_id=' + data + '>'
+                                                 + 'Details' + '</a>';}, "aTargets": [8]},
+            {"mRender": function (data, type, full) {if (data.substring(0,data.indexOf('#')) != 'None') {return '<a href=' + url_widget + '?bwobject_id='
                                                             + full[0] + '&widget=' + data.substring(0,data.indexOf('#')) + '>' + data.substring(data.indexOf('#')+1) + '</a>';}
                                                      else {return 'N/A';}}, "aTargets": [9]}
         ],
@@ -262,7 +270,7 @@ $(document).ready(function() {
 
     $('#refresh_button').on('click', function() {
         jQuery.ajax({
-            url: "/admin/holdingpen/refresh",
+            url: url_refresh,
             success: function(json){
                 
             }
@@ -274,7 +282,7 @@ $(document).ready(function() {
         if (rowList.length >= 1){
             var rowList_out = JSON.stringify(rowList);
             console.log(rowList_out);
-            window.location = "/admin/holdingpen/batch_widget?bwolist=" + rowList_out;
+            window.location = url_batch_widget + "?bwolist=" + rowList_out;
             $(this).prop("disabled", true);
             return false;
         }

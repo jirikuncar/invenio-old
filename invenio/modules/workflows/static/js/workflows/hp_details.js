@@ -18,6 +18,11 @@
 
 $(document).ready(function(){
 
+    var url_base = "/admin/holdingpen";
+    var url_restart_record = url_base + "/restart_record";
+    var url_restart_record_prev = url_base + "/restart_record_prev";
+    var url_continue = url_base + "/continue_record";
+
     function bootstrap_alert(message) {
         $('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
     }
@@ -26,7 +31,7 @@ $(document).ready(function(){
         bwo_id = $(this).attr('name');
         console.log(bwo_id);
         jQuery.ajax({
-            url: "/admin/holdingpen/restart_record?bwobject_id=" + bwo_id,
+            url: url_restart_record + "?bwobject_id=" + bwo_id,
             success: function(json){
                 bootstrap_alert('Object restarted');
             }
@@ -37,7 +42,7 @@ $(document).ready(function(){
         bwo_id = $(this).attr('name');
         console.log(bwo_id);
         jQuery.ajax({
-            url: "/admin/holdingpen/restart_record_prev?bwobject_id=" + bwo_id,
+            url: url_restart_record_prev + "?bwobject_id=" + bwo_id,
             success: function(json){
                 bootstrap_alert('Object restarted from previous task');        
             }
@@ -48,7 +53,7 @@ $(document).ready(function(){
         bwo_id = $(this).attr('name');
         console.log(bwo_id);
         jQuery.ajax({
-            url: "/admin/holdingpen/continue_record?bwobject_id=" + bwo_id,
+            url: url_continue + "?bwobject_id=" + bwo_id,
             success: function(json){
                 bootstrap_alert('Object continued from next task');        
             }
