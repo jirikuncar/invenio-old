@@ -16,6 +16,10 @@
 // along with Invenio; if not, write to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
+
 $(document).ready(function(){
 
     var url_base = "/admin/holdingpen";
@@ -69,10 +73,6 @@ $(document).ready(function(){
         $("div.btn-group[name='data_version']").bind('click', function(event){
             version = event.target.name;
         });
-    }
-
-    function getURLParameter(name) {
-      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
     }
 
     bwoid = getURLParameter('bwobject_id');

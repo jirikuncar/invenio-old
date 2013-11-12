@@ -18,7 +18,7 @@
  */
 
 $(document).ready(function(){    
-    var bwoid;
+    var bwoid = getURLParameter('bwobject_id');
     var datapreview = "hd";
     var url_preview = "/admin/holdingpen/entry_data_preview";
 

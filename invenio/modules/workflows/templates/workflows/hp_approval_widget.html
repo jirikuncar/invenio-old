@@ -1,11 +1,17 @@
 {% extends "workflows/hp_layout.html" %}
-{%- js url_for('holdingpen.static', filename='js/workflows/widgets/approval.js') -%}
 {% import 'workflows/hp_utils.html' as utils %}
 
+{%- block header %}
+    {{ super() }}
+    {%- block widget_assets %}
+        {% js url_for('holdingpen.static', filename='js/workflows/widgets/approval.js'), '50-workflows' %}
+        {% js url_for('static', filename='js/google-code-prettify/run_prettify.js'), '50-workflows' %}
+        {% css url_for('static', filename='css/prettify.css') %}
+    {%- endblock widget_assets %}
+{%- endblock header %}
+
 {% block hpbody %}
-    <link href="https://google-code-prettify.googlecode.com/svn/loader/prettify.css" type="text/css" rel="stylesheet"/>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp;skin=desert"></script>
-    
+
     <div class"row-fluid">
         <div class="span3"><a href="{{url_for('holdingpen.maintable')}}"><i class="icon-hand-left"></i> Back to Main Table</a></div>
         <div class="span7"><h1>Approval Widget</h1></div>
@@ -109,7 +115,6 @@
             </div>
             <div id="decision-btns{{i}}" class="row-fluid decision-btns">
                 <form id="form{{i}}" class="theform" method="POST" name="{{ url_for('holdingpen.resolve_widget', bwobject_id=bwobject.id, widget='approval_widget') }}">
-                    {% set widget = widget() %}
                     {% for field in widget %}
                         {{ field }}
                     {% endfor %}
