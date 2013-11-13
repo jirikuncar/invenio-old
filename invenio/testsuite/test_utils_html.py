@@ -112,10 +112,10 @@ class JavascriptCharactersEscapingTest(InvenioTestCase):
     def test_newline_nojson(self):
         """htmlutils - test if newlines are properly escaped for Javascript strings without JSON module. """
         # Trick jsonutils into thinking json module is not available.
-        import invenio.htmlutils
-        invenio.htmlutils.CFG_JSON_AVAILABLE = False
+        import invenio.utils.html
+        invenio.utils.html.CFG_JSON_AVAILABLE = False
         self.test_newline()
-        invenio.htmlutils.CFG_JSON_AVAILABLE = True
+        invenio.utils.html.CFG_JSON_AVAILABLE = True
 
     def test_escape_javascript_string_for_html(self):
         """htmlutils - escaping strings for Javascript, for use in HTML"""
@@ -131,10 +131,10 @@ class JavascriptCharactersEscapingTest(InvenioTestCase):
     def test_escape_javascript_string_for_html_nojson(self):
         """htmlutils - escaping strings for Javascript, for use in HTML, without JSON module."""
         # Same output if we did not have JSON installed
-        import invenio.htmlutils
-        invenio.htmlutils.CFG_JSON_AVAILABLE = False
+        import invenio.utils.html
+        invenio.utils.html.CFG_JSON_AVAILABLE = False
         self.test_escape_javascript_string_for_html()
-        invenio.htmlutils.CFG_JSON_AVAILABLE = True
+        invenio.utils.html.CFG_JSON_AVAILABLE = True
 
     def test_escape_javascript_string_for_html_in_cdata(self):
         """htmlutils - escaping strings for Javascript, for use in HTML, in CDATA sections"""
@@ -145,10 +145,10 @@ class JavascriptCharactersEscapingTest(InvenioTestCase):
 
     def test_escape_javascript_string_for_html_in_cdata_nojson(self):
         """htmlutils - escaping strings for Javascript, for use in HTML, in CDATA sections, without JSON module."""
-        import invenio.htmlutils
-        invenio.htmlutils.CFG_JSON_AVAILABLE = False
+        import invenio.utils.html
+        invenio.utils.html.CFG_JSON_AVAILABLE = False
         self.test_escape_javascript_string_for_html_in_cdata()
-        invenio.htmlutils.CFG_JSON_AVAILABLE = True
+        invenio.utils.html.CFG_JSON_AVAILABLE = True
 
     def test_escape_javascript_string_for_javascript_or_json(self):
         """htmlutils - escaping strings for Javascript, for use in "pure" Javscript or JSON output"""
@@ -159,10 +159,10 @@ class JavascriptCharactersEscapingTest(InvenioTestCase):
 
     def test_escape_javascript_string_for_javascript_or_json_nojson(self):
         """htmlutils - escaping strings for Javascript, for use in "pure" Javscript or JSON output, without JSON module."""
-        import invenio.htmlutils
-        invenio.htmlutils.CFG_JSON_AVAILABLE = False
+        import invenio.utils.html
+        invenio.utils.html.CFG_JSON_AVAILABLE = False
         self.test_escape_javascript_string_for_javascript_or_json()
-        invenio.htmlutils.CFG_JSON_AVAILABLE = True
+        invenio.utils.html.CFG_JSON_AVAILABLE = True
 
     def test_escape_closing_script_tag(self):
         """htmlutils - escaping closing </script> tag"""
