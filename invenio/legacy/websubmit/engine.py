@@ -54,7 +54,7 @@ from invenio.webstat import register_customevent
 from invenio.ext.logging import register_exception
 from invenio.utils.url import make_canonical_urlargd, redirect_to_url
 from invenio.websubmitadmin_engine import string_is_alphanumeric_including_underscore
-from invenio.htmlutils import get_mathjax_header
+from invenio.utils.html import get_mathjax_header
 
 from invenio.websubmit_dblayer import \
      get_storage_directory_of_action, \

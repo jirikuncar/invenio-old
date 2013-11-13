@@ -27,7 +27,7 @@ the tests.
 from invenio.flaskshell import *
 
 import unittest
-from invenio import dataciteutils
+from invenio.utils import datacite as dataciteutils
 from invenio import config
 from invenio.testsuite import make_test_suite, run_test_suite
 import random

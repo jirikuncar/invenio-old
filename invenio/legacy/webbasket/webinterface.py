@@ -73,7 +73,7 @@ from invenio.ext.logging import register_exception
 from invenio.legacy.webuser import collect_user_info
 from invenio.modules.comments.api import check_user_can_attach_file_to_comments
 from invenio.access_control_engine import acc_authorize_action
-from invenio.htmlutils import is_html_text_editor_installed
+from invenio.utils.html import is_html_text_editor_installed
 from invenio.ckeditor_invenio_connector import process_CKEditor_upload, send_response
 from invenio.bibdocfile import stream_file
 

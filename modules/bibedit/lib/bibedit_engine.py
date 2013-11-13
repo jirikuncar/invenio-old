@@ -91,7 +91,7 @@ from invenio.search_engine import record_exists, perform_request_search
 from invenio.legacy.webuser import session_param_get, session_param_set
 from invenio.bibcatalog import bibcatalog_system
 from invenio.webpage import page
-from invenio.htmlutils import get_mathjax_header
+from invenio.utils.html import get_mathjax_header
 from invenio.utils.text import wash_for_xml, show_diff
 from invenio.modules.knowledge.api import get_kbd_values_for_bibedit, get_kbr_values, \
      get_kbt_items_for_bibedit, kb_exists

@@ -116,8 +116,8 @@ from invenio.legacy.dbquery import DatabaseError, deserialize_via_marshal, Inven
 from invenio.access_control_engine import acc_authorize_action
 from invenio.ext.logging import register_exception
 from invenio.utils.text import encode_for_xml, wash_for_utf8, strip_accents
-from invenio.htmlutils import get_mathjax_header
-from invenio.htmlutils import nmtoken_from_string
+from invenio.utils.html import get_mathjax_header
+from invenio.utils.html import nmtoken_from_string
 
 import invenio.template
 webstyle_templates = invenio.template.load('webstyle')

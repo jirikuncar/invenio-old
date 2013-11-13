@@ -54,7 +54,7 @@ from invenio.config import CFG_PREFIX, \
 from invenio.webmessage_mailutils import \
      email_quote_txt, \
      email_quoted_txt2html
-from invenio.htmlutils import tidy_html
+from invenio.utils.html import tidy_html
 from invenio.legacy.webuser import get_user_info, get_email, collect_user_info
 from invenio.utils.date import convert_datetext_to_dategui, \
                               datetext_default, \

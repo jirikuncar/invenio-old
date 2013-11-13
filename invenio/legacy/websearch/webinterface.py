@@ -88,8 +88,8 @@ from invenio.config import \
 from invenio.legacy.dbquery import Error
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import redirect_to_url, make_canonical_urlargd, drop_default_urlargd
-from invenio.htmlutils import get_mathjax_header
-from invenio.htmlutils import nmtoken_from_string
+from invenio.utils.html import get_mathjax_header
+from invenio.utils.html import nmtoken_from_string
 from invenio.legacy.webuser import getUid, page_not_authorized, get_user_preferences, \
     collect_user_info, logoutUser, isUserSuperAdmin
 from invenio.legacy.webcomment.webinterface import WebInterfaceCommentsPages

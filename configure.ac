@@ -903,12 +903,7 @@ AC_CONFIG_FILES([config.nice  \
      modules/docextract/doc/admin/Makefile \
      modules/docextract/doc/hacking/Makefile \
      modules/webdeposit/Makefile \
-     modules/webdeposit/etc/Makefile \
-     modules/webdeposit/etc/templates/Makefile \
      modules/webdeposit/lib/Makefile \
-     modules/webdeposit/lib/deposition_fields/Makefile \
-     modules/webdeposit/lib/deposition_forms/Makefile \
-     modules/webdeposit/lib/deposition_types/Makefile \
      modules/bibworkflow/Makefile \
      modules/bibworkflow/bin/Makefile \
      modules/bibworkflow/doc/Makefile \

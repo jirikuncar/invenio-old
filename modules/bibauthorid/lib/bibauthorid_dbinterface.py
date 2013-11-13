@@ -27,7 +27,7 @@ import invenio.bibauthorid_config as bconfig
 import numpy
 import cPickle
 from cPickle import UnpicklingError
-from invenio.htmlutils import X
+from invenio.utils.html import X
 
 import os
 import gc

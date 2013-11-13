@@ -22,7 +22,7 @@
 __revision__ = "$Id$"
 
 import cgi
-from invenio.htmlutils import HTMLWasher
+from invenio.utils.html import HTMLWasher
 from HTMLParser import HTMLParseError
 
 def email_quoted_txt2html(text,

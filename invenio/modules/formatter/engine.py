@@ -84,7 +84,7 @@ from .config import \
 from invenio.modules.formatter.utils import \
      record_get_xml, \
      parse_tag
-from invenio.htmlutils import \
+from invenio.utils.html import \
      HTMLWasher, \
      CFG_HTML_BUFFER_ALLOWED_TAG_WHITELIST, \
      CFG_HTML_BUFFER_ALLOWED_ATTRIBUTE_WHITELIST

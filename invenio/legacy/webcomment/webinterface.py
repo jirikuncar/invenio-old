@@ -65,7 +65,7 @@ from invenio.search_engine import create_navtrail_links, \
      get_colID
 from invenio.utils.url import redirect_to_url, \
                              make_canonical_urlargd
-from invenio.htmlutils import get_mathjax_header
+from invenio.utils.html import get_mathjax_header
 from invenio.ext.logging import register_exception
 from invenio.base.i18n import gettext_set_language
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory

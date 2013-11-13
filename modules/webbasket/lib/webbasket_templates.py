@@ -31,7 +31,7 @@ from invenio.webbasket_config import \
 from invenio.webmessage_mailutils import email_quoted_txt2html, \
                                          email_quote_txt, \
                                          escape_email_quoted_text
-from invenio.htmlutils import get_html_text_editor
+from invenio.utils.html import get_html_text_editor
 from invenio.config import \
      CFG_SITE_URL, \
      CFG_SITE_SECURE_URL, \

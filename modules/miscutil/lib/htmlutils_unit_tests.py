@@ -23,7 +23,7 @@ __revision__ = "$Id$"
 
 
 
-from invenio.htmlutils import HTMLWasher, nmtoken_from_string, \
+from invenio.utils.html import HTMLWasher, nmtoken_from_string, \
      remove_html_markup, create_html_select, \
      CFG_TIDY_INSTALLED, \
      CFG_BEAUTIFULSOUP_INSTALLED, tidy_html, \

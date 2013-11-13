@@ -20,7 +20,6 @@ pylibdir = $(libdir)/python/invenio
 pylib_DATA = __init__.py \
              crossrefutils.py \
              data_cacher.py \
-             dataciteutils.py \
              dataciteutils_tester.py \
              dbdump.py \
              dbquery_regression_tests.py \
@@ -29,7 +28,6 @@ pylib_DATA = __init__.py \
              errorlib_unit_tests.py \
              errorlib_webinterface.py \
              flaskshell.py \
-             htmlutils.py \
              htmlutils_unit_tests.py \
              intbitset_helper.py \
              intbitset_unit_tests.py \
@@ -42,9 +40,7 @@ pylib_DATA = __init__.py \
              memoiseutils_unit_tests.py \
              messages_unit_tests.py \
              miscutil_model.py \
-             orcid.py \
              paginationutils_unit_tests.py \
-             pidutils.py \
              pidutils_unit_tests.py \
              plotextractor.py \
              plotextractor_config.py \
@@ -63,7 +59,6 @@ pylib_DATA = __init__.py \
              sequtils_regression_tests.py \
              shellutils.py \
              shellutils_unit_tests.py \
-             sherpa_romeo.py \
              sherpa_romeo_testing.py \
              solrutils_bibindex_indexer.py \
              solrutils_bibindex_searcher.py \
@@ -81,8 +76,7 @@ pylib_DATA = __init__.py \
              xapianutils_bibindex_searcher.py \
              xapianutils_bibrank_indexer.py \
              xapianutils_bibrank_searcher.py \
-             xapianutils_config.py \
-             xmlDict.py
+             xapianutils_config.py
 
 noinst_DATA = testimport.py \
               kwalitee.py \

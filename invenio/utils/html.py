@@ -229,7 +229,7 @@ class HTMLWasher(HTMLParser):
     details on parameters.
 
     Usage::
-       from invenio.htmlutils import HTMLWasher
+       from invenio.utils.html import HTMLWasher
        washer = HTMLWasher()
        escaped_text = washer.wash(unescaped_text)
 
@@ -772,7 +772,7 @@ class MLClass(object):
     """
     Swiss army knife to generate XML or HTML strings a la carte.
 
-    >>> from invenio.htmlutils import X, H
+    >>> from invenio.utils.html import X, H
     >>> X.foo()()
     ... '<foo />'
     >>> X.foo(bar='baz')()

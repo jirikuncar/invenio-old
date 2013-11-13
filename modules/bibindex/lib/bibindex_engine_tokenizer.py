@@ -30,7 +30,7 @@ from invenio.config import \
      CFG_BIBINDEX_REMOVE_LATEX_MARKUP, \
      CFG_BIBINDEX_CHARS_PUNCTUATION, \
      CFG_BIBINDEX_CHARS_ALPHANUMERIC_SEPARATORS
-from invenio.htmlutils import remove_html_markup
+from invenio.utils.html import remove_html_markup
 from invenio.utils.text import wash_for_utf8, strip_accents
 
 from invenio.bibindex_engine_washer import \
