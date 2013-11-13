@@ -50,7 +50,7 @@ class TestWebDepositUtils(InvenioTestCase):
     #
     def login_user(self, username='admin'):
         from invenio.websession_model import User
-        from invenio.webuser_flask import login_user, current_user
+        from invenio.ext.login import login_user, current_user
         user_id = User.query.filter_by(nickname=username).one().id
         login_user(user_id)
         assert user_id == current_user.get_id()

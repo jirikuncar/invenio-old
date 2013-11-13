@@ -25,7 +25,6 @@ pylib_DATA = webdoc.py \
              template.py \
              webstyle_templates.py \
              webstyle_regression_tests.py \
-             webinterface_handler.py \
              webinterface_unit_tests.py \
              ckeditor_invenio_connector.py \
              httptest_webinterface.py \

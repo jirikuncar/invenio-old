@@ -1018,7 +1018,7 @@ class Agent(FactoryMixin):
 
     def from_request_context(self):
         from flask import request
-        from invenio.webuser_flask import current_user
+        from invenio.ext.login import current_user
         self.ip_address = request.remote_addr
         self.user_id = current_user.get_id()
         self.email_address = current_user.info.get('email', '')

@@ -23,7 +23,6 @@ pylib_DATA = __init__.py \
              dataciteutils.py \
              dataciteutils_tester.py \
              dbdump.py \
-             dbquery.py \
              dbquery_regression_tests.py \
              dbquery_unit_tests.py \
              errorlib_regression_tests.py \

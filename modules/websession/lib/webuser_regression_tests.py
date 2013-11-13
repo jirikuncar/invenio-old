@@ -32,7 +32,7 @@ from invenio.mailutils_unit_tests import MailTestCase
 from invenio.base.wrappers import lazy_import
 from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite
 
-webuser = lazy_import('invenio.webuser')
+webuser = lazy_import('invenio.legacy.webuser')
 
 class IsUserSuperAdminTests(InvenioTestCase):
     """Test functions related to the isUserSuperAdmin function."""

@@ -37,6 +37,7 @@ from ..models import Collection
 from invenio.ext.menu import register_menu
 from invenio.base.signals import websearch_before_browse, websearch_before_search
 from invenio.modules.index import models as BibIndex
+from invenio.modules.formatter import format_record
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from invenio.ext.breadcrumb import \
@@ -130,15 +131,12 @@ def index():
         return redirect(url_for('.collection', name=c, ln=g.ln))
 
     collection = Collection.query.get_or_404(1)
-    # inject functions to the template
-    from invenio.search_engine import get_creation_date, print_record
 
     @register_template_context_processor
     def index_context():
         return dict(
             easy_search_form=EasySearchForm(csrf_enabled=False),
-            format_record=print_record,
-            get_creation_date=get_creation_date
+            format_record=format_record,
         )
     return dict(collection=collection)
 
@@ -148,14 +146,11 @@ def index():
 def collection(name):
     collection = Collection.query.filter(Collection.name == name).first_or_404()
 
-    from invenio.search_engine import get_creation_date, print_record
-
     @register_template_context_processor
     def index_context():
         return dict(
-            format_record=print_record,
+            format_record=format_record,
             easy_search_form=EasySearchForm(csrf_enabled=False),
-            get_creation_date=get_creation_date,
             breadcrumbs=breadcrumbs + collection.breadcrumbs(ln=g.ln)[1:])
     return dict(collection=collection)
 
