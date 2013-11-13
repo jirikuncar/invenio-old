@@ -470,7 +470,7 @@ class CheckBibDocAuthorizationTest(InvenioTestCase):
     def test_check_bibdoc_authorization(self):
         """bibdocfile - check_bibdoc_authorization function"""
         from invenio.bibdocfile import check_bibdoc_authorization
-        from invenio.webuser import collect_user_info, get_uid_from_email
+        from invenio.legacy.webuser import collect_user_info, get_uid_from_email
         jekyll = collect_user_info(get_uid_from_email('jekyll@cds.cern.ch'))
         self.assertEqual(check_bibdoc_authorization(jekyll, 'role:thesesviewer'), (0, CFG_WEBACCESS_WARNING_MSGS[0]))
         self.assertEqual(check_bibdoc_authorization(jekyll, 'role: thesesviewer'), (0, CFG_WEBACCESS_WARNING_MSGS[0]))

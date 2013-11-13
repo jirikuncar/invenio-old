@@ -701,7 +701,7 @@ def submit_ticket_for_holding_pen(rec_id, err, msg):
     msg: verbose message
     """
     from invenio import bibtask
-    from invenio.webuser import get_email_from_username, get_uid_from_email
+    from invenio.legacy.webuser import get_email_from_username, get_uid_from_email
     user = task_get_task_param("user")
     uid = None
     if user:

@@ -42,7 +42,7 @@ from invenio.dbquery import run_sql
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_is_role
 from invenio.webpage import warning_page
-from invenio.webuser import getUid, page_not_authorized, collect_user_info, \
+from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, \
                             isGuestUser
 from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import make_canonical_urlargd, redirect_to_url

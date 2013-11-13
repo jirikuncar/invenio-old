@@ -29,7 +29,7 @@ from invenio.utils.json import json
 from invenio.webpage import page
 from invenio.config import CFG_SITE_URL, CFG_SITE_LANG
 from invenio.dbquery import Error
-from invenio.webuser import getUid, page_not_authorized
+from invenio.legacy.webuser import getUid, page_not_authorized
 from invenio.bibrankadminlib import check_user
 from invenio.oai_harvest_dblayer import get_holdingpen_day_size
 from invenio.oai_harvest_admin import perform_request_gethpdayfragment

@@ -37,7 +37,7 @@ from invenio.search_engine import get_colID, \
 from invenio.websearchadminlib import get_detailed_page_tabs
 from invenio.template import load
 from invenio.webinterface_handler import wash_urlargd
-from invenio.webuser import collect_user_info
+from invenio.legacy.webuser import collect_user_info
 from invenio import access_control_engine as acce
 from invenio import dbquery
 from invenio import bibtask

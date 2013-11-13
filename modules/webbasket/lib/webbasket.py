@@ -48,7 +48,7 @@ from invenio.webbasket_config import CFG_WEBBASKET_SHARE_LEVELS, \
                                      CFG_WEBBASKET_CATEGORIES, \
                                      InvenioWebBasketWarning
 from invenio.utils.url import get_referer
-from invenio.webuser import isGuestUser, collect_user_info
+from invenio.legacy.webuser import isGuestUser, collect_user_info
 from invenio.search_engine import \
      record_exists, \
      get_merged_recid, \

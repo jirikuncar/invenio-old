@@ -25,7 +25,7 @@ __lastupdated__ = """$Date$"""
 import os
 from invenio.access_control_engine import acc_authorize_action
 from invenio.config import CFG_SITE_URL, CFG_TMPDIR
-from invenio.webuser import page_not_authorized, collect_user_info
+from invenio.legacy.webuser import page_not_authorized, collect_user_info
 from invenio.bibsword_client import perform_display_sub_status, \
                                     perform_display_server_list, \
                                     perform_display_collection_list, \

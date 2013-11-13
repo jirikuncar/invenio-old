@@ -3176,7 +3176,7 @@ class WebSearchRestrictedCollectionTest(InvenioTestCase):
     def test_get_permitted_restricted_collections(self):
         """websearch - get_permitted_restricted_collections"""
         from invenio.search_engine import get_permitted_restricted_collections
-        from invenio.webuser import get_uid_from_email, collect_user_info
+        from invenio.legacy.webuser import get_uid_from_email, collect_user_info
         self.assertEqual(get_permitted_restricted_collections(collect_user_info(get_uid_from_email('jekyll@cds.cern.ch'))), ['Theses', 'Drafts'])
         self.assertEqual(get_permitted_restricted_collections(collect_user_info(get_uid_from_email('hyde@cds.cern.ch'))), [])
         self.assertEqual(get_permitted_restricted_collections(collect_user_info(get_uid_from_email('balthasar.montague@cds.cern.ch'))), ['ALEPH Theses', 'ALEPH Internal Notes', 'Atlantis Times Drafts'])

@@ -36,7 +36,7 @@ from invenio.config import CFG_SITE_LANG, \
                            CFG_WEBSESSION_DIFFERENTIATE_BETWEEN_GUESTS, \
                            CFG_SITE_RECORD, \
                            CFG_CERN_SITE
-from invenio.webuser import getUid, page_not_authorized, isGuestUser, \
+from invenio.legacy.webuser import getUid, page_not_authorized, isGuestUser, \
                             collect_user_info
 from invenio.webpage import page, pageheaderonly, pagefooteronly
 from invenio.ext.email import send_email

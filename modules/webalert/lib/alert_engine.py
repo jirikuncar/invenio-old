@@ -43,7 +43,7 @@ from invenio.search_engine import perform_request_search, wash_colls, \
      check_user_can_view_record
 from invenio.webinterface_handler import wash_urlargd
 from invenio.dbquery import run_sql
-from invenio.webuser import get_email, collect_user_info
+from invenio.legacy.webuser import get_email, collect_user_info
 from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
 from invenio.alert_engine_config import CFG_WEBALERT_DEBUG_LEVEL

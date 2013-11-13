@@ -28,7 +28,7 @@ from invenio.utils.url import wash_url_argument
 from invenio.dbquery import run_sql
 from invenio.base.i18n import gettext_set_language, wash_language
 from invenio.ext.logging import register_exception
-from invenio.webuser import get_user_info, collect_user_info, \
+from invenio.legacy.webuser import get_user_info, collect_user_info, \
                             isUserAdmin
 from invenio.access_control_engine import acc_authorize_action, \
      acc_get_authorized_emails

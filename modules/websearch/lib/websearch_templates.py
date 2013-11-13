@@ -72,7 +72,7 @@ from invenio.utils.url import make_canonical_urlargd, drop_default_urlargd, crea
 from invenio.htmlutils import nmtoken_from_string
 from invenio.webinterface_handler import wash_urlargd
 from invenio.bibrank_citation_searcher import get_cited_by_count
-from invenio.webuser import session_param_get
+from invenio.legacy.webuser import session_param_get
 
 from invenio.intbitset import intbitset
 

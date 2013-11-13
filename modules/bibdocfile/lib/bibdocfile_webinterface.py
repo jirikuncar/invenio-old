@@ -39,7 +39,7 @@ from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_is_role
 from invenio.webpage import page, pageheaderonly, \
     pagefooteronly, warning_page, write_warning
-from invenio.webuser import getUid, page_not_authorized, collect_user_info, isUserSuperAdmin, \
+from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, isUserSuperAdmin, \
                             isGuestUser
 from invenio import webjournal_utils
 from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory

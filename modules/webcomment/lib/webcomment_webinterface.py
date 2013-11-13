@@ -58,7 +58,7 @@ from invenio.config import \
      CFG_WEBCOMMENT_MAX_ATTACHMENT_SIZE, \
      CFG_WEBCOMMENT_MAX_ATTACHED_FILES, \
      CFG_ACCESS_CONTROL_LEVEL_SITE
-from invenio.webuser import getUid, page_not_authorized, isGuestUser, collect_user_info
+from invenio.legacy.webuser import getUid, page_not_authorized, isGuestUser, collect_user_info
 from invenio.webpage import page, pageheaderonly, pagefooteronly
 from invenio.search_engine import create_navtrail_links, \
      guess_primary_collection_of_a_record, \

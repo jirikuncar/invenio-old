@@ -31,7 +31,7 @@ from invenio.config import \
      CFG_SITE_SECURE_URL, \
      CFG_SITE_LANG, \
      CFG_CERN_SITE
-from invenio.webuser import getUid
+from invenio.legacy.webuser import getUid
 from invenio.utils.url import redirect_to_url
 from invenio.ext.logging import register_exception
 from invenio.webjournal_config import \

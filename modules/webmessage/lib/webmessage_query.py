@@ -433,7 +433,7 @@ def check_quota(nb_messages):
     @param nb_messages: max number of messages a user can have
     @return: a dictionary of users over-quota
     """
-    from invenio.webuser import collect_user_info
+    from invenio.legacy.webuser import collect_user_info
     from invenio.access_control_admin import acc_is_user_in_role, acc_get_role_id
     no_quota_role_ids = [acc_get_role_id(role) for role in CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA]
     res = {}

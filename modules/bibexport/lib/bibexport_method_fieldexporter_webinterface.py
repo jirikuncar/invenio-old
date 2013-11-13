@@ -56,7 +56,7 @@ from invenio.bibexport_method_fieldexporter import get_css, \
 from invenio.bibexport_method_fieldexporter_dblayer import Job, \
                                                            Query, \
                                                            JobResult
-from invenio.webuser import collect_user_info, \
+from invenio.legacy.webuser import collect_user_info, \
                             page_not_authorized
 from invenio.access_control_engine import acc_authorize_action
 

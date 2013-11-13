@@ -28,7 +28,7 @@ from invenio.config import \
      CFG_SITE_SECURE_URL
 from invenio.websubmit_dblayer import get_approval_url_parameters
 from invenio.webpage import warning_page
-from invenio.webuser import getUid, page_not_authorized
+from invenio.legacy.webuser import getUid, page_not_authorized
 from invenio.base.i18n import wash_language, gettext_set_language
 from invenio.utils.url import redirect_to_url
 from invenio.webinterface_handler import wash_urlargd

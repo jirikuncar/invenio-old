@@ -25,7 +25,7 @@ import invenio.oai_repository_admin as ora
 from invenio.webpage import page
 from invenio.config import CFG_SITE_URL, CFG_SITE_LANG
 from invenio.dbquery import Error
-from invenio.webuser import getUid, page_not_authorized
+from invenio.legacy.webuser import getUid, page_not_authorized
 
 def index(req, ln=CFG_SITE_LANG):
     navtrail_previous_links = ora.getnavtrail(ln=ln)

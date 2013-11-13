@@ -24,7 +24,7 @@ __revision__ = "$Id$"
 __lastupdated__ = """$Date$"""
 
 from invenio.config import CFG_SITE_SECURE_URL, CFG_SITE_URL, CFG_ACCESS_CONTROL_LEVEL_SITE
-from invenio.webuser import getUid, isGuestUser, page_not_authorized, collect_user_info
+from invenio.legacy.webuser import getUid, isGuestUser, page_not_authorized, collect_user_info
 from invenio.webmessage import perform_request_display_msg, \
                                perform_request_write, \
                                perform_request_send, \

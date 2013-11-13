@@ -90,7 +90,7 @@ from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import redirect_to_url, make_canonical_urlargd, drop_default_urlargd
 from invenio.htmlutils import get_mathjax_header
 from invenio.htmlutils import nmtoken_from_string
-from invenio.webuser import getUid, page_not_authorized, get_user_preferences, \
+from invenio.legacy.webuser import getUid, page_not_authorized, get_user_preferences, \
     collect_user_info, logoutUser, isUserSuperAdmin
 from invenio.webcomment_webinterface import WebInterfaceCommentsPages
 from invenio.weblinkback_webinterface import WebInterfaceRecordLinkbacksPages

@@ -32,7 +32,7 @@ import re
 
 from invenio.dbquery import run_sql, Error
 from invenio.access_control_engine import acc_authorize_action
-from invenio.webuser import collect_user_info, page_not_authorized
+from invenio.legacy.webuser import collect_user_info, page_not_authorized
 from invenio.config import CFG_BINDIR, CFG_TMPSHAREDDIR, CFG_LOGDIR, \
                             CFG_BIBUPLOAD_EXTERNAL_SYSNO_TAG, \
                             CFG_BIBUPLOAD_EXTERNAL_OAIID_TAG, \

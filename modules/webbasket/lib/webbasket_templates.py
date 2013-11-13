@@ -39,7 +39,7 @@ from invenio.config import \
      CFG_WEBBASKET_MAX_NUMBER_OF_DISPLAYED_BASKETS, \
      CFG_WEBBASKET_USE_RICH_TEXT_EDITOR, \
      CFG_SITE_RECORD
-from invenio.webuser import get_user_info
+from invenio.legacy.webuser import get_user_info
 from invenio.utils.date import convert_datetext_to_dategui
 from invenio.webbasket_dblayer import get_basket_ids_and_names
 
