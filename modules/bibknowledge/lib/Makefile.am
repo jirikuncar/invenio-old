@@ -18,12 +18,9 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = \
-             bibknowledge.py \
              bibknowledgeadmin.py \
              bibknowledgeadminlib.py \
              bibknowledge_templates.py \
-             bibknowledge_dblayer.py \
-             bibknowledge_unit_tests.py \
              bibknowledge_regression_tests.py
 
 EXTRA_DIST = $(pylib_DATA)

@@ -81,7 +81,7 @@ from invenio.refextract_api import extract_references_from_record_xml, \
 from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file, ParseError
 from invenio.bibauthorid_name_utils import split_name_parts, \
                                         create_normalized_name
-from invenio.bibknowledge import get_kbr_values
+from invenio.modules.knowledge.api import get_kbr_values
 
 # Precompile regexp:
 re_file_option = re.compile(r'^%s' % CFG_BIBEDIT_CACHEDIR)

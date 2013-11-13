@@ -38,7 +38,7 @@ class JournalField(WebDepositField, TextField):
 
 
 # from wtforms import TextField
-# from invenio.bibknowledge import get_kb_mappings
+# from invenio.modules.knowledge.api import get_kb_mappings
 # from invenio.modules.deposit.field_base import WebDepositField
 
 # __all__ = ['JournalField']

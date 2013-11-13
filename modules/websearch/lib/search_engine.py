@@ -103,7 +103,7 @@ from invenio.bibindexadminlib import get_idx_indexer
 from invenio.modules.formatter import format_record, format_records, get_output_format_content_type, create_excel
 from invenio.modules.formatter.config import CFG_BIBFORMAT_USE_OLD_BIBFORMAT
 from invenio.bibrank_downloads_grapher import create_download_history_graph_and_box
-from invenio.bibknowledge import get_kbr_values
+from invenio.modules.knowledge.api import get_kbr_values
 from invenio.data_cacher import DataCacher
 from invenio.websearch_external_collections import print_external_results_overview, perform_external_collection_search
 from invenio.access_control_admin import acc_get_action_id

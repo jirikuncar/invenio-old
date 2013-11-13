@@ -30,7 +30,7 @@ def kb_autocomplete(name, mapper=None):
                    autocomplete entry.
     """
     def inner(dummy_form, dummy_field, term, limit=50):
-        from invenio.bibknowledge import get_kb_mappings
+        from invenio.modules.knowledge.api import get_kb_mappings
         result = get_kb_mappings(name, '', term)[:limit]
         return map(mapper, result) if mapper is not None else result
     return inner
