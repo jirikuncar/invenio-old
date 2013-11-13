@@ -24,7 +24,7 @@ from flask.ext.login import login_required
 from invenio.base.i18n import _
 from invenio.base.decorators import wash_arguments, templated
 from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
-from invenio.bibworkflow_api import start_delayed
+from ..api import start_delayed
 from invenio.bibworkflow_utils import (get_workflow_definition,
                                        get_redis_keys as utils_get_redis_keys,
                                        filter_holdingpen_results)
