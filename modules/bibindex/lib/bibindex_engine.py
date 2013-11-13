@@ -63,7 +63,7 @@ from invenio.bibtask import task_init, write_message, get_datetime, \
     task_set_option, task_get_option, task_get_task_param, \
     task_update_progress, task_sleep_now_if_required
 from invenio.intbitset import intbitset
-from invenio.errorlib import register_exception
+from invenio.ext.logging import register_exception
 from invenio.htmlutils import get_links_in_html_page
 from invenio.search_engine_utils import get_fieldvalues
 from invenio.solrutils_bibindex_indexer import solr_add_fulltext, solr_commit
