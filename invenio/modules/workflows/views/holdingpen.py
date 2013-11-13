@@ -30,7 +30,7 @@ from invenio.ext.menu import register_menu
 from invenio.utils.date import pretty_date
 from invenio.bibworkflow_utils import (get_workflow_definition,
                                        sort_bwolist)
-from invenio.bibworkflow_api import continue_oid_delayed, start
+from ..api import continue_oid_delayed, start
 
 
 blueprint = Blueprint('holdingpen', __name__, url_prefix="/admin/holdingpen",

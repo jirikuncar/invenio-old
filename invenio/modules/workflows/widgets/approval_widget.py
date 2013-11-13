@@ -56,10 +56,10 @@ class approval_widget(Form):
         Resolves the action taken in the approval widget
         """
         from flask import request, flash, redirect, url_for
-        from invenio.bibworkflow_api import continue_oid_delayed
+        from ..api import continue_oid_delayed
         from ..views.holdingpen import _delete_from_db
         from ..models import BibWorkflowObject
-        from invenio.sqlalchemyutils import db
+        from invenio.ext.sqlalchemy import db
 
         bwobject = BibWorkflowObject.query.filter(
             BibWorkflowObject.id == bwobject_id).first()
