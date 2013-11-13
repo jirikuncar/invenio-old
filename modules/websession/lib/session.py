@@ -24,7 +24,7 @@ Just use L{get_session} to obtain a session object (with a dictionary
 interface, which will let you store permanent information).
 """
 
-from invenio.webinterface_handler_wsgi_utils import add_cookies, Cookie, get_cookie
+from invenio.legacy.wsgi.utils import add_cookies, Cookie, get_cookie
 
 import random
 import zlib

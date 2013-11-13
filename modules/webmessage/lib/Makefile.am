@@ -24,7 +24,6 @@ pylib_DATA = webmessage.py \
              webmessage_flask_tests.py \
              webmessage_forms.py \
              webmessage_query.py \
-             webmessage_webinterface.py \
              webmessage_regression_tests.py \
              webmessage_unit_tests.py \
              webmessage_web_tests.py

@@ -58,7 +58,7 @@ class ExternalOAuth2(ExternalAuth):
         @type password: str
 
         @param req: request
-        @type req: invenio.webinterface_handler_wsgi.SimulatedModPythonRequest
+        @type req: invenio.legacy.wsgi.SimulatedModPythonRequest
 
         @rtype: str|NoneType, str|NoneType
         """
@@ -186,7 +186,7 @@ class ExternalOAuth2(ExternalAuth):
         @type password: str
 
         @param req: Isn't used in this function
-        @type req: invenio.webinterface_handler_wsgi.SimulatedModPythonRequest
+        @type req: invenio.legacy.wsgi.SimulatedModPythonRequest
 
         @rtype: str or NoneType
         """

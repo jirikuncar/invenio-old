@@ -29,7 +29,7 @@ from urlparse import urlparse, urlunparse
 
 from wsgiref.util import FileWrapper
 
-from invenio.webinterface_handler_wsgi_utils import table
+from invenio.legacy.wsgi.utils import table
 from invenio.utils.apache import \
     HTTP_STATUS_MAP, SERVER_RETURN, OK, DONE, \
     HTTP_NOT_FOUND, HTTP_INTERNAL_SERVER_ERROR
@@ -619,48 +619,3 @@ def mp_legacy_publisher(req, possible_module, possible_handler):
                 raise
     else:
         raise SERVER_RETURN, HTTP_NOT_FOUND
-
-def check_wsgiref_testing_feasability():
-    """
-    In order to use wsgiref for running Invenio, CFG_SITE_URL and
-    CFG_SITE_SECURE_URL must not use HTTPS because SSL is not supported.
-    """
-    if CFG_SITE_URL.lower().startswith('https'):
-        print >> sys.stderr, """
-ERROR: SSL is not supported by the wsgiref simple server implementation.
-Please set CFG_SITE_URL not to start with "https".
-Currently CFG_SITE_URL is set to: "%s".""" % CFG_SITE_URL
-        sys.exit(1)
-    if CFG_SITE_SECURE_URL.lower().startswith('https'):
-        print >> sys.stderr, """
-ERROR: SSL is not supported by the wsgiref simple server implementation.
-Please set CFG_SITE_SECURE_URL not to start with "https".
-Currently CFG_SITE_SECURE_URL is set to: "%s".""" % CFG_SITE_SECURE_URL
-        sys.exit(1)
-
-def wsgi_handler_test(port=80):
-    """
-    Simple WSGI testing environment based on wsgiref.
-    """
-    check_wsgiref_testing_feasability()
-    from invenio.base.factory import create_app
-    app = create_app(wsgi_serve_static_files=True)
-    app.run(debug=True, port=port)
-
-
-def main():
-    from optparse import OptionParser
-    parser = OptionParser()
-    parser.add_option('-t', '--test', action='store_true',
-                      dest='test', default=False,
-                      help="Run a WSGI test server via wsgiref (not using Apache).")
-    parser.add_option('-p', '--port', type='int', dest='port', default='80',
-                      help="The port where the WSGI test server will listen. [80]")
-    (options, args) = parser.parse_args()
-    if options.test:
-        wsgi_handler_test(options.port)
-    else:
-        parser.print_help()
-
-if __name__ == "__main__":
-    main()

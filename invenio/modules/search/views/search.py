@@ -281,7 +281,7 @@ def collection_breadcrumbs(collection, endpoint=None):
 def browse(collection, p, f, of, so, rm, rg, jrec):
 
     from invenio.search_engine import browse_pattern_phrases
-    from invenio.websearch_webinterface import wash_search_urlargd
+    from invenio.legacy.websearch.webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
 
     colls = [collection.name] + request.args.getlist('c')
@@ -322,7 +322,7 @@ websearch_before_browse.connect(receivers.websearch_before_browse_handler)
 def rss(collection, p, jrec, so, rm):
     from invenio.search_engine import perform_request_search
     of = 'xr'
-    from invenio.websearch_webinterface import wash_search_urlargd
+    from invenio.legacy.websearch.webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
     argd['of'] = 'id'
 
@@ -364,7 +364,7 @@ def search(collection, p, of, so, rm):
             and len(request.args.getlist('c')) == 1:
         return redirect(url_for('.collection', name=request.args.get('c')))
 
-    from invenio.websearch_webinterface import wash_search_urlargd
+    from invenio.legacy.websearch.webinterface import wash_search_urlargd
     argd = argd_orig = wash_search_urlargd(request.args)
     argd['of'] = 'id'
 

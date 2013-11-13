@@ -29,8 +29,6 @@ pylib_DATA = webdoc.py \
              webinterface_unit_tests.py \
              webinterface_layout.py \
              ckeditor_invenio_connector.py \
-             webinterface_handler_wsgi.py \
-             webinterface_handler_wsgi_utils.py \
              httptest_webinterface.py \
              ping_webinterface.py \
              goto_webinterface.py

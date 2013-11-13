@@ -90,7 +90,7 @@ class WebInterfaceHTTPTestPages(WebInterfaceDirectory):
         """
         This is to test L{handle_file_post} function.
         """
-        from invenio.webinterface_handler_wsgi_utils import handle_file_post
+        from invenio.legacy.wsgi.utils import handle_file_post
         from invenio.bibdocfile import stream_file
         argd = wash_urlargd(form, {"save": (str, "")})
         if req.method != 'POST':
@@ -105,7 +105,7 @@ class WebInterfaceHTTPTestPages(WebInterfaceDirectory):
         """
         This specifically for batchuploader with the oracle-friendly patch
         """
-        from invenio.webinterface_handler_wsgi_utils import handle_file_post
+        from invenio.legacy.wsgi.utils import handle_file_post
         from invenio.bibdocfile import stream_file
         argd = wash_urlargd(form, {"save": (str, ""), "results": (str, "")})
         if req.method != 'POST':

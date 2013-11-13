@@ -17,7 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = bibknowledge_webinterface.py \
+pylib_DATA = \
              bibknowledge.py \
              bibknowledgeadmin.py \
              bibknowledgeadminlib.py \
