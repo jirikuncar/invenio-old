@@ -31,7 +31,7 @@ from datetime import datetime, timedelta
 
 # Invenio imports:
 
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.config import CFG_PREFIX, \
      CFG_SITE_LANG, \
      CFG_WEBALERT_ALERT_ENGINE_EMAIL,\

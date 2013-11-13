@@ -26,7 +26,7 @@ __lastupdated__ = """$Date: 2008/03/12 16:48:08 $"""
 
 import re
 from invenio.webpage import page
-from invenio.webinterface_handler import WebInterfaceDirectory, \
+from invenio.ext.legacy.handler import WebInterfaceDirectory, \
                                          wash_urlargd
 from invenio.utils.url import redirect_to_url
 from invenio.config import CFG_SITE_URL, \

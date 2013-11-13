@@ -27,7 +27,7 @@ from invenio.config import \
      CFG_SITE_URL, \
      CFG_SITE_LANG
 from invenio.bibindex_engine import CFG_JOURNAL_TAG
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.webpage import page
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_config import VIEWRESTRCOLL

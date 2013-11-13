@@ -441,7 +441,7 @@ def application(environ, start_response, handler=None):
 
     try:
         if handler is None:
-            from invenio.webinterface_layout import invenio_handler
+            from invenio.ext.legacy.layout import invenio_handler
             invenio_handler(req)
         else:
             handler(req)
@@ -546,12 +546,12 @@ def mp_legacy_publisher(req, possible_module, possible_handler):
     mod_python legacy publisher minimum implementation.
     """
     from invenio.session import get_session
-    from invenio.webinterface_handler import CFG_HAS_HTTPS_SUPPORT, CFG_FULL_HTTPS
+    from invenio.ext.legacy.handler import CFG_HAS_HTTPS_SUPPORT, CFG_FULL_HTTPS
     the_module = open(possible_module).read()
     module_globals = {}
     exec(the_module, module_globals)
     if possible_handler in module_globals and callable(module_globals[possible_handler]):
-        from invenio.webinterface_handler import _check_result
+        from invenio.ext.legacy.handler import _check_result
         ## req is the required first parameter of any handler
         expected_args = list(inspect.getargspec(module_globals[possible_handler])[0])
         if not expected_args or 'req' != expected_args[0]:

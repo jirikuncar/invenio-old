@@ -62,7 +62,7 @@ class ExternalOAuth2(ExternalAuth):
 
         @rtype: str|NoneType, str|NoneType
         """
-        from invenio.webinterface_handler import wash_urlargd
+        from invenio.ext.legacy.handler import wash_urlargd
         from invenio.access_control_config import CFG_OAUTH2_CONFIGURATIONS
         from rauth.service import OAuth2Service
         from invenio.access_control_config import CFG_OAUTH2_PROVIDERS

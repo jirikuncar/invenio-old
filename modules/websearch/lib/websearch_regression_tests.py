@@ -48,7 +48,7 @@ from invenio.testsuite import make_test_suite, \
                               merge_error_messages, InvenioTestCase, \
                               get_authenticated_mechanize_browser
 from invenio.utils.url import same_urls_p
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.search_engine_query_parser_unit_tests import DATEUTIL_AVAILABLE
 
 if 'fr' in CFG_SITE_LANGS:

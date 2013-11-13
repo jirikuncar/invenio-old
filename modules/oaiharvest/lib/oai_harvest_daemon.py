@@ -50,7 +50,7 @@ from invenio.config import \
      CFG_OAI_FAILED_HARVESTING_STOP_QUEUE, \
      CFG_OAI_FAILED_HARVESTING_EMAILS_ADMIN
 from invenio.oai_harvest_config import InvenioOAIHarvestWarning
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.bibtask import \
      task_get_task_param, \
      task_get_option, \
@@ -75,7 +75,7 @@ from invenio.shellutils import run_shell_command, Timeout
 from invenio.utils.text import translate_latex2unicode
 from invenio.bibedit_utils import record_find_matching_fields
 from invenio.bibcatalog import bibcatalog_system
-from invenio.webinterface_handler_flask import with_app_context
+from invenio.ext.legacy.handler_flask import with_app_context
 
 ## precompile some often-used regexp for speed reasons:
 REGEXP_OAI_ID = re.compile("<identifier.*?>(.*?)<\/identifier>", re.DOTALL)

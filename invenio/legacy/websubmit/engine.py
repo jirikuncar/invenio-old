@@ -41,7 +41,7 @@ from invenio.config import \
      CFG_SITE_SECURE_URL, \
      CFG_WEBSUBMIT_USE_MATHJAX
 
-from invenio.dbquery import Error
+from invenio.legacy.dbquery import Error
 from invenio.access_control_engine import acc_authorize_action
 from invenio.webpage import page, error_page, warning_page
 from invenio.legacy.webuser import getUid, get_email, collect_user_info, isGuestUser, \

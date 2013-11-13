@@ -50,7 +50,7 @@ from invenio.bibtask import task_low_level_submission
 
 from invenio.legacy.webuser import collect_user_info, isUserSuperAdmin
 
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 
 from invenio.legacy.bibrecord.scripts import xmlmarc2textmarc as xmlmarc2textmarc
 

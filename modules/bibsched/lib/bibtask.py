@@ -60,7 +60,7 @@ import random
 
 from socket import gethostname
 
-from invenio.dbquery import run_sql, _db_login
+from invenio.legacy.dbquery import run_sql, _db_login
 from invenio.access_control_engine import acc_authorize_action
 from invenio.config import CFG_PREFIX, CFG_BINDIR, CFG_LOGDIR, \
     CFG_BIBSCHED_PROCESS_USER, CFG_TMPDIR, CFG_SITE_SUPPORT_EMAIL

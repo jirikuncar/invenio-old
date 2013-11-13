@@ -59,7 +59,7 @@ from invenio.config import \
 
 from invenio.intbitset import intbitset
 from invenio.htmlutils import X, EscapedXMLString
-from invenio.dbquery import run_sql, wash_table_column_name
+from invenio.legacy.dbquery import run_sql, wash_table_column_name
 from invenio.search_engine import record_exists, get_all_restricted_recids, get_all_field_values, search_unit_in_bibxxx, get_record
 from invenio.modules.formatter import format_record
 from invenio.legacy.bibrecord import record_get_field_instances

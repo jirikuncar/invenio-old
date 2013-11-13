@@ -68,7 +68,7 @@ from invenio.legacy.bibrecord import \
      record_get_field_values, \
      record_xml_output
 from invenio.bibformat_xslt_engine import format
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.base.i18n import \
      language_list_long, \
      wash_language, \

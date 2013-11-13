@@ -67,7 +67,7 @@ from invenio.webbasket_config import CFG_WEBBASKET_CATEGORIES, \
 from invenio.webbasket_dblayer import get_basket_name, \
      get_max_user_rights_on_basket
 from invenio.utils.url import get_referer, redirect_to_url, make_canonical_urlargd
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.webstat import register_customevent
 from invenio.ext.logging import register_exception
 from invenio.legacy.webuser import collect_user_info

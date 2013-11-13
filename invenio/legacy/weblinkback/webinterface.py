@@ -21,7 +21,7 @@
 """WebLinkback - Web Interface"""
 
 from invenio.base.i18n import gettext_set_language
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.legacy.webuser import getUid, collect_user_info, page_not_authorized
 from invenio.weblinkback import check_user_can_view_linkbacks, \
                                 perform_sendtrackback, \

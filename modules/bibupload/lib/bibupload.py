@@ -57,7 +57,7 @@ from invenio.bibupload_config import CFG_BIBUPLOAD_CONTROLFIELD_TAGS, \
     CFG_BIBUPLOAD_DELETE_CODE, \
     CFG_BIBUPLOAD_DELETE_VALUE, \
     CFG_BIBUPLOAD_OPT_MODES
-from invenio.dbquery import run_sql, \
+from invenio.legacy.dbquery import run_sql, \
                             Error
 from invenio.legacy.bibrecord import create_records, \
                               record_add_field, \

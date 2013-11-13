@@ -92,7 +92,7 @@ from invenio.bibdocfile import BibRecDocs, \
 from invenio.legacy.websubmit.functions.Shared_Functions import \
      createRelatedFormats
 from invenio.ext.logging import register_exception
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.websubmit_icon_creator import \
      create_icon, InvenioWebSubmitIconCreatorError
 from invenio.utils.url import create_html_mailto

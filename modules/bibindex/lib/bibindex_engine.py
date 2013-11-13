@@ -56,7 +56,7 @@ from invenio.websubmit_file_converter import convert_file, get_file_converter_lo
 from invenio.search_engine import perform_request_search, \
      get_index_stemming_language, \
      get_synonym_terms
-from invenio.dbquery import run_sql, DatabaseError, serialize_via_marshal, \
+from invenio.legacy.dbquery import run_sql, DatabaseError, serialize_via_marshal, \
      deserialize_via_marshal, wash_table_column_name
 from invenio.bibindex_engine_washer import wash_index_term
 from invenio.bibtask import task_init, write_message, get_datetime, \

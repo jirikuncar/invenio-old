@@ -26,7 +26,7 @@ __revision__ = \
     "$Id$"
 
 from invenio.utils.container import get_substructure
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.external_authentication import ExternalAuth
 
 class ExternalOAuth1(ExternalAuth):
@@ -60,7 +60,7 @@ class ExternalOAuth1(ExternalAuth):
         """
         from invenio.access_control_config import CFG_OAUTH1_CONFIGURATIONS
         from invenio.access_control_config import CFG_OAUTH1_PROVIDERS
-        from invenio.webinterface_handler import wash_urlargd
+        from invenio.ext.legacy.handler import wash_urlargd
         from rauth.service import OAuth1Service
 
         self.__init_req(req)

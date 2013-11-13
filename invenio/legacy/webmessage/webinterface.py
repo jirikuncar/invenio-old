@@ -38,7 +38,7 @@ from invenio.webpage import page
 from invenio.base.i18n import gettext_set_language
 from invenio.utils.url import redirect_to_url, make_canonical_urlargd
 from invenio.htmlutils import escape_html
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 
 class WebInterfaceYourMessagesPages(WebInterfaceDirectory):
     """Defines the set of /yourmessages pages."""

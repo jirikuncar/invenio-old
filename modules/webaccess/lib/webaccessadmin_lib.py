@@ -48,7 +48,7 @@ from invenio.bibrankadminlib import addadminbox, tupletotable, \
 from invenio.access_control_firerole import compile_role_definition, \
     serialize
 from invenio.base.i18n import gettext_set_language
-from invenio.dbquery import run_sql, OperationalError, wash_table_column_name
+from invenio.legacy.dbquery import run_sql, OperationalError, wash_table_column_name
 from invenio.webpage import page
 from invenio.legacy.webuser import getUid, isGuestUser, page_not_authorized, collect_user_info
 from invenio.legacy.webuser import email_valid_p, get_user_preferences, \

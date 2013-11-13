@@ -24,7 +24,7 @@ from invenio.config import \
      CFG_SITE_LANG, \
      CFG_SITE_NAME, \
      CFG_SITE_SECURE_URL
-from invenio.dbquery import run_sql, Error
+from invenio.legacy.dbquery import run_sql, Error
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_find_possible_roles
 from invenio.webpage import page, error_page

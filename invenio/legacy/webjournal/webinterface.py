@@ -24,7 +24,7 @@ __revision__ = "$Id$"
 __lastupdated__ = """$Date$"""
 
 import urllib
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.access_control_engine import acc_authorize_action
 from invenio.config import \
      CFG_SITE_URL, \

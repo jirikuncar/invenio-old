@@ -68,7 +68,7 @@ from invenio.utils.url import redirect_to_url, \
 from invenio.htmlutils import get_mathjax_header
 from invenio.ext.logging import register_exception
 from invenio.base.i18n import gettext_set_language
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.websearchadminlib import get_detailed_page_tabs, get_detailed_page_tabs_counts
 from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.access_control_mailcookie import \

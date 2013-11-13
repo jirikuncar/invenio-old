@@ -44,7 +44,7 @@ from invenio.config import \
      CFG_SITE_SUPPORT_EMAIL, \
      CFG_SITE_SECURE_URL, \
      CFG_SITE_RECORD
-from invenio.dbquery import run_sql, Error, OperationalError
+from invenio.legacy.dbquery import run_sql, Error, OperationalError
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_get_role_users, acc_get_role_id
 from invenio.webpage import page, error_page

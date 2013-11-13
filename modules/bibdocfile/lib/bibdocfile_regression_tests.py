@@ -58,7 +58,7 @@ class BibDocFsInfoTest(InvenioTestCase):
 
     def test_hard_delete(self):
         """bibdocfile - test correct update of bibdocfsinfo when hard-deleting"""
-        from invenio.dbquery import run_sql
+        from invenio.legacy.dbquery import run_sql
         self.assertEqual(run_sql("SELECT MAX(version) FROM bibdocfsinfo WHERE id_bibdoc=%s", (self.my_bibdoc_id, ))[0][0], 1)
         self.assertEqual(run_sql("SELECT last_version FROM bibdocfsinfo WHERE id_bibdoc=%s AND version=1 AND format='.jpg'", (self.my_bibdoc_id, ))[0][0], True)
         self.my_bibdoc.add_file_new_version(CFG_PREFIX + '/lib/webtest/invenio/test.gif')

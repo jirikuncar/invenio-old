@@ -26,7 +26,7 @@ from invenio.config import CFG_SITE_SECURE_URL, CFG_SITE_NAME, \
 from invenio.webpage import page
 from invenio import webalert
 from invenio.legacy.webuser import getUid, page_not_authorized, isGuestUser
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import redirect_to_url, make_canonical_urlargd
 from invenio.webstat import register_customevent
 from invenio.ext.logging import register_exception

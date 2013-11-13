@@ -85,8 +85,8 @@ from invenio.config import \
      CFG_INSPIRE_SITE, \
      CFG_WEBSEARCH_WILDCARD_LIMIT, \
      CFG_SITE_RECORD
-from invenio.dbquery import Error
-from invenio.webinterface_handler import wash_urlargd, WebInterfaceDirectory
+from invenio.legacy.dbquery import Error
+from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import redirect_to_url, make_canonical_urlargd, drop_default_urlargd
 from invenio.htmlutils import get_mathjax_header
 from invenio.htmlutils import nmtoken_from_string

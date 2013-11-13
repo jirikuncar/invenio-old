@@ -41,8 +41,8 @@ from invenio.webbasket import format_external_records
 from invenio.search_engine import perform_request_search, wash_colls, \
      get_coll_sons, is_hosted_collection, get_coll_normalised_name, \
      check_user_can_view_record
-from invenio.webinterface_handler import wash_urlargd
-from invenio.dbquery import run_sql
+from invenio.ext.legacy.handler import wash_urlargd
+from invenio.legacy.dbquery import run_sql
 from invenio.legacy.webuser import get_email, collect_user_info
 from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception

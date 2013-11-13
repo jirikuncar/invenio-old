@@ -22,7 +22,7 @@
 __revision__ = "$Id$"
 
 from time import localtime, mktime
-from invenio.dbquery import run_sql, OperationalError
+from invenio.legacy.dbquery import run_sql, OperationalError
 from invenio.modules.messages.config import \
     CFG_WEBMESSAGE_STATUS_CODE, \
     CFG_WEBMESSAGE_ROLES_WITHOUT_QUOTA, \

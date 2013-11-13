@@ -112,7 +112,7 @@ from invenio.access_control_config import VIEWRESTRCOLL, \
     CFG_ACC_GRANT_VIEWER_RIGHTS_TO_EMAILS_IN_TAGS
 from invenio.websearchadminlib import get_detailed_page_tabs, get_detailed_page_tabs_counts
 from invenio.intbitset import intbitset
-from invenio.dbquery import DatabaseError, deserialize_via_marshal, InvenioDbQueryWildcardLimitError
+from invenio.legacy.dbquery import DatabaseError, deserialize_via_marshal, InvenioDbQueryWildcardLimitError
 from invenio.access_control_engine import acc_authorize_action
 from invenio.ext.logging import register_exception
 from invenio.utils.text import encode_for_xml, wash_for_utf8, strip_accents
@@ -129,7 +129,7 @@ from invenio.bibrank_citation_searcher import calculate_cited_by_list, \
 from invenio.bibrank_citation_grapher import create_citation_history_graph_and_box
 
 
-from invenio.dbquery import run_sql, run_sql_with_limit, wash_table_column_name, \
+from invenio.legacy.dbquery import run_sql, run_sql_with_limit, wash_table_column_name, \
                             get_table_update_time
 from invenio.legacy.webuser import getUid, collect_user_info, session_param_set
 from invenio.webpage import pageheaderonly, pagefooteronly, create_error_box, write_warning

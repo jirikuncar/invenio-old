@@ -26,7 +26,7 @@ __revision__ = \
 
 from mechanize import Browser
 
-from invenio.dbquery import run_sql
+from invenio.legacy.dbquery import run_sql
 from invenio.config import CFG_SITE_SECURE_URL
 from invenio.mailutils_unit_tests import MailTestCase
 from invenio.base.wrappers import lazy_import

@@ -31,7 +31,7 @@ from invenio.webpage import warning_page
 from invenio.legacy.webuser import getUid, page_not_authorized
 from invenio.base.i18n import wash_language, gettext_set_language
 from invenio.utils.url import redirect_to_url
-from invenio.webinterface_handler import wash_urlargd
+from invenio.ext.legacy.handler import wash_urlargd
 from invenio.access_control_engine import acc_authorize_action
 
 def index(req, c=CFG_SITE_NAME, ln=CFG_SITE_LANG):

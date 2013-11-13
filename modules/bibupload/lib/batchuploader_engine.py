@@ -30,7 +30,7 @@ import tempfile
 import cgi
 import re
 
-from invenio.dbquery import run_sql, Error
+from invenio.legacy.dbquery import run_sql, Error
 from invenio.access_control_engine import acc_authorize_action
 from invenio.legacy.webuser import collect_user_info, page_not_authorized
 from invenio.config import CFG_BINDIR, CFG_TMPSHAREDDIR, CFG_LOGDIR, \
