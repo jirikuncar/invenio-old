@@ -62,11 +62,17 @@ def requirements():
                      'requirements-flask.txt', 'requirements-flask-ext.txt']:
         with open(os.path.join(os.path.dirname(__file__), filename), 'r') as f:
             for line in f.readlines():
+                if line.startswith('#'):
+                    continue
                 if '://' in line:
-                    dep.append(line)
+                    dep.append(str(line[:-1]))
                 else:
                     req.append(str(line))
     return req, dep
+
+packages = find_packages(exclude=['docs'])
+packages.append('invenio_docs')
+print(packages)
 
 install_requires, dependency_links = requirements()
 
@@ -79,8 +85,9 @@ setup(
     author_email='info@invenio-software.org',
     description='Digital library software',
     long_description=__doc__,
-    packages=find_packages(),
-    namespace_packages=['invenio'],
+    packages=packages,
+    package_dir={'invenio_docs': 'docs'},
+    #namespace_packages=['invenio'],
     include_package_data=True,
     zip_safe=False,
     platforms='any',
