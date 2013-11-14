@@ -21,7 +21,7 @@
 
 __revision__ = "$Id$"
 
-import invenio.webmessage_dblayer as db
+import invenio.modules.messages.dblayer as db
 from invenio.modules.messages.config import \
     CFG_WEBMESSAGE_STATUS_CODE, \
     CFG_WEBMESSAGE_RESULTS_FIELD, \

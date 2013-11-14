@@ -47,7 +47,7 @@ from invenio import webaccount
 from invenio import webbasket
 from invenio import webalert
 from invenio.legacy.dbquery import run_sql
-from invenio.webmessage import account_new_mail
+from invenio.legacy.webmessage.api import account_new_mail
 from invenio.access_control_engine import acc_authorize_action
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.apache import SERVER_RETURN, HTTP_NOT_FOUND

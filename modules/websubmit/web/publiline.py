@@ -61,7 +61,7 @@ from invenio.webaccessadmin_lib import cleanstring_email
 from invenio.access_control_config import MAXSELECTUSERS
 from invenio.access_control_admin import acc_get_user_email
 from invenio.access_control_engine import acc_get_authorized_emails
-from invenio.webmessage import perform_request_send
+from invenio.legacy.webmessage.api import perform_request_send
 import invenio.webbasket_dblayer as basketdb
 from invenio.webbasket_config import CFG_WEBBASKET_SHARE_LEVELS, CFG_WEBBASKET_CATEGORIES, CFG_WEBBASKET_SHARE_LEVELS_ORDERED
 from invenio.ext.logging import register_exception

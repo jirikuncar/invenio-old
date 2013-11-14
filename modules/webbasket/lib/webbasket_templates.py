@@ -28,7 +28,7 @@ from invenio.webbasket_config import \
                        CFG_WEBBASKET_ACTIONS, \
                        CFG_WEBBASKET_SHARE_LEVELS, \
                        CFG_WEBBASKET_DIRECTORY_BOX_NUMBER_OF_COLUMNS
-from invenio.webmessage_mailutils import email_quoted_txt2html, \
+from invenio.utils.mail import email_quoted_txt2html, \
                                          email_quote_txt, \
                                          escape_email_quoted_text
 from invenio.utils.html import get_html_text_editor

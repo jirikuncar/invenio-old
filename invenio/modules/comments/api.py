@@ -51,7 +51,7 @@ from invenio.config import CFG_PREFIX, \
      CFG_WEBCOMMENT_ROUND_DATAFIELD, \
      CFG_WEBCOMMENT_RESTRICTION_DATAFIELD, \
      CFG_WEBCOMMENT_MAX_COMMENT_THREAD_DEPTH
-from invenio.webmessage_mailutils import \
+from invenio.utils.mail import \
      email_quote_txt, \
      email_quoted_txt2html
 from invenio.utils.html import tidy_html

@@ -23,7 +23,7 @@
 
 __revision__ = "$Id$"
 
-from invenio.webmessage_mailutils import email_quoted_txt2html, email_quote_txt
+from invenio.utils.mail import email_quoted_txt2html, email_quote_txt
 from invenio.modules.messages.config import \
     CFG_WEBMESSAGE_STATUS_CODE, \
     CFG_WEBMESSAGE_SEPARATOR, \

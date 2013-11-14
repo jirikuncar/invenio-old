@@ -29,7 +29,7 @@ from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
       InvenioWebSessionError, \
       InvenioWebSessionWarning
 from invenio.legacy.webuser import nickname_valid_p, get_user_info
-from invenio.webmessage import perform_request_send
+from invenio.legacy.webmessage.api import perform_request_send
 from invenio.ext.logging import register_exception
 import invenio.webgroup_dblayer as db
 from invenio.legacy.dbquery import IntegrityError
