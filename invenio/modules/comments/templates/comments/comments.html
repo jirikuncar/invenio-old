@@ -173,12 +173,14 @@ $('[data-toggle="modal"]').click(function(e) {
   }
 });
 
-$('.collapse').on('show', function() {
+$('.collapse').on('show', function(e) {
   $.get($(this).attr('data-action'))
+  e.stopPropagation();
 })
 
-$('.collapse').on('hide', function() {
+$('.collapse').on('hide', function(e) {
   $.get($(this).attr('data-action'))
+  e.stopPropagation();
 })
 
 $('a.collapse-comment').on('click', function(e) { e.preventDefault() })
