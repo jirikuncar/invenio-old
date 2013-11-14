@@ -3,9 +3,13 @@
 
 {% block header %}
     {{ super() }}
-    {% block holdingpen_entry_assets %}
-        {% js url_for('holdingpen.static', filename='js/workflows/entry_details.js', '50-workflows') %}
-    {% endblock holdingpen_entry_assets %}
+    {% block workflows_entry_assets %}
+        {% js url_for('workflows.static', filename='js/workflows/entry_details.js', '50-workflows') %}
+        <script type="text/javascript">
+            bind_object_preview("{{ url_for('workflows.entry_data_preview') }}");
+        </script>
+        var url_entry_data_preview = "/admin/workflows/entry_data_preview";
+    {% endblock workflows_entry_assets %}
 {% endblock header %}
 {% block body %}
 

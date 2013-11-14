@@ -899,15 +899,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/docextract/doc/hacking/Makefile \
      modules/webdeposit/Makefile \
      modules/webdeposit/lib/Makefile \
-     modules/bibworkflow/Makefile \
-     modules/bibworkflow/bin/Makefile \
-     modules/bibworkflow/doc/Makefile \
-     modules/bibworkflow/etc/Makefile \
-     modules/bibworkflow/etc/templates/Makefile \
-     modules/bibworkflow/lib/Makefile \
-     modules/bibworkflow/lib/workflows/Makefile \
-     modules/bibworkflow/lib/tasks/Makefile \
-     modules/bibworkflow/web/Makefile \
      modules/webtag/Makefile \
      modules/webtag/bin/Makefile \
      modules/webtag/doc/Makefile \

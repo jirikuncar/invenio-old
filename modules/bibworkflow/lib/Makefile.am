@@ -19,14 +19,7 @@ SUBDIRS =
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = bibworkflow_client.py \
-			 bibworkflow_config.py \
-			 bibworkflow_engine.py \
-			 bibworkflow_hp_field_widgets.py \
-			 bibworkflow_regression_tests.py \
-			 bibworkflow_utils.py \
-			 bibworkflow_worker_engine.py \
-			 bibworkflow_containers.py
+pylib_DATA =
 
 EXTRA_DIST = $(pylib_DATA)
 
