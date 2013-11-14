@@ -72,7 +72,6 @@ def requirements():
 
 packages = find_packages(exclude=['docs'])
 packages.append('invenio_docs')
-print(packages)
 
 install_requires, dependency_links = requirements()
 
