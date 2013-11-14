@@ -20,6 +20,7 @@
   {% extends "records/base.html" %}
 {%- endif -%}
 
+{% css url_for('comments.static', filename='css/comments/comments.css'), '10-comments' %}
 {% js url_for('comments.static', filename='js/comments/collapse.js'), '10-comments' %}
 
 {% block record_content %}
@@ -47,14 +48,6 @@
 
   {%- if comments -%}
 
-  <style>
-  .comments .collapsed i.icon-chevron-down {
-    background-position: -456px -72px!important;
-  }
-
-  .comments hr { margin: 0px;}
-  </style>
-
   <ul class="comments unstyled">
   {%- for c in comments recursive -%}
   <li name="{{ c.id }}">
@@ -62,7 +55,7 @@
        style="margin-right: 5px;"
        data-toggle="collapse"
        data-target="#collapse-{{ c.id }}"
-       href="{{ url_for('comments.toggle', recid=recid, id=c.id) }}">
+       href="{#{ url_for('comments.toggle', recid=recid, id=c.id) }#}">
       <i class="icon-chevron-down"></i>
     </a>
 
