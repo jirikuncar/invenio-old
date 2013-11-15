@@ -45,7 +45,9 @@ install:
   - workon invenio
   - "pip install nose==1.2.1"
   - "pip install -r requirements.txt"
+  - "pip install -r requirements-extras.txt"
   - "pip install -r requirements-flask.txt"
+  - "pip install -r requirements-flask-ext.txt"
   - "python setup.py install"
   - "inveniomanage config create secret-key"
   - "inveniomanage config set CFG_EMAIL_BACKEND flask.ext.email.backends.console.Mail"
@@ -63,8 +65,8 @@ before_script:
   - "sudo apachectl configtest && sudo service apache2 restart || echo 'Apache failed ...'"
   - "inveniomanage database install --yes-i-know"
   - "inveniomanage database create"
-  - "inveniomanage demosite create"
-  - "inveniomanage demosite populate"
+#  - "inveniomanage demosite create"
+#  - "inveniomanage demosite populate"
 
 script:
   - "python setup.py test"
