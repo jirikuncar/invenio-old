@@ -52,6 +52,7 @@ Links
 """
 from __future__ import print_function
 from setuptools import Command, setup, find_packages
+from distutils.extension import Extension
 
 import os
 
@@ -86,6 +87,12 @@ setup(
     long_description=__doc__,
     packages=packages,
     package_dir={'invenio_docs': 'docs'},
+    ext_modules=[
+        Extension("invenio.intbitset",
+                  ["invenio/intbitset.c", "invenio/intbitset_impl.c"],
+                  extra_compile_args=['-O3'])
+                  ## For debug -> '-ftree-vectorizer-verbose=2'
+    ],
     #namespace_packages=['invenio'],
     include_package_data=True,
     zip_safe=False,

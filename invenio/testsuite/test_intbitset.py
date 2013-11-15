@@ -24,8 +24,8 @@ __revision__ = "$Id$"
 
 import sys
 import zlib
-import os
 import re
+import pkg_resources
 
 if sys.hexversion < 0x2040000:
     # pylint: disable=W0622
@@ -57,12 +57,11 @@ CFG_ENOUGH_RAM = LocalProxy(_check_enough_ram)
 class IntBitSetTest(InvenioTestCase):
     """Test functions related to intbitset data structure."""
     def setUp(self):
-        from invenio.config import CFG_TMPDIR
         from invenio.intbitset import intbitset
         self.intbitset = intbitset
 
-        CFG_INTBITSET_BIG_EXAMPLE = open(os.path.join(
-            CFG_TMPDIR, "intbitset_example.int")).read()
+        CFG_INTBITSET_BIG_EXAMPLE = pkg_resources.resource_stream(
+            'invenio.testsuite', 'intbitset_example.int').read()
 
         self.sets = [
             [1024],
@@ -561,4 +560,3 @@ TEST_SUITE = make_test_suite(IntBitSetTest,)
 
 if __name__ == "__main__":
     run_test_suite(TEST_SUITE)
-
