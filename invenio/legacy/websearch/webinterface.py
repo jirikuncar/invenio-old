@@ -134,7 +134,7 @@ from invenio.bibeditmulti_webinterface import WebInterfaceMultiEditPages
 from invenio.legacy.bibmerge.webinterface import WebInterfaceMergePages
 from invenio.legacy.bibdocfile.webinterface import WebInterfaceManageDocFilesPages, WebInterfaceFilesPages
 from invenio.search_engine import get_record
-from invenio.shellutils import mymkdir
+from invenio.utils.shell import mymkdir
 
 import invenio.template
 websearch_templates = invenio.template.load('websearch')

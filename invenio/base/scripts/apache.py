@@ -32,7 +32,7 @@ def version(separator='\n'):
     list if no success.
     """
     from invenio.legacy.inveniocfg import _grep_version_from_executable
-    from invenio.shellutils import run_shell_command
+    from invenio.utils.shell import run_shell_command
     out = []
     dummy1, cmd_out, dummy2 = run_shell_command("locate bin/httpd bin/apache")
     for apache in cmd_out.split("\n"):

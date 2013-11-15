@@ -39,7 +39,7 @@ from invenio.config import \
 from invenio.legacy.dbquery import run_sql
 from invenio.utils.url import string_to_numeric_char_reference
 from invenio.utils.text import encode_for_xml
-from invenio.shellutils import run_shell_command
+from invenio.utils.shell import run_shell_command
 from invenio.search_engine_utils import get_fieldvalues
 
 def highlight_matches(text, compiled_pattern, \

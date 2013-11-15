@@ -25,7 +25,6 @@ pylib_DATA = __init__.py \
              dbquery_regression_tests.py \
              dbquery_unit_tests.py \
              errorlib_regression_tests.py \
-             errorlib_unit_tests.py \
              errorlib_webinterface.py \
              flaskshell.py \
              intbitset_helper.py \
@@ -34,7 +33,6 @@ pylib_DATA = __init__.py \
              invenio_connector_regression_tests.py \
              inveniocfg_unit_tests.py \
              inveniomanage_unit_tests.py \
-             messages_unit_tests.py \
              miscutil_model.py \
              plotextractor.py \
              plotextractor_config.py \
@@ -51,7 +49,6 @@ pylib_DATA = __init__.py \
              sequtils.py \
              sequtils_cnum.py \
              sequtils_regression_tests.py \
-             shellutils.py \
              sherpa_romeo_testing.py \
              solrutils_bibindex_indexer.py \
              solrutils_bibindex_searcher.py \

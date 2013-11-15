@@ -53,7 +53,7 @@ from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite, 
 
 from invenio.base.wrappers import lazy_import
 from invenio.utils.hash import md5
-from invenio.shellutils import run_shell_command
+from invenio.utils.shell import run_shell_command
 
 BibRecDocs = lazy_import('invenio.bibdocfile:BibRecDocs')
 BibRelation = lazy_import('invenio.bibdocfile:BibRelation')

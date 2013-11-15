@@ -72,7 +72,7 @@ from invenio.legacy.webuser import get_user_preferences, get_email
 from invenio.bibtask_config import CFG_BIBTASK_VALID_TASKS, \
     CFG_BIBTASK_DEFAULT_TASK_SETTINGS, CFG_BIBTASK_FIXEDTIMETASKS
 from invenio.utils.date import parse_runtime_limit
-from invenio.shellutils import escape_shell_arg
+from invenio.utils.shell import escape_shell_arg
 from invenio.ext.email import send_email
 from invenio.bibsched import bibsched_set_host, \
                              bibsched_get_host

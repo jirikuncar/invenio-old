@@ -40,7 +40,7 @@ def _check_enough_ram():
     """
     Return if there is enough RAM, i.e. if free outputs more than 1G of ram.
     """
-    from invenio.shellutils import run_shell_command
+    from invenio.utils.shell import run_shell_command
     try:
         return int(re.sub(r'\s+', ' ', run_shell_command("free")[1].splitlines()[1]).split(' ')[1]) > 1024 * 1024
     except:

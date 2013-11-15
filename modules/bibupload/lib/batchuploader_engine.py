@@ -44,7 +44,7 @@ from invenio.utils.text import encode_for_xml
 from invenio.bibtask import task_low_level_submission
 from invenio.base.i18n import gettext_set_language
 from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file
-from invenio.shellutils import run_shell_command
+from invenio.utils.shell import run_shell_command
 from invenio.bibupload import xml_marc_to_records, bibupload
 
 import invenio.bibupload as bibupload_module

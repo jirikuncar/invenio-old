@@ -1002,7 +1002,7 @@ def _grep_version_from_executable(path_to_exec, version_regexp):
     PATH_TO_EXEC and looking for VERSION_REGEXP.  Return program
     version as a string.  Return empty string if not succeeded.
     """
-    from invenio.shellutils import run_shell_command
+    from invenio.utils.shell import run_shell_command
     exec_version = ""
     if os.path.exists(path_to_exec):
         dummy1, cmd2_out, dummy2 = run_shell_command("strings %s | grep %s",

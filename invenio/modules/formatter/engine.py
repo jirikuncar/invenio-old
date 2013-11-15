@@ -91,7 +91,7 @@ from invenio.utils.html import \
 from invenio.modules.knowledge.api import get_kbr_values
 from invenio.ext.template import render_template_to_string
 from HTMLParser import HTMLParseError
-from invenio.shellutils import escape_shell_arg
+from invenio.utils.shell import escape_shell_arg
 
 if CFG_PATH_PHP: #Remove when call_old_bibformat is removed
     from xml.dom import minidom
