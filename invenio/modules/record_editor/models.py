@@ -52,7 +52,7 @@ class Bibrec(db.Model):
         """
            Return True if record is marked as deleted.
         """
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         # record exists; now check whether it isn't marked as deleted:
         dbcollids = get_fieldvalues(self.id, "980__%")
 
@@ -63,7 +63,7 @@ class Bibrec(db.Model):
     @staticmethod
     def _next_merged_recid(recid):
         """ Returns the ID of record merged with record with ID = recid """
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         merged_recid = None
         for val in get_fieldvalues(recid, "970__d"):
             try:

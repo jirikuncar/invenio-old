@@ -49,7 +49,7 @@ from invenio.base.i18n import gettext_set_language
 from invenio.modules.formatter import format_record
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_admin import acc_get_user_roles_from_user_info, acc_get_role_id
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 
 class Template:
     """templating class, refer to webcomment.py for examples of call"""

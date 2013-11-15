@@ -34,7 +34,7 @@ from itertools import chain
 import ConfigParser
 
 from invenio.modules.formatter.utils import parse_tag
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.bibrank_citation_indexer import tagify
 from invenio.config import CFG_ETCDIR, \
                            CFG_BIBRANK_SELFCITES_USE_BIBAUTHORID, \

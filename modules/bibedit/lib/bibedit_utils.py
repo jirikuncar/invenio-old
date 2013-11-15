@@ -70,7 +70,7 @@ from invenio.bibedit_dblayer import get_bibupload_task_opts, \
 from invenio.search_engine import print_record, record_exists, get_colID, \
      guess_primary_collection_of_a_record, get_record, \
      get_all_collections_of_a_record
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.legacy.webuser import get_user_info, getUid, get_email
 from invenio.legacy.dbquery import run_sql
 from invenio.websearchadminlib import get_detailed_page_tabs

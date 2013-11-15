@@ -1182,7 +1182,7 @@ class WebSearchSearchEnginePythonAPITest(InvenioTestCase):
     def test_search_engine_python_api_textmarc_full(self):
         """websearch - search engine Python API for Text MARC output, full"""
         from invenio.search_engine import perform_request_search
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         import cStringIO
         tmp = cStringIO.StringIO()
         perform_request_search(req=tmp, p='higgs', of='tm')
@@ -1354,7 +1354,7 @@ class WebSearchSearchEnginePythonAPITest(InvenioTestCase):
     def test_search_engine_python_api_xmlmarc_full(self):
         """websearch - search engine Python API for XMLMARC output, full"""
         from invenio.search_engine import perform_request_search
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         import cStringIO
         tmp = cStringIO.StringIO()
         perform_request_search(req=tmp, p='higgs', of='xm')
@@ -1951,7 +1951,7 @@ class WebSearchSearchEngineWebAPITest(InvenioTestCase):
 
     def test_search_engine_web_api_textmarc_full(self):
         """websearch - search engine Web API for Text MARC output, full"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual([],
                          test_web_page_content(CFG_SITE_URL + '/search?p=higgs&of=tm',
                                                expected_text="""\
@@ -2118,7 +2118,7 @@ Zaffaroni, A
 
     def test_search_engine_web_api_xmlmarc_full(self):
         """websearch - search engine Web API for XMLMARC output, full"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual([],
                          test_web_page_content(CFG_SITE_URL + '/search?p=higgs&of=xm',
                                                expected_text="""\
@@ -2665,7 +2665,7 @@ class WebSearchRecordWebAPITest(InvenioTestCase):
 
     def test_record_web_api_textmarc_full(self):
         """websearch - /record Web API for TextMARC output, full"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual([],
                          test_web_page_content(CFG_SITE_URL + '/record/85?of=tm',
                                                expected_text="""\
@@ -2728,7 +2728,7 @@ class WebSearchRecordWebAPITest(InvenioTestCase):
 
     def test_record_web_api_xmlmarc_full(self):
         """websearch - /record Web API for XMLMARC output, full"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual([],
                          test_web_page_content(CFG_SITE_URL + '/record/85?of=xm',
                                                expected_text="""\
@@ -4115,18 +4115,18 @@ class WebSearchGetFieldValuesTest(InvenioTestCase):
 
     def test_get_fieldvalues_001(self):
         """websearch - get_fieldvalues() for bibxxx-agnostic tags"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual(get_fieldvalues(10, '001___'), ['10'])
 
     def test_get_fieldvalues_980(self):
         """websearch - get_fieldvalues() for bibxxx-powered tags"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual(get_fieldvalues(18, '700__a'), ['Enqvist, K', 'Nanopoulos, D V'])
         self.assertEqual(get_fieldvalues(18, '909C1u'), ['CERN'])
 
     def test_get_fieldvalues_wildcard(self):
         """websearch - get_fieldvalues() for tag wildcards"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual(get_fieldvalues(18, '%'), [])
         self.assertEqual(get_fieldvalues(18, '7%'), [])
         self.assertEqual(get_fieldvalues(18, '700%'), ['Enqvist, K', 'Nanopoulos, D V'])
@@ -4134,7 +4134,7 @@ class WebSearchGetFieldValuesTest(InvenioTestCase):
 
     def test_get_fieldvalues_recIDs(self):
         """websearch - get_fieldvalues() for list of recIDs"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual(get_fieldvalues([], '001___'), [])
         self.assertEqual(get_fieldvalues([], '700__a'), [])
         self.assertEqual(get_fieldvalues([10, 13], '001___'), ['10', '13'])
@@ -4143,7 +4143,7 @@ class WebSearchGetFieldValuesTest(InvenioTestCase):
 
     def test_get_fieldvalues_repetitive(self):
         """websearch - get_fieldvalues() for repetitive values"""
-        from invenio.search_engine_utils import get_fieldvalues
+        from invenio.legacy.bibrecord import get_fieldvalues
         self.assertEqual(get_fieldvalues([17, 18], '909C1u'),
                          ['CERN', 'CERN'])
         self.assertEqual(get_fieldvalues([17, 18], '909C1u', repetitive_values=True),

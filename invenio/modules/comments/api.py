@@ -72,7 +72,7 @@ from invenio.search_engine import \
      check_user_can_view_record, \
      get_collection_reclist, \
      get_colID
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.utils.htmlwasher import EmailWasher
 try:
     import invenio.template

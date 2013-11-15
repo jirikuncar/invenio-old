@@ -65,7 +65,7 @@ from invenio.bibtask import task_init, write_message, get_datetime, \
 from invenio.intbitset import intbitset
 from invenio.ext.logging import register_exception
 from invenio.utils.html import get_links_in_html_page
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.solrutils_bibindex_indexer import solr_add_fulltext, solr_commit
 from invenio.xapianutils_bibindex_indexer import xapian_add
 from invenio.bibrankadminlib import get_def_name

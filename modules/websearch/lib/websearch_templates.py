@@ -79,7 +79,7 @@ from invenio.intbitset import intbitset
 from invenio.websearch_external_collections import external_collection_get_state, get_external_collection_engine
 from invenio.websearch_external_collections_utils import get_collection_id
 from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_MAXRESULTS
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 
 _RE_PUNCTUATION = re.compile(CFG_BIBINDEX_CHARS_PUNCTUATION)
 _RE_SPACES = re.compile(r"\s+")
