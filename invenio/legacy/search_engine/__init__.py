@@ -103,7 +103,7 @@ from invenio.modules.formatter import format_record, format_records, get_output_
 from invenio.modules.formatter.config import CFG_BIBFORMAT_USE_OLD_BIBFORMAT
 from invenio.legacy.bibrank.downloads_grapher import create_download_history_graph_and_box
 from invenio.modules.knowledge.api import get_kbr_values
-from invenio.data_cacher import DataCacher
+from invenio.legacy.miscutil.data_cacher import DataCacher
 from invenio.websearch_external_collections import print_external_results_overview, perform_external_collection_search
 from invenio.modules.access.control import acc_get_action_id
 from invenio.modules.access.local_config import VIEWRESTRCOLL, \
