@@ -27,8 +27,8 @@ import os
 from invenio.config import CFG_CERN_SITE
 from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.legacy.websubmit.config import InvenioWebSubmitFunctionStop
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_admin import acc_get_role_id, acc_is_user_in_role
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.control import acc_get_role_id, acc_is_user_in_role
 
 ## The field in which to search for the record submitter/owner's email address:
 if CFG_CERN_SITE:

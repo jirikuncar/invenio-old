@@ -66,7 +66,7 @@ from invenio.utils.url import wash_url_argument
 from .config import CFG_WEBCOMMENT_ACTION_CODE, \
      InvenioWebCommentError, \
      InvenioWebCommentWarning
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.legacy.search_engine import \
      guess_primary_collection_of_a_record, \
      check_user_can_view_record, \
@@ -436,7 +436,7 @@ def get_collection_moderators(collection):
     """
     Return the list of comment moderators for the given collection.
     """
-    from invenio.access_control_engine import acc_get_authorized_emails
+    from invenio.modules.access.engine import acc_get_authorized_emails
 
     res =  list(acc_get_authorized_emails('moderatecomments', collection=collection))
     if not res:

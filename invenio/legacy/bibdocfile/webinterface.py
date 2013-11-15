@@ -33,10 +33,10 @@ from invenio.bibdocfile_config import CFG_BIBDOCFILE_DOCUMENT_FILE_MANAGER_DOCTY
      CFG_BIBDOCFILE_DOCUMENT_FILE_MANAGER_RESTRICTIONS, \
      CFG_BIBDOCFILE_ICON_SUBFORMAT_RE
 from invenio.utils import apache
-from invenio.access_control_config import VIEWRESTRCOLL
-from invenio.access_control_mailcookie import mail_cookie_create_authorize_action
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_admin import acc_is_role
+from invenio.modules.access.local_config import VIEWRESTRCOLL
+from invenio.modules.access.mailcookie import mail_cookie_create_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.control import acc_is_role
 from invenio.webpage import page, pageheaderonly, \
     pagefooteronly, warning_page, write_warning
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, isUserSuperAdmin, \

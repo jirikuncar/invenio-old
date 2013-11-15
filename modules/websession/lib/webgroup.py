@@ -835,7 +835,7 @@ def synchronize_groups_with_login_method():
     least one external group for a given login_method, ask, if possible, for
     his group memberships and merge them.
     """
-    from invenio.access_control_config import CFG_EXTERNAL_AUTHENTICATION
+    from invenio.modules.access.local_config import CFG_EXTERNAL_AUTHENTICATION
     for login_method, authorizer in CFG_EXTERNAL_AUTHENTICATION.items():
         if authorizer:
             try:

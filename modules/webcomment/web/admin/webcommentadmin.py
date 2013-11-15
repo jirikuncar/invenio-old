@@ -31,7 +31,7 @@ from invenio.legacy.dbquery import Error
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info
 from invenio.utils.url import wash_url_argument, redirect_to_url
 from invenio.base.i18n import wash_language, gettext_set_language
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 
 def index(req, ln=CFG_SITE_LANG):
     """

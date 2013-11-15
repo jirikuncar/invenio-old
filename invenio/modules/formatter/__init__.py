@@ -480,7 +480,7 @@ def filter_hidden_fields(recxml, user_info=None, filter_tags=None,
             #by default
             return recxml
         else:
-            from invenio.access_control_engine import acc_authorize_action
+            from invenio.modules.access.engine import acc_authorize_action
             if (acc_authorize_action(user_info, 'runbibedit')[0] == 0):
                 #no need to filter
                 return recxml

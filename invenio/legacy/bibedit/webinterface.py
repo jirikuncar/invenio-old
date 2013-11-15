@@ -25,7 +25,7 @@ __lastupdated__ = """$Date: 2008/08/12 09:26:46 $"""
 from flask.ext.login import current_user
 
 from invenio.utils.json import json, json_unicode_to_utf8, CFG_JSON_AVAILABLE
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.bibedit_engine import perform_request_ajax, perform_request_init, \
     perform_request_newticket, perform_request_compare, \
     perform_request_init_template_interface, \

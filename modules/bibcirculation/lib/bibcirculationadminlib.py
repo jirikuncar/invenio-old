@@ -44,7 +44,7 @@ from invenio.config import \
     CFG_SITE_URL, \
     CFG_SITE_SECURE_URL, \
     CFG_CERN_SITE
-import invenio.access_control_engine as acce
+import invenio.modules.access.engine as acce
 from invenio.webpage import page
 from invenio.legacy.webuser import getUid, page_not_authorized
 from invenio.webstat import register_customevent

@@ -49,8 +49,8 @@ from invenio.utils.url import redirect_to_url, \
 from invenio.base.i18n import gettext_set_language
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.websearchadminlib import get_detailed_page_tabs
-from invenio.access_control_config import VIEWRESTRCOLL
-from invenio.access_control_mailcookie import mail_cookie_create_authorize_action
+from invenio.modules.access.local_config import VIEWRESTRCOLL
+from invenio.modules.access.mailcookie import mail_cookie_create_authorize_action
 import invenio.legacy.template
 
 import invenio.bibcirculation_dblayer as db

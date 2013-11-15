@@ -17,7 +17,7 @@
 
 """Invenio BibSort Administrator Interface."""
 
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.legacy.dbquery import run_sql
 from invenio.config import CFG_SITE_URL, CFG_BIBSORT_BUCKETS, CFG_ETCDIR, CFG_SITE_LANG
 from invenio.base.i18n import gettext_set_language, language_list_long

@@ -45,8 +45,8 @@ from invenio.config import \
      CFG_SITE_SECURE_URL, \
      CFG_SITE_RECORD
 from invenio.legacy.dbquery import run_sql, Error, OperationalError
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_admin import acc_get_role_users, acc_get_role_id
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.control import acc_get_role_users, acc_get_role_id
 from invenio.webpage import page, error_page
 from invenio.legacy.webuser import getUid, get_email, page_not_authorized, collect_user_info
 from invenio.base.i18n import gettext_set_language, wash_language
@@ -58,9 +58,9 @@ from invenio.ext.email import send_email
 from invenio.utils.url import wash_url_argument
 from invenio.webgroup_dblayer import get_group_infos, insert_new_group, insert_new_member, delete_member
 from invenio.webaccessadmin_lib import cleanstring_email
-from invenio.access_control_config import MAXSELECTUSERS
-from invenio.access_control_admin import acc_get_user_email
-from invenio.access_control_engine import acc_get_authorized_emails
+from invenio.modules.access.local_config import MAXSELECTUSERS
+from invenio.modules.access.control import acc_get_user_email
+from invenio.modules.access.engine import acc_get_authorized_emails
 from invenio.legacy.webmessage.api import perform_request_send
 import invenio.webbasket_dblayer as basketdb
 from invenio.webbasket_config import CFG_WEBBASKET_SHARE_LEVELS, CFG_WEBBASKET_CATEGORIES, CFG_WEBBASKET_SHARE_LEVELS_ORDERED

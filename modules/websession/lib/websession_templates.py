@@ -34,7 +34,7 @@ from invenio.config import \
      CFG_WEBSEARCH_MAX_RECORDS_IN_GROUPS, \
      CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS, \
      CFG_SITE_RECORD
-from invenio.access_control_config import CFG_EXTERNAL_AUTH_USING_SSO, \
+from invenio.modules.access.local_config import CFG_EXTERNAL_AUTH_USING_SSO, \
         CFG_EXTERNAL_AUTH_LOGOUT_SSO, \
         CFG_OPENID_PROVIDERS, CFG_OAUTH2_PROVIDERS, \
         CFG_OAUTH1_PROVIDERS, CFG_OPENID_AUTHENTICATION, \
@@ -2746,7 +2746,7 @@ type="text" name="identifier" value="" >
         from invenio.websession_config import CFG_EXTERNAL_LOGIN_LARGE
         from invenio.websession_config import CFG_EXTERNAL_LOGIN_BUTTON_ORDER
         from invenio.websession_config import CFG_EXTERNAL_LOGIN_FORM_LABELS
-        from invenio.access_control_config import CFG_OPENID_CONFIGURATIONS
+        from invenio.modules.access.local_config import CFG_OPENID_CONFIGURATIONS
 
         def construct_button(provider, size, button_class):
             """

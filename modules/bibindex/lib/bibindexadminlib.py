@@ -28,7 +28,7 @@ from invenio.config import \
 from invenio.bibrankadminlib import write_outcome, modify_translations, \
         get_def_name, get_name, get_languages, addadminbox, tupletotable, \
         createhiddenform
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.legacy.dbquery import run_sql, get_table_status_info, wash_table_column_name
 from invenio.bibindex_engine_stemmer import get_stemming_language_map
 import invenio.legacy.template

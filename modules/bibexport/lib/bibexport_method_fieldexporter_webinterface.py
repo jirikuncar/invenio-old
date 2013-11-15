@@ -58,7 +58,7 @@ from invenio.bibexport_method_fieldexporter_dblayer import Job, \
                                                            JobResult
 from invenio.legacy.webuser import collect_user_info, \
                             page_not_authorized
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 
 class WebInterfaceFieldExporterPages(WebInterfaceDirectory):
     """Defines the set of /fieldexporter pages."""

@@ -46,9 +46,9 @@ default_breadcrumb_root(blueprint, '.')
 def request_record(f):
     @wraps(f)
     def decorated(recid, *args, **kwargs):
-        from invenio.access_control_mailcookie import \
+        from invenio.modules.access.mailcookie import \
             mail_cookie_create_authorize_action
-        from invenio.access_control_config import VIEWRESTRCOLL
+        from invenio.modules.access.local_config import VIEWRESTRCOLL
         from invenio.legacy.search_engine import guess_primary_collection_of_a_record, \
             check_user_can_view_record
         from invenio.websearchadminlib import get_detailed_page_tabs,\

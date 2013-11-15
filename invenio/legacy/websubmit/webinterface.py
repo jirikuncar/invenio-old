@@ -39,8 +39,8 @@ from invenio.config import \
      CFG_CERN_SITE
 from invenio.utils import apache
 from invenio.legacy.dbquery import run_sql
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_admin import acc_is_role
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.control import acc_is_role
 from invenio.webpage import warning_page
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, \
                             isGuestUser

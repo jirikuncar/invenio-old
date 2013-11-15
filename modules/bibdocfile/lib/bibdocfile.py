@@ -92,10 +92,10 @@ from invenio.legacy.bibrecord import record_get_field_instances, \
     encode_for_xml
 from invenio.utils.url import create_url, make_user_agent_string
 from invenio.utils.text import nice_size
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_admin import acc_is_user_in_role, acc_get_role_id
-from invenio.access_control_firerole import compile_role_definition, acc_firerole_check_user
-from invenio.access_control_config import SUPERADMINROLE, CFG_WEBACCESS_WARNING_MSGS
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.control import acc_is_user_in_role, acc_get_role_id
+from invenio.modules.access.firerole import compile_role_definition, acc_firerole_check_user
+from invenio.modules.access.local_config import SUPERADMINROLE, CFG_WEBACCESS_WARNING_MSGS
 from invenio.config import CFG_SITE_URL, \
     CFG_WEBDIR, CFG_BIBDOCFILE_FILEDIR,\
     CFG_BIBDOCFILE_ADDITIONAL_KNOWN_FILE_EXTENSIONS, \

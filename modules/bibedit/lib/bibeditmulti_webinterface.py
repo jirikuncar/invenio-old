@@ -29,7 +29,7 @@ from invenio.base.i18n import gettext_set_language
 from invenio import bibeditmulti_engine as multi_edit_engine
 
 from invenio.legacy.webuser import page_not_authorized
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 
 class _ActionTypes:
     """Define the available action types"""

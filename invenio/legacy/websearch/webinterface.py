@@ -117,9 +117,9 @@ from invenio.legacy.search_engine import check_user_can_view_record, \
 from invenio.websearch_webcoll import perform_display_collection
 from invenio.legacy.bibrecord import get_fieldvalues, \
      get_fieldvalues_alephseq_like
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_config import VIEWRESTRCOLL
-from invenio.access_control_mailcookie import mail_cookie_create_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.local_config import VIEWRESTRCOLL
+from invenio.modules.access.mailcookie import mail_cookie_create_authorize_action
 from invenio.modules.formatter import format_records
 from invenio.modules.formatter.engine import get_output_formats
 from invenio.websearch_webcoll import get_collection

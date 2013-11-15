@@ -48,7 +48,7 @@ from invenio import webbasket
 from invenio import webalert
 from invenio.legacy.dbquery import run_sql
 from invenio.legacy.webmessage.api import account_new_mail
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.apache import SERVER_RETURN, HTTP_NOT_FOUND
 from invenio.utils.url import redirect_to_url, make_canonical_urlargd
@@ -57,12 +57,12 @@ from invenio import webgroup_dblayer
 from invenio.base.i18n import gettext_set_language, wash_language
 from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
-from invenio.access_control_mailcookie import mail_cookie_retrieve_kind, \
+from invenio.modules.access.mailcookie import mail_cookie_retrieve_kind, \
     mail_cookie_check_pw_reset, mail_cookie_delete_cookie, \
     mail_cookie_create_pw_reset, mail_cookie_check_role, \
     mail_cookie_check_mail_activation, InvenioWebAccessMailCookieError, \
     InvenioWebAccessMailCookieDeletedError, mail_cookie_check_authorize_action
-from invenio.access_control_config import CFG_WEBACCESS_WARNING_MSGS, \
+from invenio.modules.access.local_config import CFG_WEBACCESS_WARNING_MSGS, \
     CFG_EXTERNAL_AUTH_USING_SSO, CFG_EXTERNAL_AUTH_LOGOUT_SSO, \
     CFG_EXTERNAL_AUTHENTICATION, CFG_EXTERNAL_AUTH_SSO_REFRESH, \
     CFG_OPENID_CONFIGURATIONS, CFG_OAUTH2_CONFIGURATIONS, \

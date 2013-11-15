@@ -69,16 +69,16 @@ except ImportError:
     pass
 from invenio.legacy.dbquery import run_sql, OperationalError, \
     serialize_via_marshal, deserialize_via_marshal
-from invenio.access_control_admin import acc_get_role_id, acc_get_action_roles, acc_get_action_id, acc_is_user_in_role, acc_find_possible_activities
-from invenio.access_control_mailcookie import mail_cookie_create_mail_activation
-from invenio.access_control_firerole import acc_firerole_check_user, load_role_definition
-from invenio.access_control_config import SUPERADMINROLE, CFG_EXTERNAL_AUTH_USING_SSO
+from invenio.modules.access.control import acc_get_role_id, acc_get_action_roles, acc_get_action_id, acc_is_user_in_role, acc_find_possible_activities
+from invenio.modules.access.mailcookie import mail_cookie_create_mail_activation
+from invenio.modules.access.firerole import acc_firerole_check_user, load_role_definition
+from invenio.modules.access.local_config import SUPERADMINROLE, CFG_EXTERNAL_AUTH_USING_SSO
 from invenio.base.i18n import gettext_set_language, wash_languages, wash_language
 from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
 from invenio.webgroup_dblayer import get_groups
 from invenio.external_authentication import InvenioWebAccessExternalAuthError
-from invenio.access_control_config import CFG_EXTERNAL_AUTHENTICATION, \
+from invenio.modules.access.local_config import CFG_EXTERNAL_AUTHENTICATION, \
     CFG_WEBACCESS_MSGS, CFG_WEBACCESS_WARNING_MSGS, CFG_EXTERNAL_AUTH_DEFAULT, \
     CFG_TEMP_EMAIL_ADDRESS
 from invenio.webuser_config import CFG_WEBUSER_USER_TABLES
@@ -1353,7 +1353,7 @@ def collect_user_info(req, login_time=False, refresh=False):
                     user_info[key.lower()] = value
             if login_time:
                 ## Heavy computational information
-                from invenio.access_control_engine import acc_authorize_action
+                from invenio.modules.access.engine import acc_authorize_action
                 user_info['precached_permitted_restricted_collections'] = get_permitted_restricted_collections(user_info)
                 user_info['precached_usebaskets'] = acc_authorize_action(user_info, 'usebaskets')[0] == 0
                 user_info['precached_useloans'] = acc_authorize_action(user_info, 'useloans')[0] == 0

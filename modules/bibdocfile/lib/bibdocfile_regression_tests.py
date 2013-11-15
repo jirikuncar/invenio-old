@@ -28,7 +28,7 @@ from datetime import datetime
 from invenio.base.wrappers import lazy_import
 from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite
 
-from invenio.access_control_config import CFG_WEBACCESS_WARNING_MSGS
+from invenio.modules.access.local_config import CFG_WEBACCESS_WARNING_MSGS
 from invenio.config import \
         CFG_SITE_URL, \
         CFG_PREFIX, \

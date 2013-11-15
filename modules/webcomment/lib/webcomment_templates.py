@@ -47,8 +47,8 @@ from invenio.config import CFG_SITE_URL, \
 from invenio.utils.html import get_html_text_editor, create_html_select
 from invenio.base.i18n import gettext_set_language
 from invenio.modules.formatter import format_record
-from invenio.access_control_engine import acc_authorize_action
-from invenio.access_control_admin import acc_get_user_roles_from_user_info, acc_get_role_id
+from invenio.modules.access.engine import acc_authorize_action
+from invenio.modules.access.control import acc_get_user_roles_from_user_info, acc_get_role_id
 from invenio.legacy.bibrecord import get_fieldvalues
 
 class Template:

@@ -48,7 +48,7 @@ from invenio.utils.url import redirect_to_url
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, set_user_preferences, \
                             email_valid_p, emailUnique, get_email_from_username, get_uid_from_email, \
                             isUserSuperAdmin
-from invenio.access_control_admin import acc_find_user_role_actions, acc_get_user_roles, acc_get_role_id
+from invenio.modules.access.control import acc_find_user_role_actions, acc_get_user_roles, acc_get_role_id
 from invenio.legacy.search_engine import perform_request_search
 from invenio.legacy.bibrecord import get_fieldvalues
 

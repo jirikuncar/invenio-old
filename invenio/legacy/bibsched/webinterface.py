@@ -32,7 +32,7 @@ else:
     simplejson_available = True
 
 from invenio.config import CFG_SITE_URL
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.ext.legacy.handler import WebInterfaceDirectory
 from invenio.bibrankadminlib import tupletotable
 from invenio.webpage import page

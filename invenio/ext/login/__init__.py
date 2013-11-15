@@ -46,7 +46,7 @@ def reset_password(email, ln=None):
     # create the reset key
     if ln is None:
         ln = g.ln
-    from invenio.access_control_mailcookie import mail_cookie_create_pw_reset
+    from invenio.modules.access.mailcookie import mail_cookie_create_pw_reset
     reset_key = mail_cookie_create_pw_reset(email, cookie_timeout=timedelta(days=CFG_WEBSESSION_RESET_PASSWORD_EXPIRE_IN_DAYS))
     if reset_key is None:
         return False  # reset key could not be created

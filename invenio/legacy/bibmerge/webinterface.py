@@ -22,7 +22,7 @@ __revision__ = "$Id$"
 
 __lastupdated__ = """$Date$"""
 
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 from invenio.config import CFG_SITE_LANG, CFG_SITE_SECURE_URL, CFG_SITE_RECORD
 from invenio.legacy.search_engine import guess_primary_collection_of_a_record
 from invenio.webpage import page

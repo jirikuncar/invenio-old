@@ -350,7 +350,7 @@ class ExternalAuthRobot(ExternalAuth):
         @return: the URL to login as the user.
         @rtype: string
         """
-        from invenio.access_control_config import CFG_EXTERNAL_AUTHENTICATION
+        from invenio.modules.access.local_config import CFG_EXTERNAL_AUTHENTICATION
         from invenio.utils.url import create_url
         if assertion is None:
             assertion = {}

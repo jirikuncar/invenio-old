@@ -38,7 +38,7 @@ from invenio.websearchadminlib import get_detailed_page_tabs
 from invenio.template import load
 from invenio.ext.legacy.handler import wash_urlargd
 from invenio.legacy.webuser import collect_user_info
-from invenio import access_control_engine as acce
+import invenio.modules.access.engine as acce
 from invenio import dbquery
 from invenio import bibtask
 from invenio.legacy import bibrecord

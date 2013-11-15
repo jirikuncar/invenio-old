@@ -43,7 +43,7 @@ from invenio.legacy.search_engine import guess_primary_collection_of_a_record, \
                                   get_colID
 from invenio.webpage import pageheaderonly, pagefooteronly
 from invenio.websearchadminlib import get_detailed_page_tabs
-from invenio.access_control_engine import acc_authorize_action
+from invenio.modules.access.engine import acc_authorize_action
 import invenio.legacy.template
 webstyle_templates = invenio.legacy.template.load('webstyle')
 websearch_templates = invenio.legacy.template.load('websearch')
