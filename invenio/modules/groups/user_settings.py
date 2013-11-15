@@ -29,7 +29,7 @@ from invenio.modules.access.local_config import \
      CFG_EXTERNAL_AUTH_USING_SSO, \
      CFG_EXTERNAL_AUTH_LOGOUT_SSO
 
-from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
+from invenio.legacy.websession.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
       CFG_WEBSESSION_USERGROUP_STATUS, \
       CFG_WEBSESSION_GROUP_JOIN_POLICY, \
       InvenioWebSessionError, \

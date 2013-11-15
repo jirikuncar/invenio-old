@@ -49,7 +49,7 @@ class TestWebDepositUtils(InvenioTestCase):
     # Utility methods
     #
     def login_user(self, username='admin'):
-        from invenio.websession_model import User
+        from invenio.legacy.websession_model import User
         from invenio.ext.login import login_user, current_user
         user_id = User.query.filter_by(nickname=username).one().id
         login_user(user_id)

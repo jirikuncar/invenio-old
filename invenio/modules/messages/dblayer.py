@@ -30,7 +30,7 @@ from invenio.modules.messages.config import \
     CFG_WEBMESSAGE_DAYS_BEFORE_DELETE_ORPHANS
 from invenio.utils.date import datetext_default, \
                               convert_datestruct_to_datetext
-from invenio.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
+from invenio.legacy.websession.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
 
 def check_user_owns_message(uid, msgid):
     """

@@ -31,7 +31,7 @@ from invenio.modules.messages.config import \
 
 from invenio.utils.date import datetext_default, \
                               convert_datestruct_to_datetext
-from invenio.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
+from invenio.legacy.websession.websession_config import CFG_WEBSESSION_USERGROUP_STATUS
 
 from invenio.ext.sqlalchemy import db
 from invenio.modules.messages.models import MsgMESSAGE, UserMsgMESSAGE
