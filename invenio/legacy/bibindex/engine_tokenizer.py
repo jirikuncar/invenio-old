@@ -33,7 +33,7 @@ from invenio.config import \
 from invenio.utils.html import remove_html_markup
 from invenio.utils.text import wash_for_utf8, strip_accents
 
-from invenio.bibindex_engine_washer import \
+from invenio.legacy.bibindex.engine_washer import \
      lower_index_term, remove_latex_markup, \
      apply_stemming_and_stopwords_and_length_check, \
      wash_author_name

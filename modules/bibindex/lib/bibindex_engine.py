@@ -43,11 +43,11 @@ from invenio.config import \
 from invenio.bibindex_engine_config import CFG_MAX_MYSQL_THREADS, \
     CFG_MYSQL_THREAD_TIMEOUT, \
     CFG_CHECK_MYSQL_THREADS
-from invenio.bibindex_engine_tokenizer import \
+from invenio.legacy.bibindex.engine_tokenizer import \
      BibIndexFuzzyNameTokenizer, BibIndexExactNameTokenizer, \
      BibIndexPairTokenizer, BibIndexWordTokenizer, \
      BibIndexPhraseTokenizer
-from invenio.bibindexadminlib import get_idx_indexer
+from invenio.legacy.bibindex.adminlib import get_idx_indexer
 from invenio.bibdocfile import bibdocfile_url_p, \
      bibdocfile_url_to_bibdoc, normalize_format, \
      download_url, guess_format_from_url, BibRecDocs, \
@@ -58,7 +58,7 @@ from invenio.legacy.search_engine import perform_request_search, \
      get_synonym_terms
 from invenio.legacy.dbquery import run_sql, DatabaseError, serialize_via_marshal, \
      deserialize_via_marshal, wash_table_column_name
-from invenio.bibindex_engine_washer import wash_index_term
+from invenio.legacy.bibindex.engine_washer import wash_index_term
 from invenio.bibtask import task_init, write_message, get_datetime, \
     task_set_option, task_get_option, task_get_task_param, \
     task_update_progress, task_sleep_now_if_required

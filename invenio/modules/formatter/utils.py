@@ -624,7 +624,7 @@ def get_pdf_snippets(recID, patterns, user_info):
             out = get_text_snippets(text_path, patterns, nb_chars, max_snippets)
             if not out:
                 # no hit, so check stemmed versions:
-                from invenio.bibindex_engine_stemmer import stem
+                from invenio.legacy.bibindex.engine_stemmer import stem
                 stemmed_patterns = [stem(p, 'en') for p in patterns]
                 out = get_text_snippets(text_path, stemmed_patterns, nb_chars, max_snippets)
         elif CFG_WEBSEARCH_FULLTEXT_SNIPPETS_GENERATOR == 'SOLR':

@@ -30,7 +30,7 @@ from invenio.legacy.bibrank.adminlib import write_outcome, modify_translations, 
         createhiddenform
 from invenio.modules.access.engine import acc_authorize_action
 from invenio.legacy.dbquery import run_sql, get_table_status_info, wash_table_column_name
-from invenio.bibindex_engine_stemmer import get_stemming_language_map
+from invenio.legacy.bibindex.engine_stemmer import get_stemming_language_map
 import invenio.legacy.template
 websearch_templates = invenio.legacy.template.load('websearch')
 
