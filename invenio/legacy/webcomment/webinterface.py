@@ -60,7 +60,7 @@ from invenio.config import \
      CFG_ACCESS_CONTROL_LEVEL_SITE
 from invenio.legacy.webuser import getUid, page_not_authorized, isGuestUser, collect_user_info
 from invenio.webpage import page, pageheaderonly, pagefooteronly
-from invenio.search_engine import create_navtrail_links, \
+from invenio.legacy.search_engine import create_navtrail_links, \
      guess_primary_collection_of_a_record, \
      get_colID
 from invenio.utils.url import redirect_to_url, \

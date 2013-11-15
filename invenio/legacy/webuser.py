@@ -1191,7 +1191,7 @@ def collect_user_info(req, login_time=False, refresh=False):
 
     #FIXME move EXTERNAL SSO functionality
 
-    from invenio.search_engine import get_permitted_restricted_collections
+    from invenio.legacy.search_engine import get_permitted_restricted_collections
     user_info = {
         'remote_ip' : '',
         'remote_host' : '',

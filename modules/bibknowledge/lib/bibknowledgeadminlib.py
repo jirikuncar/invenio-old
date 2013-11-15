@@ -103,7 +103,7 @@ def perform_request_knowledge_base_show(kb_id, ln=CFG_SITE_LANG, sortby="to",
     dyn_config = None
     collections = None
     if kb_type == 'd':
-        from invenio.search_engine import get_alphabetically_ordered_collection_list
+        from invenio.legacy.search_engine import get_alphabetically_ordered_collection_list
         dyn_config = bibknowledge_dblayer.get_kb_dyn_config(kb_id)
         collections = []
         collitems = get_alphabetically_ordered_collection_list()

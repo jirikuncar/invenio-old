@@ -361,7 +361,7 @@ class Template:
         @param collapsed_p: if the comment should be collapsed or not
         @return: html table of comment
         """
-        from invenio.search_engine import guess_primary_collection_of_a_record
+        from invenio.legacy.search_engine import guess_primary_collection_of_a_record
         # load the right message language
         _ = gettext_set_language(ln)
         user_info = collect_user_info(req)
@@ -495,7 +495,7 @@ class Template:
         @param recID: recID where the comment is posted
         @return: html table of review
         """
-        from invenio.search_engine import guess_primary_collection_of_a_record
+        from invenio.legacy.search_engine import guess_primary_collection_of_a_record
         # load the right message language
         _ = gettext_set_language(ln)
 
@@ -626,7 +626,7 @@ class Template:
         current_user_fullname = ""
         override_nickname_p = False
         if CFG_CERN_SITE:
-            from invenio.search_engine import get_all_collections_of_a_record
+            from invenio.legacy.search_engine import get_all_collections_of_a_record
             user_info = collect_user_info(uid)
             if 'atlas-readaccess-active-members [CERN]' in user_info['group']:
                 # An ATLAS member is never anonymous to its colleagues
@@ -1212,7 +1212,7 @@ class Template:
 
         if not CFG_WEBCOMMENT_USE_RICH_TEXT_EDITOR:
             note +=  '<br />' + '&nbsp;'*10 + cgi.escape('You can use some HTML tags: <a href>, <strong>, <blockquote>, <br />, <p>, <em>, <ul>, <li>, <b>, <i>')
-        #from invenio.search_engine import print_record
+        #from invenio.legacy.search_engine import print_record
         #record_details = print_record(recID=recID, format='hb', ln=ln)
 
         warnings = self.tmpl_warnings(warnings, ln)

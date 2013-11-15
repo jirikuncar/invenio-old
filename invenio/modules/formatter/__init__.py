@@ -90,7 +90,7 @@ def format_record(recID, of, ln=None, verbose=0, search_pattern=None,
     @rtype: string
     """
     ln = ln or cfg['CFG_SITE_LANG']
-    from invenio.search_engine import record_exists
+    from invenio.legacy.search_engine import record_exists
     if search_pattern is None:
         search_pattern = []
 

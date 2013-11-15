@@ -279,7 +279,7 @@ class Template:
                 isbn10 += str(checksum)
             return (isbn13, isbn10)
 
-        from invenio.search_engine import perform_request_search
+        from invenio.legacy.search_engine import perform_request_search
         doi = ''
         pmid = ''
         bibcode = ''
@@ -3281,7 +3281,7 @@ class Template:
            RECID_SCORE_LIST is a list of (recID1, score1), (recID2, score2), etc.
         """
 
-        from invenio.search_engine import print_record, record_public_p
+        from invenio.legacy.search_engine import print_record, record_public_p
 
         recID_score_list_to_be_printed = []
 
@@ -3802,7 +3802,7 @@ class Template:
 
           - 'ln' *string* - The language to display
         """
-        from invenio.search_engine import get_record
+        from invenio.legacy.search_engine import get_record
         from invenio.legacy.bibrecord import field_get_subfield_values
         from invenio.legacy.bibrecord import record_get_field_instances
         _ = gettext_set_language(ln)
@@ -4084,7 +4084,7 @@ class Template:
            authors - a list of authors that have collaborated with authorname
            names_dict - a dict of {name: frequency}
         """
-        from invenio.search_engine import perform_request_search
+        from invenio.legacy.search_engine import perform_request_search
         from operator import itemgetter
         _ = gettext_set_language(ln)
         ib_pubs = intbitset(pubs)

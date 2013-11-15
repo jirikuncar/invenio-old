@@ -238,7 +238,7 @@ def document_upload(req=None, folder="", matching="", mode="", exec_date="", exe
     from invenio.bibdocfile import BibRecDocs, file_strip_ext
     from invenio.utils.hash import md5
     import shutil
-    from invenio.search_engine import perform_request_search, \
+    from invenio.legacy.search_engine import perform_request_search, \
                                       search_pattern, \
                                       guess_collection_of_a_record
     _ = gettext_set_language(ln)
@@ -585,7 +585,7 @@ def _detect_collections_from_marcxml_file(recs):
     for these recIDs.
     """
     from invenio.legacy.bibrecord import record_get_field_values
-    from invenio.search_engine import guess_collection_of_a_record
+    from invenio.legacy.search_engine import guess_collection_of_a_record
     from invenio.bibupload import find_record_from_sysno, \
                                   find_records_from_extoaiid, \
                                   find_record_from_oaiid

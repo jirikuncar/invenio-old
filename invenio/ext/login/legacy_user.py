@@ -210,7 +210,7 @@ class UserInfo(CombinedMultiDict, UserMixin):
         from invenio.access_control_engine import acc_authorize_action
         from invenio.access_control_admin import acc_get_role_id, \
             acc_is_user_in_role
-        from invenio.search_engine import get_permitted_restricted_collections
+        from invenio.legacy.search_engine import get_permitted_restricted_collections
 
         data = {}
         data['precached_permitted_restricted_collections'] = \

@@ -37,7 +37,7 @@ If you have a MARCXML representation of the record to be handled, you can use th
 If you want to handle a record stored in the system and you know the record ID, then you can easily exploit Invenio search_engine API to obtain the corresponding marcxml::
 
     from invenio.bibrecord import create_record
-    from invenio.search_engine import print_record
+    from invenio.legacy.search_engine import print_record
     marcxml = print_record(rec_id, 'xm')
     record = create_record(marcxml)[0]
 
@@ -47,7 +47,7 @@ Having an internal representation of a record you can manipulate it by means of 
 At the end, if you want the MARCXML representation of the record you can use record_xml_output::
 
    from invenio.bibrecord import create_record
-   from invenio.search_engine import print_record
+   from invenio.legacy.search_engine import print_record
    marcxml = print_record(rec_id, 'xm')
    record = create_record(marcxml)[0]
    # ... manipulation ...

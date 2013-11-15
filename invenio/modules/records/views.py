@@ -49,7 +49,7 @@ def request_record(f):
         from invenio.access_control_mailcookie import \
             mail_cookie_create_authorize_action
         from invenio.access_control_config import VIEWRESTRCOLL
-        from invenio.search_engine import guess_primary_collection_of_a_record, \
+        from invenio.legacy.search_engine import guess_primary_collection_of_a_record, \
             check_user_can_view_record
         from invenio.websearchadminlib import get_detailed_page_tabs,\
             get_detailed_page_tabs_counts
@@ -76,7 +76,7 @@ def request_record(f):
             abort(apache.HTTP_UNAUTHORIZED)
 
         from invenio.legacy.bibfield import get_record
-        from invenio.search_engine import record_exists, get_merged_recid
+        from invenio.legacy.search_engine import record_exists, get_merged_recid
         # check if the current record has been deleted
         # and has been merged, case in which the deleted record
         # will be redirect to the new one
@@ -124,7 +124,7 @@ def request_record(f):
                 return dict(headerLinkbackTrackbackLink=get_trackback_auto_discovery_tag(recid))
 
         def _format_record(recid, of='hd', user_info=current_user, *args, **kwargs):
-            from invenio.search_engine import print_record
+            from invenio.legacy.search_engine import print_record
             return print_record(recid, format=of, user_info=user_info, *args, **kwargs)
 
         @register_template_context_processor

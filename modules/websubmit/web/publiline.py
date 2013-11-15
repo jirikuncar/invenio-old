@@ -51,7 +51,7 @@ from invenio.webpage import page, error_page
 from invenio.legacy.webuser import getUid, get_email, page_not_authorized, collect_user_info
 from invenio.base.i18n import gettext_set_language, wash_language
 #from invenio.legacy.websubmit.config import *
-from invenio.search_engine import search_pattern, check_user_can_view_record
+from invenio.legacy.search_engine import search_pattern, check_user_can_view_record
 from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.legacy.websubmit.functions.Retrieve_Data import Get_Field
 from invenio.ext.email import send_email

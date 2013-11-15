@@ -19,7 +19,7 @@
 
 from invenio.bibrank_citation_indexer import INTBITSET_OF_DELETED_RECORDS
 from invenio.bibindex_engine import CFG_JOURNAL_PUBINFO_STANDARD_FORM
-from invenio.search_engine import search_pattern
+from invenio.legacy.search_engine import search_pattern
 
 
 def get_recids_matching_query(pvalue, fvalue):
