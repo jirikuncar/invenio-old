@@ -42,10 +42,10 @@ from invenio.websearch_external_collections_templates import print_results, prin
 from invenio.websearch_external_collections_utils import get_collection_id, get_collection_descendants, \
     warning, get_verbose_print
 
-import invenio.template
+import invenio.legacy.template
 
 # Global variables
-template = invenio.template.load('websearch_external_collections')
+template = invenio.legacy.template.load('websearch_external_collections')
 external_collections_state = None
 dico_collection_external_searches = None
 dico_collection_seealso = None

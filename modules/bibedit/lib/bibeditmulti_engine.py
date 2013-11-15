@@ -56,7 +56,7 @@ from invenio.legacy.bibrecord.scripts import xmlmarc2textmarc as xmlmarc2textmar
 
 from invenio.bibedit_utils import record_locked_by_queue
 
-from invenio import template
+from invenio.legacy import template
 multiedit_templates = template.load('bibeditmulti')
 
 # base command for subfields

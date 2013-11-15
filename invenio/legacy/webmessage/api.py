@@ -36,8 +36,8 @@ from invenio.utils.html import escape_html
 from invenio.legacy.webuser import collect_user_info, list_users_in_roles
 from invenio.access_control_admin import acc_get_role_id, acc_is_user_in_role
 try:
-    import invenio.template
-    webmessage_templates = invenio.template.load('webmessage')
+    import invenio.legacy.template
+    webmessage_templates = invenio.legacy.template.load('webmessage')
 except:
     pass
 from invenio.ext.logging import register_exception

@@ -27,7 +27,7 @@ import calendar
 from datetime import timedelta
 from urllib import quote
 
-from invenio import template
+from invenio.legacy import template
 from invenio.config import \
      CFG_WEBDIR, \
      CFG_TMPDIR, \

@@ -1101,7 +1101,7 @@ def download_dreamweaver_floater(req):
     @param req: the request object
     @return: the palette code to be used within Dreamweaver
     """
-    #bibformat_templates = invenio.template.load('bibformat')
+    #bibformat_templates = invenio.legacy.template.load('bibformat')
     req.content_type = 'text/html'
     req.headers_out["Content-Disposition"] = "attachment; filename=BibFormat_floater.html"
     req.send_http_header()
@@ -1125,7 +1125,7 @@ def dialog_box(req, url="", ln=CFG_SITE_LANG, navtrail="",
     @return: a dialog page
     """
     import invenio
-    bibformat_templates = invenio.template.load('bibformat')
+    bibformat_templates = invenio.legacy.template.load('bibformat')
 
     return page(title="",
                 body = bibformat_templates.tmpl_admin_dialog_box(url,

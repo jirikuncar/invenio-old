@@ -119,9 +119,9 @@ from invenio.utils.text import encode_for_xml, wash_for_utf8, strip_accents
 from invenio.utils.html import get_mathjax_header
 from invenio.utils.html import nmtoken_from_string
 
-import invenio.template
-webstyle_templates = invenio.template.load('webstyle')
-webcomment_templates = invenio.template.load('webcomment')
+import invenio.legacy.template
+webstyle_templates = invenio.legacy.template.load('webstyle')
+webcomment_templates = invenio.legacy.template.load('webcomment')
 
 from invenio.bibrank_citation_searcher import calculate_cited_by_list, \
     calculate_co_cited_with_list, get_records_with_num_cites, get_self_cited_by, \
@@ -143,8 +143,8 @@ from invenio.xapianutils_bibindex_searcher import xapian_get_bitset
 
 
 try:
-    import invenio.template
-    websearch_templates = invenio.template.load('websearch')
+    import invenio.legacy.template
+    websearch_templates = invenio.legacy.template.load('websearch')
 except:
     pass
 

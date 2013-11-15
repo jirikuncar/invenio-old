@@ -86,8 +86,8 @@ from invenio.websubmit_dblayer import \
      get_submissions_at_level_X_with_score_above_N, \
      submission_is_finished
 
-import invenio.template
-websubmit_templates = invenio.template.load('websubmit')
+import invenio.legacy.template
+websubmit_templates = invenio.legacy.template.load('websubmit')
 
 def interface(req,
               c=CFG_SITE_NAME,

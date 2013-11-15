@@ -75,8 +75,8 @@ from invenio.search_engine import \
 from invenio.search_engine_utils import get_fieldvalues
 from invenio.utils.htmlwasher import EmailWasher
 try:
-    import invenio.template
-    webcomment_templates = invenio.template.load('webcomment')
+    import invenio.legacy.template
+    webcomment_templates = invenio.legacy.template.load('webcomment')
 except:
     pass
 

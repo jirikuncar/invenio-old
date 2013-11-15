@@ -768,7 +768,7 @@ def dialog_box(req, url="", ln=CFG_SITE_LANG, navtrail="",
     @param options the list of labels for the buttons given as choice to user
     """
     import invenio
-    bibformat_templates = invenio.template.load('bibformat')
+    bibformat_templates = invenio.legacy.template.load('bibformat')
 
     if not options:
         options = []

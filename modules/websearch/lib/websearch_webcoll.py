@@ -57,8 +57,8 @@ from invenio.websearch_external_collections import \
 from invenio.bibtask import task_init, task_get_option, task_set_option, \
     write_message, task_has_option, task_update_progress, \
     task_sleep_now_if_required
-import invenio.template
-websearch_templates = invenio.template.load('websearch')
+import invenio.legacy.template
+websearch_templates = invenio.legacy.template.load('websearch')
 
 from invenio.websearch_external_collections_searcher import external_collections_dictionary
 from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_TIMEOUT

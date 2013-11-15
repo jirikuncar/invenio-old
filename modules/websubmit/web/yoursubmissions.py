@@ -33,8 +33,8 @@ from invenio.webpage import page, error_page
 from invenio.legacy.webuser import getUid, get_email, page_not_authorized
 from invenio.base.i18n import gettext_set_language, wash_language
 
-import invenio.template
-websubmit_templates = invenio.template.load('websubmit')
+import invenio.legacy.template
+websubmit_templates = invenio.legacy.template.load('websubmit')
 
 def index(req, c=CFG_SITE_NAME, ln=CFG_SITE_LANG, order="", doctype="", deletedId="", deletedAction="", deletedDoctype=""):
     global uid

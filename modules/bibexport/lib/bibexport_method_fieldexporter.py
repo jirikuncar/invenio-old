@@ -38,7 +38,7 @@ import os
 from invenio.config import CFG_SITE_LANG
 from invenio import bibexport_method_fieldexporter_dblayer as fieldexporter_dblayer
 
-from invenio import template
+from invenio.legacy import template
 fieldexporter_templates = template.load('bibexport_method_fieldexporter')
 from invenio.base.i18n import gettext_set_language
 

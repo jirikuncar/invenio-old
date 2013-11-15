@@ -49,7 +49,7 @@ from invenio.utils.date import convert_datecvs_to_datestruct, \
                               convert_datestruct_to_dategui
 from invenio.modules.formatter import format_record
 from bs4 import BeautifulSoup
-from invenio import template
+from invenio.legacy import template
 websearch_templates = template.load('websearch')
 
 

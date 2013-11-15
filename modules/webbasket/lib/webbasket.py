@@ -58,8 +58,8 @@ from invenio.search_engine import \
 #from invenio.webcomment import check_user_can_attach_file_to_comments
 import invenio.webbasket_dblayer as db
 try:
-    import invenio.template
-    webbasket_templates = invenio.template.load('webbasket')
+    import invenio.legacy.template
+    webbasket_templates = invenio.legacy.template.load('webbasket')
 except ImportError:
     pass
 from invenio.websearch_external_collections_utils import get_collection_name_by_id

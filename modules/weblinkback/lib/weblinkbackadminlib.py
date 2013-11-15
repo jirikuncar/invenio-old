@@ -43,8 +43,8 @@ from invenio.modules.formatter import format_record
 import cgi
 import urllib
 
-import invenio.template
-weblinkback_templates = invenio.template.load('weblinkback')
+import invenio.legacy.template
+weblinkback_templates = invenio.legacy.template.load('weblinkback')
 
 
 def get_navtrail(previous = '', ln=CFG_SITE_LANG):

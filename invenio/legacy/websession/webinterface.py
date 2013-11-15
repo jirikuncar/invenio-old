@@ -74,9 +74,9 @@ from invenio.session import get_session
 from invenio.modules import apikeys as web_api_key
 
 
-import invenio.template
-websession_templates = invenio.template.load('websession')
-bibcatalog_templates = invenio.template.load('bibcatalog')
+import invenio.legacy.template
+websession_templates = invenio.legacy.template.load('websession')
+bibcatalog_templates = invenio.legacy.template.load('bibcatalog')
 
 
 

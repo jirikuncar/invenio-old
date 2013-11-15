@@ -32,8 +32,8 @@ from invenio.config import CFG_BIBSORT_BUCKETS, CFG_CERN_SITE
 from invenio.bibsort_washer import BibSortWasher, \
 InvenioBibSortWasherNotImplementedError
 
-import invenio.template
-websearch_templates = invenio.template.load('websearch')
+import invenio.legacy.template
+websearch_templates = invenio.legacy.template.load('websearch')
 
 #The space distance between elements, to make inserts faster
 CFG_BIBSORT_WEIGHT_DISTANCE = 8

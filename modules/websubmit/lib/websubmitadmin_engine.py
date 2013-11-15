@@ -33,10 +33,10 @@ from invenio.ext.logging import register_exception
 from invenio.websubmitadmin_config import InvenioWebSubmitWarning
 from invenio.base.i18n import gettext_set_language
 
-import invenio.template
+import invenio.legacy.template
 
 try:
-    websubmitadmin_templates = invenio.template.load('websubmitadmin')
+    websubmitadmin_templates = invenio.legacy.template.load('websubmitadmin')
 except:
     pass
 

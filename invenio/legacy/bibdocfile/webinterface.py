@@ -54,11 +54,11 @@ from invenio.bibdocfile import BibRecDocs, normalize_format, file_strip_ext, \
     get_subformat_from_format
 from invenio.ext.logging import register_exception
 from invenio.websearchadminlib import get_detailed_page_tabs
-import invenio.template
-bibdocfile_templates = invenio.template.load('bibdocfile')
-webstyle_templates = invenio.template.load('webstyle')
-websubmit_templates = invenio.template.load('websubmit')
-websearch_templates = invenio.template.load('websearch')
+import invenio.legacy.template
+bibdocfile_templates = invenio.legacy.template.load('bibdocfile')
+webstyle_templates = invenio.legacy.template.load('webstyle')
+websubmit_templates = invenio.legacy.template.load('websubmit')
+websearch_templates = invenio.legacy.template.load('websearch')
 
 from invenio.bibdocfile_managedocfiles import \
      create_file_upload_interface, \
@@ -66,7 +66,7 @@ from invenio.bibdocfile_managedocfiles import \
      get_upload_file_interface_css, \
      move_uploaded_files_to_storage
 
-bibdocfile_templates = invenio.template.load('bibdocfile')
+bibdocfile_templates = invenio.legacy.template.load('bibdocfile')
 
 
 class WebInterfaceFilesPages(WebInterfaceDirectory):

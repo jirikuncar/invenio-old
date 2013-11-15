@@ -51,7 +51,7 @@ from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.websearchadminlib import get_detailed_page_tabs
 from invenio.access_control_config import VIEWRESTRCOLL
 from invenio.access_control_mailcookie import mail_cookie_create_authorize_action
-import invenio.template
+import invenio.legacy.template
 
 import invenio.bibcirculation_dblayer as db
 from invenio.bibcirculation_utils import book_title_from_MARC, search_user
@@ -71,9 +71,9 @@ from invenio.bibcirculation_config import CFG_BIBCIRCULATION_ILLS_EMAIL, \
                                           CFG_BIBCIRCULATION_ACQ_STATUS_NEW, \
                                           AMZ_ACQUISITION_IDENTIFIER_TAG
 
-webstyle_templates = invenio.template.load('webstyle')
-websearch_templates = invenio.template.load('websearch')
-bc_templates = invenio.template.load('bibcirculation')
+webstyle_templates = invenio.legacy.template.load('webstyle')
+websearch_templates = invenio.legacy.template.load('websearch')
+bc_templates = invenio.legacy.template.load('bibcirculation')
 
 class WebInterfaceYourLoansPages(WebInterfaceDirectory):
     """Defines the set of /yourloans pages."""

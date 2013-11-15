@@ -172,8 +172,8 @@ def format_record(recID, of, ln=None, verbose=0, search_pattern=None,
                            (recID, of),
                            alert_admin=True)
         #Failsafe execution mode
-        import invenio.template
-        websearch_templates = invenio.template.load('websearch')
+        import invenio.legacy.template
+        websearch_templates = invenio.legacy.template.load('websearch')
         if verbose == 9:
             out += """\n<br/><span class="quicknote">
             An error occured while formatting record %i. (%s)

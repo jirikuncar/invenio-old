@@ -116,9 +116,9 @@ from invenio.bibdocfile_config import CFG_BIBDOCFILE_ICON_SUBFORMAT_RE, \
 from invenio.base.utils import import_submodules_from_packages
 from invenio.utils.hash import md5
 
-import invenio.template
+import invenio.legacy.template
 
-bibdocfile_templates = invenio.template.load('bibdocfile')
+bibdocfile_templates = invenio.legacy.template.load('bibdocfile')
 ## The above flag controls whether HTTP range requests are supported or not
 ## when serving static files via Python. This is disabled by default as
 ## it currently breaks support for opening PDF files on Windows platforms

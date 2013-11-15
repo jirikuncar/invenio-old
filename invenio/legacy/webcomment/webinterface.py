@@ -80,9 +80,9 @@ from invenio.access_control_mailcookie import \
 from invenio.modules.comments.config import \
      InvenioWebCommentError, \
      InvenioWebCommentWarning
-import invenio.template
-webstyle_templates = invenio.template.load('webstyle')
-websearch_templates = invenio.template.load('websearch')
+import invenio.legacy.template
+webstyle_templates = invenio.legacy.template.load('webstyle')
+websearch_templates = invenio.legacy.template.load('websearch')
 import os
 from invenio.utils import apache
 from invenio.bibdocfile import \

@@ -39,8 +39,8 @@ from invenio.batchuploader_engine import metadata_upload, cli_upload, \
      user_authorization, perform_upload_check
 
 try:
-    import invenio.template
-    batchuploader_templates = invenio.template.load('batchuploader')
+    import invenio.legacy.template
+    batchuploader_templates = invenio.legacy.template.load('batchuploader')
 except:
     pass
 

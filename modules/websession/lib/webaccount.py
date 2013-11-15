@@ -41,8 +41,8 @@ from invenio.access_control_admin import acc_find_user_role_actions
 from invenio.base.i18n import gettext_set_language
 from invenio.external_authentication import InvenioWebAccessExternalAuthError
 
-import invenio.template
-websession_templates = invenio.template.load('websession')
+import invenio.legacy.template
+websession_templates = invenio.legacy.template.load('websession')
 
 from invenio.modules import apikeys as web_api_key
 

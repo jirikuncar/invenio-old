@@ -60,8 +60,8 @@ from invenio.bibcirculation_config import CFG_BIBCIRCULATION_LIBRARIAN_EMAIL, \
                                     CFG_BIBCIRCULATION_PROPOSAL_STATUS_NEW, \
                                     AMZ_BOOK_PUBLICATION_DATE_TAG, \
                                     CFG_BIBCIRCULATION_DEFAULT_LIBRARY_ID
-import invenio.template
-bc_templates = invenio.template.load('bibcirculation')
+import invenio.legacy.template
+bc_templates = invenio.legacy.template.load('bibcirculation')
 
 
 def perform_borrower_loans(uid, barcode, borrower_id,

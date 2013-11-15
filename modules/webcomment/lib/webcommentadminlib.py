@@ -34,8 +34,8 @@ from invenio.access_control_engine import acc_authorize_action, \
      acc_get_authorized_emails
 from invenio.search_engine import perform_request_search
 
-import invenio.template
-webcomment_templates = invenio.template.load('webcomment')
+import invenio.legacy.template
+webcomment_templates = invenio.legacy.template.load('webcomment')
 
 def getnavtrail(previous = '', ln=CFG_SITE_LANG):
     """Get the navtrail"""

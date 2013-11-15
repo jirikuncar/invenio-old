@@ -80,8 +80,8 @@ from invenio.legacy.bibrecord import \
 from invenio.modules.formatter import format_record
 from invenio.bibtask import task_low_level_submission, bibtask_allocate_sequenceid
 from invenio.search_engine import get_all_collections_of_a_record
-import invenio.template
-wjt = invenio.template.load('webjournal')
+import invenio.legacy.template
+wjt = invenio.legacy.template.load('webjournal')
 
 def getnavtrail(previous = ''):
     """Get the navtrail"""

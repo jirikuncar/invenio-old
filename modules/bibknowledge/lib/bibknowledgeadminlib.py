@@ -25,8 +25,8 @@ Handle requests from the web interface for Knowledge Base related
 from invenio.config import CFG_SITE_LANG
 from invenio import bibknowledge, bibknowledge_dblayer
 
-import invenio.template
-bibknowledge_templates = invenio.template.load('bibknowledge')
+import invenio.legacy.template
+bibknowledge_templates = invenio.legacy.template.load('bibknowledge')
 
 
 def perform_request_knowledge_bases_management(ln=CFG_SITE_LANG, search="",

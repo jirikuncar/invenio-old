@@ -52,8 +52,8 @@ def reset_password(email, ln=None):
         return False  # reset key could not be created
 
     # load the email template
-    import invenio.template
-    websession_templates = invenio.template.load('websession')
+    import invenio.legacy.template
+    websession_templates = invenio.legacy.template.load('websession')
 
     # finally send the email
     from invenio.ext.email import send_email

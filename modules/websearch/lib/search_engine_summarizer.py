@@ -35,9 +35,9 @@ from StringIO import StringIO
 from invenio.search_engine import search_pattern, perform_request_search
 from invenio.intbitset import intbitset
 
-import invenio.template
+import invenio.legacy.template
 
-websearch_templates = invenio.template.load('websearch')
+websearch_templates = invenio.legacy.template.load('websearch')
 
 
 ## CFG_CITESUMMARY_COLLECTIONS -- how do we break down cite summary

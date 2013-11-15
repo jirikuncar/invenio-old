@@ -34,8 +34,8 @@ from invenio.ext.logging import register_exception
 import invenio.webgroup_dblayer as db
 from invenio.legacy.dbquery import IntegrityError
 try:
-    import invenio.template
-    websession_templates = invenio.template.load('websession')
+    import invenio.legacy.template
+    websession_templates = invenio.legacy.template.load('websession')
 except ImportError:
     pass
 

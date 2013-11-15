@@ -96,8 +96,8 @@ from invenio.bibcirculation_utils import book_title_from_MARC, \
       generate_tmp_barcode, \
       looks_like_dictionary
 import invenio.bibcirculation_dblayer as db
-import invenio.template
-bc_templates = invenio.template.load('bibcirculation')
+import invenio.legacy.template
+bc_templates = invenio.legacy.template.load('bibcirculation')
 
 
 

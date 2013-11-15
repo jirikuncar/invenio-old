@@ -53,14 +53,14 @@ from invenio.oai_harvest_dblayer import get_month_logs_size, \
      get_holdingpen_day_fragment, get_holdingpen_entry_details
 from invenio.search_engine import get_record
 
-import invenio.template
+import invenio.legacy.template
 from invenio import oai_harvest_daemon
 from invenio.legacy.bibrecord.scripts.xmlmarc2textmarc import create_marc_record
 from invenio.legacy.bibrecord import create_record
 from invenio.utils.url import create_html_link
 
-webstyle_templates = invenio.template.load('webstyle')
-oaiharvest_templates = invenio.template.load('oai_harvest')
+webstyle_templates = invenio.legacy.template.load('webstyle')
+oaiharvest_templates = invenio.legacy.template.load('oai_harvest')
 from invenio.base.i18n import gettext_set_language
 
 tmppath = CFG_TMPDIR + '/oaiharvestadmin.' + str(os.getpid())

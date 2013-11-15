@@ -65,8 +65,8 @@ from invenio.webjournal import \
      perform_request_search
 from invenio.webstat import register_customevent
 
-import invenio.template
-webjournal_templates = invenio.template.load('webjournal')
+import invenio.legacy.template
+webjournal_templates = invenio.legacy.template.load('webjournal')
 
 class WebInterfaceJournalPages(WebInterfaceDirectory):
     """Defines the set of /journal pages."""

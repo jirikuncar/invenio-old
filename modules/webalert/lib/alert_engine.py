@@ -54,9 +54,9 @@ CFG_EXTERNAL_COLLECTION_MAXRESULTS_ALERTS
 from invenio.websearch_external_collections_getter import HTTPAsyncPageGetter, async_download
 from invenio.websearch_external_collections_utils import get_collection_id
 
-import invenio.template
-websearch_templates = invenio.template.load('websearch')
-webalert_templates = invenio.template.load('webalert')
+import invenio.legacy.template
+websearch_templates = invenio.legacy.template.load('websearch')
+webalert_templates = invenio.legacy.template.load('webalert')
 
 def update_date_lastrun(alert):
     """Update the last time this alert was ran in the database."""

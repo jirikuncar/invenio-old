@@ -44,8 +44,8 @@ import invenio.modules.formatter.api as bibformat_dblayer
 from invenio.modules.formatter import engine as bibformat_engine
 from invenio.utils.text import encode_for_xml
 
-import invenio.template
-bibformat_templates = invenio.template.load('bibformat')
+import invenio.legacy.template
+bibformat_templates = invenio.legacy.template.load('bibformat')
 
 def getnavtrail(previous = '', ln=CFG_SITE_LANG):
     """

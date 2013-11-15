@@ -69,8 +69,8 @@ from invenio.legacy.bibrecord import create_records, record_get_field_value, rec
 
 execfile("%s/invenio/websubmit_functions/Retrieve_Data.py" % CFG_PYLIBDIR)
 
-import invenio.template
-websubmit_templates = invenio.template.load('websubmit')
+import invenio.legacy.template
+websubmit_templates = invenio.legacy.template.load('websubmit')
 
 CFG_WEBSUBMIT_PENDING_DIR = "%s/pending" % CFG_WEBSUBMIT_STORAGEDIR
 CFG_WEBSUBMIT_DUMMY_MARC_XML_REC = "dummy_marcxml_rec"

@@ -107,8 +107,8 @@ from invenio.bibdocfile import BibRecDocs, InvenioBibDocFileError
 
 from invenio.crossrefutils import get_marcxml_for_doi, CrossrefError
 
-import invenio.template
-bibedit_templates = invenio.template.load('bibedit')
+import invenio.legacy.template
+bibedit_templates = invenio.legacy.template.load('bibedit')
 
 re_revdate_split = re.compile('^(\d\d\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)')
 

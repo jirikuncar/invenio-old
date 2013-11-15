@@ -453,8 +453,8 @@ class BibDocFilesTest(InvenioTestCase):
         #check
         self.assertEqual(my_new_bibdocfile.check(), True)
         #display
-        import invenio.template
-        tmpl = invenio.template.load("bibdocfile")
+        import invenio.legacy.template
+        tmpl = invenio.legacy.template.load("bibdocfile")
         value = tmpl.tmpl_display_bibdocfile(my_new_bibdocfile, ln='en')
         assert 'files/img_test.jpg?version=1">' in value
         #hidden?

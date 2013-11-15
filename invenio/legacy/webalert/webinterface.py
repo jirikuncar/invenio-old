@@ -33,8 +33,8 @@ from invenio.ext.logging import register_exception
 from invenio.legacy.webuser import collect_user_info
 
 from invenio.base.i18n import gettext_set_language
-import invenio.template
-webalert_templates = invenio.template.load('webalert')
+import invenio.legacy.template
+webalert_templates = invenio.legacy.template.load('webalert')
 
 class WebInterfaceYourAlertsPages(WebInterfaceDirectory):
     """Defines the set of /youralerts pages."""

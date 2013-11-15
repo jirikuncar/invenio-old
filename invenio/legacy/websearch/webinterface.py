@@ -136,8 +136,8 @@ from invenio.legacy.bibdocfile.webinterface import WebInterfaceManageDocFilesPag
 from invenio.search_engine import get_record
 from invenio.utils.shell import mymkdir
 
-import invenio.template
-websearch_templates = invenio.template.load('websearch')
+import invenio.legacy.template
+websearch_templates = invenio.legacy.template.load('websearch')
 
 search_results_default_urlargd = websearch_templates.search_results_default_urlargd
 search_interface_default_urlargd = websearch_templates.search_interface_default_urlargd

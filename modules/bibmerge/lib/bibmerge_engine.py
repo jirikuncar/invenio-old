@@ -40,8 +40,8 @@ from invenio.legacy.bibrecord import create_record, record_xml_output, record_ad
                               record_order_subfields
 from invenio.bibedit_config import CFG_BIBEDIT_TO_MERGE_SUFFIX
 
-import invenio.template
-bibmerge_templates = invenio.template.load('bibmerge')
+import invenio.legacy.template
+bibmerge_templates = invenio.legacy.template.load('bibmerge')
 
 def perform_request_init():
     """Handle the initial request.

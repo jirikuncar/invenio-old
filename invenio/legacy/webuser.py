@@ -82,8 +82,8 @@ from invenio.access_control_config import CFG_EXTERNAL_AUTHENTICATION, \
     CFG_WEBACCESS_MSGS, CFG_WEBACCESS_WARNING_MSGS, CFG_EXTERNAL_AUTH_DEFAULT, \
     CFG_TEMP_EMAIL_ADDRESS
 from invenio.webuser_config import CFG_WEBUSER_USER_TABLES
-import invenio.template
-tmpl = invenio.template.load('websession')
+import invenio.legacy.template
+tmpl = invenio.legacy.template.load('websession')
 
 re_invalid_nickname = re.compile(""".*[,'@]+.*""")
 

@@ -498,7 +498,7 @@ def generate_error_page(req, admin_was_alerted=True, page_already_started=False)
     Returns an iterable with the error page to be sent to the user browser.
     """
     from invenio.webpage import page
-    from invenio import template
+    from invenio.legacy import template
     webstyle_templates = template.load('webstyle')
     ln = req.form.get('ln', CFG_SITE_LANG)
     if page_already_started:
