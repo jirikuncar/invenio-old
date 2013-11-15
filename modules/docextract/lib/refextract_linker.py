@@ -17,7 +17,7 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-from invenio.bibrank_citation_indexer import INTBITSET_OF_DELETED_RECORDS
+from invenio.legacy.bibrank.citation_indexer import INTBITSET_OF_DELETED_RECORDS
 from invenio.bibindex_engine import CFG_JOURNAL_PUBINFO_STANDARD_FORM
 from invenio.legacy.search_engine import search_pattern
 

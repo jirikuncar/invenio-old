@@ -4535,7 +4535,7 @@ class WebSearchPerformRequestSearchRefactoringTest(InvenioTestCase):
         # FIXME_TICKET_1174
         # self._run_test('p=el*;rm=citation', [2, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 23, 30, 32, 34, 47, 48, 51, 52, 54, 56, 58, 59, 92, 97, 100, 103, 18, 74, 91, 94, 81])
 
-        from invenio.bibrank_bridge_utils import get_external_word_similarity_ranker
+        from invenio.legacy.bibrank.bridge_utils import get_external_word_similarity_ranker
 
         if not get_external_word_similarity_ranker():
             self._run_test('p=el*;rm=wrd', [2, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 23, 30, 32, 34, 47, 48, 51, 52, 54, 56, 58, 59, 74, 81, 91, 92, 94, 97, 100, 103, 109])

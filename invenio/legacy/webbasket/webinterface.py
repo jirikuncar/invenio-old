@@ -30,7 +30,7 @@ from invenio.config import CFG_SITE_SECURE_URL, \
                            CFG_WEBSESSION_DIFFERENTIATE_BETWEEN_GUESTS, \
                            CFG_SITE_SECURE_URL, CFG_PREFIX, CFG_SITE_LANG
 from invenio.base.i18n import gettext_set_language
-from invenio.webpage import page
+from invenio.legacy.webpage import page
 from invenio.legacy.webuser import getUid, page_not_authorized, isGuestUser
 from invenio.webbasket import \
      check_user_can_comment, \

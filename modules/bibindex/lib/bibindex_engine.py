@@ -68,7 +68,7 @@ from invenio.utils.html import get_links_in_html_page
 from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.solrutils_bibindex_indexer import solr_add_fulltext, solr_commit
 from invenio.xapianutils_bibindex_indexer import xapian_add
-from invenio.bibrankadminlib import get_def_name
+from invenio.legacy.bibrank.adminlib import get_def_name
 
 
 if sys.hexversion < 0x2040000:

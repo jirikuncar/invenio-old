@@ -41,7 +41,7 @@ from invenio.utils import apache
 from invenio.legacy.dbquery import run_sql
 from invenio.modules.access.engine import acc_authorize_action
 from invenio.modules.access.control import acc_is_role
-from invenio.webpage import warning_page
+from invenio.legacy.webpage import warning_page
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, \
                             isGuestUser
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory

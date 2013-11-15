@@ -100,7 +100,7 @@ class SelfCitesOtherTests(InvenioTestCase):
             """
             Check that it's fetching collaborations
             """
-            from invenio.bibrank_selfcites_indexer import get_collaborations_from_record
+            from invenio.legacy.bibrank.selfcites_indexer import get_collaborations_from_record
 
             tags = get_author_tags_mock()
             collaborations = get_collaborations_from_record(2, tags)
@@ -119,7 +119,7 @@ class SelfCitesOtherTests(InvenioTestCase):
 
             see document graph up in this file
             """
-            from invenio.bibrank_selfcites_indexer import compute_self_citations
+            from invenio.legacy.bibrank.selfcites_indexer import compute_self_citations
             tags = get_author_tags_mock()
             self_citations = compute_self_citations(1, tags, get_record_coauthors_mock)
             self.assertEqual(self_citations, set())
@@ -136,7 +136,7 @@ class SelfCitesOtherTests(InvenioTestCase):
             1 has a self-citation
             see document graph up in this file
             """
-            from invenio.bibrank_selfcites_indexer import compute_self_citations
+            from invenio.legacy.bibrank.selfcites_indexer import compute_self_citations
 
             tags = get_author_tags_mock()
             self_citations = compute_self_citations(1, tags, get_record_coauthors_mock)
@@ -155,7 +155,7 @@ class SelfCitesOtherTests(InvenioTestCase):
 
             see document graph up in this file
             """
-            from invenio.bibrank_selfcites_indexer import compute_self_citations
+            from invenio.legacy.bibrank.selfcites_indexer import compute_self_citations
             tags = get_author_tags_mock()
             total_citations = compute_self_citations(1, tags, get_record_coauthors_mock)
             self.assertEqual(total_citations, set([1, 2, 3]))

@@ -36,8 +36,8 @@ try:
     from invenio.intbitset import intbitset
     from invenio.legacy.search_engine import perform_request_search, search_pattern
     from invenio.legacy.search_engine import print_record
-    from invenio.bibrank_citation_searcher import get_cited_by
-    from invenio.bibrank_citation_indexer import get_bibrankmethod_lastupdate
+    from invenio.legacy.bibrank.citation_searcher import get_cited_by
+    from invenio.legacy.bibrank.citation_indexer import get_bibrankmethod_lastupdate
     from invenio.modules.formatter import format_record
     from invenio.modules.formatter.config import CFG_BIBFORMAT_USE_OLD_BIBFORMAT
     from invenio.utils.shell import split_cli_ids_arg

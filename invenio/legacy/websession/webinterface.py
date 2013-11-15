@@ -42,7 +42,7 @@ from invenio.config import \
      CFG_WEBSESSION_RESET_PASSWORD_EXPIRE_IN_DAYS, \
      CFG_OPENAIRE_SITE
 from invenio.legacy import webuser
-from invenio.webpage import page
+from invenio.legacy.webpage import page
 from invenio import webaccount
 from invenio import webbasket
 from invenio import webalert

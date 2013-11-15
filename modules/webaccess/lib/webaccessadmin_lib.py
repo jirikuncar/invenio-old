@@ -43,13 +43,13 @@ from invenio.config import \
 import invenio.modules.access.engine as acce
 import invenio.access_control_admin as acca
 from invenio.ext.email import send_email
-from invenio.bibrankadminlib import addadminbox, tupletotable, \
+from invenio.legacy.bibrank.adminlib import addadminbox, tupletotable, \
         tupletotable_onlyselected, addcheckboxes, createhiddenform
 from invenio.modules.access.firerole import compile_role_definition, \
     serialize
 from invenio.base.i18n import gettext_set_language
 from invenio.legacy.dbquery import run_sql, OperationalError, wash_table_column_name
-from invenio.webpage import page
+from invenio.legacy.webpage import page
 from invenio.legacy.webuser import getUid, isGuestUser, page_not_authorized, collect_user_info
 from invenio.legacy.webuser import email_valid_p, get_user_preferences, \
     set_user_preferences, update_Uid

@@ -92,8 +92,8 @@ from invenio.modules.search.errors import \
      InvenioWebSearchWildcardLimitError
 from invenio.legacy.bibrecord import get_fieldvalues, get_fieldvalues_alephseq_like
 from invenio.legacy.bibrecord import create_record, record_xml_output
-from invenio.bibrank_record_sorter import get_bibrank_methods, is_method_valid, rank_records as rank_records_bibrank
-from invenio.bibrank_downloads_similarity import register_page_view_event, calculate_reading_similarity_list
+from invenio.legacy.bibrank.record_sorter import get_bibrank_methods, is_method_valid, rank_records as rank_records_bibrank
+from invenio.legacy.bibrank.downloads_similarity import register_page_view_event, calculate_reading_similarity_list
 from invenio.bibindex_engine_stemmer import stem
 from invenio.bibindex_engine_tokenizer import wash_author_name, author_name_requires_phrase_search, \
      BibIndexPairTokenizer
@@ -101,7 +101,7 @@ from invenio.bibindex_engine_washer import wash_index_term, lower_index_term, wa
 from invenio.bibindexadminlib import get_idx_indexer
 from invenio.modules.formatter import format_record, format_records, get_output_format_content_type, create_excel
 from invenio.modules.formatter.config import CFG_BIBFORMAT_USE_OLD_BIBFORMAT
-from invenio.bibrank_downloads_grapher import create_download_history_graph_and_box
+from invenio.legacy.bibrank.downloads_grapher import create_download_history_graph_and_box
 from invenio.modules.knowledge.api import get_kbr_values
 from invenio.data_cacher import DataCacher
 from invenio.websearch_external_collections import print_external_results_overview, perform_external_collection_search
@@ -123,16 +123,16 @@ import invenio.legacy.template
 webstyle_templates = invenio.legacy.template.load('webstyle')
 webcomment_templates = invenio.legacy.template.load('webcomment')
 
-from invenio.bibrank_citation_searcher import calculate_cited_by_list, \
+from invenio.legacy.bibrank.citation_searcher import calculate_cited_by_list, \
     calculate_co_cited_with_list, get_records_with_num_cites, get_self_cited_by, \
     get_refersto_hitset, get_citedby_hitset
-from invenio.bibrank_citation_grapher import create_citation_history_graph_and_box
+from invenio.legacy.bibrank.citation_grapher import create_citation_history_graph_and_box
 
 
 from invenio.legacy.dbquery import run_sql, run_sql_with_limit, wash_table_column_name, \
                             get_table_update_time
 from invenio.legacy.webuser import getUid, collect_user_info, session_param_set
-from invenio.webpage import pageheaderonly, pagefooteronly, create_error_box, write_warning
+from invenio.legacy.webpage import pageheaderonly, pagefooteronly, create_error_box, write_warning
 from invenio.base.i18n import gettext_set_language
 from invenio.legacy.search_engine.query_parser import SearchQueryParenthesisedParser, \
     SpiresToInvenioSyntaxConverter

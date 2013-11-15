@@ -95,7 +95,7 @@ from invenio.legacy.webuser import getUid, page_not_authorized, get_user_prefere
 from invenio.legacy.webcomment.webinterface import WebInterfaceCommentsPages
 from invenio.legacy.weblinkback.webinterface import WebInterfaceRecordLinkbacksPages
 from invenio.legacy.bibcirculation.webinterface import WebInterfaceHoldingsPages
-from invenio.webpage import page, pageheaderonly, create_error_box
+from invenio.legacy.webpage import page, pageheaderonly, create_error_box
 from invenio.base.i18n import gettext_set_language
 from invenio.legacy.search_engine import check_user_can_view_record, \
      collection_reclist_cache, \
@@ -125,8 +125,8 @@ from invenio.modules.formatter.engine import get_output_formats
 from invenio.websearch_webcoll import get_collection
 from invenio.intbitset import intbitset
 from invenio.bibupload import find_record_from_sysno
-from invenio.bibrank_citation_searcher import get_cited_by_list
-from invenio.bibrank_downloads_indexer import get_download_weight_total
+from invenio.legacy.bibrank.citation_searcher import get_cited_by_list
+from invenio.legacy.bibrank.downloads_indexer import get_download_weight_total
 from invenio.legacy.search_engine.summarizer import summarize_records
 from invenio.ext.logging import register_exception
 from invenio.legacy.bibedit.webinterface import WebInterfaceEditPages

@@ -35,7 +35,7 @@ from invenio.config import CFG_SITE_LANG, CFG_SITE_SECURE_URL, CFG_SITE_RECORD
 from invenio.base.i18n import gettext_set_language
 from invenio.utils.url import redirect_to_url
 from invenio.ext.legacy.handler import WebInterfaceDirectory, wash_urlargd
-from invenio.webpage import page
+from invenio.legacy.webpage import page
 from invenio.legacy.webuser import page_not_authorized
 
 navtrail = (' <a class="navtrail" href=\"%s/help/admin\">Admin Area</a> '

@@ -47,7 +47,7 @@ from invenio.config import \
 from invenio.legacy.dbquery import run_sql, Error, OperationalError
 from invenio.modules.access.engine import acc_authorize_action
 from invenio.modules.access.control import acc_get_role_users, acc_get_role_id
-from invenio.webpage import page, error_page
+from invenio.legacy.webpage import page, error_page
 from invenio.legacy.webuser import getUid, get_email, page_not_authorized, collect_user_info
 from invenio.base.i18n import gettext_set_language, wash_language
 #from invenio.legacy.websubmit.config import *

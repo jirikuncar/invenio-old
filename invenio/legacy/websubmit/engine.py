@@ -43,7 +43,7 @@ from invenio.config import \
 
 from invenio.legacy.dbquery import Error
 from invenio.modules.access.engine import acc_authorize_action
-from invenio.webpage import page, error_page, warning_page
+from invenio.legacy.webpage import page, error_page, warning_page
 from invenio.legacy.webuser import getUid, get_email, collect_user_info, isGuestUser, \
                             page_not_authorized
 from invenio.legacy.websubmit.config import CFG_RESERVED_SUBMISSION_FILENAMES, \

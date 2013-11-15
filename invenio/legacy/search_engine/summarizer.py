@@ -28,8 +28,8 @@ __revision__ = "$Id$"
 
 
 from invenio.config import CFG_INSPIRE_SITE
-from invenio.bibrank_citation_searcher import get_cited_by_list
-from invenio.bibrank_selfcites_indexer import get_self_citations_count
+from invenio.legacy.bibrank.citation_searcher import get_cited_by_list
+from invenio.legacy.bibrank.selfcites_indexer import get_self_citations_count
 from StringIO import StringIO
 
 from invenio.legacy.search_engine import search_pattern, perform_request_search

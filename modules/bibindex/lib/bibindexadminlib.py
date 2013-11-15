@@ -25,7 +25,7 @@ from invenio.config import \
      CFG_SITE_LANG, \
      CFG_SITE_URL, \
      CFG_BINDIR
-from invenio.bibrankadminlib import write_outcome, modify_translations, \
+from invenio.legacy.bibrank.adminlib import write_outcome, modify_translations, \
         get_def_name, get_name, get_languages, addadminbox, tupletotable, \
         createhiddenform
 from invenio.modules.access.engine import acc_authorize_action

@@ -34,10 +34,10 @@ from invenio.bibauthorid_webauthorprofileinterface import get_papers_by_person_i
 from invenio.webauthorprofile_dbapi import get_cached_element, precache_element, cache_element, \
     expire_all_cache_for_person, get_expired_person_ids, get_cache_oldest_date
 from invenio.legacy.search_engine.summarizer import summarize_records
-from invenio.bibrank_citation_searcher import get_cited_by_list as real_get_cited_by_list
+from invenio.legacy.bibrank.citation_searcher import get_cited_by_list as real_get_cited_by_list
 from invenio.legacy.search_engine import get_most_popular_field_values
 from invenio.legacy.search_engine import perform_request_search
-from invenio.bibrank_downloads_indexer import get_download_weight_total
+from invenio.legacy.bibrank.downloads_indexer import get_download_weight_total
 from invenio.intbitset import intbitset
 from invenio.modules.formatter import format_record, format_records
 

@@ -40,7 +40,7 @@ from invenio.modules.access.control import \
      acc_get_action_id, \
      acc_get_all_roles, \
      acc_get_role_users
-from invenio.webpage import page, error_page
+from invenio.legacy.webpage import page, error_page
 from invenio.legacy.webuser import getUid, list_registered_users, page_not_authorized
 from invenio.base.i18n import wash_language
 

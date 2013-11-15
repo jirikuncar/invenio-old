@@ -37,7 +37,7 @@ from invenio.modules.access.local_config import VIEWRESTRCOLL
 from invenio.modules.access.mailcookie import mail_cookie_create_authorize_action
 from invenio.modules.access.engine import acc_authorize_action
 from invenio.modules.access.control import acc_is_role
-from invenio.webpage import page, pageheaderonly, \
+from invenio.legacy.webpage import page, pageheaderonly, \
     pagefooteronly, warning_page, write_warning
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info, isUserSuperAdmin, \
                             isGuestUser

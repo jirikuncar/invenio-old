@@ -45,7 +45,7 @@ from invenio.config import \
 from invenio.base.i18n import gettext_set_language, language_list_long
 from invenio.legacy.search_engine import search_pattern_parenthesised, get_creation_date, get_field_i18nname, collection_restricted_p, sort_records, EM_REPOSITORY
 from invenio.legacy.dbquery import run_sql, Error, get_table_update_time
-from invenio.bibrank_record_sorter import get_bibrank_methods
+from invenio.legacy.bibrank.record_sorter import get_bibrank_methods
 from invenio.utils.date import convert_datestruct_to_dategui, strftime
 from invenio.modules.formatter import format_record
 from invenio.utils.shell import mymkdir

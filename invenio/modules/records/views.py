@@ -149,7 +149,7 @@ def request_record(f):
 @wash_arguments({'of': (unicode, 'hd')})
 @request_record
 def metadata(recid, of='hd'):
-    from invenio.bibrank_downloads_similarity import register_page_view_event
+    from invenio.legacy.bibrank.downloads_similarity import register_page_view_event
     from invenio.modules.formatter import get_output_format_content_type
     register_page_view_event(recid, current_user.get_id(), str(request.remote_addr))
     if get_output_format_content_type(of) != 'text/html':
@@ -180,7 +180,7 @@ def files(recid):
 @blueprint.route('/<int:recid>/citations', methods=['GET', 'POST'])
 @request_record
 def citations(recid):
-    from invenio.bibrank_citation_searcher import calculate_cited_by_list,\
+    from invenio.legacy.bibrank.citation_searcher import calculate_cited_by_list,\
         get_self_cited_by, calculate_co_cited_with_list
     citations = dict(
         citinglist=calculate_cited_by_list(recid),
@@ -205,8 +205,8 @@ def keywords(recid):
 @blueprint.route('/<int:recid>/usage', methods=['GET', 'POST'])
 @request_record
 def usage(recid):
-    from invenio.bibrank_downloads_similarity import calculate_reading_similarity_list
-    from invenio.bibrank_downloads_grapher import create_download_history_graph_and_box
+    from invenio.legacy.bibrank.downloads_similarity import calculate_reading_similarity_list
+    from invenio.legacy.bibrank.downloads_grapher import create_download_history_graph_and_box
     viewsimilarity = calculate_reading_similarity_list(recid, "pageviews")
     downloadsimilarity = calculate_reading_similarity_list(recid, "downloads")
     downloadgraph = create_download_history_graph_and_box(recid)

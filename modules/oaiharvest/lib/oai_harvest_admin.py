@@ -38,7 +38,7 @@ from invenio.config import \
      CFG_LOGDIR, \
      CFG_SITE_RECORD
 from invenio.oai_harvest_config import CFG_OAI_POSSIBLE_POSTMODES
-from invenio.bibrankadminlib import \
+from invenio.legacy.bibrank.adminlib import \
      write_outcome, \
      addadminbox, \
      tupletotable, \

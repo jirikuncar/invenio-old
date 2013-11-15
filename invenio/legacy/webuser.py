@@ -119,7 +119,7 @@ def page_not_authorized(req, referer='', uid='', text='', navtrail='', ln=CFG_SI
     guessed from the context.
     """
 
-    from invenio.webpage import page
+    from invenio.legacy.webpage import page
 
     _ = gettext_set_language(ln)
 

@@ -34,7 +34,7 @@ from invenio.bibsword_client import perform_display_sub_status, \
                                     perform_submit_record, \
                                     perform_display_server_infos, \
                                     list_remote_servers
-from invenio.webpage import page
+from invenio.legacy.webpage import page
 from invenio.base.i18n import gettext_set_language
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.legacy.websubmit.functions.Get_Recid import \

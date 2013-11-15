@@ -40,7 +40,7 @@ from invenio.bibauthorid_config import AID_ENABLED, CLAIMPAPER_ADMIN_ROLE, CLAIM
 
 from invenio.config import CFG_SITE_LANG, CFG_SITE_URL, CFG_SITE_NAME, CFG_INSPIRE_SITE #, CFG_SITE_SECURE_URL
 
-from invenio.webpage import page, pageheaderonly, pagefooteronly
+from invenio.legacy.webpage import page, pageheaderonly, pagefooteronly
 from invenio.base.i18n import gettext_set_language #, wash_language
 from invenio.template import load
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory

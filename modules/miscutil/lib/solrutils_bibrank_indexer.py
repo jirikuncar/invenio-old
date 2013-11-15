@@ -32,7 +32,7 @@ from invenio.bibdocfile import BibRecDocs
 from invenio.solrutils_bibindex_indexer import replace_invalid_solr_characters
 from invenio.bibindex_engine import create_range_list
 from invenio.ext.logging import register_exception
-from invenio.bibrank_bridge_utils import get_tags, get_field_content_in_utf8
+from invenio.legacy.bibrank.bridge_utils import get_tags, get_field_content_in_utf8
 
 
 if CFG_SOLR_URL:

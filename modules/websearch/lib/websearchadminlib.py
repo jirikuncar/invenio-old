@@ -44,7 +44,7 @@ from invenio.config import \
      CFG_BIBRANK_SHOW_CITATION_LINKS, \
      CFG_INSPIRE_SITE, \
      CFG_CERN_SITE
-from invenio.bibrankadminlib import \
+from invenio.legacy.bibrank.adminlib import \
      write_outcome, \
      modify_translations, \
      get_def_name, \
@@ -69,12 +69,12 @@ from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTIO
 #from invenio.modules.formatter.engine import BibFormatObject
 from invenio.bibdocfile import BibRecDocs
 from invenio.base.i18n import gettext_set_language
-#from invenio.bibrank_citation_searcher import get_cited_by
+#from invenio.legacy.bibrank.citation_searcher import get_cited_by
 from invenio.modules.access.control import acc_get_action_id
 from invenio.modules.access.local_config import VIEWRESTRCOLL
 from invenio.ext.logging import register_exception
 from invenio.intbitset import intbitset
-from invenio.bibrank_citation_searcher import get_cited_by_count
+from invenio.legacy.bibrank.citation_searcher import get_cited_by_count
 from invenio.legacy.bibrecord import record_get_field_instances
 
 def getnavtrail(previous = ''):

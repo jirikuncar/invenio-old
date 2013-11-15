@@ -31,7 +31,7 @@ from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.apache import SERVER_RETURN, HTTP_NOT_FOUND
 from invenio.legacy.wsgi.utils import handle_file_post
 from invenio.legacy.webuser import getUid, page_not_authorized, get_email
-from invenio.webpage import page
+from invenio.legacy.webpage import page
 
 from invenio.batchuploader_engine import metadata_upload, cli_upload, \
      get_user_metadata_uploads, get_user_document_uploads, document_upload, \
