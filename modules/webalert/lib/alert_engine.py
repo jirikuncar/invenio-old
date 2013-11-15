@@ -48,11 +48,11 @@ from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
 from invenio.alert_engine_config import CFG_WEBALERT_DEBUG_LEVEL
 
-from invenio.websearch_external_collections_config import \
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import \
 CFG_EXTERNAL_COLLECTION_TIMEOUT, \
 CFG_EXTERNAL_COLLECTION_MAXRESULTS_ALERTS
-from invenio.websearch_external_collections_getter import HTTPAsyncPageGetter, async_download
-from invenio.websearch_external_collections_utils import get_collection_id
+from invenio.legacy.websearch_external_collections.websearch_external_collections_getter import HTTPAsyncPageGetter, async_download
+from invenio.legacy.websearch_external_collections.websearch_external_collections_utils import get_collection_id
 
 import invenio.legacy.template
 websearch_templates = invenio.legacy.template.load('websearch')
@@ -490,8 +490,8 @@ def calculate_external_search_params(pattern_list, field, hosted_colls):
     Also returns a set of hosted collections engines."""
 
     from invenio.legacy.search_engine import create_basic_search_units
-    from invenio.websearch_external_collections import bind_patterns
-    from invenio.websearch_external_collections import select_hosted_search_engines as select_external_search_engines
+    from invenio.legacy.websearch_external_collections import bind_patterns
+    from invenio.legacy.websearch_external_collections import select_hosted_search_engines as select_external_search_engines
 
     pattern = bind_patterns(pattern_list)
     basic_search_units = create_basic_search_units(None, pattern, field)

@@ -56,15 +56,15 @@ from invenio.legacy.bibrank.adminlib import \
 from invenio.legacy.dbquery import \
      run_sql, \
      get_table_update_time
-from invenio.websearch_external_collections import \
+from invenio.legacy.websearch_external_collections import \
      external_collections_dictionary, \
      external_collection_sort_engine_by_name, \
      external_collection_get_state, \
      external_collection_get_update_state_list, \
      external_collection_apply_changes
-from invenio.websearch_external_collections_utils import \
+from invenio.legacy.websearch_external_collections.websearch_external_collections_utils import \
      get_collection_descendants
-from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_STATES_NAME
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_STATES_NAME
 #from invenio.modules.formatter.format_elements import bfe_references
 #from invenio.modules.formatter.engine import BibFormatObject
 from invenio.bibdocfile import BibRecDocs

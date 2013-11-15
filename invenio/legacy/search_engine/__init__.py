@@ -104,7 +104,7 @@ from invenio.modules.formatter.config import CFG_BIBFORMAT_USE_OLD_BIBFORMAT
 from invenio.legacy.bibrank.downloads_grapher import create_download_history_graph_and_box
 from invenio.modules.knowledge.api import get_kbr_values
 from invenio.legacy.miscutil.data_cacher import DataCacher
-from invenio.websearch_external_collections import print_external_results_overview, perform_external_collection_search
+from invenio.legacy.websearch_external_collections import print_external_results_overview, perform_external_collection_search
 from invenio.modules.access.control import acc_get_action_id
 from invenio.modules.access.local_config import VIEWRESTRCOLL, \
     CFG_ACC_GRANT_AUTHOR_RIGHTS_TO_EMAILS_IN_TAGS, \
@@ -148,10 +148,10 @@ try:
 except:
     pass
 
-from invenio.websearch_external_collections import calculate_hosted_collections_results, do_calculate_hosted_collections_results
-from invenio.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_ANTE_SEARCH
-from invenio.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_POST_SEARCH
-from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_MAXRESULTS
+from invenio.legacy.websearch_external_collections import calculate_hosted_collections_results, do_calculate_hosted_collections_results
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_ANTE_SEARCH
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_POST_SEARCH
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_MAXRESULTS
 
 VIEWRESTRCOLL_ID = acc_get_action_id(VIEWRESTRCOLL)
 

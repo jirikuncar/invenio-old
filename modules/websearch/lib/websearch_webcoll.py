@@ -50,7 +50,7 @@ from invenio.utils.date import convert_datestruct_to_dategui, strftime
 from invenio.modules.formatter import format_record
 from invenio.utils.shell import mymkdir
 from invenio.intbitset import intbitset
-from invenio.websearch_external_collections import \
+from invenio.legacy.websearch_external_collections import \
      external_collection_load_states, \
      dico_collection_external_searches, \
      external_collection_sort_engine_by_name
@@ -60,9 +60,9 @@ from invenio.bibtask import task_init, task_get_option, task_set_option, \
 import invenio.legacy.template
 websearch_templates = invenio.legacy.template.load('websearch')
 
-from invenio.websearch_external_collections_searcher import external_collections_dictionary
-from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_TIMEOUT
-from invenio.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_NBRECS
+from invenio.legacy.websearch_external_collections.websearch_external_collections_searcher import external_collections_dictionary
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_TIMEOUT
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_HOSTED_COLLECTION_TIMEOUT_NBRECS
 
 from invenio.base.signals import webcoll_after_webpage_cache_update
 

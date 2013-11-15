@@ -62,10 +62,10 @@ try:
     webbasket_templates = invenio.legacy.template.load('webbasket')
 except ImportError:
     pass
-from invenio.websearch_external_collections_utils import get_collection_name_by_id
-from invenio.websearch_external_collections import select_hosted_search_engines
-from invenio.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_TIMEOUT
-from invenio.websearch_external_collections_getter import HTTPAsyncPageGetter, async_download
+from invenio.legacy.websearch_external_collections.websearch_external_collections_utils import get_collection_name_by_id
+from invenio.legacy.websearch_external_collections import select_hosted_search_engines
+from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_TIMEOUT
+from invenio.legacy.websearch_external_collections.websearch_external_collections_getter import HTTPAsyncPageGetter, async_download
 from invenio.ext.logging import register_exception
 from invenio.legacy.search_engine import search_unit
 from invenio.utils.html import remove_html_markup, unescape
