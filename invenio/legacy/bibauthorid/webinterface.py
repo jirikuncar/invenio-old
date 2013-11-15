@@ -50,7 +50,7 @@ from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_inf
                             isUserSuperAdmin
 from invenio.access_control_admin import acc_find_user_role_actions, acc_get_user_roles, acc_get_role_id
 from invenio.search_engine import perform_request_search
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 
 import invenio.bibauthorid_webapi as webapi
 from invenio.bibauthorid_frontinterface import get_bibrefrec_name_string

@@ -115,7 +115,7 @@ from invenio.search_engine import check_user_can_view_record, \
      get_coll_normalised_name, \
      EM_REPOSITORY
 from invenio.websearch_webcoll import perform_display_collection
-from invenio.search_engine_utils import get_fieldvalues, \
+from invenio.legacy.bibrecord import get_fieldvalues, \
      get_fieldvalues_alephseq_like
 from invenio.access_control_engine import acc_authorize_action
 from invenio.access_control_config import VIEWRESTRCOLL

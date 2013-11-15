@@ -91,7 +91,7 @@ from invenio.config import \
 from invenio.modules.search.errors import \
      InvenioWebSearchUnknownCollectionError, \
      InvenioWebSearchWildcardLimitError
-from invenio.search_engine_utils import get_fieldvalues, get_fieldvalues_alephseq_like
+from invenio.legacy.bibrecord import get_fieldvalues, get_fieldvalues_alephseq_like
 from invenio.legacy.bibrecord import create_record, record_xml_output
 from invenio.bibrank_record_sorter import get_bibrank_methods, is_method_valid, rank_records as rank_records_bibrank
 from invenio.bibrank_downloads_similarity import register_page_view_event, calculate_reading_similarity_list
@@ -115,6 +115,7 @@ from invenio.intbitset import intbitset
 from invenio.legacy.dbquery import DatabaseError, deserialize_via_marshal, InvenioDbQueryWildcardLimitError
 from invenio.access_control_engine import acc_authorize_action
 from invenio.ext.logging import register_exception
+from invenio.ext.cache import cache
 from invenio.utils.text import encode_for_xml, wash_for_utf8, strip_accents
 from invenio.utils.html import get_mathjax_header
 from invenio.utils.html import nmtoken_from_string
@@ -6567,3 +6568,17 @@ def perform_external_collection_search_with_em(req, current_collection, pattern_
                             print_search_info=em == "" or EM_REPOSITORY["search_info"] in em,
                             print_see_also_box=em == "" or EM_REPOSITORY["see_also_box"] in em,
                             print_body=em == "" or EM_REPOSITORY["body"] in em)
+
+@cache.memoize(timeout=5)
+def get_fulltext_terms_from_search_pattern(search_pattern):
+    keywords = []
+    if search_pattern is not None:
+        for unit in create_basic_search_units(None, search_pattern.encode('utf-8'), None):
+            bsu_o, bsu_p, bsu_f, bsu_m = unit[0], unit[1], unit[2], unit[3]
+            if (bsu_o != '-' and bsu_f in [None, 'fulltext']):
+                if bsu_m == 'a' and bsu_p.startswith('%') and bsu_p.endswith('%'):
+                    # remove leading and training `%' representing partial phrase search
+                    keywords.append(bsu_p[1:-1])
+                else:
+                    keywords.append(bsu_p)
+    return keywords

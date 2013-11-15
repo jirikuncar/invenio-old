@@ -27,7 +27,7 @@ from invenio.bibmerge_merger import merge_field_group, replace_field, \
                                     delete_subfield, copy_R2_to_R1, merge_record
 from invenio.search_engine import print_record, perform_request_search, \
         record_exists
-from invenio.search_engine_utils import get_fieldvalues
+from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.bibedit_utils import cache_exists, cache_expired, \
     create_cache_file, delete_cache_file, get_cache_file_contents, \
     get_cache_mtime, latest_record_revision, record_locked_by_other_user, \
