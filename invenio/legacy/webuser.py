@@ -76,12 +76,12 @@ from invenio.modules.access.local_config import SUPERADMINROLE, CFG_EXTERNAL_AUT
 from invenio.base.i18n import gettext_set_language, wash_languages, wash_language
 from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
-from invenio.webgroup_dblayer import get_groups
-from invenio.external_authentication import InvenioWebAccessExternalAuthError
+from invenio.legacy.websession.dblayer import get_groups
+from invenio.modules.access.external_authentication import InvenioWebAccessExternalAuthError
 from invenio.modules.access.local_config import CFG_EXTERNAL_AUTHENTICATION, \
     CFG_WEBACCESS_MSGS, CFG_WEBACCESS_WARNING_MSGS, CFG_EXTERNAL_AUTH_DEFAULT, \
     CFG_TEMP_EMAIL_ADDRESS
-from invenio.webuser_config import CFG_WEBUSER_USER_TABLES
+from invenio.legacy.websession.webuser_config import CFG_WEBUSER_USER_TABLES
 import invenio.legacy.template
 tmpl = invenio.legacy.template.load('websession')
 

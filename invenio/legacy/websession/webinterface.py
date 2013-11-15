@@ -752,7 +752,7 @@ class WebInterfaceYourAccountPages(WebInterfaceDirectory):
         """
         Implement authentication method for external service providers.
         """
-        from invenio.external_authentication import InvenioWebAccessExternalAuthError
+        from invenio.modules.access.external_authentication import InvenioWebAccessExternalAuthError
         args = wash_urlargd(form, {
             'login_method': (str, None),
             'remember_me' : (str, ''),

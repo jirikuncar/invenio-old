@@ -44,7 +44,7 @@ from invenio.utils.url import make_canonical_urlargd, create_url, create_html_li
 from invenio.utils.html import escape_html, nmtoken_from_string
 from invenio.base.i18n import gettext_set_language, language_list_long
 from invenio.modules.apikeys.models import WebAPIKey
-from invenio.websession_config import CFG_WEBSESSION_GROUP_JOIN_POLICY
+from invenio.legacy.websession.websession_config import CFG_WEBSESSION_GROUP_JOIN_POLICY
 
 
 class Template:
@@ -2743,9 +2743,9 @@ type="text" name="identifier" value="" >
         """
         Template for external login buttons
         """
-        from invenio.websession_config import CFG_EXTERNAL_LOGIN_LARGE
-        from invenio.websession_config import CFG_EXTERNAL_LOGIN_BUTTON_ORDER
-        from invenio.websession_config import CFG_EXTERNAL_LOGIN_FORM_LABELS
+        from invenio.legacy.websession.websession_config import CFG_EXTERNAL_LOGIN_LARGE
+        from invenio.legacy.websession.websession_config import CFG_EXTERNAL_LOGIN_BUTTON_ORDER
+        from invenio.legacy.websession.websession_config import CFG_EXTERNAL_LOGIN_FORM_LABELS
         from invenio.modules.access.local_config import CFG_OPENID_CONFIGURATIONS
 
         def construct_button(provider, size, button_class):

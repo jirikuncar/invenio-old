@@ -23,7 +23,7 @@ import sys
 
 from invenio.config import CFG_SITE_LANG
 from invenio.base.i18n import gettext_set_language
-from invenio.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
+from invenio.legacy.websession.websession_config import CFG_WEBSESSION_INFO_MESSAGES, \
       CFG_WEBSESSION_USERGROUP_STATUS, \
       CFG_WEBSESSION_GROUP_JOIN_POLICY, \
       InvenioWebSessionError, \
