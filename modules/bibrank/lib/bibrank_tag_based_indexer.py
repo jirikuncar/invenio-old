@@ -30,7 +30,7 @@ from invenio.config import \
      CFG_SITE_LANG, \
      CFG_ETCDIR, \
      CFG_PREFIX
-from invenio.search_engine import perform_request_search
+from invenio.legacy.search_engine import perform_request_search
 from invenio.bibrank_citation_indexer import get_citation_weight, print_missing, get_cit_dict, insert_into_cit_db
 from invenio.bibrank_downloads_indexer import *
 from invenio.legacy.dbquery import run_sql, serialize_via_marshal, deserialize_via_marshal, \

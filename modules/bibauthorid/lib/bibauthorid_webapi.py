@@ -27,8 +27,8 @@ import invenio.bibauthorid_frontinterface as dbapi
 import invenio.bibauthorid_name_utils as nameapi
 import invenio.webauthorprofile_interface as webauthorapi
 
-import invenio.search_engine as search_engine
-from invenio.search_engine import perform_request_search
+import invenio.legacy.search_engine as search_engine
+from invenio.legacy.search_engine import perform_request_search
 from cgi import escape
 from invenio.utils.date import strftime
 from time import gmtime, ctime

@@ -44,7 +44,7 @@ from invenio.config import CFG_SITE_NAME, \
 
 from invenio.ext.email import send_email
 from invenio.access_control_admin import acc_get_role_id, acc_get_role_users
-from invenio.search_engine import search_pattern
+from invenio.legacy.search_engine import search_pattern
 from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.legacy.dbquery import run_sql
 

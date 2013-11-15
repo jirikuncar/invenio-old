@@ -34,8 +34,8 @@ try:
          CFG_BINDIR
 
     from invenio.intbitset import intbitset
-    from invenio.search_engine import perform_request_search, search_pattern
-    from invenio.search_engine import print_record
+    from invenio.legacy.search_engine import perform_request_search, search_pattern
+    from invenio.legacy.search_engine import print_record
     from invenio.bibrank_citation_searcher import get_cited_by
     from invenio.bibrank_citation_indexer import get_bibrankmethod_lastupdate
     from invenio.modules.formatter import format_record
@@ -223,7 +223,7 @@ def check_validity_input_formats(input_formats):
     @return: if there is any invalid input format it returns this value
     @rtype: string
     """
-    from invenio.search_engine import get_available_output_formats
+    from invenio.legacy.search_engine import get_available_output_formats
     valid_formats = get_available_output_formats()
 
     # let's to extract the values of the available formats

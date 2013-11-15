@@ -49,7 +49,7 @@ from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_inf
                             email_valid_p, emailUnique, get_email_from_username, get_uid_from_email, \
                             isUserSuperAdmin
 from invenio.access_control_admin import acc_find_user_role_actions, acc_get_user_roles, acc_get_role_id
-from invenio.search_engine import perform_request_search
+from invenio.legacy.search_engine import perform_request_search
 from invenio.legacy.bibrecord import get_fieldvalues
 
 import invenio.bibauthorid_webapi as webapi

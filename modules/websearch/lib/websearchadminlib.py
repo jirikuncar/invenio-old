@@ -2477,7 +2477,7 @@ def perform_modifyrestricted(colID, ln, rest='', callback='yes', confirm=-1):
 def perform_checkcollectionstatus(colID, ln, confirm=0, callback='yes'):
     """Check the configuration of the collections."""
 
-    from invenio.search_engine import collection_restricted_p, restricted_collection_cache
+    from invenio.legacy.search_engine import collection_restricted_p, restricted_collection_cache
 
     subtitle = """<a name="11"></a>Collection Status&nbsp;&nbsp;&nbsp;[<a href="%s/help/admin/websearch-admin-guide#6">?</a>]""" % CFG_SITE_URL
     output  = ""
@@ -3478,7 +3478,7 @@ def get_detailed_page_tabs(colID=None, recID=None, ln=CFG_SITE_LANG):
             tabs['plots']['enabled'] = False
 
         if CFG_CERN_SITE:
-            from invenio.search_engine import get_collection_reclist
+            from invenio.legacy.search_engine import get_collection_reclist
             if recID in get_collection_reclist("Books & Proceedings"):
                 tabs['holdings']['visible'] = True
                 tabs['holdings']['enabled'] = True
@@ -3509,7 +3509,7 @@ def get_detailed_page_tabs_counts(recID):
                    'Comments' : 0,
                    'Reviews' : 0
                    }
-    from invenio.search_engine import get_field_tags, get_record
+    from invenio.legacy.search_engine import get_field_tags, get_record
     if CFG_BIBRANK_SHOW_CITATION_LINKS:
         tabs_counts['Citations'] = get_cited_by_count(recID)
     if not CFG_CERN_SITE:#FIXME:should be replaced by something like CFG_SHOW_REFERENCES

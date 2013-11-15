@@ -79,7 +79,7 @@ from invenio.legacy.bibrecord import \
      print_rec
 from invenio.modules.formatter import format_record
 from invenio.bibtask import task_low_level_submission, bibtask_allocate_sequenceid
-from invenio.search_engine import get_all_collections_of_a_record
+from invenio.legacy.search_engine import get_all_collections_of_a_record
 import invenio.legacy.template
 wjt = invenio.legacy.template.load('webjournal')
 

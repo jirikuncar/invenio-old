@@ -53,7 +53,7 @@ from invenio.bibdocfile import bibdocfile_url_p, \
      download_url, guess_format_from_url, BibRecDocs, \
      decompose_bibdocfile_url
 from invenio.websubmit_file_converter import convert_file, get_file_converter_logger
-from invenio.search_engine import perform_request_search, \
+from invenio.legacy.search_engine import perform_request_search, \
      get_index_stemming_language, \
      get_synonym_terms
 from invenio.legacy.dbquery import run_sql, DatabaseError, serialize_via_marshal, \

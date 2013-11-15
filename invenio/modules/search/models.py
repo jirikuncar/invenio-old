@@ -30,7 +30,7 @@ try:
     from invenio.intbitset import intbitset
 except:
     from intbitset import intbitset
-#from invenio.search_engine import collection_restricted_p
+#from invenio.legacy.search_engine import collection_restricted_p
 from invenio.ext.sqlalchemy import db
 from sqlalchemy.orm.collections import InstrumentedList
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -204,7 +204,7 @@ class Collection(db.Model):
 
     @property
     def name_ln(self):
-        from invenio.search_engine import get_coll_i18nname
+        from invenio.legacy.search_engine import get_coll_i18nname
         return get_coll_i18nname(self.name, g.ln).decode('utf-8')
         # Another possible implementation with cache memoize
         # @cache.memoize
@@ -235,7 +235,7 @@ class Collection(db.Model):
     @property
     #@cache.memoize(make_name=lambda fname: fname + '::' + g.ln)
     def is_restricted(self):
-        from invenio.search_engine import collection_restricted_p
+        from invenio.legacy.search_engine import collection_restricted_p
         return collection_restricted_p(self.name)
 
     @property
@@ -625,7 +625,7 @@ class Field(db.Model):
 
     @property
     def name_ln(self):
-        from invenio.search_engine import get_field_i18nname
+        from invenio.legacy.search_engine import get_field_i18nname
         return get_field_i18nname(self.name, g.ln)
         #try:
         #    return db.object_session(self).query(Fieldname).\

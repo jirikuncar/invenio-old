@@ -248,7 +248,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from wtforms import TextAreaField
         from datetime import datetime
 
-        from invenio.search_engine import record_exists
+        from invenio.legacy.search_engine import record_exists
         from invenio.cache import cache
         from invenio.config import CFG_PREFIX
         from invenio.modules.workflows.models import Workflow

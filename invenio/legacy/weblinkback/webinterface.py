@@ -38,7 +38,7 @@ from invenio.config import CFG_SITE_URL, \
                            CFG_SITE_LANG, \
                            CFG_SITE_RECORD, \
                            CFG_WEBLINKBACK_TRACKBACK_ENABLED
-from invenio.search_engine import guess_primary_collection_of_a_record, \
+from invenio.legacy.search_engine import guess_primary_collection_of_a_record, \
                                   create_navtrail_links, \
                                   get_colID
 from invenio.webpage import pageheaderonly, pagefooteronly

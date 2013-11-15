@@ -51,7 +51,7 @@ from invenio.oai_harvest_dblayer import get_month_logs_size, \
      get_entry_logs_size, get_holdingpen_entries, delete_holdingpen_entry, \
      get_holdingpen_years, get_holdingpen_month, get_holdingpen_year, \
      get_holdingpen_day_fragment, get_holdingpen_entry_details
-from invenio.search_engine import get_record
+from invenio.legacy.search_engine import get_record
 
 import invenio.legacy.template
 from invenio import oai_harvest_daemon

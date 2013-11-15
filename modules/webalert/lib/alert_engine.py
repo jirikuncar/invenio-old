@@ -38,7 +38,7 @@ from invenio.config import \
      CFG_WEBALERT_MAX_NUM_OF_RECORDS_IN_ALERT_EMAIL
 from invenio.webbasket_dblayer import get_basket_owner_id, add_to_basket
 from invenio.webbasket import format_external_records
-from invenio.search_engine import perform_request_search, wash_colls, \
+from invenio.legacy.search_engine import perform_request_search, wash_colls, \
      get_coll_sons, is_hosted_collection, get_coll_normalised_name, \
      check_user_can_view_record
 from invenio.ext.legacy.handler import wash_urlargd
@@ -489,7 +489,7 @@ def calculate_external_search_params(pattern_list, field, hosted_colls):
     """Function that calculates the basic search units given the search pattern.
     Also returns a set of hosted collections engines."""
 
-    from invenio.search_engine import create_basic_search_units
+    from invenio.legacy.search_engine import create_basic_search_units
     from invenio.websearch_external_collections import bind_patterns
     from invenio.websearch_external_collections import select_hosted_search_engines as select_external_search_engines
 

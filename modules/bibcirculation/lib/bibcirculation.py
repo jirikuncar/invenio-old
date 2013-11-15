@@ -36,7 +36,7 @@ from invenio.legacy.webuser import collect_user_info
 from invenio.ext.email import send_email
 from invenio.base.i18n import gettext_set_language
 from invenio.legacy.bibrecord import record_get_field_value
-from invenio.search_engine import get_record
+from invenio.legacy.search_engine import get_record
 
 # Bibcirculation imports
 import invenio.bibcirculation_dblayer as db

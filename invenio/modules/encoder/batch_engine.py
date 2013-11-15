@@ -32,7 +32,7 @@ from invenio.bibtask import (
                              task_low_level_submission
                              )
 from invenio.bibdocfile import BibRecDocs, compose_file, compose_format, decompose_file
-from invenio.search_engine import (
+from invenio.legacy.search_engine import (
                                    record_exists,
                                    get_collection_reclist,
                                    search_pattern,

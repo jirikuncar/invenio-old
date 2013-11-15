@@ -718,7 +718,7 @@ class BibRecDocs(object):
         @return: True if the correxsponding record has been deleted.
         @rtype: bool
         """
-        from invenio.search_engine import record_exists
+        from invenio.legacy.search_engine import record_exists
         return record_exists(self.id) == -1
 
     def get_xml_8564(self):
@@ -729,7 +729,7 @@ class BibRecDocs(object):
         @return: the MARCXML representation.
         @rtype: string
         """
-        from invenio.search_engine import get_record
+        from invenio.legacy.search_engine import get_record
         out = ''
         record = get_record(self.id)
         fields = record_get_field_instances(record, '856', '4', ' ')
@@ -2137,7 +2137,7 @@ class BibDoc(object):
         from the MARCXML stored in the database.
         """
         ## Let's get the record
-        from invenio.search_engine import get_record
+        from invenio.legacy.search_engine import get_record
         if record is None:
             record = get_record(self.id)
 

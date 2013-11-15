@@ -97,7 +97,7 @@ from invenio.legacy.weblinkback.webinterface import WebInterfaceRecordLinkbacksP
 from invenio.legacy.bibcirculation.webinterface import WebInterfaceHoldingsPages
 from invenio.webpage import page, pageheaderonly, create_error_box
 from invenio.base.i18n import gettext_set_language
-from invenio.search_engine import check_user_can_view_record, \
+from invenio.legacy.search_engine import check_user_can_view_record, \
      collection_reclist_cache, \
      collection_restricted_p, \
      create_similarly_named_authors_link_box, \
@@ -127,13 +127,13 @@ from invenio.intbitset import intbitset
 from invenio.bibupload import find_record_from_sysno
 from invenio.bibrank_citation_searcher import get_cited_by_list
 from invenio.bibrank_downloads_indexer import get_download_weight_total
-from invenio.search_engine_summarizer import summarize_records
+from invenio.legacy.search_engine.summarizer import summarize_records
 from invenio.ext.logging import register_exception
 from invenio.legacy.bibedit.webinterface import WebInterfaceEditPages
 from invenio.bibeditmulti_webinterface import WebInterfaceMultiEditPages
 from invenio.legacy.bibmerge.webinterface import WebInterfaceMergePages
 from invenio.legacy.bibdocfile.webinterface import WebInterfaceManageDocFilesPages, WebInterfaceFilesPages
-from invenio.search_engine import get_record
+from invenio.legacy.search_engine import get_record
 from invenio.utils.shell import mymkdir
 
 import invenio.legacy.template
@@ -302,7 +302,7 @@ class WebInterfaceRecordPages(WebInterfaceDirectory):
                 text=auth_msg, \
                 navmenuid='search')
 
-        from invenio.search_engine import record_exists, get_merged_recid
+        from invenio.legacy.search_engine import record_exists, get_merged_recid
         # check if the current record has been deleted
         # and has been merged, case in which the deleted record
         # will be redirect to the new one

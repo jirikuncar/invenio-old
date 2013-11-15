@@ -38,7 +38,7 @@ __revision__ = "$Id"
 
 import subprocess
 import re
-from invenio import search_engine
+import invenio.legacy.search_engine
 from invenio.legacy import bibrecord
 from invenio.modules import formatter as bibformat
 

@@ -76,7 +76,6 @@ from invenio.config import \
      CFG_SITE_LANG, \
      CFG_SITE_NAME, \
      CFG_LOGDIR, \
-     CFG_BIBFORMAT_HIDDEN_TAGS, \
      CFG_SITE_URL, \
      CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS, \
      CFG_SOLR_URL, \
@@ -135,7 +134,7 @@ from invenio.legacy.dbquery import run_sql, run_sql_with_limit, wash_table_colum
 from invenio.legacy.webuser import getUid, collect_user_info, session_param_set
 from invenio.webpage import pageheaderonly, pagefooteronly, create_error_box, write_warning
 from invenio.base.i18n import gettext_set_language
-from invenio.search_engine_query_parser import SearchQueryParenthesisedParser, \
+from invenio.legacy.search_engine.query_parser import SearchQueryParenthesisedParser, \
     SpiresToInvenioSyntaxConverter
 
 from invenio.utils import apache
@@ -1981,7 +1980,7 @@ def search_pattern(req=None, p=None, f=None, m=None, ap=0, of="id", verbose=0, l
         t1 = os.times()[4]
     basic_search_units_hitsets = []
     #prepare hiddenfield-related..
-    myhiddens = CFG_BIBFORMAT_HIDDEN_TAGS
+    myhiddens = cgf['CFG_BIBFORMAT_HIDDEN_TAGS']
     can_see_hidden = False
     if req:
         user_info = collect_user_info(req)
@@ -4698,7 +4697,7 @@ def print_record(recID, format='hb', ot='', ln=CFG_SITE_LANG, decompress=zlib.de
         elif ot:
             # field-filtered output was asked for; print only some fields
             if not can_see_hidden:
-                ot = list(set(ot) - set(CFG_BIBFORMAT_HIDDEN_TAGS))
+                ot = list(set(ot) - set(cfg['CFG_BIBFORMAT_HIDDEN_TAGS']))
             out += record_xml_output(get_record(recID), ot)
         else:
             # record 'recID' is not formatted in 'format' or we ask
@@ -4753,7 +4752,7 @@ def print_record(recID, format='hb', ot='', ln=CFG_SITE_LANG, decompress=zlib.de
                             # print field tag, unless hidden
                             printme = True
                             if not can_see_hidden:
-                                for htag in CFG_BIBFORMAT_HIDDEN_TAGS:
+                                for htag in cfg['CFG_BIBFORMAT_HIDDEN_TAGS']:
                                     ltag = len(htag)
                                     samelenfield = field[0:ltag]
                                     if samelenfield == htag:
@@ -5973,7 +5972,7 @@ def prs_summarize_records(kwargs=None, req=None, p=None, f=None, aas=None,
                        p1=None, p2=None, p3=None, f1=None, f2=None, f3=None, op1=None, op2=None,
                        ln=None, results_final_for_all_selected_colls=None, of='hcs', **dummy):
     # feed the current search to be summarized:
-    from invenio.search_engine_summarizer import summarize_records
+    from invenio.legacy.search_engine.summarizer import summarize_records
     search_p = p
     search_f = f
     if not p and (aas == 1 or p1 or p2 or p3):

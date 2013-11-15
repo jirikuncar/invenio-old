@@ -52,7 +52,7 @@ websearch_templates = invenio.legacy.template.load('websearch')
 webauthorprofile_templates = invenio.legacy.template.load('webauthorprofile')
 bibauthorid_template = invenio.legacy.template.load('bibauthorid')
 
-from invenio.search_engine import page_end
+from invenio.legacy.search_engine import page_end
 JSON_OK = False
 
 if sys.hexversion < 0x2060000:

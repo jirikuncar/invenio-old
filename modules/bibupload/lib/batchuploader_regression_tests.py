@@ -122,7 +122,7 @@ class BatchUploaderRobotUploadTests(GenericBibUploadTest):
     if CFG_LOCALHOST_OK:
         def test_simple_insert(self):
             """batchuploader - robotupload simple insert"""
-            from invenio.search_engine import get_record
+            from invenio.legacy.search_engine import get_record
             result = urllib2.urlopen(self.req).read()
             self.failUnless("[INFO]" in result)
             current_task = get_last_taskid()

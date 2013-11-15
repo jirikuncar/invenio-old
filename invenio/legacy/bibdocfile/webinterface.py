@@ -45,7 +45,7 @@ from invenio import webjournal_utils
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import make_canonical_urlargd, redirect_to_url
 from invenio.base.i18n import gettext_set_language
-from invenio.search_engine import \
+from invenio.legacy.search_engine import \
      guess_primary_collection_of_a_record, get_colID, record_exists, \
      create_navtrail_links, check_user_can_view_record, record_empty, \
      is_user_owner_of_record

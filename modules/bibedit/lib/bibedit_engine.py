@@ -87,7 +87,7 @@ from invenio.config import CFG_BIBEDIT_PROTECTED_FIELDS, CFG_CERN_SITE, \
     CFG_SITE_URL, CFG_SITE_RECORD, CFG_BIBEDIT_KB_SUBJECTS, \
     CFG_BIBEDIT_KB_INSTITUTIONS, CFG_BIBEDIT_AUTOCOMPLETE_INSTITUTIONS_FIELDS, \
     CFG_INSPIRE_SITE
-from invenio.search_engine import record_exists, perform_request_search
+from invenio.legacy.search_engine import record_exists, perform_request_search
 from invenio.legacy.webuser import session_param_get, session_param_set
 from invenio.bibcatalog import bibcatalog_system
 from invenio.webpage import page

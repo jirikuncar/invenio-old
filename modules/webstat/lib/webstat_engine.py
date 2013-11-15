@@ -37,7 +37,7 @@ from invenio.config import CFG_TMPDIR, \
     CFG_BIBCIRCULATION_ILL_STATUS_CANCELLED
 from invenio.bibindex_engine import CFG_JOURNAL_TAG
 from invenio.utils.url import redirect_to_url
-from invenio.search_engine import perform_request_search, \
+from invenio.legacy.search_engine import perform_request_search, \
     get_collection_reclist, \
     get_most_popular_field_values, \
     search_pattern

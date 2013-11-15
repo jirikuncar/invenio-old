@@ -31,7 +31,7 @@ from invenio.webpage import page, error_page
 from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_info
 from invenio.base.i18n import wash_language, gettext_set_language
 from invenio.utils.url import wash_url_argument, redirect_to_url
-from invenio.search_engine import search_pattern, \
+from invenio.legacy.search_engine import search_pattern, \
                            create_basic_search_units
 from invenio.modules.formatter.config import InvenioBibFormatError, InvenioBibFormatWarning
 from invenio.ext.logging import register_exception

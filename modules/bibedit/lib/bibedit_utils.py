@@ -67,7 +67,7 @@ from invenio.utils.text import wash_for_xml
 from invenio.bibedit_dblayer import get_bibupload_task_opts, \
     get_marcxml_of_record_revision, get_record_revisions, \
     get_info_of_record_revision
-from invenio.search_engine import print_record, record_exists, get_colID, \
+from invenio.legacy.search_engine import print_record, record_exists, get_colID, \
      guess_primary_collection_of_a_record, get_record, \
      get_all_collections_of_a_record
 from invenio.legacy.bibrecord import get_fieldvalues

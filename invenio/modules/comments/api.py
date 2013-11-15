@@ -67,7 +67,7 @@ from .config import CFG_WEBCOMMENT_ACTION_CODE, \
      InvenioWebCommentError, \
      InvenioWebCommentWarning
 from invenio.access_control_engine import acc_authorize_action
-from invenio.search_engine import \
+from invenio.legacy.search_engine import \
      guess_primary_collection_of_a_record, \
      check_user_can_view_record, \
      get_collection_reclist, \
@@ -1843,7 +1843,7 @@ def check_recID_is_in_range(recID, warnings=[], ln=CFG_SITE_LANG):
 
     if type(recID) is int:
         if recID > 0:
-            from invenio.search_engine import record_exists
+            from invenio.legacy.search_engine import record_exists
             success = record_exists(recID)
             if success == 1:
                 return (1,"")

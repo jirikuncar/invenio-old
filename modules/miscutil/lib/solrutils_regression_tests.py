@@ -24,7 +24,7 @@ from invenio.testsuite import make_test_suite, \
 from invenio import intbitset
 from invenio.solrutils_bibindex_searcher import solr_get_bitset
 from invenio.solrutils_bibrank_searcher import solr_get_ranked, solr_get_similar_ranked
-from invenio.search_engine import get_collection_reclist
+from invenio.legacy.search_engine import get_collection_reclist
 from invenio.bibrank_bridge_utils import get_external_word_similarity_ranker, \
                                          get_logical_fields, \
                                          get_tags, \

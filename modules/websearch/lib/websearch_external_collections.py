@@ -56,7 +56,7 @@ dico_collection_seealso = None
 def print_external_results_overview(req, current_collection, pattern_list, field,
         external_collection, verbosity_level=0, lang=CFG_SITE_LANG, print_overview=True):
     """Print the external collection overview box. Return the selected external collections and parsed query"""
-    from invenio.search_engine import create_basic_search_units
+    from invenio.legacy.search_engine import create_basic_search_units
     assert req
     vprint = get_verbose_print(req, 'External collection (print_external_results_overview): ', verbosity_level)
 
@@ -366,7 +366,7 @@ def calculate_hosted_collections_search_params(req,
     """Calculate the searching parameters for the selected hosted collections
     i.e. the actual hosted search engines and the basic search units"""
 
-    from invenio.search_engine import create_basic_search_units
+    from invenio.legacy.search_engine import create_basic_search_units
     assert req
     vprint = get_verbose_print(req, 'Hosted collections (calculate_hosted_collections_search_params): ', verbosity_level)
 

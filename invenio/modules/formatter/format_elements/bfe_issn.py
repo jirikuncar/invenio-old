@@ -25,7 +25,7 @@ import pprint
 import sys
 import re
 import getopt
-from invenio.search_engine import perform_request_search
+from invenio.legacy.search_engine import perform_request_search
 from invenio.legacy.bibrecord import get_fieldvalues
 from invenio.config import CFG_CERN_SITE
 from invenio.utils.url import make_invenio_opener

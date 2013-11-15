@@ -50,7 +50,7 @@ from invenio.base.i18n import gettext_set_language
 
 from invenio.intbitset import intbitset
 
-from invenio.search_engine import perform_request_search
+from invenio.legacy.search_engine import perform_request_search
 from invenio.utils.url import create_html_link
 
 _RE_PUNCTUATION = re.compile(CFG_BIBINDEX_CHARS_PUNCTUATION)
