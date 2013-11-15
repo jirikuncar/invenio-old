@@ -69,7 +69,7 @@ from invenio.utils.html import get_mathjax_header
 from invenio.ext.logging import register_exception
 from invenio.base.i18n import gettext_set_language
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
-from invenio.websearchadminlib import get_detailed_page_tabs, get_detailed_page_tabs_counts
+from invenio.legacy.websearch.adminlib import get_detailed_page_tabs, get_detailed_page_tabs_counts
 from invenio.modules.access.local_config import VIEWRESTRCOLL
 from invenio.modules.access.mailcookie import \
      mail_cookie_create_authorize_action, \

@@ -42,7 +42,7 @@ from invenio.legacy.search_engine import guess_primary_collection_of_a_record, \
                                   create_navtrail_links, \
                                   get_colID
 from invenio.legacy.webpage import pageheaderonly, pagefooteronly
-from invenio.websearchadminlib import get_detailed_page_tabs
+from invenio.legacy.websearch.adminlib import get_detailed_page_tabs
 from invenio.modules.access.engine import acc_authorize_action
 import invenio.legacy.template
 webstyle_templates = invenio.legacy.template.load('webstyle')

@@ -51,7 +51,7 @@ def request_record(f):
         from invenio.modules.access.local_config import VIEWRESTRCOLL
         from invenio.legacy.search_engine import guess_primary_collection_of_a_record, \
             check_user_can_view_record
-        from invenio.websearchadminlib import get_detailed_page_tabs,\
+        from invenio.legacy.websearch.adminlib import get_detailed_page_tabs,\
             get_detailed_page_tabs_counts
         # ensure recid to be integer
         recid = int(recid)

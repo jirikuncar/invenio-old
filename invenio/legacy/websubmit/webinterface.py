@@ -55,7 +55,7 @@ from invenio.websubmit_icon_creator import create_icon, InvenioWebSubmitIconCrea
 from invenio.ckeditor_invenio_connector import process_CKEditor_upload, send_response
 import invenio.legacy.template
 websubmit_templates = invenio.legacy.template.load('websubmit')
-from invenio.websearchadminlib import get_detailed_page_tabs
+from invenio.legacy.websearch.adminlib import get_detailed_page_tabs
 from invenio.utils.json import json, CFG_JSON_AVAILABLE
 import invenio.legacy.template
 from flask import session

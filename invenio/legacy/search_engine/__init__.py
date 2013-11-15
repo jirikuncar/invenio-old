@@ -109,7 +109,7 @@ from invenio.modules.access.control import acc_get_action_id
 from invenio.modules.access.local_config import VIEWRESTRCOLL, \
     CFG_ACC_GRANT_AUTHOR_RIGHTS_TO_EMAILS_IN_TAGS, \
     CFG_ACC_GRANT_VIEWER_RIGHTS_TO_EMAILS_IN_TAGS
-from invenio.websearchadminlib import get_detailed_page_tabs, get_detailed_page_tabs_counts
+from invenio.legacy.websearch.adminlib import get_detailed_page_tabs, get_detailed_page_tabs_counts
 from invenio.intbitset import intbitset
 from invenio.legacy.dbquery import DatabaseError, deserialize_via_marshal, InvenioDbQueryWildcardLimitError
 from invenio.modules.access.engine import acc_authorize_action
