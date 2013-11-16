@@ -20,7 +20,8 @@ pylibdir = $(libdir)/python/invenio
 pylib_DATA = session.py webuser_unit_tests.py \
 	webaccount_flask_tests.py \
 	websession_regression_tests.py \
-	webgroup_regression_tests.py webuser_regression_tests.py \
+	webgroup_regression_tests.py \
+	webuser_regression_tests.py \
 	webgroup_unit_tests.py \
 	websession_web_tests.py
 
