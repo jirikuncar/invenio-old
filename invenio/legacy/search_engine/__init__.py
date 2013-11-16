@@ -1980,7 +1980,7 @@ def search_pattern(req=None, p=None, f=None, m=None, ap=0, of="id", verbose=0, l
         t1 = os.times()[4]
     basic_search_units_hitsets = []
     #prepare hiddenfield-related..
-    myhiddens = cgf['CFG_BIBFORMAT_HIDDEN_TAGS']
+    myhiddens = cfg['CFG_BIBFORMAT_HIDDEN_TAGS']
     can_see_hidden = False
     if req:
         user_info = collect_user_info(req)
