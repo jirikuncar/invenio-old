@@ -280,7 +280,7 @@ def iterate_over_new(list, fmt):
     for recID in list:
         t1 = os.times()[4]
         start_date = time.strftime('%Y-%m-%d %H:%M:%S')
-        write_message(format_record(recID, fmt, on_the_fly=True))
+        format_record(recID, fmt, on_the_fly=True)
         formatted_record = zlib.compress(format_record(recID, fmt, on_the_fly=True))
         run_sql('REPLACE LOW_PRIORITY INTO bibfmt (id_bibrec, format, last_updated, value) VALUES (%s, %s, %s, %s)',
                 (recID, fmt, start_date, formatted_record))
