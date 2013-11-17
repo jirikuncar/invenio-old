@@ -19,7 +19,6 @@ pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
              crossrefutils.py \
-             data_cacher.py \
              dataciteutils_tester.py \
              dbdump.py \
              dbquery_regression_tests.py \
@@ -50,17 +49,12 @@ pylib_DATA = __init__.py \
              sherpa_romeo_testing.py \
              solrutils_bibindex_indexer.py \
              solrutils_bibindex_searcher.py \
-             solrutils_bibrank_indexer.py \
-             solrutils_bibrank_searcher.py \
              solrutils_config.py \
              solrutils_regression_tests.py \
              testutils_regression_tests.py \
              w3c_validator.py \
              xapianutils_bibindex_indexer.py \
-             xapianutils_bibindex_searcher.py \
-             xapianutils_bibrank_indexer.py \
-             xapianutils_bibrank_searcher.py \
-             xapianutils_config.py
+             xapianutils_bibindex_searcher.py
 
 noinst_DATA = testimport.py \
               kwalitee.py \

@@ -18,7 +18,6 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = session.py webuser_unit_tests.py \
-	websession_templates.py \
 	webgroup.py websession_config.py \
 	webaccount.py \
 	webaccount_flask_tests.py \
@@ -27,8 +26,6 @@ pylib_DATA = session.py webuser_unit_tests.py \
 	webgroup_unit_tests.py inveniogc.py webuser_config.py \
 	websession_web_tests.py
 
-noinst_DATA = password_migration_kit.py
-
-EXTRA_DIST = $(pylib_DATA) $(noinst_DATA)
+EXTRA_DIST = $(pylib_DATA)
 
 CLEANFILES = *~ *.tmp *.pyc
