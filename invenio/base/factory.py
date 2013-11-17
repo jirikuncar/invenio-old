@@ -23,6 +23,8 @@
     Implements application factory.
 """
 
+import warnings
+
 #from invenio.ext.logging import register_exception
 from .helpers import with_app_context, unicodifier
 from .utils import collect_blueprints, register_extensions, \
@@ -114,7 +116,7 @@ def create_app(**kwargs_config):
     You can use following commands:
     $ %s
         """ % ('inveniomanage config create secret-key', )
-        print fill_secret_key
+        warnings.warn(fill_secret_key, UserWarning)
         #try:
         #    raise Exception(fill_secret_key)
         #except Exception:
