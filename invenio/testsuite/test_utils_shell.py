@@ -119,8 +119,8 @@ class RunShellCommandTest(InvenioTestCase):
 class RunProcessWithTimeoutTest(InvenioTestCase):
     """Testing of running a process with timeout."""
     def setUp(self):
-        from invenio.config import CFG_TMPDIR
-        self.script_path = os.path.join(CFG_TMPDIR, 'test_sleeping.sh')
+        from flask import current_app
+        self.script_path = os.path.join(current_app.instance_path, 'test_sleeping.sh')
         script = open(self.script_path, 'w')
         print >> script, "#!/bin/sh"
         print >> script, "date"
@@ -130,7 +130,7 @@ class RunProcessWithTimeoutTest(InvenioTestCase):
         print >> script, "date"
         script.close()
         os.chmod(self.script_path, 0700)
-        self.python_script_path = os.path.join(CFG_TMPDIR, 'test_sleeping.py')
+        self.python_script_path = os.path.join(current_app.instance_path, 'test_sleeping.py')
         script = open(self.python_script_path, 'w')
         print >> script, """\
 #!/usr/bin/env python
