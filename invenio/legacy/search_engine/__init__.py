@@ -138,8 +138,8 @@ from invenio.legacy.search_engine.query_parser import SearchQueryParenthesisedPa
     SpiresToInvenioSyntaxConverter
 
 from invenio.utils import apache
-from invenio.solrutils_bibindex_searcher import solr_get_bitset
-from invenio.xapianutils_bibindex_searcher import xapian_get_bitset
+from invenio.legacy.miscutil.solrutils_bibindex_searcher import solr_get_bitset
+from invenio.legacy.miscutil.xapianutils_bibindex_searcher import xapian_get_bitset
 
 
 try:

@@ -47,7 +47,7 @@ from invenio.legacy.webuser import getUid, page_not_authorized, collect_user_inf
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.utils.url import make_canonical_urlargd, redirect_to_url
 from invenio.base.i18n import gettext_set_language
-from invenio.bibdocfile import stream_file, \
+from invenio.legacy.bibdocfile.api import stream_file, \
     decompose_file, propose_next_docname
 from invenio.ext.logging import register_exception
 from invenio.utils.html import is_html_text_editor_installed

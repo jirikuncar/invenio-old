@@ -55,7 +55,7 @@ def main():
     from invenio.modules.access.control import (acc_add_default_settings,
                                                 acc_reset_default_settings)
     from invenio.base.globals import cfg
-    from invenio.bibtask import authenticate
+    from invenio.legacy.bibsched.bibtask import authenticate
     from invenio.modules.access.local_config import DEF_DEMO_USER_ROLES, \
         DEF_DEMO_ROLES, DEF_DEMO_AUTHS
 

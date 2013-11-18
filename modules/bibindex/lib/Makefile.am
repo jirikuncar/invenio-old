@@ -16,7 +16,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 pylibdir = $(libdir)/python/invenio
-pylib_DATA = bibindex_engine.py bibindex_engine_config.py bibindex_engine_unit_tests.py \
+pylib_DATA = bibindex_engine_unit_tests.py \
              bibindex_engine_stemmer_unit_tests.py bibindex_engine_tokenizer_unit_tests.py \
              bibindexadmin_regression_tests.py
 

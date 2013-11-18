@@ -473,7 +473,7 @@ def autocomplete(field, q):
 
     @return: list of values matching query.
     """
-    from invenio.bibindex_engine import get_index_id_from_index_name
+    from invenio.legacy.bibindex.engine import get_index_id_from_index_name
     IdxPHRASE = BibIndex.__getattribute__('IdxPHRASE%02dF' %
                                           get_index_id_from_index_name(field))
 

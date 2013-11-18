@@ -47,15 +47,10 @@ pylib_DATA = __init__.py \
              sequtils_cnum.py \
              sequtils_regression_tests.py \
              sherpa_romeo_testing.py \
-             solrutils_bibindex_indexer.py \
-             solrutils_bibindex_searcher.py \
              solrutils_bibrank_indexer.py \
-             solrutils_config.py \
              solrutils_regression_tests.py \
              testutils_regression_tests.py \
              w3c_validator.py \
-             xapianutils_bibindex_indexer.py \
-             xapianutils_bibindex_searcher.py \
              xapianutils_bibrank_indexer.py
 
 noinst_DATA = testimport.py \

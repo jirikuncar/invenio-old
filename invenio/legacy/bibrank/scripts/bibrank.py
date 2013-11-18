@@ -77,7 +77,7 @@ import ConfigParser
 from invenio.config import CFG_ETCDIR
 from invenio.legacy.dbquery import run_sql
 from invenio.ext.logging import register_exception
-from invenio.bibtask import task_init, write_message, task_get_option, \
+from invenio.legacy.bibsched.bibtask import task_init, write_message, task_get_option, \
     task_set_option, get_datetime, task_update_status, \
     task_sleep_now_if_required
 

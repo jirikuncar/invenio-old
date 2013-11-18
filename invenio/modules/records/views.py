@@ -120,7 +120,7 @@ def request_record(f):
         if cfg.get('CFG_WEBLINKBACK_TRACKBACK_ENABLED'):
             @register_template_context_processor
             def trackback_context():
-                from invenio.weblinkback_templates import get_trackback_auto_discovery_tag
+                from invenio.legacy.weblinkback.templates import get_trackback_auto_discovery_tag
                 return dict(headerLinkbackTrackbackLink=get_trackback_auto_discovery_tag(recid))
 
         def _format_record(recid, of='hd', user_info=current_user, *args, **kwargs):

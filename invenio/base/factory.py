@@ -95,7 +95,7 @@ def create_app(**kwargs_config):
     ## Database was here.
 
     ## First check that you have all rights to logs
-    #from invenio.bibtask import check_running_process_user
+    #from invenio.legacy.bibsched.bibtask import check_running_process_user
     #check_running_process_user()
 
     #from invenio.base.i18n import language_list_long

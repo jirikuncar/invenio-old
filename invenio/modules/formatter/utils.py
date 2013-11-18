@@ -594,7 +594,7 @@ def get_pdf_snippets(recID, patterns, user_info):
     @param max_snippets: max number of snippets to include
     @return: snippet
     """
-    from invenio.bibdocfile import BibRecDocs, check_bibdoc_authorization
+    from invenio.legacy.bibdocfile.api import BibRecDocs, check_bibdoc_authorization
 
     text_path = ""
     text_path_courtesy = ""
@@ -628,7 +628,7 @@ def get_pdf_snippets(recID, patterns, user_info):
                 stemmed_patterns = [stem(p, 'en') for p in patterns]
                 out = get_text_snippets(text_path, stemmed_patterns, nb_chars, max_snippets)
         elif CFG_WEBSEARCH_FULLTEXT_SNIPPETS_GENERATOR == 'SOLR':
-            from invenio.solrutils_bibindex_searcher import solr_get_snippet
+            from invenio.legacy.miscutil.solrutils_bibindex_searcher import solr_get_snippet
             out = solr_get_snippet(patterns, recID, nb_chars, max_snippets)
 
         if out:

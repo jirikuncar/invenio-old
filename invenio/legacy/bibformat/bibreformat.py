@@ -41,7 +41,7 @@ try:
     from invenio.modules.formatter import format_record
     from invenio.modules.formatter.config import CFG_BIBFORMAT_USE_OLD_BIBFORMAT
     from invenio.utils.shell import split_cli_ids_arg
-    from invenio.bibtask import task_init, write_message, task_set_option, \
+    from invenio.legacy.bibsched.bibtask import task_init, write_message, task_set_option, \
             task_get_option, task_update_progress, task_has_option, \
             task_low_level_submission, task_sleep_now_if_required, \
             task_get_task_param

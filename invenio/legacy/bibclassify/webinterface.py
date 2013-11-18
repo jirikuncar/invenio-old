@@ -28,7 +28,7 @@ import time
 from invenio import bibupload
 
 from invenio.base.i18n import gettext_set_language
-from invenio.bibdocfile import BibRecDocs
+from invenio.legacy.bibdocfile.api import BibRecDocs
 from invenio.ext.legacy.handler import WebInterfaceDirectory
 from invenio.legacy.webpage import pageheaderonly, pagefooteronly
 from invenio.legacy.search_engine import get_colID, \

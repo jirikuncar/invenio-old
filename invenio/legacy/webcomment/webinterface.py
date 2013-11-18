@@ -85,7 +85,7 @@ webstyle_templates = invenio.legacy.template.load('webstyle')
 websearch_templates = invenio.legacy.template.load('websearch')
 import os
 from invenio.utils import apache
-from invenio.bibdocfile import \
+from invenio.legacy.bibdocfile.api import \
      stream_file, \
      decompose_file, \
      propose_next_docname

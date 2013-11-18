@@ -26,7 +26,7 @@ from invenio.config import \
      CFG_TMPDIR, \
      CFG_SITE_URL, \
      CFG_SITE_LANG
-from invenio.bibindex_engine import CFG_JOURNAL_TAG
+from invenio.legacy.bibindex.engine import CFG_JOURNAL_TAG
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
 from invenio.legacy.webpage import page
 from invenio.modules.access.engine import acc_authorize_action
@@ -35,7 +35,7 @@ from invenio.legacy.search_engine import collection_restricted_p
 from invenio.legacy.webuser import collect_user_info, page_not_authorized
 from invenio.utils.url import redirect_to_url
 
-from invenio.webstat import perform_request_index, \
+from invenio.legacy.webstat.api import perform_request_index, \
     perform_display_keyevent, \
     perform_display_customevent, \
     perform_display_customevent_help, \
