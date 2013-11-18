@@ -170,8 +170,9 @@ else:
 
     def test_run_cmd_timeout_big_stdout(self):
         """shellutils - running simple command with a big standard output"""
-        from invenio.config import CFG_PYLIBDIR
-        test_file = os.path.join(CFG_PYLIBDIR, 'invenio', 'bibcirculation_templates.py')
+        import pkg_resources
+        #FIXME this file will be removed soon
+        test_file = pkg_resources.resource_filename('invenio.legacy.bibcirculation', 'templates.py')
         exitstatus, stdout, stderr = run_process_with_timeout(['cat', test_file], timeout=10)
         self.assertEqual(open(test_file).read(), stdout)
         self.assertEqual(exitstatus, 0)
