@@ -49,7 +49,7 @@ from datetime import date as real_date, \
                      timedelta
 from flask.ext.babel import format_datetime as babel_format_datetime
 from invenio.base.globals import cfg
-from invenio.base.i18n import gettext_set_language
+from invenio.base.i18n import gettext_set_language, _
 from invenio.ext.babel import set_locale
 
 try:
