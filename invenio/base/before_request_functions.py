@@ -23,21 +23,6 @@
     one wants to attach to the application at the global level.
 """
 
-from flask import g
-
-
-def guess_language():
-    """
-    Adds under g._ an already configured internationalization function
-    will be available (configured to return unicode objects).
-    """
-    from invenio.ext.babel.selectors import get_locale
-    from invenio.base.i18n import gettext_set_language
-    ## Well, let's make it global now
-    g.ln = get_locale()
-    g._ = gettext_set_language(g.ln, use_unicode=True)
-
-
 def setup_app(app):
     """Attaches functions to before request handler."""
-    app.before_request(guess_language)
+    pass

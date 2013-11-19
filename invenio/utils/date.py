@@ -116,7 +116,7 @@ def convert_datetext_to_dategui(datetext, ln=None, secs=False):
             dt = datetime.fromtimestamp(time.mktime(datestruct))
             return babel_format_datetime(dt, output_format).encode('utf8')
         except ValueError:
-            return _("N/A")
+            return _("N/A").encode('utf8')
 
 def convert_datetext_to_datestruct(datetext):
     """
@@ -135,16 +135,16 @@ def convert_datestruct_to_dategui(datestruct, ln=None):
     Month is internationalized
     """
     ln = default_ln(ln)
-    try:
-        if datestruct[0] and datestruct[1] and datestruct[2]:
-            month = get_i18n_month_name(datestruct[1], ln=ln)
-            output_format = "%d " + month + " %Y, %H:%M"
-            return strftime(output_format, datestruct)
-        else:
-            raise ValueError
-    except:
-        _ = gettext_set_language(ln)
-        return _("N/A")
+    with set_locale(ln):
+        try:
+            if datestruct[0] and datestruct[1] and datestruct[2]:
+                output_format = "d MMM Y, H:mm"
+                dt = datetime.fromtimestamp(time.mktime(datestruct))
+                return babel_format_datetime(dt, output_format).encode('utf8')
+            else:
+                raise ValueError
+        except:
+            return _("N/A").encode('utf8')
 
 def convert_datestruct_to_datetext(datestruct):
     """
