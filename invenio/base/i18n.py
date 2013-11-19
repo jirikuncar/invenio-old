@@ -38,6 +38,7 @@ __revision__ = "$Id$"
 
 import gettext
 from flask import current_app
+from flask.ext.babel import lazy_gettext
 from werkzeug.local import LocalProxy
 from invenio.utils.datastructures import LazyDict
 
@@ -45,7 +46,7 @@ CFG_SITE_LANG = LocalProxy(lambda: current_app.config.get('CFG_SITE_LANG'))
 CFG_SITE_LANGS = LocalProxy(lambda: current_app.config.get('CFG_SITE_LANGS'))
 
 ## Placemark for the i18n function
-_ = lambda x: x
+_ = lazy_gettext
 
 
 def _lang_gt_d():

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+##
 ## This file is part of Invenio.
-## Copyright (C) 2012, 2013 CERN.
+## Copyright (C) 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -15,29 +16,37 @@
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+
 """
-    invenio.base.before_request_functions
-    -------------------------------------
+    invenio.ext.babel
+    -----------------
 
-    Implements functions to configure necessary the "before request" functions
-    one wants to attach to the application at the global level.
+    This module provides initialization and configuration for `flask.ext.babel`
+    module.
 """
 
-from flask import g
+from contextlib import contextmanager
+from flask import _request_ctx_stack
+from flask.ext.babel import Babel
+from .selectors import get_locale, get_timezone
+
+babel = Babel()
 
 
-def guess_language():
-    """
-    Adds under g._ an already configured internationalization function
-    will be available (configured to return unicode objects).
-    """
-    from invenio.ext.babel.selectors import get_locale
-    from invenio.base.i18n import gettext_set_language
-    ## Well, let's make it global now
-    g.ln = get_locale()
-    g._ = gettext_set_language(g.ln, use_unicode=True)
+@contextmanager
+def set_locale(ln):
+    ctx = _request_ctx_stack.top
+    locale = getattr(ctx, 'babel_locale', None)
+    setattr(ctx, 'babel_locale', ln)
+    yield
+    setattr(ctx, 'babel_locale', locale)
 
 
 def setup_app(app):
-    """Attaches functions to before request handler."""
-    app.before_request(guess_language)
+    """Setup Babel extension."""
+
+    babel.init_app(app)
+    babel.localeselector(get_locale)
+    babel.timezoneselector(get_timezone)
+
+    return app
