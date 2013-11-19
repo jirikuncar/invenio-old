@@ -21,7 +21,7 @@ etc_DATA =
 
 tmpdir = $(prefix)/var/tmp
 
-tmp_DATA = TEST1.bfo TEST2.bfo TEST3.bfo
+tmp_DATA =
 
 EXTRA_DIST = $(etc_DATA) $(tmp_DATA)
 
