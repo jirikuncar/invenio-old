@@ -40,7 +40,7 @@ function checkRecordsToApprove(){
 function disapproveRecords(){
     deleteRecords(recordsToApprove);
     recordsToApprove = [];
-    // TODO:
+    // TODO: 
     // the bug here will occur when there are records with other widgets
     // than approval.
     emptyLists();
@@ -90,7 +90,7 @@ function mini_approval(decision, bwobject_id){
         success: function(json){
             deselectAll();
             recordsToApprove = [];
-            $('#refresh_button').click();
+            $('#refresh_button').click();     
             checkRecordsToApprove();
         }
     });

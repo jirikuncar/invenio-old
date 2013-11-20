@@ -47,7 +47,7 @@ function init_maintable(url_load_table_, url_batch_widget_, url_resolve_widget_,
 
     init_datatable();
 }
-
+    
 function init_datatable(){
     oTable = $('#example').dataTable( {
         "sDom": 'lfC<"clear">rtip',
@@ -74,13 +74,13 @@ function init_datatable(){
                                                         var widget_link = '<a href=' + url_widget + '?bwobject_id='
                                                             + full[0] + '&widget=' + data.substring(0,data.indexOf('#')) + '>' + data.substring(data.indexOf('#')+1) + '</a>';
                                                         if (w_name == 'approval_widget'){
-                                                                widget_link += '</br>' +
+                                                                widget_link += '</br>' + 
                                                                 '<button type="button" class="btn btn-danger btn-mini"><a id="reject-mini" href="javascript:void(0)" class="mini-approval-btn" onclick="mini_approval(this.id,'+full[0]+')">Reject</a></button>' +
                                                                 '<button type="button" class="btn btn-success btn-mini"><a id="accept-mini" href="javascript:void(0)" class="mini-approval-btn" onclick="mini_approval(this.id,'+full[0]+')">Accept</a></button>';
                                                         }
                                                         return widget_link;
                                                      }
-                                                     else
+                                                     else 
                                                         {return 'N/A';}}, "aTargets": [9]}
         ],
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
@@ -90,6 +90,7 @@ function init_datatable(){
                 selectRow(nRow, e, oSettings);
             });
         }
+        
     } );
 }
 
@@ -107,7 +108,7 @@ $('#refresh_button').on('click', function() {
     jQuery.ajax({
         url: url_refresh,
         success: function(json){
-
+            
         }
     });
     oTable.fnDraw(false);
@@ -305,9 +306,9 @@ function deselectAll(){
 }
 
 $(document).keyup(function(e){
-    if (e.keyCode == 27) {  // esc
+    if (e.keyCode == 27) {  // esc           
         deselectAll();
-    }
+    }   
 });
 //***********************************
 
@@ -361,3 +362,5 @@ function bootstrap_alert(message) {
     $('#alert-message').html('<span class="alert"><a class="close" data-dismiss="alert"> ×</a><span>'+message+'</span></span>');
 }
 //***********************************
+
+
