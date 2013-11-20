@@ -30,8 +30,6 @@ from flask import g, _request_ctx_stack
 from flask.ext.babel import Babel, gettext
 from .selectors import get_locale, get_timezone
 
-from invenio.base.i18n import _LANG_GT_D
-
 babel = Babel()
 
 
@@ -39,12 +37,9 @@ babel = Babel()
 def set_locale(ln):
     ctx = _request_ctx_stack.top
     locale = getattr(ctx, 'babel_locale', None)
-    translations = getattr(ctx, 'babel_translations', None)
     setattr(ctx, 'babel_locale', ln)
-    setattr(ctx, 'babel_translations', _LANG_GT_D[ln])
     yield
     setattr(ctx, 'babel_locale', locale)
-    setattr(ctx, 'babel_translations', translations)
 
 
 def set_translations():
@@ -52,9 +47,6 @@ def set_translations():
     Adds under g._ an already configured internationalization function
     will be available (configured to return unicode objects).
     """
-    ctx = _request_ctx_stack.top
-    locale = getattr(ctx, 'babel_locale', get_locale())
-    setattr(ctx, 'babel_translations', _LANG_GT_D[locale])
     ## Well, let's make it global now
     g.ln = get_locale()
     g._ = gettext

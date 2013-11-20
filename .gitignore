@@ -40,6 +40,7 @@ po/*.sed
 *.lib
 *.x86f
 invenio/intbitset.so
+invenio/base/translations/*/LC_MESSAGES/messages.mo
 modules/webauthorprofile/bin/webauthorprofile
 modules/bibauthorid/bin/bibauthorid
 modules/bibcirculation/bin/bibcircd
