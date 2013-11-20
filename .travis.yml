@@ -49,6 +49,7 @@ install:
   - "pip install -r requirements-flask.txt"
   - "pip install -r requirements-flask-ext.txt"
   - "python setup.py install"
+  - "pybabel compile -f -d invenio/base/translations/"
 #  - "inveniomanage config create secret-key"
 #  - "inveniomanage config set CFG_EMAIL_BACKEND flask.ext.email.backends.console.Mail"
 #  - "inveniomanage config set CFG_BIBSCHED_PROCESS_USER `whoami`"
