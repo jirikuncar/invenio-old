@@ -20,7 +20,8 @@ pylibdir = $(libdir)/python/invenio
 pylib_DATA = webstat_regression_tests.py
 
 lispimagedir = $(libdir)/lisp/invenio
-lispimage_DATA = webstat.clisp.mem webstat.cmucl.core webstat.sbcl.core
+lispimage_DATA = 
+#webstat.clisp.mem webstat.cmucl.core webstat.sbcl.core
 
 FILESLISP   =
 EXTRA_DIST = $(pylib_DATA) $(FILESLISP)

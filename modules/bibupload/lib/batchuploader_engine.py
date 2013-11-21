@@ -47,7 +47,7 @@ from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file
 from invenio.utils.shell import run_shell_command
 from invenio.legacy.bibupload.engine import xml_marc_to_records, bibupload
 
-import invenio.bibupload as bibupload_module
+import invenio.legacy.bibupload as bibupload_module
 
 from invenio.legacy.bibrecord import create_records, \
                               record_strip_empty_volatile_subfields, \

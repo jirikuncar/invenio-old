@@ -30,7 +30,7 @@ from invenio.legacy.bibsched.bibtask import check_running_process_user
 from invenio.legacy.dbquery import run_sql, OperationalError
 from invenio.legacy.bibdocfile.api import BibDoc
 from invenio.config import CFG_LOGDIR, CFG_SITE_SUPPORT_EMAIL
-from invenio.legacy.bibdocfile.scripts.bibdocfile import cli_fix_marc
+from invenio.legacy.bibdocfile.cli import cli_fix_marc
 from invenio.ext.logging import register_exception
 from invenio.intbitset import intbitset
 from invenio.legacy.search_engine import record_exists

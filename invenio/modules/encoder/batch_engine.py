@@ -44,7 +44,7 @@ from invenio.modules.encoder.profiles import (
                                         get_encoding_profile,
                                         get_extract_profile
                                         )
-from invenio.legacy.bibdocfile.scripts.bibdocfile import cli_fix_marc
+from invenio.legacy.bibdocfile.cli import cli_fix_marc
 from invenio.modules.encoder.utils import chose2
 from invenio.modules.encoder.metadata import (
                                         pbcore_metadata
