@@ -35,7 +35,6 @@ pylib_DATA = \
 	bibauthorid_rabbit.py \
 	bibauthorid_backinterface.py \
 	bibauthorid_recipes.py \
-	bibauthorid_templates.py \
 	bibauthorid_wedge.py \
 	bibauthorid_webauthorprofileinterface.py
 
