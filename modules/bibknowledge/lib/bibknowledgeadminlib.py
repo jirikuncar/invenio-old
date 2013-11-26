@@ -23,7 +23,7 @@ Handle requests from the web interface for Knowledge Base related
 """
 
 from invenio.config import CFG_SITE_LANG
-from invenio import bibknowledge_dblayer
+from invenio.modules.knowledge import dblayer as bibknowledge_dblayer
 from invenio.modules.knowledge import api as bibknowledge
 
 import invenio.legacy.template

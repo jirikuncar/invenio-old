@@ -99,10 +99,10 @@ class Template:
         """ % {
             'external_user_settings' : _('External account settings'),
             'html_settings' : html_settings,
-            'consult_external_groups' : _('You can consult the list of your external groups directly in the %(x_url_open)sgroups page%(x_url_close)s.') % {
+            'consult_external_groups' : _('You can consult the list of your external groups directly in the %(x_url_open)sgroups page%(x_url_close)s.', **{
                 'x_url_open' : '<a href="../yourgroups/display?ln=%s#external_groups">' % ln,
                 'x_url_close' : '</a>'
-            },
+            }),
             'external_user_groups' : _('External user groups'),
         }
         return out
@@ -321,11 +321,11 @@ class Template:
                     'sitesecureurl': CFG_SITE_SECURE_URL,
                 }
         elif not CFG_EXTERNAL_AUTH_USING_SSO and CFG_CERN_SITE:
-            out += "<p>" + _("""If you are using a lightweight CERN account you can
-                %(x_url_open)sreset the password%(x_url_close)s.""") % \
-                    {'x_url_open' : \
-                        '<a href="http://cern.ch/LightweightRegistration/ResetPassword.aspx%s">' \
-                        % (make_canonical_urlargd({'email': email, 'returnurl' : CFG_SITE_SECURE_URL + '/youraccount/edit' + make_canonical_urlargd({'lang' : ln}, {})}, {})), 'x_url_close' : '</a>'} + "</p>"
+            out += "<p>" + _("""If you are using a lightweight CERN account you can %(x_url_open)sreset the password%(x_url_close)s.""",
+                    {'x_url_open' : '<a href="http://cern.ch/LightweightRegistration/ResetPassword.aspx%s">'
+                        % (make_canonical_urlargd({'email': email,
+                                                   'returnurl': CFG_SITE_SECURE_URL + '/youraccount/edit' + make_canonical_urlargd({'lang' : ln}, {})}, {})),
+                     'x_url_close' : '</a>'}) + "</p>"
         elif CFG_EXTERNAL_AUTH_USING_SSO and CFG_CERN_SITE:
             out += "<p>" + _("""You can change or reset your CERN account password by means of the %(x_url_open)sCERN account system%(x_url_close)s.""") % \
                 {'x_url_open' : '<a href="https://cern.ch/login/password.aspx">', 'x_url_close' : '</a>'} + "</p>"
@@ -479,7 +479,7 @@ class Template:
 
         # load the right message language
         _ = gettext_set_language(ln)
-        out = "<p>" + _("If you have lost the password for your %(sitename)s %(x_fmt_open)sinternal account%(x_fmt_close)s, then please enter your email address in the following form in order to have a password reset link emailed to you.") % {'x_fmt_open' : '<em>', 'x_fmt_close' : '</em>', 'sitename' : CFG_SITE_NAME_INTL[ln]} + "</p>"
+        out = "<p>" + _("If you have lost the password for your %(sitename)s %(x_fmt_open)sinternal account%(x_fmt_close)s, then please enter your email address in the following form in order to have a password reset link emailed to you.", **{'x_fmt_open' : '<em>', 'x_fmt_close' : '</em>', 'sitename' : CFG_SITE_NAME_INTL[ln]}) + "</p>"
 
         out += """
           <blockquote>
@@ -506,8 +506,12 @@ class Template:
           }
 
         if CFG_CERN_SITE:
-            out += "<p>" + _("If you have been using the %(x_fmt_open)sCERN login system%(x_fmt_close)s, then you can recover your password through the %(x_url_open)sCERN authentication system%(x_url_close)s.") % {'x_fmt_open' : '<em>', 'x_fmt_close' : '</em>', 'x_url_open' : '<a href="https://cern.ch/lightweightregistration/ResetPassword.aspx%s">' \
-            % make_canonical_urlargd({'lf': 'auth', 'returnURL' : CFG_SITE_SECURE_URL + '/youraccount/login?ln='+ln}, {}), 'x_url_close' : '</a>'} + " "
+            out += "<p>" + _("If you have been using the %(x_fmt_open)sCERN login system%(x_fmt_close)s, then you can recover your password through the %(x_url_open)sCERN authentication system%(x_url_close)s.",
+                             **{'x_fmt_open' : '<em>',
+                                'x_fmt_close' : '</em>',
+                                'x_url_open' : '<a href="https://cern.ch/lightweightregistration/ResetPassword.aspx%s">' % make_canonical_urlargd(
+                                    {'lf': 'auth', 'returnURL': CFG_SITE_SECURE_URL + '/youraccount/login?ln='+ln}, {}),
+                                'x_url_close' : '</a>'}) + " "
         else:
             out += "<p>" + _("Note that if you have been using an external login system, then we cannot do anything and you have to ask there.") + " "
         out += _("Alternatively, you can ask %s to change your login system from external to internal.") % ("""<a href="mailto:%(email)s">%(email)s</a>""" % { 'email' : CFG_SITE_SUPPORT_EMAIL }) + "</p>"
@@ -619,8 +623,8 @@ class Template:
             msg = _("You are logged in as a guest user, so your baskets will disappear at the end of the current session.") + ' '
         elif (type=='alerts'):
             msg = _("You are logged in as a guest user, so your alerts will disappear at the end of the current session.") + ' '
-        msg += _("If you wish you can %(x_url_open)slogin or register here%(x_url_close)s.") % {'x_url_open': '<a href="' + CFG_SITE_SECURE_URL + '/youraccount/login?ln=' + ln + '">',
-                                                                                               'x_url_close': '</a>'}
+        msg += _("If you wish you can %(x_url_open)slogin or register here%(x_url_close)s.", **{'x_url_open': '<a href="' + CFG_SITE_SECURE_URL + '/youraccount/login?ln=' + ln + '">',
+                                                                                                'x_url_close': '</a>'})
         return """<table class="errorbox" summary="">
                             <tr>
                              <th class="errorboxheader">%s</th>

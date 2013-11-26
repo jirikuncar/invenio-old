@@ -31,7 +31,7 @@ from invenio.legacy.bibsched.bibtask import write_message
 # imports used in FieldExporter class
 import invenio.legacy.search_engine
 from invenio.legacy import bibrecord
-from invenio import bibdocfile
+from invenio.legacy.bibdocfile import api as bibdocfile
 import os
 
 # imports used in perform_request_... methods

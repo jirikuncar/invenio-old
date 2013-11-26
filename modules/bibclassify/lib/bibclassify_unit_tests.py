@@ -102,7 +102,7 @@ class BibClassifyTestCase(InvenioTestCase):
     @nottest
     def get_test_file(self, recid, type='Main', format='pdf'):
 
-        from invenio import bibdocfile
+        from invenio.legacy.bibdocfile import api as bibdocfile
         br = bibdocfile.BibRecDocs(recid)
         bibdocs = br.list_bibdocs(type)
         # we grab the first
