@@ -1,9 +1,9 @@
 {% extends "workflows/layout.html" %}
 
-{% block header %}
+{% block javascript %}
     {{ super() }}
     {% block workflows_entry_assets %}
-        {%- js url_for('workflows.static', filename='js/workflows/workflows.js') -%}
+        {% js url_for('workflows.static', filename='js/workflows/workflows.js') %}
         <script type="text/javascript">
             $(document).ready(function(){
                 var url_run_workflow = "{{ url_for('workflows.run_workflow') }}";
@@ -11,7 +11,7 @@
             });
         </script>
     {% endblock workflows_entry_assets %}
-{% endblock header %}
+{% endblock javascript %}
 
 {% block workflowbody %}
     <div id = "alert_placeholder"></div>

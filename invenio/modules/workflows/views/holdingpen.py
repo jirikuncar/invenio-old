@@ -25,7 +25,7 @@ from ..loader import widgets
 from invenio.base.decorators import templated, wash_arguments
 from invenio.modules.formatter.engine import format_record
 from invenio.base.i18n import _
-from invenio.ext.breadcrumb import default_breadcrumb_root, breadcrumbs, register_breadcrumb
+from invenio.ext.breadcrumb import default_breadcrumb_root, register_breadcrumb
 from invenio.ext.menu import register_menu
 from invenio.utils.date import pretty_date
 from ..utils import (get_workflow_definition,
@@ -115,7 +115,7 @@ def batch_widget(bwolist):
     """
     Renders widget accepting single or multiple records.
     """
-    from ..containers import parse_bwids
+    from ..utils import parse_bwids
     bwolist = parse_bwids(bwolist)
 
     try:
