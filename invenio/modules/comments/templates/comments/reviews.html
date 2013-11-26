@@ -20,6 +20,8 @@
   {% extends "records/base.html" %}
 {%- endif -%}
 
+{%- js url_for('comments.static', filename='js/comments/modal_tweaks.js'), '10-comments' -%}
+
 {% block record_content %}
   <div class="page-header">
     {{ format_record(recid, 'hs', ln=g.ln)|safe }}
