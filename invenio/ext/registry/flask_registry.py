@@ -62,6 +62,7 @@ class Registry(object):
         if key in self._registry:
             raise RegistryError("Namespace %s already taken." % key)
         self._registry[key] = value
+        self._registry[key]._namespace = key
 
     def __missing__(self, key):
         return self._registry.__missing__(key)
@@ -74,6 +75,10 @@ class RegistryBase(object):
     """
     Base class for all registries
     """
+    @property
+    def namespace(self):
+        return self._namespace
+
     def register(self, *args, **kwargs):
         raise NotImplementedError()
 
@@ -274,7 +279,11 @@ class DiscoverRegistry(ModuleRegistry):
 
         self.module_name = module_name
         self.silent = silent
-        self.registry_namespace = registry_namespace or 'packages'
+        if registry_namespace is not None and \
+                isinstance(registry_namespace, (RegistryProxy, RegistryBase)):
+            self.registry_namespace = registry_namespace.namespace
+        else:
+            self.registry_namespace = registry_namespace or 'packages'
         # Setup config variable prefix
         self.cfg_var_prefix = self.registry_namespace
         self.cfg_var_prefix.upper()
@@ -307,6 +316,9 @@ class DiscoverRegistry(ModuleRegistry):
         )
 
         for pkg in app.extensions['registry'][self.registry_namespace]:
+            if not isinstance(pkg, basestring):
+                pkg = pkg.__name__
+
             if pkg in blacklist:
                 continue
 
