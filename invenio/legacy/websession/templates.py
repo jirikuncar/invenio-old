@@ -20,6 +20,7 @@ __revision__ = "$Id$"
 import urllib
 import cgi
 
+from invenio.base.wrappers import lazy_import
 from invenio.config import \
      CFG_CERN_SITE, \
      CFG_SITE_LANG, \
@@ -34,11 +35,15 @@ from invenio.config import \
      CFG_WEBSEARCH_MAX_RECORDS_IN_GROUPS, \
      CFG_ACCESS_CONTROL_LEVEL_ACCOUNTS, \
      CFG_SITE_RECORD
-from invenio.modules.access.local_config import CFG_EXTERNAL_AUTH_USING_SSO, \
-        CFG_EXTERNAL_AUTH_LOGOUT_SSO, \
-        CFG_OPENID_PROVIDERS, CFG_OAUTH2_PROVIDERS, \
-        CFG_OAUTH1_PROVIDERS, CFG_OPENID_AUTHENTICATION, \
-        CFG_OAUTH2_AUTHENTICATION, CFG_OAUTH1_AUTHENTICATION
+
+CFG_EXTERNAL_AUTH_USING_SSO = lazy_import('invenio.modules.access.local_config:CFG_EXTERNAL_AUTH_USING_SSO')
+CFG_EXTERNAL_AUTH_USING_SSO = lazy_import('invenio.modules.access.local_config:CFG_EXTERNAL_AUTH_LOGOUT_SSO')
+CFG_OPENID_PROVIDERS = lazy_import('invenio.modules.access.local_config:CFG_OPENID_PROVIDERS')
+CFG_OAUTH2_PROVIDERS = lazy_import('invenio.modules.access.local_config:CFG_OAUTH2_PROVIDERS')
+CFG_OAUTH1_PROVIDERS = lazy_import('invenio.modules.access.local_config:CFG_OAUTH1_PROVIDERS')
+CFG_OPENID_AUTHENTICATION = lazy_import('invenio.modules.access.local_config:CFG_OPENID_AUTHENTICATION')
+CFG_OAUTH2_AUTHENTICATION = lazy_import('invenio.modules.access.local_config:CFG_OAUTH2_AUTHENTICATION')
+CFG_OAUTH1_AUTHENTICATION = lazy_import('invenio.modules.access.local_config:CFG_OAUTH1_AUTHENTICATION')
 
 from invenio.utils.url import make_canonical_urlargd, create_url, create_html_link
 from invenio.utils.html import escape_html, nmtoken_from_string
@@ -865,7 +870,7 @@ class Template:
                     'mailcookie' : address_activation_key
                 }, {})),
             'outro' : _("in order to confirm the validity of this request."),
-            'outro2' : _("Please note that this URL will remain valid for about %(days)s days only.") % {'days' : CFG_WEBSESSION_ADDRESS_ACTIVATION_EXPIRE_IN_DAYS},
+            'outro2' : _("Please note that this URL will remain valid for about %(days)s days only.", days=CFG_WEBSESSION_ADDRESS_ACTIVATION_EXPIRE_IN_DAYS),
         }
         return out
 
