@@ -1343,12 +1343,10 @@ def validatefile(oai_src_config):
      0 = okay
      1 = file non existing
      """
+     from invenio.legacy.bibconvert.registry import templates
 
-    CFG_BIBCONVERT_XSL_PATH = "%s%sbibconvert%sconfig" % (CFG_ETCDIR,
-                                                          os.sep,
-                                                          os.sep)
-    path_to_config = (CFG_BIBCONVERT_XSL_PATH + os.sep +
-                      oai_src_config)
+    path_to_config = templates.get(oai_src_config, '')
+
     if os.path.exists(path_to_config):
         # Try to read in config directory
         try:

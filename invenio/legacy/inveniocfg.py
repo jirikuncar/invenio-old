@@ -446,7 +446,7 @@ def cli_cmd_update_bibconvert_tpl(conf):
     from conf file.  Note: this edits tpl files in situ, taking a
     backup first.  Use only when you know what you are doing.
     """
-    from invenio.bibconvert_manager import main
+    from invenio.legacy.bibconvert.manager import main
 
     warn('inveniocfg --update-bibconvert-tpl is deprecated. Using instead: inveniomanage bibconvert update')
 
