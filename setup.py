@@ -109,6 +109,7 @@ setup(
             'webcoll = invenio.legacy.websearch.scripts.webcoll:main',
             'batchuploader = invenio.legacy.bibupload.scripts.batchuploader',
             'bibclassify = invenio.modules.classifier.scripts.classifier:main',
+            'bibedit = invenio.legacy.bibedit.scripts.bibedit:main'
             'bibencode = invenio.modules.encoder.scripts.encoder:main',
             'bibsort = invenio.legacy.bibsort.scripts.bibsort:main',
             'bibrank = invenio.legacy.bibrank.scripts.bibrank:main',
