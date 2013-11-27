@@ -19,4 +19,5 @@
 
 from .flask_registry import Registry, ExtensionRegistry, ImportPathRegistry, \
     ModuleRegistry, PackageRegistry, AutoDiscoverRegistry, \
-    EntryPointRegistry, RegistryProxy, ConfigurationRegistry
+    PkgResourcesDiscoverRegistry, EntryPointRegistry, \
+    RegistryProxy, ConfigurationRegistry

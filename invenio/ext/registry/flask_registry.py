@@ -20,10 +20,11 @@
 """
 Flask-Registry extension
 """
+import os
 
 from werkzeug.utils import import_string, find_modules
 from werkzeug.local import LocalProxy
-from pkg_resources import iter_entry_points
+from pkg_resources import iter_entry_points, resource_listdir
 from flask import current_app, has_app_context
 
 
@@ -322,18 +323,21 @@ class DiscoverRegistry(ModuleRegistry):
             if pkg in blacklist:
                 continue
 
-            import_str = pkg + '.' + self.module_name
+            self._discover_module(pkg)
 
-            try:
-                module = import_string(import_str, self.silent)
-                self.register(module)
-            except ImportError:
-                pass
-            except Exception as e:
-                import traceback
-                traceback.print_exc()
-                app.logger.error('Could not import: "%s: %s',
-                                 import_str, str(e))
+    def _discover_module(self, pkg):
+        import_str = pkg + '.' + self.module_name
+
+        try:
+            module = import_string(import_str, self.silent)
+            self.register(module)
+        except ImportError:
+            pass
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            app.logger.error('Could not import: "%s: %s',
+                             import_str, str(e))
 
 
 class AutoDiscoverRegistry(DiscoverRegistry):
@@ -342,6 +346,13 @@ class AutoDiscoverRegistry(DiscoverRegistry):
         super(AutoDiscoverRegistry, self).__init__(module_name, *args, **kwargs)
         self.app = app
         self.discover(app=app)
+
+
+class PkgResourcesDiscoverRegistry(AutoDiscoverRegistry):
+
+    def _discover_module(self, pkg):
+        for f in resource_listdir(pkg, self.module_name):
+            self.register(os.path.join(os.path.dirname(import_string(pkg).__file__), self.module_name, f))
 
 
 class ConfigurationRegistry(DiscoverRegistry):
