@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2011 CERN.
+## Copyright (C) 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -16,6 +17,14 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-SUBDIRS = bin lib
+"""
+    invenio.modules.authorprofiles.views
+    ------------------------------------
 
-CLEANFILES = *~
+    Author profile interface.
+"""
+
+from flask import Blueprint
+
+blueprint = Blueprint('authorprofile', __name__, url_prefix='/',
+                      template_folder='templates', static_folder='static')

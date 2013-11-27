@@ -22,6 +22,7 @@
 # pylint: disable=W0613
 
 import sys
+from flask import url_for
 from operator import  itemgetter
 
 from invenio.bibauthorid_webauthorprofileinterface import is_valid_canonical_id, \
@@ -246,7 +247,8 @@ class WebAuthorPages(WebInterfaceDirectory):
         else:
             req.content_type = "text/html"
         req.send_http_header()
-        metaheaderadd = '<script type="text/javascript" src="%s/js/webauthorprofile.js"> </script>' % (CFG_SITE_URL)
+        metaheaderadd = '<script type="text/javascript" src="%s"> </script>' % (
+            url_for('authorprofile.static', filename='js/authorprofile/base.js'), )
         metaheaderadd += """
         <style>
         .hidden {

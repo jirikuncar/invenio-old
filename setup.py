@@ -109,7 +109,7 @@ setup(
             'webcoll = invenio.legacy.websearch.scripts.webcoll:main',
             'batchuploader = invenio.legacy.bibupload.scripts.batchuploader',
             'bibclassify = invenio.modules.classifier.scripts.classifier:main',
-            'bibedit = invenio.legacy.bibedit.scripts.bibedit:main'
+            'bibedit = invenio.legacy.bibedit.scripts.bibedit:main',
             'bibencode = invenio.modules.encoder.scripts.encoder:main',
             'bibsort = invenio.legacy.bibsort.scripts.bibsort:main',
             'bibrank = invenio.legacy.bibrank.scripts.bibrank:main',
@@ -120,6 +120,7 @@ setup(
             'bibreformat = invenio.legacy.bibformat.scripts.bibreformat:main',
             'oairepositoryupdater = invenio.legacy.oairepository.scripts.oairepositoryupdater:main',
             'gotoadmin = invenio.modules.redirector.scripts.redirector:main',
+            'webauthorprofile = invenio.legacy.webauthorprofile.scripts.webauthorprofile:main'
         ],
     },
     install_requires=install_requires,

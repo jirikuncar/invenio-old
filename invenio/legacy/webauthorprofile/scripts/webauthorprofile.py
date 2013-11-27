@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2011, 2012 CERN.
+## Copyright (C) 2011, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -16,21 +17,11 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-pylibdir = $(libdir)/python/invenio
-
-pylib_DATA = webauthorprofile_corefunctions.py \
-	     webauthorprofile_dbapi.py \
-	     webauthorprofile_interface.py \
-	     webauthorprofile_templates.py  \
-	     webauthorprofile_cli.py \
-	     webauthorprofile_daemon.py
+from invenio.base.factory import with_app_context
 
 
-jsdir=$(localstatedir)/www/js
+@with_app_context()
+def main():
+    from invenio.legacy.webauthorprofile.cli import main as cli_main
+    return cli_main()
 
-js_DATA = webauthorprofile.js
-
-EXTRA_DIST = $(pylib_DATA) \
-             $(js_DATA)
-
-CLEANFILES = *~ *.tmp *.pyc
