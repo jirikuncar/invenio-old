@@ -30,8 +30,8 @@ from invenio.legacy.refextract.regexs import re_kb_line, \
                                   re_extract_quoted_text, \
                                   re_extract_char_class, \
                                   re_punctuation
-from invenio.docextract_utils import write_message
-from invenio.docextract_text import re_group_captured_multiple_space
+from invenio.legacy.docextract.utils import write_message
+from invenio.legacy.docextract.text import re_group_captured_multiple_space
 from invenio.utils.hash import md5
 
 def get_kbs(custom_kbs_files=None, cache=None):

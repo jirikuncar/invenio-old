@@ -30,7 +30,7 @@ from invenio.base.wrappers import lazy_import
 from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
 ## Import the minimal necessary methods and variables needed to run Refextract
 parse_references = lazy_import('invenio.legacy.refextract.engine:parse_references')
-setup_loggers = lazy_import('invenio.docextract_utils:setup_loggers')
+setup_loggers = lazy_import('invenio.legacy.docextract.utils:setup_loggers')
 wash_and_repair_reference_line = lazy_import('invenio.legacy.refextract.text:wash_and_repair_reference_line')
 refextract_kbs = lazy_import('invenio.legacy.refextract.kbs')
 refextract_xml = lazy_import('invenio.legacy.refextract.xml')

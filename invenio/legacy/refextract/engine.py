@@ -47,8 +47,8 @@ from invenio.legacy.refextract.tag import tag_reference_line, \
     sum_2_dictionaries, identify_and_tag_DOI, identify_and_tag_URLs
 from invenio.legacy.refextract.xml import create_xml_record, \
                                    build_xml_citations
-from invenio.docextract_pdf import convert_PDF_to_plaintext
-from invenio.docextract_utils import write_message
+from invenio.legacy.docextract.pdf import convert_PDF_to_plaintext
+from invenio.legacy.docextract.utils import write_message
 from invenio.legacy.refextract.kbs import get_kbs
 from invenio.legacy.refextract.linker import find_referenced_recid
 from invenio.legacy.refextract.regexs import get_reference_line_numeration_marker_patterns, \

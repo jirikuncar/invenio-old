@@ -17,13 +17,15 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
+from __future__ import absolute_import
+
 import re
 
 from xml.sax.saxutils import escape as encode_for_xml
 from datetime import datetime
 
 from invenio.legacy.refextract.regexs import re_num
-from invenio.docextract_utils import write_message
+from invenio.legacy.docextract.utils import write_message
 from invenio.legacy.refextract.config import \
     CFG_REFEXTRACT_TAG_ID_REFERENCE, \
     CFG_REFEXTRACT_IND1_REFERENCE, \

@@ -19,10 +19,10 @@
 
 import re
 
-from invenio.docextract_pdf import replace_undesirable_characters
-from invenio.docextract_utils import write_message
+from invenio.legacy.docextract.pdf import replace_undesirable_characters
+from invenio.legacy.docextract.utils import write_message
 
-from invenio.docextract_text import join_lines, \
+from invenio.legacy.docextract.text import join_lines, \
                                     repair_broken_urls, \
                                     re_multiple_space, \
                                     remove_page_boundary_lines
