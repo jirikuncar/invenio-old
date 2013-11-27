@@ -31,6 +31,7 @@ import urllib2
 import cookielib
 import json
 
+from flask import url_for
 from invenio.modules import formatter as bibformat
 
 from invenio.utils.json import CFG_JSON_AVAILABLE
@@ -201,8 +202,8 @@ def perform_request_init(uid, ln, req, lastupdated):
 
 
     body += '<link rel="stylesheet" type="text/css" href="/img/jquery-ui.css" />'
-    body += '<link rel="stylesheet" type="text/css" href="%s/%s" />' % (CFG_SITE_URL,
-            auto_version_url("img/" + 'bibedit.css'))
+    body += '<link rel="stylesheet" type="text/css" href="%s" />' % (
+        url_for('editor.static', filename='editor/base.css'), )
 
     if CFG_CERN_SITE:
         cern_site = 'true'
@@ -252,14 +253,20 @@ def perform_request_init(uid, ln, req, lastupdated):
             "   var fieldTemplates = %s\n" % (json.dumps(fieldTemplates), ) + \
             "</script>\n"
     # Add scripts (the ordering is NOT irrelevant).
-    scripts = ['jquery-ui.min.js',  'jquery.jeditable.mini.js', 'jquery.hotkeys.js',
-               'json2.js', 'bibedit_refextract.js', 'bibedit_display.js', 'bibedit_engine.js', 'bibedit_keys.js',
-               'bibedit_menu.js', 'bibedit_holdingpen.js', 'marcxml.js',
-               'bibedit_clipboard.js']
+    scripts = ['jquery-ui.min.js',  'jquery.jeditable.mini.js',
+               'jquery.hotkeys.js', 'json2.js']
+    bibedit_scripts = ['refextract.js', 'display.js', 'engine.js', 'keys.js',
+                       'menu.js', 'holdingpen.js', 'marcxml.js',
+                       'clipboard.js']
 
     for script in scripts:
-        body += '    <script type="text/javascript" src="%s/%s">' \
-            '</script>\n' % (CFG_SITE_URL, auto_version_url("js/" + script))
+        body += '    <script type="text/javascript" src="%s">' \
+            '</script>\n' % (url_for('static', filename='js/' + script), )
+
+    for script in bibedit_scripts:
+        body += '    <script type="text/javascript" src="%s">' \
+            '</script>\n' % (url_for('editor.static',
+                                     filename='js/editor/' + script), )
 
     # Init BibEdit
     body += '<script>$(init_bibedit);</script>'
@@ -1617,13 +1624,17 @@ def perform_request_init_template_interface():
     body += '    </script>\n'
 
     # Add scripts (the ordering is NOT irrelevant).
-    scripts = ['jquery-ui.min.js',
-               'json2.js', 'bibedit_display.js',
-               'bibedit_template_interface.js']
+    scripts = ['jquery-ui.min.js', 'json2.js']
+    bibedit_scripts = ['display.js', 'template_interface.js']
 
     for script in scripts:
-        body += '    <script type="text/javascript" src="%s/js/%s">' \
-            '</script>\n' % (CFG_SITE_URL, script)
+        body += '    <script type="text/javascript" src="%s">' \
+            '</script>\n' % (url_for('static', filename='js/' + script), )
+
+    for script in bibedit_scripts:
+        body += '    <script type="text/javascript" src="%s">' \
+            '</script>\n' % (url_for('editor.static',
+                                     filename='js/editor/' + script), )
 
     body += '    <div id="bibEditTemplateList"></div>\n'
     body += '    <div id="bibEditTemplateEdit"></div>\n'
