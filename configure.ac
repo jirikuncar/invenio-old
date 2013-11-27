@@ -591,14 +591,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibclassify/doc/hacking/Makefile \
      modules/bibclassify/etc/Makefile \
      modules/bibclassify/lib/Makefile \
-     modules/bibconvert/Makefile \
-     modules/bibconvert/bin/Makefile \
-     modules/bibconvert/bin/bibconvert \
-     modules/bibconvert/doc/Makefile \
-     modules/bibconvert/doc/admin/Makefile \
-     modules/bibconvert/doc/hacking/Makefile \
-     modules/bibconvert/etc/Makefile \
-     modules/bibconvert/lib/Makefile \
      modules/bibdocfile/Makefile \
      modules/bibdocfile/bin/Makefile \
      modules/bibdocfile/doc/Makefile \
