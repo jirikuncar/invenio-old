@@ -18,9 +18,7 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA =  \
-             docextract_webinterface_unit_tests.py \
-             refextract_regression_tests.py \
-             refextract_unit_tests.py
+             refextract_regression_tests.py
 
 
 EXTRA_DIST = $(pylib_DATA)

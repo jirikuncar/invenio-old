@@ -870,9 +870,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/websubmit/web/Makefile \
      modules/websubmit/web/admin/Makefile \
      modules/docextract/Makefile \
-     modules/docextract/bin/Makefile \
-     modules/docextract/bin/docextract \
-     modules/docextract/bin/refextract \
      modules/docextract/doc/Makefile \
      modules/docextract/lib/Makefile \
      modules/docextract/etc/Makefile \
