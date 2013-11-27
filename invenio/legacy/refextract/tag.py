@@ -19,7 +19,7 @@
 
 import re
 
-from invenio.refextract_config import \
+from invenio.legacy.refextract.config import \
     CFG_REFEXTRACT_MARKER_CLOSING_AUTHOR_ETAL, \
     CFG_REFEXTRACT_MARKER_CLOSING_AUTHOR_INCL, \
     CFG_REFEXTRACT_MARKER_CLOSING_AUTHOR_STND, \
@@ -27,7 +27,7 @@ from invenio.refextract_config import \
 
 from invenio.docextract_text import remove_and_record_multiple_spaces_in_line
 
-from invenio.refextract_re import \
+from invenio.legacy.refextract.regexs import \
     re_ibid, \
     re_doi, \
     re_raw_url, \

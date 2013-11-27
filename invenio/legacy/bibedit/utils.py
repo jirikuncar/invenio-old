@@ -75,7 +75,7 @@ from invenio.legacy.webuser import get_user_info, getUid, get_email
 from invenio.legacy.dbquery import run_sql
 from invenio.legacy.websearch.adminlib import get_detailed_page_tabs
 from invenio.modules.access.engine import acc_authorize_action
-from invenio.refextract_api import extract_references_from_record_xml, \
+from invenio.legacy.refextract.api import extract_references_from_record_xml, \
                                    extract_references_from_string_xml, \
                                    extract_references_from_url_xml
 from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file, ParseError

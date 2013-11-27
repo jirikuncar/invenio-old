@@ -102,7 +102,7 @@ from invenio.batchuploader_engine import perform_upload_check
 from invenio.legacy.bibcirculation.db_layer import get_number_copies, has_copies
 from invenio.legacy.bibcirculation.utils import create_item_details_url
 
-from invenio.refextract_api import FullTextNotAvailable
+from invenio.legacy.refextract.api import FullTextNotAvailable
 from invenio.legacy.bibrecord.scripts import xmlmarc2textmarc as xmlmarc2textmarc
 from invenio.legacy.bibdocfile.api import BibRecDocs, InvenioBibDocFileError
 

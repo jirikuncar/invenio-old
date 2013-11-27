@@ -16,15 +16,3 @@
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
-
-"""
-Backward compatibility module for those modules that still import invenio.refextract
-"""
-
-from warnings import warn
-warn("Usage of invenio.refextract is deprecated. Please, directly import the corresponding refextract/docextract specific module.", DeprecationWarning)
-
-#pylint: disable-msg=W0401
-#pylint: disable-msg=W0614
-from invenio.refextract_api import *
-from invenio.refextract_cli import *

@@ -22,7 +22,7 @@
 import re
 
 from invenio.docextract_utils import write_message
-from invenio.refextract_re import \
+from invenio.legacy.refextract.regexs import \
     get_reference_section_title_patterns, \
     get_reference_line_numeration_marker_patterns, \
     regex_match_list, \

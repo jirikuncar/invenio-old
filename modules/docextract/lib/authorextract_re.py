@@ -20,7 +20,7 @@
 import re
 import sys
 from invenio.docextract_utils import write_message
-from invenio.refextract_config import CFG_REFEXTRACT_KBS
+from invenio.legacy.refextract.config import CFG_REFEXTRACT_KBS
 
 
 def get_author_affiliation_numeration_str(punct=None):

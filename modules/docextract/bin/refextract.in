@@ -49,7 +49,7 @@
 import sys
 
 from invenio.flaskshell import *
-from invenio.refextract_task import main as daemon_main
+from invenio.legacy.refextract.task import main as daemon_main
 
 
 if __name__ == '__main__':

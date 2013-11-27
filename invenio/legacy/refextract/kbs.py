@@ -21,10 +21,10 @@ import re
 import sys
 import csv
 
-from invenio.refextract_config import CFG_REFEXTRACT_KBS
+from invenio.legacy.refextract.config import CFG_REFEXTRACT_KBS
 from invenio.modules.knowledge.api import get_kbr_items
 from invenio.config import CFG_REFEXTRACT_KBS_OVERRIDE
-from invenio.refextract_re import re_kb_line, \
+from invenio.legacy.refextract.regexs import re_kb_line, \
                                   re_regexp_character_class, \
                                   re_report_num_chars_to_escape, \
                                   re_extract_quoted_text, \

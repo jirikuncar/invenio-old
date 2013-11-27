@@ -22,21 +22,6 @@ pylib_DATA = docextract_pdf.py \
              docextract_utils.py \
              docextract_task.py \
              docextract_webinterface_unit_tests.py \
-             refextract.py \
-             refextract_task.py \
-             refextract_config.py \
-             refextract_engine.py \
-             refextract_re.py \
-             refextract_api.py \
-             refextract_api_unit_tests.py \
-             refextract_api_regression_tests.py \
-             refextract_text.py \
-             refextract_xml.py \
-             refextract_find.py \
-             refextract_tag.py \
-             refextract_cli.py \
-             refextract_kbs.py \
-             refextract_linker.py \
              refextract_regression_tests.py \
              refextract_unit_tests.py \
              authorextract_re.py
