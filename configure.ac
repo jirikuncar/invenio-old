@@ -756,12 +756,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/webalert/doc/hacking/Makefile \
      modules/webalert/lib/Makefile \
      modules/webalert/web/Makefile \
-     modules/webbasket/Makefile \
-     modules/webbasket/doc/Makefile \
-     modules/webbasket/doc/admin/Makefile \
-     modules/webbasket/doc/hacking/Makefile \
-     modules/webbasket/lib/Makefile \
-     modules/webbasket/web/Makefile \
      modules/webcomment/Makefile \
      modules/webcomment/doc/Makefile \
      modules/webcomment/doc/admin/Makefile \
