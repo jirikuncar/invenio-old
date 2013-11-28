@@ -28,6 +28,7 @@ CFG_TESTUTILS_VERBOSE = 1
 import os
 import sys
 import time
+import unittest
 import unittest2
 import cgi
 import subprocess
@@ -46,8 +47,6 @@ try:
 except ImportError:
     # web tests will not be available, but unit and regression tests will:
     pass
-
-import unittest
 
 
 try:
@@ -190,6 +189,9 @@ class InvenioTestCase(TestCase, unittest2.TestCase):
                                base_url=CFG_SITE_SECURE_URL,
                                follow_redirects=True)
 
+    def shortDescription(self):
+        return
+
 
 class FlaskSQLAlchemyTest(InvenioTestCase):
 
@@ -225,7 +227,7 @@ def run_test_suite(testsuite, warn_user=False):
     """
     if warn_user:
         warn_user_about_tests()
-    res = unittest.TextTestRunner(verbosity=2).run(testsuite)
+    res = unittest.TextTestRunner(descriptions=False, verbosity=2).run(testsuite)
     return res.wasSuccessful()
 
 
@@ -557,7 +559,7 @@ def build_and_run_unit_test_suite():
              ', '.join(broken_unit_tests))
 
     complete_suite = unittest.TestSuite(test_modules)
-    res = unittest.TextTestRunner(verbosity=2).run(complete_suite)
+    res = unittest.TextTestRunner(descriptions=False, verbosity=2).run(complete_suite)
     return res.wasSuccessful()
 
 
@@ -665,7 +667,7 @@ def build_and_run_regression_test_suite():
     warn_user_about_tests()
 
     complete_suite = unittest.TestSuite(test_modules)
-    res = unittest.TextTestRunner(verbosity=2).run(complete_suite)
+    res = unittest.TextTestRunner(descriptions=False, verbosity=2).run(complete_suite)
     return res.wasSuccessful()
 
 
@@ -693,7 +695,7 @@ def build_and_run_web_test_suite():
     warn_user_about_tests()
 
     complete_suite = unittest.TestSuite(test_modules)
-    res = unittest.TextTestRunner(verbosity=2).run(complete_suite)
+    res = unittest.TextTestRunner(descriptions=False, verbosity=2).run(complete_suite)
     return res.wasSuccessful()
 
 
