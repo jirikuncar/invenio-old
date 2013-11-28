@@ -37,6 +37,7 @@ from invenio.ext.login import login_user, logout_user, UserInfo, \
 from invenio.ext.menu import register_menu
 from invenio.ext.sqlalchemy import db
 from invenio.ext.sslify import ssl_required
+from invenio.modules.access.mailcookie import mail_cookie_check_mail_activation
 from invenio.utils.datastructures import LazyDict, flatten_multidict
 from invenio.utils.url import rewrite_to_secure_url
 
@@ -346,8 +347,26 @@ def lost():
     form = LostPasswordForm(request.values)
     if form.validate_on_submit():
         if reset_password(request.values['email'], g.ln):
-            flash(_('A password reset link has been sent to %s') % request.values['email'], 'success')
+            flash(_('A password reset link has been sent to %whom',
+                    whom=request.values['email']), 'success')
     else:
         pass
     logout_user()  # makes no sense to have the user logged-in here
     return render_template('accounts/lost.html', form=form)
+
+
+@blueprint.route('/access', methods=['GET', 'POST'])
+@ssl_required
+def access():
+    try:
+        mail = mail_cookie_check_mail_activation(request.values['mailcookie'])
+        User.query.filter(User.email == mail).one().note = 1
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
+            flash(_('Authorization failled.'), 'error')
+        flash(_('Your email has been validated.'), 'success')
+    except:
+        flash(_('The authorization token is invalid.'), 'error')
+    return redirect('/')
