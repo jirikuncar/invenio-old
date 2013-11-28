@@ -24,7 +24,6 @@ SUBDIRS = bibauthorid \
           bibdocfile \
           bibedit \
           bibencode \
-          bibexport \
           bibfield \
           bibformat \
           bibindex \

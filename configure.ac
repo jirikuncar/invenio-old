@@ -602,16 +602,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibencode/lib/Makefile \
      modules/bibencode/etc/Makefile \
      modules/bibencode/www/Makefile \
-     modules/bibexport/Makefile \
-     modules/bibexport/bin/Makefile \
-     modules/bibexport/bin/bibexport \
-     modules/bibexport/doc/Makefile \
-     modules/bibexport/doc/admin/Makefile \
-     modules/bibexport/doc/hacking/Makefile
-     modules/bibexport/etc/Makefile \
-     modules/bibexport/lib/Makefile \
-     modules/bibexport/web/Makefile \
-     modules/bibexport/web/admin/Makefile \
      modules/bibfield/Makefile \
      modules/bibfield/lib/Makefile \
      modules/bibfield/etc/Makefile \
