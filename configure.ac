@@ -596,13 +596,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibdocfile/doc/Makefile \
      modules/bibdocfile/doc/hacking/Makefile \
      modules/bibdocfile/lib/Makefile \
-     modules/bibrecord/Makefile \
-     modules/bibrecord/bin/Makefile \
-     modules/bibrecord/doc/Makefile \
-     modules/bibrecord/doc/admin/Makefile \
-     modules/bibrecord/doc/hacking/Makefile \
-     modules/bibrecord/etc/Makefile \
-     modules/bibrecord/lib/Makefile \
      modules/bibedit/Makefile \
      modules/bibedit/lib/Makefile \
      modules/bibencode/Makefile \
