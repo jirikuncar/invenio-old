@@ -44,4 +44,5 @@ def create_format_templates_lookup():
         out[os.path.sep.join(parts[-2:])] = normpath
     return out
 
+
 format_templates_lookup = LazyDict(create_format_templates_lookup)
