@@ -24,7 +24,7 @@ import os
 
 from werkzeug.utils import import_string, find_modules
 from werkzeug.local import LocalProxy
-from pkg_resources import iter_entry_points, resource_listdir
+from pkg_resources import iter_entry_points, resource_listdir, resource_isdir
 from flask import current_app, has_app_context
 
 
@@ -351,8 +351,11 @@ class AutoDiscoverRegistry(DiscoverRegistry):
 class PkgResourcesDiscoverRegistry(AutoDiscoverRegistry):
 
     def _discover_module(self, pkg):
-        for f in resource_listdir(pkg, self.module_name):
-            self.register(os.path.join(os.path.dirname(import_string(pkg).__file__), self.module_name, f))
+        if resource_isdir(pkg, self.module_name):
+            for f in resource_listdir(pkg, self.module_name):
+                self.register(os.path.join(
+                    os.path.dirname(import_string(pkg).__file__),
+                    self.module_name, f))
 
 
 class ConfigurationRegistry(DiscoverRegistry):
