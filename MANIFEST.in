@@ -1,4 +1,6 @@
 include requirements*.txt
-recursive-include docs *.xml *.xsl *.tpl *.html *.js *.css *.cfg *.bft *.rst
-recursive-include invenio *.xml *.xsl *.tpl *.html *.js *.css *.cfg *.bft *.rst intbitset.*
-recursive-include invenio_demosite *.xml *.xsl *.tpl *.html *.js *.css *.cfg *.bft *.rst
+recursive-include docs *.xml *.xsl *.tpl *.html *.js *.css *.cfg *.bft *.rst *.png *.gif *.ico
+recursive-include invenio *.xml *.xsl *.tpl *.html *.js *.css *.cfg *.bft *.rst intbitset.* *.png *.gif *.ico
+recursive-include invenio_demosite *.xml *.xsl *.tpl *.html *.js *.css *.cfg *.bft *.rst *.ico
+
+include invenio/base/static/img/test*

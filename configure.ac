@@ -849,13 +849,11 @@ AC_CONFIG_FILES([config.nice  \
      modules/webstyle/Makefile \
      modules/webstyle/bin/Makefile \
      modules/webstyle/bin/webdoc \
-     modules/webstyle/css/Makefile \
      modules/webstyle/doc/Makefile \
      modules/webstyle/doc/admin/Makefile \
      modules/webstyle/doc/hacking/Makefile \
      modules/webstyle/etc/Makefile \
      modules/webstyle/etc/templates/Makefile \
-     modules/webstyle/img/Makefile \
      modules/webstyle/lib/Makefile \
      modules/websubmit/Makefile \
      modules/websubmit/bin/Makefile \

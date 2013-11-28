@@ -33,14 +33,14 @@ from invenio.config import CFG_TMPDIR, CFG_SITE_URL, \
                            CFG_PLOTEXTRACTOR_CONTEXT_SENTENCE_LIMIT, \
                            CFG_PLOTEXTRACTOR_CONTEXT_EXTRACT_LIMIT
 from invenio.legacy.bibsched.bibtask import task_low_level_submission
-from invenio.plotextractor_getter import get_list_of_all_matching_files, \
+from .getter import get_list_of_all_matching_files, \
                                          parse_and_download, \
                                          make_single_directory, \
                                          tarballs_by_recids, \
                                          tarballs_by_arXiv_id
-from invenio.plotextractor_converter import untar, extract_text, \
+from .converter import untar, extract_text, \
                                             convert_images
-from invenio.plotextractor_output_utils import assemble_caption, \
+from .output_utils import assemble_caption, \
                                                find_open_and_close_braces, \
                                                create_MARC, get_tex_location, \
                                                get_image_location, \

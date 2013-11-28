@@ -68,8 +68,8 @@ from invenio.legacy.bibrecord import record_extract_oai_id, create_records, \
                               record_has_field, field_xml_output
 from invenio import oai_harvest_getter
 from invenio.ext.logging import register_exception
-from invenio.plotextractor_getter import harvest_single, make_single_directory
-from invenio.plotextractor_converter import untar
+from invenio.utils.plotextractor.getter import harvest_single, make_single_directory
+from invenio.utils.plotextractor.converter import untar
 from invenio.plotextractor import process_single, get_defaults
 from invenio.utils.shell import run_shell_command, Timeout
 from invenio.utils.text import translate_latex2unicode

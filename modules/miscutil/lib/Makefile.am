@@ -31,13 +31,7 @@ pylib_DATA = __init__.py \
              inveniocfg_unit_tests.py \
              inveniomanage_unit_tests.py \
              miscutil_model.py \
-             plotextractor.py \
-             plotextractor_config.py \
-             plotextractor_converter.py \
-             plotextractor_getter.py \
-             plotextractor_output_utils.py \
              plotextractor_regression_tests.py \
-             plotextractor_unit_tests.py \
              pluginutils.py \
              pluginutils_unit_tests.py \
              remote_debugger.py \
