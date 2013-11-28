@@ -1,5 +1,7 @@
+#!@PYTHON@
+##
 ## This file is part of Invenio.
-## Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 CERN.
+## Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -15,11 +17,15 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-pylibdir=$(libdir)/python/invenio/websubmit_functions
+"""
+WebSubmit admin CLI tool.
+"""
 
-#FIXME add compatibility layer
-pylib_DATA =
+__revision__ = "$Id$"
+from invenio.base.factory import with_app_context
 
-EXTRA_DIST = $(pylib_DATA)
 
-CLEANFILES = *~ *.tmp *.pyc
+@with_app_context()
+def main():
+    from invenio.legacy.websubmit.inveniounoconv import main as inveniounoconv_main
+    return inveniounoconv_main()

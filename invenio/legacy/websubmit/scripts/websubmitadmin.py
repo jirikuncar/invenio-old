@@ -1,5 +1,7 @@
+#!@PYTHON@
+##
 ## This file is part of Invenio.
-## Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2010, 2011 CERN.
+## Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -9,19 +11,21 @@
 ## Invenio is distributed in the hope that it will be useful, but
 ## WITHOUT ANY WARRANTY; without even the implied warranty of
 ## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-## General Public License for more details.  
+## General Public License for more details.
 ##
 ## You should have received a copy of the GNU General Public License
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-SUBDIRS = admin hacking
+"""
+WebSubmit admin CLI tool.
+"""
 
-webdoclibdir = $(libdir)/webdoc/invenio/help
+__revision__ = "$Id$"
+from invenio.base.factory import with_app_context
 
-webdoclib_DATA = \
-	submit-guide.webdoc
 
-EXTRA_DIST = $(webdoclib_DATA)
-
-CLEANFILES = *~ *.tmp
+@with_app_context()
+def main():
+    from invenio.legacy.websubmit.admincli import main as websubmitadmin_main
+    return websubmitadmin_main()

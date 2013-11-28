@@ -53,10 +53,10 @@ from invenio.base.i18n import gettext_set_language, wash_language
 from invenio.legacy.webstat.api import register_customevent
 from invenio.ext.logging import register_exception
 from invenio.utils.url import make_canonical_urlargd, redirect_to_url
-from invenio.websubmitadmin_engine import string_is_alphanumeric_including_underscore
+from invenio.legacy.websubmit.admin_engine import string_is_alphanumeric_including_underscore
 from invenio.utils.html import get_mathjax_header
 
-from invenio.websubmit_dblayer import \
+from invenio.legacy.websubmit.db_layer import \
      get_storage_directory_of_action, \
      get_longname_of_doctype, \
      get_longname_of_action, \
