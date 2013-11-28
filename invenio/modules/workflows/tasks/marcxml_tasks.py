@@ -57,7 +57,7 @@ def convert_record(stylesheet="oaiarxiv2marcxml.xsl"):
         """
         Will convert the object data, if XML, using the given stylesheet
         """
-        from invenio.legacy.bibconver.xslt_engine import convert
+        from invenio.legacy.bibconvert.xslt_engine import convert
 
         obj.extra_data["last_task_name"] = 'Convert Record'
         try:

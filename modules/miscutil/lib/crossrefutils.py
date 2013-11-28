@@ -23,7 +23,7 @@ import urllib2
 
 from invenio.config import CFG_ETCDIR, CFG_CROSSREF_USERNAME, \
  CFG_CROSSREF_PASSWORD
-from invenio.legacy.bibconver.xslt_engine import convert
+from invenio.legacy.bibconvert.xslt_engine import convert
 
 
 # Exceptions classes
