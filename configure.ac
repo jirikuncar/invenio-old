@@ -825,15 +825,7 @@ AC_CONFIG_FILES([config.nice  \
      modules/webstyle/etc/templates/Makefile \
      modules/webstyle/lib/Makefile \
      modules/websubmit/Makefile \
-     modules/websubmit/bin/Makefile \
-     modules/websubmit/bin/inveniounoconv \
-     modules/websubmit/bin/websubmitadmin \
-     modules/websubmit/doc/Makefile \
-     modules/websubmit/doc/admin/Makefile \
-     modules/websubmit/doc/hacking/Makefile \
-     modules/websubmit/etc/Makefile \
      modules/websubmit/lib/Makefile \
-     modules/websubmit/lib/functions/Makefile \
      modules/websubmit/web/Makefile \
      modules/websubmit/web/admin/Makefile \
      modules/docextract/Makefile \

@@ -15,29 +15,16 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-SUBDIRS = functions
+SUBDIRS =
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = \
-             websubmit_dblayer.py \
-             websubmit_templates.py \
-             websubmit_regression_tests.py \
-             websubmitadmin_engine.py \
-             websubmitadmin_templates.py \
+pylib_DATA = websubmit_regression_tests.py \
              websubmitadmin_regression_tests.py \
-             websubmit_file_stamper.py \
-             websubmit_icon_creator.py \
-             hocrlib.py \
-             websubmit_file_metadata.py \
-             websubmit_web_tests.py \
-             websubmitadmincli.py
+             websubmit_web_tests.py
 
 metadataplugindir = $(libdir)/python/invenio/websubmit_file_metadata_plugins
-metadataplugin_DATA = __init__.py \
-                      wsm_extractor_plugin.py \
-                      wsm_pyexiv2_plugin.py \
-                      wsm_pdftk_plugin.py
+metadataplugin_DATA =
 
 EXTRA_DIST = $(pylib_DATA) $(metadataplugin_DATA)
 
