@@ -82,6 +82,7 @@ from ConfigParser import ConfigParser
 from optparse import OptionParser, OptionGroup, IndentedHelpFormatter, Option, \
     OptionError
 import os
+import pkg_resources
 import random
 import re
 import shutil
@@ -846,7 +847,8 @@ def cli_cmd_load_demo_records(conf):
     from invenio.legacy.dbquery import run_sql
     print ">>> Going to load demo records..."
     run_sql("TRUNCATE schTASK")
-    for cmd in ["%s/bin/bibupload -u admin -i %s/var/tmp/demobibdata.xml" % (CFG_PREFIX, CFG_PREFIX),
+    for cmd in ["%s/bin/bibupload -u admin -i %s" % (CFG_PREFIX,
+                    pkg_resources.resource_filename('invenio.testsuite', os.path.join('data','demo_record_marc_data.xml'))),
                 "%s/bin/bibupload 1" % CFG_PREFIX,
                 "%s/bin/bibdocfile --textify --with-ocr --recid 97" % CFG_PREFIX,
                 "%s/bin/bibdocfile --textify --all" % CFG_PREFIX,
