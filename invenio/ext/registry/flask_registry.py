@@ -65,6 +65,9 @@ class Registry(object):
         self._registry[key] = value
         self._registry[key]._namespace = key
 
+    def __delitem__(self, key):
+        self._registry.__delitem__(key)
+
     def __missing__(self, key):
         return self._registry.__missing__(key)
 
