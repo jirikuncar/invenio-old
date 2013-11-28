@@ -33,13 +33,12 @@
       <small>
       {% if current_user.is_guest %}
         <a class="btn pull-right" href="{{ url_for('webaccount.login', referer=request.url) }}">
-          <i class="icon-pencil"></i> {{ _('write review') }}
-        </a>
       {% else %}
         <a class="btn pull-right" data-toggle="modal" href="{{ url_for('comments.add_review', recid=recid) }}">
+      {% endif %}
           <i class="icon-pencil"></i> {{ _('write review') }}
         </a>
-      {% endif %}
+
       </small>
     </h4>
   </div>
