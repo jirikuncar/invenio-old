@@ -488,7 +488,7 @@ def registerUser(req, email, passw, nickname, register_without_nickname=False,
             except:
                 ip_address = None
             try:
-                if not send_email(CFG_SITE_SUPPORT_EMAIL, email, _("Account registration at %sitename", sitename=CFG_SITE_NAME_INTL.get(ln, CFG_SITE_NAME)),
+                if not send_email(CFG_SITE_SUPPORT_EMAIL, email, _("Account registration at %(sitename)s", sitename=CFG_SITE_NAME_INTL.get(ln, CFG_SITE_NAME)),
                                   tmpl.tmpl_account_address_activation_email_body(
                                       email, address_activation_key,
                                       ip_address, ln)):
