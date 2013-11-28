@@ -16,8 +16,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 etcdir = $(sysconfdir)/docextract/
-etc_DATA = example.pdf \
-           example.txt \
+etc_DATA =  \
            test1.txt \
            job-preprints.cfg \
            test2.txt

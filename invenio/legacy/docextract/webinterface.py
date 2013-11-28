@@ -22,6 +22,7 @@
 Exposes document extration facilities to the world
 """
 
+import pkg_resources
 from tempfile import NamedTemporaryFile
 
 from invenio.ext.legacy.handler import WebInterfaceDirectory
@@ -133,7 +134,9 @@ class WebInterfaceDocExtract(WebInterfaceDirectory):
 
     def example_pdf(self, req, _form):
         """Serve a test pdf for tests"""
-        f = open("%s/docextract/example.pdf" % CFG_ETCDIR, 'rb')
+        f = open(pkg_resources.resource_filename(
+            'invenio.modules.textminer.testsuite',
+            'data/example.pdf'), 'rb')
         try:
             req.write(f.read())
         finally:

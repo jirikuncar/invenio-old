@@ -106,7 +106,7 @@ from invenio.legacy.refextract.api import FullTextNotAvailable
 from invenio.legacy.bibrecord.scripts import xmlmarc2textmarc as xmlmarc2textmarc
 from invenio.legacy.bibdocfile.api import BibRecDocs, InvenioBibDocFileError
 
-from invenio.crossrefutils import get_marcxml_for_doi, CrossrefError
+from invenio.utils.crossref import get_marcxml_for_doi, CrossrefError
 
 import invenio.legacy.template
 bibedit_templates = invenio.legacy.template.load('bibedit')

@@ -17,7 +17,7 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-
+import pkg_resources
 try:
     import requests
     HAS_REQUESTS = True
@@ -178,7 +178,9 @@ class DocExtractTest(InvenioTestCase):
             from invenio.config import CFG_SITE_URL, CFG_ETCDIR
             url = CFG_SITE_URL + '/textmining/api/extract-references-pdf'
 
-            pdf = open("%s/docextract/example.pdf" % CFG_ETCDIR, 'rb')
+            pdf = open(pkg_resources.resource_filename(
+                'invenio.modules.textminer.testsuite',
+                'data/example.pdf'), 'rb')
             response = requests.post(url, files={'pdf': pdf})
             # Remove stats tag
             lines = response.content.split('\n')
@@ -186,7 +188,7 @@ class DocExtractTest(InvenioTestCase):
             compare_references(self, '\n'.join(lines), expected_response())
 
         def test_url(self):
-            from invenio.config import CFG_SITE_URL, CFG_ETCDIR
+            from invenio.config import CFG_SITE_URL
             url = CFG_SITE_URL + '/textmining/api/extract-references-pdf-url'
 
             pdf = CFG_SITE_URL + '/textmining/example.pdf'
@@ -194,10 +196,12 @@ class DocExtractTest(InvenioTestCase):
             compare_references(self, response.content, expected_response())
 
         def test_txt(self):
-            from invenio.config import CFG_SITE_URL, CFG_ETCDIR
+            from invenio.config import CFG_SITE_URL
             url = CFG_SITE_URL + '/textmining/api/extract-references-txt'
 
-            pdf = open("%s/docextract/example.txt" % CFG_ETCDIR, 'rb')
+            pdf = open(pkg_resources.resource_filename(
+                'invenio.modules.textminer.testsuite',
+                'data/example.txt'), 'rb')
             response = requests.post(url, files={'txt': pdf})
             # Remove stats tag
             lines = response.content.split('\n')

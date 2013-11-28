@@ -18,7 +18,6 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = __init__.py \
-             crossrefutils.py \
              dataciteutils_tester.py \
              dbdump.py \
              dbquery_regression_tests.py \

@@ -42,7 +42,7 @@ from invenio.config import CFG_SITE_SECURE_URL, CFG_BIBMATCH_FUZZY_WORDLIMITS, \
                            CFG_BIBMATCH_SEARCH_RESULT_MATCH_LIMIT
 from invenio.bibmatch_config import CFG_BIBMATCH_LOGGER, \
                                     CFG_LOGFILE
-from invenio.invenio_connector import InvenioConnector, \
+from invenio.utils.connector import InvenioConnector, \
                                       InvenioConnectorAuthError
 from invenio.legacy.bibrecord import create_records, \
     record_get_field_values, record_xml_output, record_modify_controlfield, \
