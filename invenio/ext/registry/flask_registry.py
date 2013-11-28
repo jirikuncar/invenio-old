@@ -310,6 +310,7 @@ class DiscoverRegistry(ModuleRegistry):
             app = getattr(self, 'app')
         if app is None:
             RegistryError("You must provide a Flask application.")
+        self.app = app
 
         blacklist = app.config.get(
             '%s_%s_EXCLUDE' % (self.cfg_var_prefix, self.module_name.upper()),
@@ -336,8 +337,8 @@ class DiscoverRegistry(ModuleRegistry):
         except Exception as e:
             import traceback
             traceback.print_exc()
-            app.logger.error('Could not import: "%s: %s',
-                             import_str, str(e))
+            self.app.logger.error('Could not import: "%s: %s',
+                                  import_str, str(e))
 
 
 class AutoDiscoverRegistry(DiscoverRegistry):
@@ -346,6 +347,30 @@ class AutoDiscoverRegistry(DiscoverRegistry):
         super(AutoDiscoverRegistry, self).__init__(module_name, *args, **kwargs)
         self.app = app
         self.discover(app=app)
+
+
+class AutoDiscoverSubRegistry(AutoDiscoverRegistry):
+
+    def _discover_module(self, pkg):
+        import_str = pkg + '.' + self.module_name
+
+        try:
+            import_string(import_str)
+        except ImportError:
+            return
+
+        for m in find_modules(import_str):
+            try:
+                module = import_string(m, silent=True)
+                if module is not None:
+                    self.register(module)
+            except ImportError:
+                pass
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self.app.logger.error('Could not import: "%s: %s',
+                                      import_str, str(e))
 
 
 class PkgResourcesDiscoverRegistry(AutoDiscoverRegistry):

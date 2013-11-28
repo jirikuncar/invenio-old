@@ -25,7 +25,7 @@ Provides utilities to safely interact with stored data.
 import invenio.legacy.bibauthorid.config as bconfig
 import invenio.bibauthorid_frontinterface as dbapi
 import invenio.legacy.bibauthorid.name_utils as nameapi
-import invenio.webauthorprofile_interface as webauthorapi
+import invenio.legacy.webauthorprofile.interface as webauthorapi
 
 import invenio.legacy.search_engine as search_engine
 from invenio.legacy.search_engine import perform_request_search

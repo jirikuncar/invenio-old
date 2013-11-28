@@ -67,7 +67,8 @@ from invenio.legacy.bibrecord import \
      record_get_field_value, \
      record_get_field_values, \
      record_xml_output
-from invenio.modules.formatter.engines.xslt import format
+from . import registry
+from .engines.xslt import format
 from invenio.legacy.dbquery import run_sql
 from invenio.base.i18n import \
      language_list_long, \
@@ -229,11 +230,10 @@ class LazyTemplateContextFunctionsCache(object):
         return elem
 
     @memoize
-    def bibformat_elements(self, packages=None):
+    def bibformat_elements(self, modules=None):
         """Returns bibformat elements."""
-        if cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] is not None:
-            packages = [cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH']]
-        modules = autodiscover_format_elements(packages=packages, silent=True)
+        if modules is None:
+            modules = registry.format_elements
 
         elem = {}
         for m in modules:
@@ -248,10 +248,6 @@ class LazyTemplateContextFunctionsCache(object):
                 elem[name] = register_func
 
         return elem
-
-    #@cached_property
-    #def bibformat_elements(self):
-    #    return self._bibformat_elements()
 
     @cached_property
     def functions(self):
@@ -1007,8 +1003,7 @@ def get_format_template(filename, with_attributes=False):
 
     format_template = {'code':""}
     try:
-
-        path = "%s%s%s" % (cfg['CFG_BIBFORMAT_TEMPLATES_PATH'], os.sep, filename)
+        path = registry.format_templates_lookup[filename]
 
         format_file = open(path)
         format_content = format_file.read()
@@ -1027,8 +1022,8 @@ def get_format_template(filename, with_attributes=False):
 
     except Exception, e:
         try:
-            raise InvenioBibFormatError(_('Could not read format template named %s. %s.') % (filename, str(e)))
-        except InvenioBibFormatError, exc:
+            raise InvenioBibFormatError(_('Could not read format template named %(filename)s. %(error)s.', filename=filename, error=str(e)))
+        except InvenioBibFormatError:
             register_exception()
 
     # Save attributes if necessary
@@ -1698,8 +1693,9 @@ def resolve_format_element_filename(element_name):
     else:
         name = element_name.replace(" ", "_").upper()
 
-    files = os.listdir(cfg['CFG_BIBFORMAT_ELEMENTS_PATH'])
-    for filename in files:
+    files = registry.format_elements
+    for element in files:
+        filename = os.path.basename(element.__file__)
         test_filename = filename.replace(" ", "_").upper()
 
         if test_filename == name or \

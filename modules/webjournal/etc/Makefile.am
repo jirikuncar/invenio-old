@@ -17,13 +17,11 @@
 
 etcdir = $(sysconfdir)/bibformat/format_templates/webjournal
 webdir = $(localstatedir)/www/img
-confdir = $(sysconfdir)/webjournal/AtlantisTimes
 
 etc_DATA = AtlantisTimes_Detailed.bft AtlantisTimes_Index.bft \
 	   AtlantisTimes_Search.bft
 web_DATA = AtlantisTimes.css
-conf_DATA = AtlantisTimes-config.xml
 
-EXTRA_DIST = $(etc_DATA) $(web_DATA) $(conf_DATA)
+EXTRA_DIST = $(etc_DATA) $(web_DATA)
 
 CLEANFILES = *.tmp
