@@ -33,7 +33,7 @@ from invenio.base.wrappers import lazy_import
 from invenio.testsuite import make_test_suite, run_test_suite, \
      test_web_page_content, merge_error_messages, InvenioTestCase
 
-wju = lazy_import('invenio.webjournal_utils')
+wju = lazy_import('invenio.legacy.webjournal.utils')
 
 
 class ArticlesRelated(InvenioTestCase):

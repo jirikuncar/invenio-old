@@ -92,7 +92,7 @@ def format_element(bfo, separator='<br/>'):
 
     # 2. prepare regex's for the elements
     #=====================================================
-    from invenio.webjournal_utils import \
+    from invenio.legacy.webjournal.utils import \
          image_pattern, \
          para_pattern, \
          header_pattern
