@@ -18,10 +18,6 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = bibupload_regression_tests.py \
-             batchuploader_webinterface.py \
-             batchuploader_engine.py \
-             batchuploader_templates.py \
-             batchuploader.py \
              batchuploader_regression_tests.py \
 			 bibupload_revisionverifier_regression_tests.py
 

@@ -193,7 +193,7 @@ except:
     WebInterfaceBibKnowledgePages = WebInterfaceDumbPages
 
 try:
-    from invenio.batchuploader_webinterface import \
+    from invenio.legacy.batchuploader.webinterface import \
          WebInterfaceBatchUploaderPages
 except:
     register_exception(alert_admin=True, subject='EMERGENCY')

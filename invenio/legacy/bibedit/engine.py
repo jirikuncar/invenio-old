@@ -97,7 +97,7 @@ from invenio.utils.text import wash_for_xml, show_diff
 from invenio.modules.knowledge.api import get_kbd_values_for_bibedit, get_kbr_values, \
      get_kbt_items_for_bibedit, kb_exists
 
-from invenio.batchuploader_engine import perform_upload_check
+from invenio.legacy.batchuploader.engine import perform_upload_check
 
 from invenio.legacy.bibcirculation.db_layer import get_number_copies, has_copies
 from invenio.legacy.bibcirculation.utils import create_item_details_url
