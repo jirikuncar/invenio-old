@@ -64,7 +64,7 @@ from invenio.modules.access.local_config import MAXSELECTUSERS
 from invenio.modules.access.control import acc_get_user_email
 from invenio.modules.access.engine import acc_get_authorized_emails
 from invenio.legacy.webmessage.api import perform_request_send
-import invenio.webbasket_dblayer as basketdb
+import invenio.legacy.webbasket.db_layer as basketdb
 from invenio.ext.logging import register_exception
 from invenio.legacy.bibrecord import create_records, record_get_field_value, record_get_field_values
 

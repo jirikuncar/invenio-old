@@ -102,6 +102,7 @@ setup(
             'inveniomanage = invenio.base.manage:main',
             'plotextractor = invenio.utils.plotextractor.cli:main',
             ## Legacy
+            'alertengine = invenio.legacy.webalert.scripts.alertengine:main',
             'batchuploader = invenio.legacy.bibupload.scripts.batchuploader',
             'bibclassify = invenio.modules.classifier.scripts.classifier:main',
             'bibconvert = invenio.legacy.bibconvert.scripts.bibconvert:main',

@@ -37,7 +37,7 @@ from invenio.config import \
      CFG_SITE_RECORD
 from invenio.legacy.webuser import get_user_info
 from invenio.utils.date import convert_datetext_to_dategui
-from invenio.webbasket_dblayer import get_basket_ids_and_names
+from invenio.legacy.webbasket.db_layer import get_basket_ids_and_names
 
 ICON_BACK = 'icon-arrow-left'
 ICON_CREATE_BASKET = 'icon-plus'

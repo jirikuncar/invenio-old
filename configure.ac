@@ -748,14 +748,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/webaccess/lib/Makefile \
      modules/webaccess/web/Makefile \
      modules/webaccess/web/admin/Makefile \
-     modules/webalert/Makefile \
-     modules/webalert/bin/Makefile \
-     modules/webalert/bin/alertengine \
-     modules/webalert/doc/Makefile \
-     modules/webalert/doc/admin/Makefile \
-     modules/webalert/doc/hacking/Makefile \
-     modules/webalert/lib/Makefile \
-     modules/webalert/web/Makefile \
      modules/webcomment/Makefile \
      modules/webcomment/doc/Makefile \
      modules/webcomment/doc/admin/Makefile \

@@ -53,7 +53,7 @@ from invenio.legacy.search_engine import \
      print_records_prologue, \
      print_records_epilogue
 #from invenio.webcomment import check_user_can_attach_file_to_comments
-import invenio.webbasket_dblayer as db
+import invenio.legacy.webbasket.db_layer as db
 try:
     import invenio.legacy.template
     webbasket_templates = invenio.legacy.template.load('webbasket')

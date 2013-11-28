@@ -34,7 +34,7 @@ from invenio.base.globals import cfg
 from invenio.base.i18n import gettext_set_language
 from invenio.legacy.webpage import page
 from invenio.legacy.webuser import getUid, page_not_authorized, isGuestUser
-from invenio.webbasket import \
+from invenio.legacy.webbasket.api import \
      check_user_can_comment, \
      check_sufficient_rights, \
      perform_request_display, \
@@ -63,7 +63,7 @@ from invenio.webbasket import \
      perform_request_export_xml, \
      page_start, \
      page_end
-from invenio.webbasket_dblayer import get_basket_name, \
+from invenio.legacy.webbasket.db_layer import get_basket_name, \
      get_max_user_rights_on_basket
 from invenio.utils.url import get_referer, redirect_to_url, make_canonical_urlargd
 from invenio.ext.legacy.handler import wash_urlargd, WebInterfaceDirectory
