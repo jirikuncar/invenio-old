@@ -653,14 +653,8 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibupload/doc/hacking/Makefile \
      modules/bibupload/lib/Makefile \
      modules/elmsubmit/Makefile \
-     modules/elmsubmit/bin/Makefile \
-     modules/elmsubmit/bin/elmsubmit \
-     modules/elmsubmit/doc/Makefile \
-     modules/elmsubmit/doc/admin/Makefile \
-     modules/elmsubmit/doc/hacking/Makefile \
      modules/elmsubmit/etc/Makefile \
      modules/elmsubmit/etc/elmsubmit.cfg \
-     modules/elmsubmit/lib/Makefile \
      modules/miscutil/Makefile \
      modules/miscutil/bin/Makefile \
      modules/miscutil/bin/dbdump \

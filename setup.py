@@ -120,6 +120,7 @@ setup(
             'bibtasklet = invenio.legacy.bibsched.scripts.bibtasklet:main',
             'bibupload = invenio.legacy.bibupload.scripts.bibupload:main',
             'docextract = invenio.legacy.docextract.scripts.docextract:main',
+            'elmsubmit = invenio.legacy.elmsubmit.scripts.elmsubmit:main',
             'gotoadmin = invenio.modules.redirector.scripts.redirector:main',
             'inveniocfg = invenio.legacy.inveniocfg:main',
             'inveniounoconv = invenio.legacy.websubmit.scripts.inveniounoconv:main',
