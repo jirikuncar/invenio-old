@@ -29,7 +29,6 @@ SUBDIRS = \
           bibindex \
           bibknowledge \
           bibmatch \
-          bibmerge \
           bibrank \
           bibsched \
           bibsort \
