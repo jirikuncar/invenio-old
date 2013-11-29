@@ -30,7 +30,6 @@ SUBDIRS = \
           bibknowledge \
           bibmatch \
           bibrank \
-          bibsched \
           bibsort \
           bibsword \
           bibupload \

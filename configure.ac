@@ -646,15 +646,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibrank/lib/Makefile \
      modules/bibrank/web/Makefile \
      modules/bibrank/web/admin/Makefile \
-     modules/bibsched/Makefile \
-     modules/bibsched/bin/Makefile \
-     modules/bibsched/bin/bibsched \
-     modules/bibsched/bin/bibtaskex \
-     modules/bibsched/doc/Makefile \
-     modules/bibsched/doc/admin/Makefile \
-     modules/bibsched/doc/hacking/Makefile \
-     modules/bibsched/lib/Makefile \
-     modules/bibsched/lib/tasklets/Makefile \
      modules/bibsort/Makefile \
      modules/bibsort/bin/Makefile \
      modules/bibsort/lib/Makefile \
