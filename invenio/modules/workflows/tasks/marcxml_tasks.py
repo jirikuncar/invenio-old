@@ -96,7 +96,7 @@ def match_record(obj, eng):
     Will try to find matches in stored records
     """
     from invenio.legacy.bibrecord import create_record
-    from invenio.bibmatch_engine import match_records
+    from invenio.legacy.bibmatch.engine import match_records
 
     obj.extra_data["last_task_name"] = 'Bibmatch Record'
     rec = create_record(obj.data)

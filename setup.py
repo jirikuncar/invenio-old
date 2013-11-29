@@ -112,6 +112,7 @@ setup(
             'bibedit = invenio.legacy.bibedit.scripts.bibedit:main',
             'bibencode = invenio.modules.encoder.scripts.encoder:main',
             'bibindex = invenio.legacy.bibindex.scripts.bibindex:main',
+            'bibmatch = invenio.legacy.bibmatch.scripts.bibmatch:main',
             'bibrank = invenio.legacy.bibrank.scripts.bibrank:main',
             'bibreformat = invenio.legacy.bibformat.scripts.bibreformat:main',
             'bibsort = invenio.legacy.bibsort.scripts.bibsort:main',

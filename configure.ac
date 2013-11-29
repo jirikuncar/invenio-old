@@ -609,14 +609,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibknowledge/doc/Makefile \
      modules/bibknowledge/doc/admin/Makefile \
      modules/bibknowledge/doc/hacking/Makefile \
-     modules/bibmatch/Makefile \
-     modules/bibmatch/bin/Makefile \
-     modules/bibmatch/bin/bibmatch \
-     modules/bibmatch/doc/Makefile \
-     modules/bibmatch/doc/admin/Makefile \
-     modules/bibmatch/doc/hacking/Makefile \
-     modules/bibmatch/etc/Makefile \
-     modules/bibmatch/lib/Makefile \
      modules/bibrank/Makefile \
      modules/bibrank/bin/Makefile \
      modules/bibrank/bin/bibrankgkb \

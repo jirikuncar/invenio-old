@@ -25,7 +25,6 @@ SUBDIRS = \
           bibformat \
           bibindex \
           bibknowledge \
-          bibmatch \
           bibrank \
           bibsort \
           bibsword \

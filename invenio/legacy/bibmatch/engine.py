@@ -40,7 +40,7 @@ from invenio.config import CFG_SITE_SECURE_URL, CFG_BIBMATCH_FUZZY_WORDLIMITS, \
                            CFG_BIBMATCH_REMOTE_SLEEPTIME, \
                            CFG_SITE_RECORD, \
                            CFG_BIBMATCH_SEARCH_RESULT_MATCH_LIMIT
-from invenio.bibmatch_config import CFG_BIBMATCH_LOGGER, \
+from invenio.legacy.bibmatch.config import CFG_BIBMATCH_LOGGER, \
                                     CFG_LOGFILE
 from invenio.utils.connector import InvenioConnector, \
                                       InvenioConnectorAuthError
@@ -52,7 +52,7 @@ from invenio.legacy.search_engine import get_fieldcodes
 from invenio.legacy.search_engine.query_parser import SearchQueryParenthesisedParser
 from invenio.legacy.dbquery import run_sql
 from invenio.legacy.bibrecord.scripts.textmarc2xmlmarc import transform_file
-from invenio.bibmatch_validator import validate_matches, transform_record_to_marc, \
+from invenio.legacy.bibmatch.validator import validate_matches, transform_record_to_marc, \
                                        validate_tag
 from invenio.utils.text import translate_to_ascii, xml_entities_to_utf8
 
