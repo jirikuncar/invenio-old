@@ -25,7 +25,7 @@ import sys
 from flask import url_for
 from operator import  itemgetter
 
-from invenio.bibauthorid_webauthorprofileinterface import is_valid_canonical_id, \
+from invenio.legacy.bibauthorid.webauthorprofileinterface import is_valid_canonical_id, \
     get_person_id_from_paper, get_person_id_from_canonical_id, \
     search_person_ids_by_name, get_papers_by_person_id, get_person_redirect_link
 

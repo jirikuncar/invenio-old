@@ -40,7 +40,7 @@ from invenio.legacy.bibrank.selfcites_indexer import update_self_cites_tables, \
                                               compute_simple_self_citations, \
                                               get_authors_tags
 from invenio.legacy.bibrank.citation_searcher import get_refers_to
-from invenio.bibauthorid_daemon import get_user_log as bibauthorid_user_log
+from invenio.legacy.bibauthorid.daemon import get_user_log as bibauthorid_user_log
 from invenio.legacy.bibrank.citation_indexer import get_bibrankmethod_lastupdate
 
 HELP_MESSAGE = """

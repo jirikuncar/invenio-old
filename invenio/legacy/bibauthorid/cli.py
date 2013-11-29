@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
 ## Copyright (C) 2011 CERN.
@@ -16,8 +17,24 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-bin_SCRIPTS = bibauthorid
+"""
+bibauthorid_cli
+    This module provides a command-line interface for BibAuthorID.
+"""
 
-EXTRA_DIST = bibauthorid.in
+from invenio.legacy.bibauthorid.general_utils import bibauthor_print
 
-CLEANFILES = *~ *.tmp
+def main():
+    """Main function """
+    try:
+        import invenio.legacy.bibauthorid.daemon as daemon
+    except ImportError:
+        bibauthor_print("Hmm...No Daemon process running.")
+        return
+
+    daemon.bibauthorid_daemon()
+
+
+if __name__ == '__main__':
+    main()
+

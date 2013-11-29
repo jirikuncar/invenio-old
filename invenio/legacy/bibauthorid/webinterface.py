@@ -52,10 +52,10 @@ from invenio.modules.access.control import acc_find_user_role_actions, acc_get_u
 from invenio.legacy.search_engine import perform_request_search
 from invenio.legacy.bibrecord import get_fieldvalues
 
-import invenio.bibauthorid_webapi as webapi
-from invenio.bibauthorid_frontinterface import get_bibrefrec_name_string
+import invenio.legacy.bibauthorid.webapi as webapi
+from invenio.legacy.bibauthorid.frontinterface import get_bibrefrec_name_string
 from flask import session
-from invenio.bibauthorid_backinterface import update_personID_external_ids
+from invenio.legacy.bibauthorid.backinterface import update_personID_external_ids
 
 TEMPLATE = load('bibauthorid')
 

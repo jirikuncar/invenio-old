@@ -554,16 +554,6 @@ AC_CONFIG_FILES([config.nice  \
      config/Makefile \
      config/invenio-autotools.conf \
      modules/Makefile \
-     modules/bibauthorid/Makefile \
-     modules/bibauthorid/bin/Makefile \
-     modules/bibauthorid/bin/bibauthorid \
-     modules/bibauthorid/doc/Makefile \
-     modules/bibauthorid/doc/admin/Makefile \
-     modules/bibauthorid/doc/hacking/Makefile \
-     modules/bibauthorid/lib/Makefile \
-     modules/bibauthorid/etc/Makefile \
-     modules/bibauthorid/etc/name_authority_files/Makefile \
-     modules/bibauthorid/web/Makefile \
      modules/bibcatalog/Makefile \
      modules/bibcatalog/doc/Makefile \
      modules/bibcatalog/doc/admin/Makefile \

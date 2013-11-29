@@ -105,6 +105,7 @@ setup(
             'alertengine = invenio.legacy.webalert.scripts.alertengine:main',
             'batchuploader = invenio.legacy.bibupload.scripts.batchuploader',
             'bibcircd = invenio.legacy.bibcirculation.scripts.bibcircd:main',
+            'bibauthorid = invenio.legacy.bibauthorid.scripts.bibauthorid:main',
             'bibclassify = invenio.modules.classifier.scripts.classifier:main',
             'bibconvert = invenio.legacy.bibconvert.scripts.bibconvert:main',
             'bibdocfile = invenio.legacy.bibdocfile.scripts.bibdocfile:main',

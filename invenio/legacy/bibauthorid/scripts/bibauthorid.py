@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
 ## Copyright (C) 2011 CERN.
@@ -16,10 +17,15 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-imgdir=$(localstatedir)/www/img
+"""
+    Runs the author disambiguation and identity matching algorithm.
+    Use -h for help.
+"""
 
-img_DATA = bibauthorid.css
+from invenio.base.factory import with_app_context
 
-EXTRA_DIST = $(img_DATA)
 
-CLEANFILES = *~ *.tmp
+@with_app_context()
+def main():
+    from invenio.legacy.bibauthorid.cli import main as cli_main
+    return cli_main()

@@ -993,7 +993,7 @@ class WordTable:
         # those records that were affected by changed BibAuthorID
         # attributions:
         if self.index_name in ('author', 'firstauthor', 'exactauthor', 'exactfirstauthor'):
-            from invenio.bibauthorid_personid_maintenance import get_recids_affected_since
+            from invenio.legacy.bibauthorid.personid_maintenance import get_recids_affected_since
             # dates[1] is ignored, since BibAuthorID API does not offer upper limit search
             alist = create_range_list(get_recids_affected_since(dates[0]))
             if not alist:

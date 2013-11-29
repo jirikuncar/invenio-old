@@ -26,7 +26,7 @@ import os
 def handleSIGCHLD():
     os.waitpid(-1, os.WNOHANG)
 
-from invenio.bibauthorid_webauthorprofileinterface import get_papers_by_person_id, \
+from invenio.legacy.bibauthorid.webauthorprofileinterface import get_papers_by_person_id, \
     get_person_db_names_count, create_normalized_name, \
     get_person_redirect_link, is_valid_canonical_id, split_name_parts, \
     gathered_names_by_personid, get_canonical_id_from_personid, get_coauthor_pids, \
