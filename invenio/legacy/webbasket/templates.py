@@ -1644,7 +1644,7 @@ class Template:
             out = """
 %(success_label)s.
 <br /><br />
-%(proceed_label)s""" % {'success_label': _('%i items have been successfully added to your basket') % (colid == -1 and 1 or len(recids)),
+%(proceed_label)s""" % {'success_label': _('%(number)i items have been successfully added to your basket', number=(colid == -1 and 1 or len(recids))),
                         'proceed_label': _('Proceed to the %(x_url_open)sbasket%(x_url_close)s') % \
                                          {'x_url_open': '<a href="%s/yourbaskets/display?category=%s&amp;bskid=%i&amp;ln=%s">' % (CFG_SITE_URL, category, bskid, ln),
                                          'x_url_close': "</a>"}}
@@ -1746,10 +1746,10 @@ class Template:
 	<input type="hidden" name="move_from_basket" value="%(move_from_basket)s" />
 	<input type="submit" class="btn btn-primary formbutton" value="%(add_label)s" />
     <input type="button" class="btn nonsubmitbutton" value="%(cancel_label)s" onClick="window.location='/'" />
-</div>"""   % {'header_label': _("Adding %i items to your baskets") % (colid == -1 and 1 or len(recids)),
-               'create_new_basket': _("Please choose a basket: %(x_basket_selection_box)s %(x_fmt_open)s(or %(x_url_open)screate a new one%(x_url_close)s first)%(x_fmt_close)s") % \
-                                    {'x_basket_selection_box': '&nbsp;<select name="b">%s</select>' % select_options,
-                                     'x_url_open': colid == -1 and ('''<a href="%s/yourbaskets/create_basket?colid=-1" onClick="this.href+= \
+</div>"""   % {'header_label': _("Adding %(number)i items to your baskets", number=(colid == -1 and 1 or len(recids))),
+               'create_new_basket': _("Please choose a basket: %(x_basket_selection_box)s %(x_fmt_open)s(or %(x_url_open)screate a new one%(x_url_close)s first)%(x_fmt_close)s",
+                                    **{'x_basket_selection_box': '&nbsp;<select name="b">%s</select>' % select_options,
+                                       'x_url_open': colid == -1 and ('''<a href="%s/yourbaskets/create_basket?colid=-1" onClick="this.href+= \
                                                                         '&amp;es_title=' + encodeURIComponent(document.add_to_basket.es_title.value) + \
                                                                         '&amp;es_url=' + encodeURIComponent(document.add_to_basket.es_url.value) + \
                                                                         '&amp;es_desc=' + encodeURIComponent(document.add_to_basket.es_desc.value);">''' % \
@@ -1761,9 +1761,9 @@ class Template:
                                                                      colid,
                                                                      int(move_from_basket),
                                                                      '&amp;recid='.join(str(recid) for recid in recids))),
-                                     'x_url_close': '</a>',
-                                     'x_fmt_open': '<br /><small>',
-                                     'x_fmt_close': '</small>'},
+                                       'x_url_close': '</a>',
+                                       'x_fmt_open': '<br /><small>',
+                                       'x_fmt_close': '</small>'}),
                'move_from_basket': move_from_basket,
                'note_label': len(recids) > 1 and _('Optionally, add a note to each one of these items') \
                or _('Optionally, add a note to this item'),
