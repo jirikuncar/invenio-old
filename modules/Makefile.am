@@ -46,7 +46,6 @@ SUBDIRS = \
           websearch \
           websession \
           webstat \
-          webstyle \
           websubmit \
           docextract
 

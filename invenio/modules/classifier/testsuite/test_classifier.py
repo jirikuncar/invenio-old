@@ -117,7 +117,7 @@ class BibClassifyTest(BibClassifyTestCase):
     def test_rebuild_cache(self):
         """bibclassify - test rebuilding cache (takes long time)"""
 
-        from invenio import bibclassify_ontology_reader
+        from invenio.legacy.bibclassify import ontology_reader as bibclassify_ontology_reader
         info = bibclassify_ontology_reader._get_ontology(self.taxonomy_name)
 
         if info[0]:
@@ -140,7 +140,7 @@ class BibClassifyTest(BibClassifyTestCase):
 
     def test_cache_accessibility(self):
         """bibclassify - test cache accessibility/writability"""
-        from invenio import bibclassify_ontology_reader
+        from invenio.legacy.bibclassify import ontology_reader as bibclassify_ontology_reader
         # we will do tests with a copy of test taxonomy, in case anything goes wrong...
         orig_name, orig_taxonomy_path, orig_taxonomy_url = bibclassify_ontology_reader._get_ontology(self.taxonomy_name)
 

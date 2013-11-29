@@ -773,14 +773,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/webstat/doc/hacking/Makefile \
      modules/webstat/etc/Makefile \
      modules/webstat/lib/Makefile \
-     modules/webstyle/Makefile \
-     modules/webstyle/bin/Makefile \
-     modules/webstyle/doc/Makefile \
-     modules/webstyle/doc/admin/Makefile \
-     modules/webstyle/doc/hacking/Makefile \
-     modules/webstyle/etc/Makefile \
-     modules/webstyle/etc/templates/Makefile \
-     modules/webstyle/lib/Makefile \
      modules/websubmit/Makefile \
      modules/websubmit/lib/Makefile \
      modules/websubmit/web/Makefile \

@@ -63,7 +63,7 @@ if bconfig.STANDALONE:
     dbquery = None
     from urllib2 import urlopen
 else:
-    from invenio import dbquery
+    from invenio.legacy import dbquery
     from invenio.utils.url import make_invenio_opener
     urlopen = make_invenio_opener('BibClassify').open
 
@@ -292,7 +292,7 @@ def _discover_ontology(ontology_name):
 
 class KeywordToken:
     # this tells pickle that the class we are pickling is coming from
-    # module 'bibclassify_ontology_reader' instead of invenio.bibclassify_ontology_reader
+    # module 'bibclassify_ontology_reader' instead of invenio.legacy.bibclassify.ontology_reader
     #__module__ = os.path.splitext(os.path.basename(__file__))[0]
 
     def __init__(self, subject, store=None, namespace=None, type='HEP'):
