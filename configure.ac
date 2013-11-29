@@ -653,14 +653,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibmatch/doc/hacking/Makefile \
      modules/bibmatch/etc/Makefile \
      modules/bibmatch/lib/Makefile \
-     modules/bibmerge/Makefile \
-     modules/bibmerge/bin/Makefile \
-     modules/bibmerge/doc/Makefile \
-     modules/bibmerge/doc/admin/Makefile \
-     modules/bibmerge/doc/hacking/Makefile \
-     modules/bibmerge/lib/Makefile \
-     modules/bibmerge/web/Makefile \
-     modules/bibmerge/web/admin/Makefile \
      modules/bibrank/Makefile \
      modules/bibrank/bin/Makefile \
      modules/bibrank/bin/bibrankgkb \
