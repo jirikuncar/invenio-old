@@ -40,7 +40,6 @@ SUBDIRS = \
           oairepository \
           webaccess \
           webcomment \
-          webdeposit \
           webhelp \
           webjournal \
           weblinkback \
