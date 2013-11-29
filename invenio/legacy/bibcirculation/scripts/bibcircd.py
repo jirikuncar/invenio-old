@@ -1,5 +1,8 @@
+#!@PYTHON@
+## -*- mode: python; coding: utf-8; -*-
+##
 ## This file is part of Invenio.
-## Copyright (C) 2008, 2010, 2011 CERN.
+## Copyright (C) 2008, 2009, 2010, 2011 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -15,10 +18,20 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-webdoclibdir = $(libdir)/webdoc/invenio/admin
 
-webdoclib_DATA = bibcirculation-admin-guide.webdoc
+__revision__ = "$Id$"
 
-EXTRA_DIST = $(webdoclib_DATA)
+# try:
+#     from invenio.legacy.bibcirculation.daemon import main
+# except ImportError, e:
+#     print "Error: %s" % e
+#     import sys
+#     sys.exit(1)
 
-CLEANFILES = *~ *.tmp
+from invenio.base.factory import with_app_context
+
+
+@with_app_context()
+def main():
+    from invenio.legacy.bibcirculation.daemon import main as bibcirc_main
+    bibcirc_main()

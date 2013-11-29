@@ -577,11 +577,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibcheck/web/Makefile \
      modules/bibcheck/web/admin/Makefile \
      modules/bibcirculation/Makefile \
-     modules/bibcirculation/bin/Makefile \
-     modules/bibcirculation/bin/bibcircd \
-     modules/bibcirculation/doc/Makefile \
-     modules/bibcirculation/doc/admin/Makefile \
-     modules/bibcirculation/doc/hacking/Makefile
      modules/bibcirculation/lib/Makefile \
      modules/bibcirculation/web/Makefile \
      modules/bibcirculation/web/admin/Makefile \
