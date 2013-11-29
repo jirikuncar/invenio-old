@@ -59,7 +59,7 @@ from invenio.legacy.websubmit.functions.Retrieve_Data import Get_Field
 from invenio.ext.email import send_email
 from invenio.utils.url import wash_url_argument
 from invenio.legacy.websession.dblayer import get_group_infos, insert_new_group, insert_new_member, delete_member
-from invenio.webaccessadmin_lib import cleanstring_email
+from invenio.modules.access.admin_lib import cleanstring_email
 from invenio.modules.access.local_config import MAXSELECTUSERS
 from invenio.modules.access.control import acc_get_user_email
 from invenio.modules.access.engine import acc_get_authorized_emails

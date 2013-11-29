@@ -78,7 +78,7 @@ from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
 from invenio.ext.sqlalchemy import db
 from invenio.legacy.websession.dblayer import get_groups
-from invenio.modules.access.external_authentication import InvenioWebAccessExternalAuthError
+from invenio.legacy.external_authentication import InvenioWebAccessExternalAuthError
 from invenio.modules.accounts.models import User
 
 from invenio.legacy.websession.webuser_config import CFG_WEBUSER_USER_TABLES

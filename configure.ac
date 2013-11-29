@@ -696,14 +696,9 @@ AC_CONFIG_FILES([config.nice  \
      modules/miscutil/sql/Makefile \
      modules/miscutil/web/Makefile \
      modules/webaccess/Makefile \
-     modules/webaccess/bin/Makefile \
-     modules/webaccess/bin/authaction \
-     modules/webaccess/etc/Makefile \
-     modules/webaccess/etc/templates/Makefile \
      modules/webaccess/doc/Makefile \
      modules/webaccess/doc/admin/Makefile \
      modules/webaccess/doc/hacking/Makefile \
-     modules/webaccess/lib/Makefile \
      modules/webaccess/web/Makefile \
      modules/webaccess/web/admin/Makefile \
      modules/webcomment/Makefile \
