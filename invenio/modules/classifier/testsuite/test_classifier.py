@@ -34,8 +34,15 @@ import time
 import stat
 import shutil
 
+from invenio.ext.registry import PkgResourcesDiscoverRegistry, ImportPathRegistry, RegistryProxy
 from invenio.testsuite import make_test_suite, run_test_suite, nottest, \
     InvenioTestCase
+
+TEST_PACKAGE = 'invenio.modules.classifier.testsuite'
+test_registry = RegistryProxy('test_registry', ImportPathRegistry,
+                              initial=[TEST_PACKAGE])
+taxonomies_registry = lambda: PkgResourcesDiscoverRegistry(
+    'taxonomies', registry_namespace=test_registry)
 
 
 class BibClassifyTestCase(InvenioTestCase):
@@ -55,16 +62,18 @@ class BibClassifyTestCase(InvenioTestCase):
         self.stderr = None
 
         self.taxonomy_name = "test"
-        from invenio import bibclassify_config as bconfig
+        from invenio.legacy.bibclassify import config as bconfig
         self.log = bconfig.get_logger("bibclassify.tests")
         self.log_level = bconfig.logging_level
         bconfig.set_global_level(bconfig.logging.CRITICAL)
+        self.app.extensions['registry']['classifierext.taxonomies'] = taxonomies_registry()
+
 
     def tearDown(self):
         from invenio import config
         if self.stdout:
             self.unredirect()
-        from invenio import bibclassify_config as bconfig
+        from invenio.legacy.bibclassify import config as bconfig
         bconfig.set_global_level(self.log_level)
         config.CFG_TMPDIR = self.__CFG_TMPDIR
 
@@ -151,7 +160,6 @@ class BibClassifyTest(BibClassifyTestCase):
         assert(os.path.exists(taxonomy_path))
 
         name, taxonomy_path, taxonomy_url = bibclassify_ontology_reader._get_ontology(taxonomy_name)
-
         cache = bibclassify_ontology_reader._get_cache_path(os.path.basename(taxonomy_path))
 
 
