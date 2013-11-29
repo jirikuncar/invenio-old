@@ -19,6 +19,6 @@ cachedir = $(localstatedir)/cache/RTdata
 
 cache_DATA =
 
-SUBDIRS = bin doc etc lib web
+SUBDIRS = lib web
 
 CLEANFILES = *~

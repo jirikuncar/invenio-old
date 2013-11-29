@@ -49,7 +49,7 @@ from invenio.config import \
      CFG_SITE_URL, \
      CFG_OAI_FAILED_HARVESTING_STOP_QUEUE, \
      CFG_OAI_FAILED_HARVESTING_EMAILS_ADMIN
-from invenio.oai_harvest_config import InvenioOAIHarvestWarning
+from invenio.legacy.oaiharvest.config import InvenioOAIHarvestWarning
 from invenio.legacy.dbquery import run_sql
 from invenio.legacy.bibsched.bibtask import \
      task_get_task_param, \

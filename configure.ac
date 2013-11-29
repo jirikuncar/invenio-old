@@ -604,20 +604,10 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibformat/web/Makefile \
      modules/bibformat/web/admin/Makefile \
      modules/oaiharvest/Makefile \
-     modules/oaiharvest/bin/Makefile \
-     modules/oaiharvest/bin/oaiharvest \
-     modules/oaiharvest/doc/Makefile \
-     modules/oaiharvest/doc/admin/Makefile \
-     modules/oaiharvest/doc/hacking/Makefile \
      modules/oaiharvest/lib/Makefile \
      modules/oaiharvest/web/Makefile \
      modules/oaiharvest/web/admin/Makefile \
      modules/oairepository/Makefile \
-     modules/oairepository/bin/Makefile \
-     modules/oairepository/doc/Makefile \
-     modules/oairepository/doc/admin/Makefile \
-     modules/oairepository/doc/hacking/Makefile \
-     modules/oairepository/etc/Makefile \
      modules/oairepository/lib/Makefile \
      modules/oairepository/web/Makefile \
      modules/oairepository/web/admin/Makefile \

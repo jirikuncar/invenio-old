@@ -30,6 +30,7 @@ if sys.hexversion < 0x2050000:
     from glob import glob as iglob
 else:
     from glob import iglob
+from flask import url_for
 
 from invenio.config import \
      CFG_OAI_DELETED_POLICY, \
@@ -64,7 +65,7 @@ from invenio.legacy.search_engine import record_exists, get_all_restricted_recid
 from invenio.modules.formatter import format_record
 from invenio.legacy.bibrecord import record_get_field_instances
 from invenio.ext.logging import register_exception
-from invenio.oai_repository_config import CFG_OAI_REPOSITORY_GLOBAL_SET_SPEC
+from invenio.legacy.oairepository.config import CFG_OAI_REPOSITORY_GLOBAL_SET_SPEC
 
 CFG_VERBS = {
     'GetRecord'          : ['identifier', 'metadataPrefix'],
@@ -126,7 +127,9 @@ def oai_header(argd, verb):
     """
 
     out = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n"
-    out += "<?xml-stylesheet type=\"text/xsl\" href=\"%s/css/oai2.xsl.v1.0\" ?>\n" % CFG_SITE_URL
+    out += "<?xml-stylesheet type=\"text/xsl\" href=\"%s\" ?>\n" % (
+        url_for('oairepository.static',
+                filename='xsl/oairepository/oai2.xsl.v1.0'))
     out += "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\">\n"
 
     #out += "<responseDate>%s</responseDate>" % get_utc_now()

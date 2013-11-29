@@ -17,14 +17,9 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = oai_repository_server.py \
-             oai_repository_unit_tests.py \
-             oai_repository_webinterface.py \
+pylib_DATA =  \
              oai_repository_regression_tests.py \
-             oai_repository_config.py \
-             oai_repository_admin.py \
-             oai_repository_admin_regression_tests.py \
-             oai_repository_updater.py
+             oai_repository_admin_regression_tests.py
 
 EXTRA_DIST = $(pylib_DATA)
 

@@ -121,6 +121,7 @@ setup(
             'gotoadmin = invenio.modules.redirector.scripts.redirector:main',
             'inveniocfg = invenio.legacy.inveniocfg:main',
             'inveniounoconv = invenio.legacy.websubmit.scripts.inveniounoconv:main',
+            'oaiharvest = invenio.legacy.oaiharvest.scripts.oaiharvest:main',
             'oairepositoryupdater = invenio.legacy.oairepository.scripts.oairepositoryupdater:main',
             'refextract = invenio.legacy.refextract.scripts.refextract:main',
             'textmarc2xmlmarc = invenio.legacy.bibrecord.scripts.textmarc2xmlmarc:main',

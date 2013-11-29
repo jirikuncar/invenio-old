@@ -25,7 +25,6 @@ pylib_DATA = __init__.py \
              errorlib_regression_tests.py \
              errorlib_webinterface.py \
              flaskshell.py \
-             invenio_connector.py \
              invenio_connector_regression_tests.py \
              inveniocfg_unit_tests.py \
              inveniomanage_unit_tests.py \

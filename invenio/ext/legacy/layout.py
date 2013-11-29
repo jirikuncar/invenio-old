@@ -145,7 +145,7 @@ except:
     WebInterfaceErrorPages = WebInterfaceDumbPages
 
 try:
-    from invenio.oai_repository_webinterface import WebInterfaceOAIProviderPages
+    from invenio.legacy.oairepository.webinterface import WebInterfaceOAIProviderPages
 except:
     register_exception(alert_admin=True, subject='EMERGENCY')
     WebInterfaceOAIProviderPages = WebInterfaceDumbPages
