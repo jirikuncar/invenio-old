@@ -59,7 +59,7 @@ Modules
 .. automodule:: invenio.modules.groups
    :members:
 
-.. automodule:: invenio.modules.index
+.. automodule:: invenio.modules.indexer
    :members:
 
 .. automodule:: invenio.modules.journals
