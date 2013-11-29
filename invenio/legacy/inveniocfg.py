@@ -529,7 +529,7 @@ def cli_cmd_reset_recstruct_cache(conf):
     from invenio.intbitset import intbitset
     from invenio.legacy.dbquery import run_sql, serialize_via_marshal
     from invenio.legacy.search_engine import get_record
-    from invenio.legacy.bibsched.scripts.bibsched import server_pid, pidfile
+    from invenio.legacy.bibsched.cli import server_pid, pidfile
     enable_recstruct_cache = conf.get("Invenio", "CFG_BIBUPLOAD_SERIALIZE_RECORD_STRUCTURE")
     enable_recstruct_cache = enable_recstruct_cache in ('True', '1')
     pid = server_pid(ping_the_process=False)

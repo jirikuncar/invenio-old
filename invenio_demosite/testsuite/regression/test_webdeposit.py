@@ -253,7 +253,7 @@ class TestWebDepositUtils(InvenioTestCase):
         from invenio.config import CFG_PREFIX
         from invenio.modules.workflows.models import Workflow
         from invenio.modules.workflows.config import CFG_WORKFLOW_STATUS
-        from invenio.legacy.bibsched.scripts.bibsched_model import SchTASK
+        from invenio.modules.scheduler.models import SchTASK
 
         from invenio.webdeposit_utils import get_form, create_workflow, \
             set_form_status, CFG_DRAFT_STATUS
