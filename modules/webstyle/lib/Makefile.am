@@ -19,8 +19,7 @@ pylibdir=$(libdir)/python/invenio
 wsgiwebdir=$(localstatedir)/www-wsgi/
 
 pylib_DATA = webdoc_unit_tests.py \
-             webstyle_regression_tests.py \
-             webinterface_unit_tests.py \
+             webinterface_unit_tests.py
 
 wsgiweb_DATA =
 

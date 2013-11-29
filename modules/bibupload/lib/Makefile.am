@@ -17,9 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = bibupload_regression_tests.py \
-             batchuploader_regression_tests.py \
-			 bibupload_revisionverifier_regression_tests.py
+pylib_DATA =
 
 jsdir=$(localstatedir)/www/js
 

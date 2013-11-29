@@ -15,16 +15,4 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-bibdocfilepluginsdir = $(libdir)/python/invenio/bibdocfile_plugins
-
-bibdocfileplugins_DATA =
-
-pylibdir = $(libdir)/python/invenio
-
-pylib_DATA = bibdocfile_regression_tests.py
-
-noinst_DATA =
-
-EXTRA_DIST = $(pylib_DATA) $(noinst_DATA) $(bibdocfileplugins)
-
 CLEANFILES = *~ *.tmp *.pyc

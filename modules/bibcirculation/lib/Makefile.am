@@ -17,10 +17,4 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-pylibdir = $(libdir)/python/invenio
-
-pylib_DATA = bibcirculation_regression_tests.py
-
-EXTRA_DIST = $(pylib_DATA)
-
 CLEANFILES = *~ *.tmp *.pyc

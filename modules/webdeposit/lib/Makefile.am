@@ -17,9 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = __init__.py \
-             webdeposit_api_regression_tests.py \
-             webdeposit_regression_tests.py
+pylib_DATA = __init__.py
 
 EXTRA_DIST = $(pylib_DATA)
 

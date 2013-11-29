@@ -20,16 +20,12 @@ pylibdir = $(libdir)/python/invenio
 pylib_DATA = __init__.py \
              dataciteutils_tester.py \
              dbdump.py \
-             dbquery_regression_tests.py \
              dbquery_unit_tests.py \
-             errorlib_regression_tests.py \
              errorlib_webinterface.py \
              flaskshell.py \
-             invenio_connector_regression_tests.py \
              inveniocfg_unit_tests.py \
              inveniomanage_unit_tests.py \
              miscutil_model.py \
-             plotextractor_regression_tests.py \
              pluginutils.py \
              pluginutils_unit_tests.py \
              remote_debugger.py \
@@ -37,11 +33,8 @@ pylib_DATA = __init__.py \
              remote_debugger_wsgi_reload.py \
              sequtils.py \
              sequtils_cnum.py \
-             sequtils_regression_tests.py \
              sherpa_romeo_testing.py \
              solrutils_bibrank_indexer.py \
-             solrutils_regression_tests.py \
-             testutils_regression_tests.py \
              w3c_validator.py \
              xapianutils_bibrank_indexer.py
 

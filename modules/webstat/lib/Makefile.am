@@ -17,7 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = webstat_regression_tests.py
+pylib_DATA =
 
 lispimagedir = $(libdir)/lisp/invenio
 lispimage_DATA = 

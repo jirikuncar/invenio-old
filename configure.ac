@@ -784,7 +784,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/webstat/lib/Makefile \
      modules/webstyle/Makefile \
      modules/webstyle/bin/Makefile \
-     modules/webstyle/bin/webdoc \
      modules/webstyle/doc/Makefile \
      modules/webstyle/doc/admin/Makefile \
      modules/webstyle/doc/hacking/Makefile \

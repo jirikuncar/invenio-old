@@ -17,7 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = weblinkback_regression_tests.py \
+pylib_DATA = \
              weblinkback_unit_tests.py
 
 EXTRA_DIST = $(pylib_DATA)

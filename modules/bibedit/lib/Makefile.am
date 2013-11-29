@@ -17,9 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = \
-             bibedit_regression_tests.py \
-             bibedit_web_tests.py
+pylib_DATA =
 
 EXTRA_DIST = $(pylib_DATA)
 

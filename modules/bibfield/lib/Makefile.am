@@ -17,9 +17,8 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = bibfield_regression_tests.py \
+pylib_DATA = \
              bibfield_config_engine_unit_tests.py \
-             bibfield_marcreader_regression_tests.py \
              bibfield_utils_unit_tests.py
 
 EXTRA_DIST = $(pylib_DATA)

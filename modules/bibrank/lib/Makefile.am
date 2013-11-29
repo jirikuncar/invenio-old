@@ -20,13 +20,9 @@ pylibdir = $(libdir)/python/invenio
 pylib_DATA = bibrank_tag_based_indexer_unit_tests.py \
              bibrank_record_sorter_unit_tests.py \
              bibrank_downloads_indexer_unit_tests.py \
-             bibrank_citation_indexer_regression_tests.py \
              bibrank_citation_searcher_unit_tests.py \
-             bibrank_regression_tests.py \
-             bibrankadmin_regression_tests.py \
              bibrank_citerank_indexer_unit_tests.py \
-             bibrank_selfcites_unit_tests.py \
-             bibrank_selfcites_regression_tests.py
+             bibrank_selfcites_unit_tests.py
 
 EXTRA_DIST = $(pylib_DATA)
 

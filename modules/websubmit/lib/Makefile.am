@@ -19,9 +19,7 @@ SUBDIRS =
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = websubmit_regression_tests.py \
-             websubmitadmin_regression_tests.py \
-             websubmit_web_tests.py
+pylib_DATA =
 
 metadataplugindir = $(libdir)/python/invenio/websubmit_file_metadata_plugins
 metadataplugin_DATA =

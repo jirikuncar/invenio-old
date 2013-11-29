@@ -17,9 +17,7 @@
 
 pylibdir = $(libdir)/python/invenio
 
-pylib_DATA = \
-             oai_harvest_admin_regression_tests.py \
-             oai_harvest_web_tests.py
+pylib_DATA =
 
 EXTRA_DIST = $(pylib_DATA)
 

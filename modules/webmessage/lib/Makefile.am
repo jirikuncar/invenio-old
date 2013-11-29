@@ -18,9 +18,7 @@
 pylibdir = $(libdir)/python/invenio
 
 pylib_DATA = \
-             webmessage_flask_tests.py \
-             webmessage_regression_tests.py \
-             webmessage_web_tests.py
+             webmessage_flask_tests.py
 
 EXTRA_DIST = $(pylib_DATA)
 
