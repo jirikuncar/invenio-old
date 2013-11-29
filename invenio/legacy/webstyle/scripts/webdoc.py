@@ -1,3 +1,6 @@
+#!@PYTHON@
+## -*- mode: python; coding: utf-8; -*-
+
 ## This file is part of Invenio.
 ## Copyright (C) 2007, 2008, 2010, 2011 CERN.
 ##
@@ -15,8 +18,14 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-bin_SCRIPTS = webdoc
+"""WebDoc CLI interface."""
 
-EXTRA_DIST = webdoc.in
+__revision__ = "$Id$"
 
-CLEANFILES = *~ *.tmp
+from invenio.base.factory import with_app_context
+
+
+@with_app_context()
+def main():
+    from invenio.legacy.webstyle.webdoc import main as webdoc_main
+    webdoc_main()

@@ -18,17 +18,11 @@
 pylibdir=$(libdir)/python/invenio
 wsgiwebdir=$(localstatedir)/www-wsgi/
 
-pylib_DATA = webdoc.py \
-             webdoc_unit_tests.py \
-             webdoc_webinterface.py \
+pylib_DATA = webdoc_unit_tests.py \
              webstyle_regression_tests.py \
              webinterface_unit_tests.py \
-             ckeditor_invenio_connector.py \
-             httptest_webinterface.py \
-             ping_webinterface.py \
-             goto_webinterface.py
 
-wsgiweb_DATA = invenio.wsgi
+wsgiweb_DATA =
 
 EXTRA_DIST = $(pylib_DATA) $(wsgiweb_DATA)
 

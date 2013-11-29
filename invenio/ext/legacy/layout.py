@@ -174,7 +174,7 @@ except:
     WebInterfaceJournalPages = WebInterfaceDumbPages
 
 try:
-    from invenio.webdoc_webinterface import WebInterfaceDocumentationPages
+    from invenio.legacy.webstyle.webdoc_webinterface import WebInterfaceDocumentationPages
 except:
     register_exception(alert_admin=True, subject='EMERGENCY')
     WebInterfaceDocumentationPages = WebInterfaceDumbPages
@@ -207,7 +207,7 @@ except:
     WebInterfaceSword = WebInterfaceDumbPages
 
 try:
-    from invenio.ping_webinterface import \
+    from invenio.legacy.webstyle.ping_webinterface import \
          WebInterfacePingPages
 except:
     register_exception(alert_admin=True, subject='EMERGENCE')
@@ -253,7 +253,7 @@ except:
     WebInterfaceYourAlertsPages = WebInterfaceDumbPages
 
 try:
-    from invenio.goto_webinterface import WebInterfaceGotoPages
+    from invenio.legacy.webstyle.goto_webinterface import WebInterfaceGotoPages
 except:
     register_exception(alert_admin=True, subject='EMERGENCY')
     WebInterfaceGotoPages = WebInterfaceDumbPages
@@ -271,7 +271,7 @@ else:
 
 if CFG_DEVEL_SITE:
     try:
-        from invenio.httptest_webinterface import WebInterfaceHTTPTestPages
+        from invenio.legacy.webstyle.httptest_webinterface import WebInterfaceHTTPTestPages
     except:
         register_exception(alert_admin=True, subject='EMERGENCY')
         WebInterfaceHTTPTestPages = WebInterfaceDumbPages

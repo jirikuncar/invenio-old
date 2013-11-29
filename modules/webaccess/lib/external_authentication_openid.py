@@ -26,7 +26,7 @@ __revision__ = \
 
 from invenio.config import CFG_SITE_SECURE_URL
 from invenio.modules.access.external_authentication import ExternalAuth
-from invenio.session import get_session
+from invenio.legacy.websession.session import get_session
 
 class ExternalOpenID(ExternalAuth):
     """
