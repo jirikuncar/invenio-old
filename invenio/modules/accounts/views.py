@@ -232,7 +232,7 @@ def load_user_settings():
     for module in modules:
         candidates = getattr(module, 'settings')
         if candidates is not None:
-            if candidates is not list:
+            if type(candidates) is not list:
                 candidates = [candidates]
             for candidate in candidates:
                 if issubclass(candidate, Settings):
