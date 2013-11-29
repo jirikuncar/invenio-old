@@ -52,7 +52,7 @@ from invenio.legacy.bibdocfile.api import stream_file, \
 from invenio.ext.logging import register_exception
 from invenio.utils.html import is_html_text_editor_installed
 from invenio.legacy.websubmit.icon_creator import create_icon, InvenioWebSubmitIconCreatorError
-from invenio.ckeditor_invenio_connector import process_CKEditor_upload, send_response
+from invenio.legacy.ckeditor.connector import process_CKEditor_upload, send_response
 import invenio.legacy.template
 websubmit_templates = invenio.legacy.template.load('websubmit')
 from invenio.legacy.websearch.adminlib import get_detailed_page_tabs

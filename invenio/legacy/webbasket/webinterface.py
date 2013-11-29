@@ -73,7 +73,7 @@ from invenio.legacy.webuser import collect_user_info
 from invenio.modules.comments.api import check_user_can_attach_file_to_comments
 from invenio.modules.access.engine import acc_authorize_action
 from invenio.utils.html import is_html_text_editor_installed
-from invenio.ckeditor_invenio_connector import process_CKEditor_upload, send_response
+from invenio.legacy.ckeditor.connector import process_CKEditor_upload, send_response
 from invenio.legacy.bibdocfile.api import stream_file
 
 class WebInterfaceBasketCommentsFiles(WebInterfaceDirectory):
