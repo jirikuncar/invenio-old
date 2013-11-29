@@ -82,7 +82,9 @@ REGEXP_OAI_ID = re.compile("<identifier.*?>(.*?)<\/identifier>", re.DOTALL)
 REGEXP_RECORD = re.compile("<record.*?>(.*?)</record>", re.DOTALL)
 REGEXP_REFS = re.compile("<record.*?>.*?<controlfield .*?>.*?</controlfield>(.*?)</record>", re.DOTALL)
 REGEXP_AUTHLIST = re.compile("<collaborationauthorlist.*?</collaborationauthorlist>", re.DOTALL)
-CFG_OAI_AUTHORLIST_POSTMODE_STYLESHEET = "%s/bibconvert/config/%s" % (CFG_ETCDIR, "authorlist2marcxml.xsl")
+
+from invenio.legacy.bibconvert.registry import templates
+CFG_OAI_AUTHORLIST_POSTMODE_STYLESHEET = templates.get('authorlist2marcxml.xsl', '')
 
 def get_nb_records_in_file(filename):
     """

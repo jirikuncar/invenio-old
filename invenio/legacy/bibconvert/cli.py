@@ -44,6 +44,7 @@ except ImportError, e:
 try:
     from . import bfx_engine as bibconvert_bfx_engine
     from . import xslt_engine as bibconvert_xslt_engine
+    from .registry import templates
 except ImportError, e:
     sys.stderr.write("Warning: %s" % e)
 
@@ -159,7 +160,7 @@ def main():
 
     for opt, opt_value in opts:
         if opt in ["-c", "--config"]:
-            extract_tpl = opt_value
+            extract_tpl = templates.get(os.path.basename(opt_value), opt_value)
             if opt_value.endswith('.'+
                           CFG_BIBFORMAT_BFX_FORMAT_TEMPLATE_EXTENSION):
                 pass
@@ -224,13 +225,13 @@ def main():
 
         elif opt in ["-C", "--config-alt"]:
             if opt_value[0:1] == "x":
-                extract_tpl   = opt_value[1:]
+                extract_tpl = templates.get(os.path.basename(opt_value[1:]), opt_value[1:])
                 extract_tpl_parsed = bibconvert.parse_template(extract_tpl)
             if opt_value[0:1] == "t":
-                target_tpl    = opt_value[1:]
+                target_tpl = templates.get(os.path.basename(opt_value[1:]), opt_value[1:])
                 target_tpl_parsed  = bibconvert.parse_template(target_tpl)
             if opt_value[0:1] == "s":
-                source_tpl    = opt_value[1:]
+                source_tpl = templates.get(os.path.basename(opt_value[1:]), opt_value[1:])
                 source_tpl_parsed  = bibconvert.parse_template(source_tpl)
 
 # Check if required arguments were given

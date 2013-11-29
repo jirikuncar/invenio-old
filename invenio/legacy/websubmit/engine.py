@@ -1699,8 +1699,9 @@ def print_function_calls(req, doctype, action, step, form, start_time,
                 'error' : 0,
                 'text' : '',
                 }
-                from invenio.legacy.websubmit import functions
-                function_path = os.path.join(function.__path__,
+                #FIXME: deprecated
+                from invenio.legacy.websubmit import functions as legacy_functions
+                function_path = os.path.join(legacy_functions.__path__[0],
                                              function_name + '.py')
                 if os.path.exists(function_path):
                     # import the function itself
