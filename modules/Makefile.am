@@ -17,17 +17,13 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 SUBDIRS = \
-          bibclassify \
           bibdocfile \
-          bibedit \
           bibencode \
           bibfield \
           bibformat \
           bibindex \
-          bibknowledge \
           bibrank \
           bibsort \
-          bibsword \
           bibupload \
           elmsubmit \
           miscutil \

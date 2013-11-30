@@ -554,19 +554,11 @@ AC_CONFIG_FILES([config.nice  \
      config/Makefile \
      config/invenio-autotools.conf \
      modules/Makefile \
-     modules/bibclassify/Makefile \
-     modules/bibclassify/doc/Makefile \
-     modules/bibclassify/doc/admin/Makefile \
-     modules/bibclassify/doc/hacking/Makefile \
-     modules/bibclassify/etc/Makefile \
-     modules/bibclassify/lib/Makefile \
      modules/bibdocfile/Makefile \
      modules/bibdocfile/bin/Makefile \
      modules/bibdocfile/doc/Makefile \
      modules/bibdocfile/doc/hacking/Makefile \
      modules/bibdocfile/lib/Makefile \
-     modules/bibedit/Makefile \
-     modules/bibedit/lib/Makefile \
      modules/bibencode/Makefile \
      modules/bibencode/lib/Makefile \
      modules/bibencode/etc/Makefile \
@@ -604,11 +596,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibindex/lib/Makefile \
      modules/bibindex/web/Makefile \
      modules/bibindex/web/admin/Makefile \
-     modules/bibknowledge/Makefile \
-     modules/bibknowledge/lib/Makefile \
-     modules/bibknowledge/doc/Makefile \
-     modules/bibknowledge/doc/admin/Makefile \
-     modules/bibknowledge/doc/hacking/Makefile \
      modules/bibrank/Makefile \
      modules/bibrank/bin/Makefile \
      modules/bibrank/bin/bibrankgkb \
@@ -631,14 +618,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibsort/doc/hacking/Makefile \
      modules/bibsort/web/Makefile \
      modules/bibsort/web/admin/Makefile \
-     modules/bibsword/Makefile \
-     modules/bibsword/bin/Makefile \
-     modules/bibsword/bin/bibsword \
-     modules/bibsword/doc/Makefile \
-     modules/bibsword/doc/admin/Makefile \
-     modules/bibsword/doc/hacking/Makefile \
-     modules/bibsword/lib/Makefile \
-     modules/bibsword/etc/Makefile \
      modules/bibupload/Makefile \
      modules/bibupload/doc/Makefile \
      modules/bibupload/doc/admin/Makefile \

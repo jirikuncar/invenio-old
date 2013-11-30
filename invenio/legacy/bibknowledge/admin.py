@@ -21,7 +21,7 @@ import os
 import cgi
 import sys
 
-from invenio import bibknowledgeadminlib
+from invenio.legacy.bibknowledge import adminlib as bibknowledgeadminlib
 from invenio.modules.knowledge import api as bibknowledge
 from invenio.legacy.bibrank.adminlib import check_user
 from invenio.legacy.webpage import page, error_page
