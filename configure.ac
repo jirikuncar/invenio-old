@@ -554,11 +554,6 @@ AC_CONFIG_FILES([config.nice  \
      config/Makefile \
      config/invenio-autotools.conf \
      modules/Makefile \
-     modules/bibdocfile/Makefile \
-     modules/bibdocfile/bin/Makefile \
-     modules/bibdocfile/doc/Makefile \
-     modules/bibdocfile/doc/hacking/Makefile \
-     modules/bibdocfile/lib/Makefile \
      modules/bibencode/Makefile \
      modules/bibencode/lib/Makefile \
      modules/bibencode/etc/Makefile \
