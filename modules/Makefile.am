@@ -32,7 +32,6 @@ SUBDIRS = \
           webcomment \
           webhelp \
           webjournal \
-          weblinkback \
           webmessage \
           websearch \
           websession \
