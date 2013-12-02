@@ -19,11 +19,9 @@
 SUBDIRS = \
           bibencode \
           bibfield \
-          bibformat \
           bibindex \
           bibrank \
           bibsort \
-          bibupload \
           elmsubmit \
           miscutil \
           oaiharvest \

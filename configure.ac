@@ -561,19 +561,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibfield/Makefile \
      modules/bibfield/lib/Makefile \
      modules/bibfield/etc/Makefile \
-     modules/bibformat/Makefile \
-     modules/bibformat/bin/Makefile \
-     modules/bibformat/doc/Makefile \
-     modules/bibformat/doc/admin/Makefile \
-     modules/bibformat/doc/hacking/Makefile \
-     modules/bibformat/etc/Makefile \
-     modules/bibformat/etc/templates/Makefile \
-     modules/bibformat/etc/templates/format_templates/Makefile \
-     modules/bibformat/etc/format_templates/Makefile \
-     modules/bibformat/etc/output_formats/Makefile \
-     modules/bibformat/lib/Makefile \
-     modules/bibformat/web/Makefile \
-     modules/bibformat/web/admin/Makefile \
      modules/oaiharvest/Makefile \
      modules/oaiharvest/lib/Makefile \
      modules/oaiharvest/web/Makefile \
@@ -613,11 +600,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibsort/doc/hacking/Makefile \
      modules/bibsort/web/Makefile \
      modules/bibsort/web/admin/Makefile \
-     modules/bibupload/Makefile \
-     modules/bibupload/doc/Makefile \
-     modules/bibupload/doc/admin/Makefile \
-     modules/bibupload/doc/hacking/Makefile \
-     modules/bibupload/lib/Makefile \
      modules/elmsubmit/Makefile \
      modules/elmsubmit/etc/Makefile \
      modules/elmsubmit/etc/elmsubmit.cfg \
