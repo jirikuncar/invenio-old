@@ -91,7 +91,7 @@ class JournalConfigVars(InvenioTestCase):
 
     def test_get_journal_css_url(self):
         """webjournal - returns URL to this journal's CSS """
-        self.assertEqual(wju.get_journal_css_url('AtlantisTimes', type='screen'), CFG_SITE_URL + '/img/AtlantisTimes.css')
+        self.assertEqual(wju.get_journal_css_url('AtlantisTimes', type='screen'), CFG_SITE_URL + '/css/AtlantisTimes.css')
 
     def test_get_journal_submission_params(self):
         """webjournal - returns params for the submission of articles """

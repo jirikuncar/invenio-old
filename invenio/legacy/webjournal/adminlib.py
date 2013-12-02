@@ -545,8 +545,8 @@ def perform_request_configure(journal_name, xml_config, action, ln=CFG_SITE_LANG
         <niceName>Atlantis Times</niceName>
         <niceURL>%(CFG_SITE_URL)s</niceURL>
         <css>
-            <screen>/img/AtlantisTimes.css</screen>
-            <print>/img/AtlantisTimes.css</print>
+            <screen>/css/AtlantisTimes.css</screen>
+            <print>/css/AtlantisTimes.css</print>
         </css>
         <format_template>
             <index>AtlantisTimes_Index.bft</index>

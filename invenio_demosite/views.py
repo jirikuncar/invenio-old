@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+##
 ## This file is part of Invenio.
-## Copyright (C) 2008, 2010, 2011 CERN.
+## Copyright (C) 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -15,10 +17,14 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-webappdir = $(localstatedir)/www/admin/webjournal
+"""
+    invenio_demosite.views
+    -------------------------------
 
-webapp_DATA = webjournaladmin.py
+    Demosite interface.
+"""
 
-EXTRA_DIST = webjournaladmin.py
+from flask import Blueprint
 
-CLEANFILES = *~ *.tmp *.pyc
+blueprint = Blueprint('demosite', __name__, url_prefix='/',
+                      template_folder='templates', static_folder='static')

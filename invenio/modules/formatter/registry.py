@@ -37,11 +37,20 @@ format_templates = RegistryProxy('format_templates',
 
 def create_format_templates_lookup():
     out = {}
+
+    def _register(path, level=1):
+        if level > 4:
+            return
+        normpath = os.path.normpath(path)
+        if os.path.isdir(normpath):
+            for p in os.listdir(normpath):
+                _register(os.path.join(normpath, p), level=level+1)
+        else:
+            parts = normpath.split(os.path.sep)
+            out[os.path.sep.join(parts[-level:])] = normpath
+
     for t in format_templates:
-        normpath = os.path.normpath(t)
-        out[os.path.basename(t)] = normpath
-        parts = normpath.split(os.path.sep)
-        out[os.path.sep.join(parts[-2:])] = normpath
+        _register(t)
     return out
 
 
