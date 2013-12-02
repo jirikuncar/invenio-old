@@ -34,7 +34,7 @@ class ElmTestCase(InvenioTestCase):
 
     def setUp(self):
         from invenio.config import CFG_TMPDIR
-        from invenio import elmsubmit
+        from invenio.legacy.elmsubmit import api as elmsubmit
         import invenio.legacy.elmsubmit.config as elmsubmit_config
         self.f1 = None
         if os.path.exists(elmsubmit_config.CFG_ELMSUBMIT_FILES['test_case_1']):

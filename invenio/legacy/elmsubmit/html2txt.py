@@ -42,8 +42,8 @@ class UnicodeHTMLParser(htmllib.HTMLParser):
         except(OverflowError, ValueError):
             raise HTMLParsingFailed
 
-    # myhtmlentitydefs.py should be found in the dir with this file:
-    from .myhtmlentitydefs import entitydefs
+    # htmlentitydefs.py should be found in the dir with this file:
+    from .htmlentitydefs import entitydefs
 
 class NativeParser:
 

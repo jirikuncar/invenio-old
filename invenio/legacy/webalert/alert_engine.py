@@ -48,11 +48,11 @@ from invenio.ext.email import send_email
 from invenio.ext.logging import register_exception
 from invenio.legacy.webalert.alert_engine_config import CFG_WEBALERT_DEBUG_LEVEL
 
-from invenio.legacy.websearch_external_collections.websearch_external_collections_config import \
+from invenio.legacy.websearch_external_collections.config import \
 CFG_EXTERNAL_COLLECTION_TIMEOUT, \
 CFG_EXTERNAL_COLLECTION_MAXRESULTS_ALERTS
-from invenio.legacy.websearch_external_collections.websearch_external_collections_getter import HTTPAsyncPageGetter, async_download
-from invenio.legacy.websearch_external_collections.websearch_external_collections_utils import get_collection_id
+from invenio.legacy.websearch_external_collections.getter import HTTPAsyncPageGetter, async_download
+from invenio.legacy.websearch_external_collections.utils import get_collection_id
 
 import invenio.legacy.template
 websearch_templates = invenio.legacy.template.load('websearch')

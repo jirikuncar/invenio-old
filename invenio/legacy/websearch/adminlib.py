@@ -62,9 +62,9 @@ from invenio.legacy.websearch_external_collections import \
      external_collection_get_state, \
      external_collection_get_update_state_list, \
      external_collection_apply_changes
-from invenio.legacy.websearch_external_collections.websearch_external_collections_utils import \
+from invenio.legacy.websearch_external_collections.utils import \
      get_collection_descendants
-from invenio.legacy.websearch_external_collections.websearch_external_collections_config import CFG_EXTERNAL_COLLECTION_STATES_NAME
+from invenio.legacy.websearch_external_collections.config import CFG_EXTERNAL_COLLECTION_STATES_NAME
 #from invenio.modules.formatter.format_elements import bfe_references
 #from invenio.modules.formatter.engine import BibFormatObject
 from invenio.legacy.bibdocfile.api import BibRecDocs
