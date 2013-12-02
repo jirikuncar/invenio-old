@@ -685,10 +685,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/webstat/doc/hacking/Makefile \
      modules/webstat/etc/Makefile \
      modules/webstat/lib/Makefile \
-     modules/websubmit/Makefile \
-     modules/websubmit/lib/Makefile \
-     modules/websubmit/web/Makefile \
-     modules/websubmit/web/admin/Makefile \
      modules/docextract/Makefile \
      modules/docextract/doc/Makefile \
      modules/docextract/lib/Makefile \

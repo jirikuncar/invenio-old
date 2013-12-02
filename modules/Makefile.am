@@ -33,7 +33,6 @@ SUBDIRS = \
           websearch \
           websession \
           webstat \
-          websubmit \
           docextract
 
 CLEANFILES = *~
