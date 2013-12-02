@@ -155,7 +155,7 @@ class BibClassifyTest(BibClassifyTestCase):
 
         taxonomy_path = orig_taxonomy_path.replace('.rdf', '.copy.rdf')
         taxonomy_name = self.taxonomy_name + '.copy'
-        print orig_taxonomy_path, taxonomy_path
+
         shutil.copy(orig_taxonomy_path, taxonomy_path)
         assert(os.path.exists(taxonomy_path))
 

@@ -747,8 +747,13 @@ def oai_cache_gc():
     """
     OAI Cache Garbage Collector.
     """
-    for file_ in os.listdir(os.path.join(CFG_CACHEDIR, 'RTdata')):
-        filename = os.path.join(os.path.join(CFG_CACHEDIR, 'RTdata', file_))
+    cache_dir = os.path.join(CFG_CACHEDIR, 'RTdata')
+
+    if not os.path.isdir(cache_dir):
+        os.makedirs(cache_dir)
+
+    for file_ in os.listdir(cache_dir):
+        filename = os.path.join(cache_dir, file_)
         # cache entry expires when not modified during a specified period of time
         if ((time.time() - os.path.getmtime(filename)) > CFG_OAI_EXPIRE):
             try:

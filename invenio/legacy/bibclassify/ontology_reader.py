@@ -784,6 +784,9 @@ def _get_cache_path(source_file):
     cache_name = local_name + ".db"
     cache_dir = os.path.join(config.CFG_CACHEDIR, "bibclassify")
 
+    if not os.path.isdir(cache_dir):
+        os.makedirs(cache_dir)
+
     return os.path.abspath(os.path.join(cache_dir, cache_name))
 
 
