@@ -240,11 +240,14 @@ class LazyTemplateContextFunctionsCache(object):
             if m is None:
                 continue
             name = m.__name__.split('.')[-1]
+            filename = m.__file__[:-1] if m.__file__.endswith('.pyc') \
+                else m.__file__
             register_func = getattr(m, 'format_element',
                                     getattr(m, 'format', None))
             escape_values = getattr(m, 'escape_values', None)
             if register_func and isinstance(register_func, types.FunctionType):
                 register_func._escape_values = escape_values
+                register_func.__file__ = filename
                 elem[name] = register_func
 
         return elem
@@ -287,6 +290,12 @@ class LazyTemplateContextFunctionsCache(object):
         return bfe_from_tags
 
 TEMPLATE_CONTEXT_FUNCTIONS_CACHE = LazyTemplateContextFunctionsCache()
+
+
+def get_format_element_path(filename):
+    if filename.endswith('.py'):
+        filename = filename[:-3]
+    return TEMPLATE_CONTEXT_FUNCTIONS_CACHE.bibformat_elements()[filename].__file__
 
 
 def call_old_bibformat(recID, of="HD", on_the_fly=False, verbose=0):
@@ -1052,11 +1061,11 @@ def get_format_templates(with_attributes=False):
     @return: the list of format templates (with code and info)
     """
     format_templates = {}
-    files = os.listdir(cfg['CFG_BIBFORMAT_TEMPLATES_PATH'])
 
-    for filename in files:
+    for filename in registry.format_templates:
         if filename.endswith("."+CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION) or \
                filename.endswith(".xsl"):
+            filename = os.path.basename(filename)
             format_templates[filename] = get_format_template(filename,
                                                              with_attributes)
 
@@ -1573,7 +1582,7 @@ def get_output_format(code, with_attributes=False, verbose=0):
 
     except Exception, e:
         try:
-            raise InvenioBibFormatError(_('Output format %s cannot not be read. %s.') % (filename, str(e)))
+            raise InvenioBibFormatError(_('Output format %(filename)s cannot not be read. %(error)s.', filename=filename, error=str(e)))
         except InvenioBibFormatError, exc:
             register_exception()
 
@@ -1694,16 +1703,17 @@ def resolve_format_element_filename(element_name):
     files = registry.format_elements
 
     for element in files:
-        filename = os.path.basename(element.__file__)
+        filename = element.__file__
         if filename.endswith('.pyc'):
             filename = filename[:-1]
+        basename = os.path.basename(filename)
 
-        test_filename = filename.replace(" ", "_").upper()
+        test_filename = basename.replace(" ", "_").upper()
 
         if test_filename == name or \
                 test_filename == "BFE_" + name or \
                 "BFE_" + test_filename == name:
-            return filename
+            return basename
 
     # No element with that name found
     # Do not log error, as it might be a normal execution case:
@@ -1765,22 +1775,21 @@ def get_fresh_format_template_filename(name):
     filename = name
     # Remove non alphanumeric chars (except .)
     filename = re.sub(r"[^.0-9a-zA-Z]", "", filename)
-    path = cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] + os.sep + filename \
-           + "." + CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION
     index = 1
-    while os.path.exists(path):
+
+    def _get_fullname(filename):
+        return filename + '.' + CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION
+
+    while _get_fullname(filename) in registry.format_templates_lookup:
         index += 1
         filename = name + str(index)
-        path = cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] + os.sep + filename \
-               + "." + CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION
 
     if index > 1:
         returned_name = (name + str(index)).replace("_", " ")
     else:
         returned_name = name.replace("_", " ")
 
-    return (filename + "." + CFG_BIBFORMAT_FORMAT_TEMPLATE_EXTENSION,
-            returned_name) #filename.replace("_", " "))
+    return (_get_fullname(filename), returned_name)
 
 def get_fresh_output_format_filename(code):
     """

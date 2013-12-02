@@ -36,6 +36,7 @@ import binascii
 import StringIO
 
 from flask import url_for
+from functools import wraps
 from warnings import warn
 from urlparse import urlsplit, urlunsplit
 from urllib import urlencode
@@ -48,17 +49,18 @@ except ImportError:
     # web tests will not be available, but unit and regression tests will:
     pass
 
+#try:
+#    from nose.tools import nottest
+#except ImportError:
+#    def nottest(f):
+#        """Helper decorator to mark a function as not to be tested by nose."""
+#        f.__test__ = False
+#        return f
 
-try:
-    from nose.tools import nottest
-except ImportError:
-    def nottest(f):
-        """Helper decorator to mark a function as not to be tested by nose."""
-        f.__test__ = False
-        return f
+nottest = unittest.skip('nottest')
 
 
-@nottest
+#@nottest
 def warn_user_about_tests(test_suite_type='regression'):
     """
     Display a standard warning about running tests that might modify
@@ -116,7 +118,7 @@ Please confirm by typing 'Yes, I know!': """ % test_suite_type)
     return
 
 
-@nottest
+#@nottest
 def make_test_suite(*test_cases):
     """ Build up a test suite given separate test cases"""
     return unittest.TestSuite([unittest.makeSuite(case, 'test')
@@ -127,7 +129,6 @@ import pyparsing  # pylint: disable=W0611
                   # pyparsinf needed to import here before flask.ext.testing
                   # in order to avoid pyparsing troubles due to twill
 from flask.ext.testing import TestCase
-from functools import wraps
 
 
 class InvenioFixture(object):
@@ -206,7 +207,7 @@ class FlaskSQLAlchemyTest(InvenioTestCase):
         db.drop_all()
 
 
-@nottest
+#@nottest
 def make_flask_test_suite(*test_cases):
     """ Build up a Flask test suite given separate test cases"""
     from operator import add
@@ -219,7 +220,7 @@ def make_flask_test_suite(*test_cases):
                                                           test_cases))])
 
 
-@nottest
+#@nottest
 def run_test_suite(testsuite, warn_user=False):
     """
     Convenience function to embed in test suites.  Run given testsuite
@@ -325,7 +326,7 @@ class InvenioTestUtilsBrowserException(Exception):
     pass
 
 
-@nottest
+#@nottest
 def test_web_page_existence(url):
     """
     Test whether URL exists and is well accessible.
@@ -369,7 +370,7 @@ def get_authenticated_mechanize_browser(username="guest", password=""):
     return browser
 
 
-@nottest
+#@nottest
 def test_web_page_content(url,
                           username="guest",
                           password="",
@@ -536,7 +537,7 @@ def merge_error_messages(error_messages):
     return out
 
 
-@nottest
+#@nottest
 def build_and_run_unit_test_suite():
     """
     Detect all Invenio modules with names ending by '*_unit_tests.py', build
@@ -563,7 +564,7 @@ def build_and_run_unit_test_suite():
     return res.wasSuccessful()
 
 
-@nottest
+#@nottest
 def build_and_run_js_unit_test_suite():
     """
     Init the JsTestDriver server, detect all Invenio JavaScript files with
@@ -642,7 +643,7 @@ def build_and_run_js_unit_test_suite():
     return exitcode
 
 
-@nottest
+#@nottest
 def build_and_run_regression_test_suite():
     """
     Detect all Invenio modules with names ending by
@@ -671,7 +672,7 @@ def build_and_run_regression_test_suite():
     return res.wasSuccessful()
 
 
-@nottest
+#@nottest
 def build_and_run_web_test_suite():
     """
     Detect all Invenio modules with names ending by
@@ -1133,7 +1134,7 @@ class InvenioWebTestCaseException(Exception):
         return repr(self.message)
 
 
-@nottest
+#@nottest
 def build_and_run_flask_test_suite():
     """
     Detect all Invenio modules with names ending by

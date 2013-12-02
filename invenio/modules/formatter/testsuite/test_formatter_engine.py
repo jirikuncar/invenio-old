@@ -61,8 +61,7 @@ class FormatTemplateTest(InvenioTestCase):
         self.app.extensions['registry']['format_templates'] = format_templates_registry()
 
     def tearDown(self):
-        pass
-        #cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] = self.old_templates_path
+        del self.app.extensions['registry']['format_templates']
 
     def test_get_format_template(self):
         """bibformat - format template parsing and returned structure"""
@@ -114,7 +113,7 @@ class FormatTemplateTest(InvenioTestCase):
         self.assertEqual(filename_and_name_1[0], "Test.bft")
         filename_and_name_2 = bibformat_engine.get_fresh_format_template_filename("Test1")
         self.assert_(len(filename_and_name_2) >= 2)
-        self.assert_(filename_and_name_2[0] != "Test1.bft")
+        self.assertNotEqual(filename_and_name_2[0], "Test1.bft")
         path = cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] + os.sep + filename_and_name_2[0]
         self.assert_(not os.path.exists(path))
 
@@ -124,18 +123,10 @@ class FormatElementTest(InvenioTestCase):
     def setUp(self):
         # pylint: disable=C0103
         """bibformat - setting python path to test elements"""
-        #sys.path.append('%s' % cfg['CFG_TMPDIR'])
-        #self.old_elements_path = cfg['CFG_BIBFORMAT_ELEMENTS_PATH']
-        #cfg['CFG_BIBFORMAT_ELEMENTS_PATH'] = format_elements.__path__[0]
         self.app.extensions['registry']['format_elements'] = format_elements_registry()
-        #self.old_import_path = cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH']
-        #cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] = CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH
 
     def tearDown(self):
-        pass
-        #sys.path.pop()
-        #cfg['CFG_BIBFORMAT_ELEMENTS_PATH'] = self.old_elements_path
-        #cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] = self.old_import_path
+        del self.app.extensions['registry']['format_elements']
 
     def test_resolve_format_element_filename(self):
         """bibformat - resolving format elements filename """
@@ -259,6 +250,7 @@ class FormatElementTest(InvenioTestCase):
         del self.app.extensions['registry']['format_elements']
         from invenio.modules.formatter.registry import format_elements
         list(format_elements)
+        bibformat_engine.TEMPLATE_CONTEXT_FUNCTIONS_CACHE.bibformat_elements.cache.clear()
         #cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] = self.old_import_path
         tags = bibformatadminlib.get_tags_used_by_element('bfe_abstract.py')
         self.failUnless(len(tags) == 4,
@@ -728,8 +720,6 @@ class FormatTest(InvenioTestCase):
         </record>'''
         self.old_outputs_path = bibformat_engine.CFG_BIBFORMAT_OUTPUTS_PATH
         bibformat_engine.CFG_BIBFORMAT_OUTPUTS_PATH = output_formats.__path__[0]
-        self.old_elements_path = cfg['CFG_BIBFORMAT_ELEMENTS_PATH']
-        cfg['CFG_BIBFORMAT_ELEMENTS_PATH'] = format_elements.__path__[0]
         self.app.extensions['registry']['format_elements'] = format_elements_registry()
         #self.old_import_path = cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH']
         #cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] = CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH
@@ -739,7 +729,7 @@ class FormatTest(InvenioTestCase):
     def tearDown(self):
         sys.path.pop()
         bibformat_engine.CFG_BIBFORMAT_OUTPUTS_PATH = self.old_outputs_path
-        cfg['CFG_BIBFORMAT_ELEMENTS_PATH'] = self.old_elements_path
+        del self.app.extensions['registry']['format_elements']
         #cfg['CFG_BIBFORMAT_ELEMENTS_IMPORT_PATH'] = self.old_import_path
         cfg['CFG_BIBFORMAT_TEMPLATES_PATH'] = self.old_templates_path
 
