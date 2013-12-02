@@ -24,6 +24,5 @@ SUBDIRS = \
           oairepository \
           webaccess \
           webhelp \
-          docextract
 
 CLEANFILES = *~

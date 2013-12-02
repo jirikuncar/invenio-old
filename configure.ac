@@ -672,12 +672,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/websession/doc/hacking/Makefile \
      modules/websession/lib/Makefile \
      modules/websession/web/Makefile \
-     modules/docextract/Makefile \
-     modules/docextract/doc/Makefile \
-     modules/docextract/lib/Makefile \
-     modules/docextract/etc/Makefile \
-     modules/docextract/doc/admin/Makefile \
-     modules/docextract/doc/hacking/Makefile \
      ])
 
 ## Finally, write output files:
