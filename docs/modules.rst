@@ -111,7 +111,7 @@ Modules
 .. automodule:: invenio.modules.upgrader
    :members:
 
-.. automodule:: invenio.modules.upload
+.. automodule:: invenio.modules.uploader
    :members:
 
 .. automodule:: invenio.modules.workflows
