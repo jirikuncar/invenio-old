@@ -254,7 +254,7 @@ def try_url_download(url):
     return True
 
 def force_webcoll(recid):
-    from invenio import bibindex_engine
+    from invenio.legacy.bibindex import engine as bibindex_engine
     reload(bibindex_engine)
     from invenio import websearch_webcoll
     reload(websearch_webcoll)

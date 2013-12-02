@@ -24,7 +24,7 @@ __revision__ = \
 
 from invenio.base.wrappers import lazy_import
 from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
-bibindex_engine = lazy_import('invenio.bibindex_engine')
+bibindex_engine = lazy_import('invenio.legacy.bibindex.engine')
 
 
 class TestListSetOperations(InvenioTestCase):
