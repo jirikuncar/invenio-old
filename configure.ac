@@ -593,9 +593,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibsort/doc/hacking/Makefile \
      modules/bibsort/web/Makefile \
      modules/bibsort/web/admin/Makefile \
-     modules/elmsubmit/Makefile \
-     modules/elmsubmit/etc/Makefile \
-     modules/elmsubmit/etc/elmsubmit.cfg \
      modules/miscutil/Makefile \
      modules/miscutil/bin/Makefile \
      modules/miscutil/bin/dbdump \
