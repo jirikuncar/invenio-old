@@ -1161,7 +1161,6 @@ def build_and_run_flask_test_suite():
     run_test_suite(complete_suite)
 
 
-from invenio.base.factory import create_app
 from invenio.base.utils import import_submodules_from_packages
 
 def iter_suites():
@@ -1170,6 +1169,8 @@ def iter_suites():
     packages = ['invenio'] + app.config.get('PACKAGES', [])
 
     for module in import_submodules_from_packages('testsuite', packages=packages):
+        if not module.__name__.split('.')[-1].startswith('test_'):
+            continue
         if hasattr(module, 'TEST_SUITE'):
             yield module.TEST_SUITE
 
