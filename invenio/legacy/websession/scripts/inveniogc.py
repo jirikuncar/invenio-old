@@ -1,8 +1,7 @@
-#!@PYTHON@
-## -*- mode: python; coding: utf-8; -*-
-
+# -*- coding: utf-8 -*-
+##
 ## This file is part of Invenio.
-## Copyright (C) 2007, 2008, 2010, 2011 CERN.
+## Copyright (C) 2007, 2008, 2010, 2011, 2013 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -18,16 +17,15 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-"""Administers the WebStat framework by creating/deleting custom events as well as triggering caching of event raw data."""
+"""
+Guest user sessions garbage collector.  To be run via cron once per day. (say)
+"""
 
 __revision__ = "$Id$"
+from invenio.base.factory import with_app_context
 
-try:
-    from invenio.flaskshell import *
-    from invenio.legacy.webstat.admin import main
-except ImportError, e:
-    print "Error: %s" % e
-    import sys
-    sys.exit(1)
 
-main()
+@with_app_context()
+def main():
+    from invenio.legacy.websession.inveniogc import main as gc_main
+    return gc_main()

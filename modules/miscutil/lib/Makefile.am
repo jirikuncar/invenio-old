@@ -22,7 +22,6 @@ pylib_DATA = __init__.py \
              dbdump.py \
              dbquery_unit_tests.py \
              errorlib_webinterface.py \
-             flaskshell.py \
              inveniocfg_unit_tests.py \
              inveniomanage_unit_tests.py \
              miscutil_model.py \
