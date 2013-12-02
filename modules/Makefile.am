@@ -18,20 +18,13 @@
 
 SUBDIRS = \
           bibencode \
-          bibindex \
           bibrank \
           bibsort \
-          elmsubmit \
           miscutil \
           oaiharvest \
           oairepository \
           webaccess \
-          webcomment \
           webhelp \
-          webjournal \
-          webmessage \
-          websearch \
-          websession \
           webstat \
           docextract
 
