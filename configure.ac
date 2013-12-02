@@ -558,9 +558,6 @@ AC_CONFIG_FILES([config.nice  \
      modules/bibencode/lib/Makefile \
      modules/bibencode/etc/Makefile \
      modules/bibencode/www/Makefile \
-     modules/bibfield/Makefile \
-     modules/bibfield/lib/Makefile \
-     modules/bibfield/etc/Makefile \
      modules/oaiharvest/Makefile \
      modules/oaiharvest/lib/Makefile \
      modules/oaiharvest/web/Makefile \

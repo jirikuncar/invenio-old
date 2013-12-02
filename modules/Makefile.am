@@ -18,7 +18,6 @@
 
 SUBDIRS = \
           bibencode \
-          bibfield \
           bibindex \
           bibrank \
           bibsort \
