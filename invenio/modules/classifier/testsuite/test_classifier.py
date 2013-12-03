@@ -149,14 +149,18 @@ class BibClassifyTest(BibClassifyTestCase):
 
     def test_cache_accessibility(self):
         """bibclassify - test cache accessibility/writability"""
+        from flask import current_app
+        from invenio.modules.classifier.registry import taxonomies
         from invenio.legacy.bibclassify import ontology_reader as bibclassify_ontology_reader
         # we will do tests with a copy of test taxonomy, in case anything goes wrong...
         orig_name, orig_taxonomy_path, orig_taxonomy_url = bibclassify_ontology_reader._get_ontology(self.taxonomy_name)
 
-        taxonomy_path = orig_taxonomy_path.replace('.rdf', '.copy.rdf')
         taxonomy_name = self.taxonomy_name + '.copy'
+        taxonomy_path = os.path.join(
+            current_app.config['CFG_TMPDIR'], taxonomy_name + '.rdf')
 
         shutil.copy(orig_taxonomy_path, taxonomy_path)
+        taxonomies[taxonomy_name] = taxonomy_path
         assert(os.path.exists(taxonomy_path))
 
         name, taxonomy_path, taxonomy_url = bibclassify_ontology_reader._get_ontology(taxonomy_name)
