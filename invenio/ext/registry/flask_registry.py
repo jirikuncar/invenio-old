@@ -414,7 +414,7 @@ class ConfigurationRegistry(DiscoverRegistry):
 
         # Overwrite default configuration with user specified configuration
         self.new_config.update(app.config)
-        app.config = self.new_config
+        app.config.update(self.new_config)
 
     def register(self, new_object):
         self.new_config.from_object(new_object)
