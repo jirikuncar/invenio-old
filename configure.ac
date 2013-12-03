@@ -554,53 +554,19 @@ AC_CONFIG_FILES([config.nice  \
      config/Makefile \
      config/invenio-autotools.conf \
      modules/Makefile \
-     modules/oaiharvest/Makefile \
-     modules/oaiharvest/lib/Makefile \
-     modules/oaiharvest/web/Makefile \
-     modules/oaiharvest/web/admin/Makefile \
-     modules/oairepository/Makefile \
-     modules/oairepository/lib/Makefile \
-     modules/oairepository/web/Makefile \
-     modules/oairepository/web/admin/Makefile \
-     modules/bibindex/Makefile \
-     modules/bibindex/bin/Makefile \
-     modules/bibindex/bin/bibstat \
-     modules/bibindex/doc/Makefile \
-     modules/bibindex/doc/admin/Makefile \
-     modules/bibindex/doc/hacking/Makefile \
-     modules/bibindex/lib/Makefile \
-     modules/bibindex/web/Makefile \
-     modules/bibindex/web/admin/Makefile \
      modules/bibrank/Makefile \
      modules/bibrank/bin/Makefile \
      modules/bibrank/bin/bibrankgkb \
-     modules/bibrank/doc/Makefile \
-     modules/bibrank/doc/admin/Makefile \
-     modules/bibrank/doc/hacking/Makefile \
      modules/bibrank/etc/Makefile \
      modules/bibrank/etc/bibrankgkb.cfg \
      modules/bibrank/etc/demo_jif.cfg \
      modules/bibrank/etc/template_single_tag_rank_method.cfg \
      modules/bibrank/lib/Makefile \
-     modules/bibrank/web/Makefile \
-     modules/bibrank/web/admin/Makefile \
-     modules/bibsort/Makefile \
-     modules/bibsort/bin/Makefile \
-     modules/bibsort/lib/Makefile \
-     modules/bibsort/etc/Makefile \
-     modules/bibsort/doc/Makefile \
-     modules/bibsort/doc/admin/Makefile \
-     modules/bibsort/doc/hacking/Makefile \
-     modules/bibsort/web/Makefile \
-     modules/bibsort/web/admin/Makefile \
      modules/miscutil/Makefile \
      modules/miscutil/bin/Makefile \
-     modules/miscutil/bin/dbdump \
      modules/miscutil/bin/dbexec \
      modules/miscutil/bin/plotextractor \
      modules/miscutil/demo/Makefile \
-     modules/miscutil/doc/Makefile \
-     modules/miscutil/doc/hacking/Makefile \
      modules/miscutil/etc/Makefile \
      modules/miscutil/etc/bash_completion.d/Makefile \
      modules/miscutil/etc/bash_completion.d/inveniocfg \
@@ -609,66 +575,7 @@ AC_CONFIG_FILES([config.nice  \
      modules/miscutil/etc/ckeditor_scientificchar/lang/Makefile \
      modules/miscutil/etc/templates/Makefile \
      modules/miscutil/lib/Makefile \
-     modules/miscutil/sql/Makefile \
-     modules/miscutil/web/Makefile \
-     modules/webaccess/Makefile \
-     modules/webaccess/doc/Makefile \
-     modules/webaccess/doc/admin/Makefile \
-     modules/webaccess/doc/hacking/Makefile \
-     modules/webaccess/web/Makefile \
-     modules/webaccess/web/admin/Makefile \
-     modules/webcomment/Makefile \
-     modules/webcomment/doc/Makefile \
-     modules/webcomment/doc/admin/Makefile \
-     modules/webcomment/doc/hacking/Makefile \
-     modules/webcomment/etc/Makefile \
-     modules/webcomment/etc/templates/Makefile \
-     modules/webcomment/lib/Makefile \
-     modules/webcomment/web/Makefile \
-     modules/webcomment/web/admin/Makefile \
-     modules/webhelp/Makefile \
-     modules/webhelp/web/Makefile \
-     modules/webhelp/web/admin/Makefile \
-     modules/webhelp/web/admin/howto/Makefile \
-     modules/webhelp/web/hacking/Makefile \
-     modules/webjournal/Makefile \
-     modules/webjournal/etc/Makefile \
-     modules/webjournal/doc/Makefile \
-     modules/webjournal/doc/admin/Makefile \
-     modules/webjournal/doc/hacking/Makefile \
-     modules/webjournal/lib/Makefile \
-     modules/webjournal/lib/elements/Makefile \
-     modules/webjournal/lib/widgets/Makefile \
-     modules/webjournal/web/Makefile \
-     modules/webjournal/web/admin/Makefile \
-     modules/webmessage/Makefile \
-     modules/webmessage/bin/Makefile \
-     modules/webmessage/bin/webmessageadmin \
-     modules/webmessage/doc/Makefile \
-     modules/webmessage/doc/admin/Makefile \
-     modules/webmessage/doc/hacking/Makefile \
-     modules/webmessage/lib/Makefile \
-     modules/webmessage/web/Makefile \
-     modules/websearch/Makefile \
-     modules/websearch/bin/Makefile \
-     modules/websearch/doc/Makefile \
-     modules/websearch/doc/admin/Makefile \
-     modules/websearch/doc/hacking/Makefile \
-     modules/websearch/etc/Makefile \
-     modules/websearch/etc/templates/Makefile \
-     modules/websearch/lib/Makefile \
-     modules/websearch/web/Makefile \
-     modules/websearch/web/admin/Makefile \
-     modules/websession/Makefile \
-     modules/websession/bin/Makefile \
-     modules/websession/bin/inveniogc \
-     modules/websession/etc/Makefile \
-     modules/websession/etc/templates/Makefile \
-     modules/websession/doc/Makefile \
-     modules/websession/doc/admin/Makefile \
-     modules/websession/doc/hacking/Makefile \
-     modules/websession/lib/Makefile \
-     modules/websession/web/Makefile \
+     modules/miscutil/sql/Makefile
      ])
 
 ## Finally, write output files:

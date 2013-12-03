@@ -880,7 +880,7 @@ def add_record_cnum(recid, uid):
     @rtype: None or string
     """
     # Import placed here to avoid circular dependency
-    from invenio.sequtils_cnum import CnumSeq, ConferenceNoStartDateError
+    from invenio.modules.sequencegenerator.cnum import CnumSeq, ConferenceNoStartDateError
 
     record_revision, record, pending_changes, deactivated_hp_changes, \
     undo_list, redo_list = get_cache_file_contents(recid, uid)[1:]

@@ -92,7 +92,7 @@ Modules
 .. automodule:: invenio.modules.search
    :members:
 
-.. automodule:: invenio.modules.sequence_generator
+.. automodule:: invenio.modules.sequencegenerator
    :members:
 
 .. automodule:: invenio.modules.sorter
