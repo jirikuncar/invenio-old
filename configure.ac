@@ -554,14 +554,6 @@ AC_CONFIG_FILES([config.nice  \
      config/Makefile \
      config/invenio-autotools.conf \
      modules/Makefile \
-     modules/bibrank/Makefile \
-     modules/bibrank/bin/Makefile \
-     modules/bibrank/bin/bibrankgkb \
-     modules/bibrank/etc/Makefile \
-     modules/bibrank/etc/bibrankgkb.cfg \
-     modules/bibrank/etc/demo_jif.cfg \
-     modules/bibrank/etc/template_single_tag_rank_method.cfg \
-     modules/bibrank/lib/Makefile \
      modules/miscutil/Makefile \
      modules/miscutil/bin/Makefile \
      modules/miscutil/bin/dbexec \
