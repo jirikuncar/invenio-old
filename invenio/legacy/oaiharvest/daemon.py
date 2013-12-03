@@ -66,16 +66,16 @@ from invenio.legacy.bibrecord import record_extract_oai_id, create_records, \
                               record_get_field_instances, \
                               record_modify_subfield, \
                               record_has_field, field_xml_output
-from invenio import oai_harvest_getter
+from . import getter as oai_harvest_getter
 from invenio.ext.logging import register_exception
 from invenio.utils.plotextractor.getter import harvest_single, make_single_directory
 from invenio.utils.plotextractor.converter import untar
-from invenio.plotextractor import process_single, get_defaults
+from invenio.utils.plotextractor.cli import process_single, get_defaults
 from invenio.utils.shell import run_shell_command, Timeout
 from invenio.utils.text import translate_latex2unicode
 from invenio.legacy.bibedit.utils import record_find_matching_fields
 from invenio.legacy.bibcatalog.api import bibcatalog_system
-from invenio.ext.legacy.handler_flask import with_app_context
+from invenio.base.helpers import with_app_context
 
 ## precompile some often-used regexp for speed reasons:
 REGEXP_OAI_ID = re.compile("<identifier.*?>(.*?)<\/identifier>", re.DOTALL)
@@ -1395,7 +1395,7 @@ def usage(exitcode=0, msg=""):
         sys.stderr.write(msg + "\n")
     sys.exit(exitcode)
 
-@with_app_context
+
 def main():
     """Starts the tool.
 
@@ -1587,8 +1587,3 @@ def task_submit_elaborate_specific_parameter(key, value, opts, args):
     else:
         return False
     return True
-
-
-### okay, here we go:
-if __name__ == '__main__':
-    main()

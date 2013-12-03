@@ -379,7 +379,7 @@ class AutoDiscoverSubRegistry(AutoDiscoverRegistry):
 class PkgResourcesDiscoverRegistry(AutoDiscoverRegistry):
 
     def _discover_module(self, pkg):
-        if resource_isdir(pkg, self.module_name):
+        if pkg is not None and resource_isdir(pkg, self.module_name):
             for f in resource_listdir(pkg, self.module_name):
                 self.register(os.path.join(
                     os.path.dirname(import_string(pkg).__file__),
