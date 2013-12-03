@@ -180,6 +180,9 @@ def utc_to_localtime(date):
 
     Eg:    1994-11-05T13:15:30Z
     """
+    if date is None or len(date) == 0:
+        return
+
     ldate = date.split("T")[0]
     ltime = date.split("T")[1]
 
@@ -209,6 +212,8 @@ def utc_to_localtime(date):
 
 def localtime_to_utc(date):
     """Convert localtime to UTC"""
+    if date is None or len(date) == 0:
+        return
 
     ldate = date.split(" ")[0]
     ltime = date.split(" ")[1]
