@@ -510,8 +510,8 @@ def cli_cmd_reset_sitename(conf):
     except IntegrityError:
         run_sql("""UPDATE collection SET name=%s WHERE id=1""", (sitename,))
     # reset CFG_SITE_NAME_INTL:
-    for lang in conf.get("Invenio", "CFG_SITE_LANGS").split(","):
-        sitename_lang = conf.get("Invenio", "CFG_SITE_NAME_INTL_" + lang)
+    for lang in conf.get("Invenio", "CFG_SITE_LANGS"):
+        sitename_lang = conf.get("Invenio", "CFG_SITE_NAME_INTL")[lang]
         try:
             run_sql("""INSERT INTO collectionname (id_collection, ln, type, value) VALUES
                          (%s,%s,%s,%s)""", (1, lang, 'ln', sitename_lang))
@@ -1208,28 +1208,11 @@ def prepare_option_parser():
 
 def prepare_conf(options):
     """ Read configuration files """
+    from flask import current_app
     conf = ConfigParser()
-    confdir = getattr(options, 'conf_dir', None)
-
-    if confdir is None:
-        ## try to detect path to conf dir (relative to this bin dir):
-        confdir = re.sub(r'/bin$', '/etc', sys.path[0])
-
-    if confdir and not os.path.exists(confdir):
-        raise Exception("ERROR: bad --conf-dir option value - directory does not exists.")
-        sys.exit(1)
-
-    ## read conf files:
-    for conffile in [confdir + os.sep + 'invenio.conf',
-                     confdir + os.sep + 'invenio-autotools.conf',
-                     confdir + os.sep + 'invenio-local.conf', ]:
-
-        if os.path.exists(conffile):
-            conf.read(conffile)
-        else:
-            if not conffile.endswith("invenio-local.conf"):
-                # invenio-local.conf is optional, otherwise stop
-                raise Exception("ERROR: Badly guessed conf file location %s (Please use --conf-dir option.)" % conffile)
+    conf.add_section('Invenio')
+    for (k, v) in current_app.config.iteritems():
+        conf.set('Invenio', k, v)
     return conf
 
 
