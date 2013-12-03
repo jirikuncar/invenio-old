@@ -114,6 +114,7 @@ setup(
             'bibindex = invenio.legacy.bibindex.scripts.bibindex:main',
             'bibmatch = invenio.legacy.bibmatch.scripts.bibmatch:main',
             'bibrank = invenio.legacy.bibrank.scripts.bibrank:main',
+            'bibrankgkb = invenio.legacy.bibrank.scripts.bibrankgkb:main',
             'bibreformat = invenio.legacy.bibformat.scripts.bibreformat:main',
             'bibsort = invenio.legacy.bibsort.scripts.bibsort:main',
             'bibsched = invenio.legacy.bibsched.scripts.bibsched:main',

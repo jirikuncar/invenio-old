@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-##
+
 ## This file is part of Invenio.
 ## Copyright (C) 2004, 2005, 2006, 2007, 2008, 2010, 2011 CERN.
 ##
@@ -21,32 +21,24 @@
 
 __revision__ = "$Id$"
 
+
+from invenio.base.wrappers import lazy_import
 from invenio.testsuite import make_test_suite, run_test_suite, InvenioTestCase
+
+bibrank_tag_based_indexer = lazy_import('invenio.legacy.bibrank.tag_based_indexer')
+split_ranges = lazy_import('invenio.legacy.bibrank.cli:split_ranges')
 
 
 class TestListSetOperations(InvenioTestCase):
     """Test list set operations."""
 
-    def test_record_sorter(self):
-        """bibrank record sorter - sorting records"""
-        from invenio import bibrank_word_searcher
-        from invenio.intbitset import intbitset
-        hitset = intbitset()
-        hitset += (1,2,5)
-        hitset2 = intbitset()
-        hitset2.add(5)
-        rec_termcount = {1: 1, 2: 1, 5: 1}
-        (res1, res2) = bibrank_word_searcher.sort_record_relevance({1: 50, 2:30, 3:70,4:10},rec_termcount,hitset, 50,0)
-        self.assertEqual(([(1, 71), (3, 100)], list(hitset2)), (res1, list(res2)))
+    def test_union_dicts(self):
+        """bibrank tag based indexer - union dicts"""
+        self.assertEqual({1: 5, 2: 6, 3: 9, 4: 10, 10: 1}, bibrank_tag_based_indexer.union_dicts({1: 5, 2: 6, 3: 9}, {3:9, 4:10, 10: 1}))
 
-    def test_calculate_record_relevance(self):
-        """bibrank record sorter - calculating relevances"""
-        from invenio import bibrank_word_searcher
-        from invenio.intbitset import intbitset
-        hitset = intbitset()
-        hitset += (1,2,5)
-        self.assertEqual(({1: 7, 2: 7, 5: 5}, {1: 1, 2: 1, 5: 1}),  bibrank_word_searcher.calculate_record_relevance(("testterm", 2.0),
-{"Gi":(0, 50.0), 1: (3, 4.0), 2: (4, 5.0), 5: (1, 3.5)}, hitset, {}, {}, 0, None))
+    def test_split_ranges(self):
+        """bibrank tag based indexer - split ranges"""
+        self.assertEqual([[0, 500], [600, 1000]], split_ranges("0-500,600-1000"))
 
 TEST_SUITE = make_test_suite(TestListSetOperations,)
 
