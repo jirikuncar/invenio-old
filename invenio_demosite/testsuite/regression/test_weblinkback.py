@@ -39,8 +39,8 @@ try:
 except ImportError:
     HAS_MOCK = False
 
-run_sql = lazy_import('invenio.dbquery:run_sql')
-CFG_DATABASE_NAME = lazy_import('invenio.dbquery:CFG_DATABASE_NAME')
+run_sql = lazy_import('invenio.legacy.dbquery:run_sql')
+CFG_DATABASE_NAME = lazy_import('invenio.legacy.dbquery:CFG_DATABASE_NAME')
 
 weblinkback = lazy_import('invenio.legacy.weblinkback')
 

@@ -1226,16 +1226,16 @@ def upload_to_site(marcxml, yes_i_know):
 help_string = """
     name: plotextractor
     usage:
-            python plotextractor.py -d tar/dir -s scratch/dir
-            python plotextractor.py -i inputfile -u
-            python plotextractor.py --arXiv=arXiv_id
-            python plotextractor.py --recid=recids
+            plotextractor -d tar/dir -s scratch/dir
+            plotextractor -i inputfile -u
+            plotextractor --arXiv=arXiv_id
+            plotextractor --recid=recids
 
     example:
-            python plotextractor.py -d /some/path/with/tarballs
-            python plotextractor.py -i input.txt --no-sdir --extract-text
-            python plotextractor.py --arXiv=hep-ex/0101001
-            python plotextractor.py --recid=13-20,29
+            plotextractor -d /some/path/with/tarballs
+            plotextractor -i input.txt --no-sdir --extract-text
+            plotextractor --arXiv=hep-ex/0101001
+            plotextractor --recid=13-20,29
 
     options:
         -d, --tardir=
@@ -1305,6 +1305,3 @@ help_string = """
 
 def usage():
     write_message(help_string)
-
-if __name__ == '__main__':
-    main()

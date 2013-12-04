@@ -94,8 +94,8 @@ from invenio.legacy.bibrank.tag_based_indexer import \
 from invenio.modules.rank.registry import configuration
 #from invenio.legacy.bibrank.word_indexer import word_similarity #@UnusedImport
 #from invenio.legacy.bibrank.citerank_indexer import citerank #@UnusedImport
-#from invenio.solrutils_bibrank_indexer import word_similarity_solr #@UnusedImport
-#from invenio.xapianutils_bibrank_indexer import word_similarity_xapian #@UnusedImport
+#from invenio.legacy.miscutil.solrutils_bibrank_indexer import word_similarity_solr #@UnusedImport
+#from invenio.legacy.miscutil.xapianutils_bibrank_indexer import word_similarity_xapian #@UnusedImport
 #from invenio.legacy.bibrank.selfcites_task import process_updates as selfcites
 # pylint: enable=W0611
 

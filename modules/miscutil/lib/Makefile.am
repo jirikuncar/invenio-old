@@ -15,32 +15,6 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
-pylibdir = $(libdir)/python/invenio
-
-pylib_DATA = __init__.py \
-             dataciteutils_tester.py \
-             dbdump.py \
-             dbquery_unit_tests.py \
-             errorlib_webinterface.py \
-             inveniocfg_unit_tests.py \
-             inveniomanage_unit_tests.py \
-             miscutil_model.py \
-             pluginutils.py \
-             pluginutils_unit_tests.py \
-             remote_debugger.py \
-             remote_debugger_config.py \
-             remote_debugger_wsgi_reload.py \
-             sequtils.py \
-             sequtils_cnum.py \
-             sherpa_romeo_testing.py \
-             solrutils_bibrank_indexer.py \
-             w3c_validator.py \
-             xapianutils_bibrank_indexer.py
-
-noinst_DATA = testimport.py \
-              kwalitee.py \
-              pep8.py
-
 tmpdir = $(prefix)/var/tmp
 
 EXTRA_DIST = $(pylib_DATA) \
@@ -64,9 +38,6 @@ EXTRA_DIST = $(pylib_DATA) \
              solrutils/org/invenio_software/solr/InvenioBitSet.java \
              solrutils/org/invenio_software/solr/StringFieldCollector.java \
              solrutils/solrconfig.xml
-
-install-data-hook:
-	$(PYTHON) $(srcdir)/testimport.py ${prefix}
 
 CLEANFILES = *~ *.tmp *.pyc
 

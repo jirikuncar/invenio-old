@@ -100,7 +100,7 @@ setup(
     entry_points={
         'console_scripts': [
             'inveniomanage = invenio.base.manage:main',
-            'plotextractor = invenio.utils.plotextractor.cli:main',
+            'plotextractor = invenio.utils.scripts.plotextractor:main',
             ## Legacy
             'alertengine = invenio.legacy.webalert.scripts.alertengine:main',
             'batchuploader = invenio.legacy.bibupload.scripts.batchuploader',

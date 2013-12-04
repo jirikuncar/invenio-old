@@ -398,7 +398,7 @@ def test_web_page_content(url,
        messages that may have been encountered during processing of
        page.
     """
-    from invenio.w3c_validator import w3c_validate, w3c_errors_to_str, \
+    from invenio.utils.w3c_validator import w3c_validate, w3c_errors_to_str, \
         CFG_TESTS_REQUIRE_HTML_VALIDATION
     if require_validate_p is None:
         require_validate_p = CFG_TESTS_REQUIRE_HTML_VALIDATION
