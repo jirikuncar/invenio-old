@@ -552,22 +552,7 @@ AC_SUBST(localstatedir, `eval echo "${localstatedir}"`)
 AC_CONFIG_FILES([config.nice  \
      Makefile \
      config/Makefile \
-     config/invenio-autotools.conf \
-     modules/Makefile \
-     modules/miscutil/Makefile \
-     modules/miscutil/bin/Makefile \
-     modules/miscutil/bin/dbexec \
-     modules/miscutil/bin/plotextractor \
-     modules/miscutil/demo/Makefile \
-     modules/miscutil/etc/Makefile \
-     modules/miscutil/etc/bash_completion.d/Makefile \
-     modules/miscutil/etc/bash_completion.d/inveniocfg \
-     modules/miscutil/etc/ckeditor_scientificchar/Makefile \
-     modules/miscutil/etc/ckeditor_scientificchar/dialogs/Makefile \
-     modules/miscutil/etc/ckeditor_scientificchar/lang/Makefile \
-     modules/miscutil/etc/templates/Makefile \
-     modules/miscutil/lib/Makefile \
-     modules/miscutil/sql/Makefile
+     config/invenio-autotools.conf
      ])
 
 ## Finally, write output files:

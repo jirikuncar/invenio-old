@@ -122,6 +122,7 @@ setup(
             'bibtaskex = invenio.legacy.bibsched.scripts.bibtaskex:main',
             'bibtasklet = invenio.legacy.bibsched.scripts.bibtasklet:main',
             'bibupload = invenio.legacy.bibupload.scripts.bibupload:main',
+            'dbexec = invenio.legacy.miscutil.scripts.dbexec:main',
             'dbdump = invenio.legacy.miscutil.scripts.dbdump:main',
             'docextract = invenio.legacy.docextract.scripts.docextract:main',
             'elmsubmit = invenio.legacy.elmsubmit.scripts.elmsubmit:main',

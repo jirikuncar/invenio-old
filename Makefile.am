@@ -18,7 +18,7 @@
 confignicedir = $(sysconfdir)/build
 confignice_SCRIPTS=config.nice
 
-SUBDIRS = config modules
+SUBDIRS = config
 
 EXTRA_DIST = UNINSTALL THANKS RELEASE-NOTES configure-tests.py config.nice.in \
              config.rpath
@@ -62,19 +62,19 @@ check-custom-templates:
 	$(PYTHON) $(top_srcdir)/modules/webstyle/lib/template.py --check-custom-templates $(top_srcdir)
 
 kwalitee-check:
-	@$(PYTHON) $(top_srcdir)/modules/miscutil/lib/kwalitee.py --stats $(top_srcdir)
+	@$(PYTHON) $(top_srcdir)/scripts/kwalitee.py --stats $(top_srcdir)
 
 kwalitee-check-errors-only:
-	@$(PYTHON) $(top_srcdir)/modules/miscutil/lib/kwalitee.py --check-errors $(top_srcdir)
+	@$(PYTHON) $(top_srcdir)/scripts/kwalitee.py --check-errors $(top_srcdir)
 
 kwalitee-check-variables:
-	@$(PYTHON) $(top_srcdir)/modules/miscutil/lib/kwalitee.py --check-variables $(top_srcdir)
+	@$(PYTHON) $(top_srcdir)/scripts/kwalitee.py --check-variables $(top_srcdir)
 
 kwalitee-check-indentation:
-	@$(PYTHON) $(top_srcdir)/modules/miscutil/lib/kwalitee.py --check-indentation $(top_srcdir)
+	@$(PYTHON) $(top_srcdir)/scripts/kwalitee.py --check-indentation $(top_srcdir)
 
 kwalitee-check-sql-queries:
-	@$(PYTHON) $(top_srcdir)/modules/miscutil/lib/kwalitee.py --check-sql $(top_srcdir)
+	@$(PYTHON) $(top_srcdir)/scripts/kwalitee.py --check-sql $(top_srcdir)
 
 etags:
 	\rm -f $(top_srcdir)/TAGS
