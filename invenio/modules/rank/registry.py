@@ -28,4 +28,4 @@ configuration_proxy = RegistryProxy('rankext.configuration',
                                   PkgResourcesDiscoverRegistry,
                                   'configuration', registry_namespace=rankext)
 configuration = LazyDict(lambda: dict((os.path.basename(f), f)
-                      for f in configuratio_proxy))
+                      for f in configuration_proxy))
