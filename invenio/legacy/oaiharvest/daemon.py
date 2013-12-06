@@ -72,14 +72,13 @@ oaiharvest_templates = invenio.legacy.template.load('oaiharvest')
 def task_run_core():
     start_time = time.time()
 
-    all_options = task_get_option(None)
     try:
-        workflow_name = all_options("workflow")
-    except:
+        workflow_name = task_get_option("workflow")
+    except KeyError:
         workflow_name = "generic_harvesting_workflow"
 
     try:
-        workflow = start(workflow_name, data=[123], stop_on_error=True, args=all_options)
+        workflow = start(workflow_name, data=[123], stop_on_error=True, options=task_get_option(None))
 
     except InvenioWorkflowError as e:
 

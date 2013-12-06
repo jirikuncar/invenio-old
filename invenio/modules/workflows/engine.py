@@ -366,8 +366,9 @@ BibWorkflowEngine
                         # stopped
                         obj.log.info("Object proccesing is halted")
                     raise
-                except Exception:
-                    self.log.info("Unexpected error: %s", sys.exc_info()[0])
+                except Exception,e:
+                    self.log.error("Unexpected error: %s", sys.exc_info()[0])
+                    self.log.error(e.message)
                     obj.log.error("Something terribly wrong"
                                   " happend to this object")
                     extra_data = obj.get_extra_data()
@@ -424,5 +425,11 @@ BibWorkflowEngine
         self.setWorkflow(self.workflow_definition.workflow)
 
     def set_extra_data_params(self, **kwargs):
+        tmp = self.get_extra_data()
+        if not tmp:
+            tmp = {}
         for key, value in kwargs.iteritems():
-            self.extra_data[key] = value
+            tmp[key] = value
+        self.set_extra_data(tmp)
+
+

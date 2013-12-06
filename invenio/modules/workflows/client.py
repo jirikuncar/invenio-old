@@ -66,7 +66,7 @@ def run_workflow(wfe, data, stop_on_halt=False, stop_on_error=False, **kwargs):
             wfe.save(CFG_WORKFLOW_STATUS.ERROR)
             wfe.setPosition(wfe.getCurrObjId() + 1, [0, 0])
             if stop_on_halt or stop_on_error:
-                e = InvenioWorkflowError(str(e),wfe.uuid,wfe.getCurrObjId())
+                e = InvenioWorkflowError(str(e), wfe.uuid, wfe.getCurrObjId())
                 raise e
 
 
@@ -89,10 +89,10 @@ def continue_execution(wfe, data, restart_point="restart_task",
     pos = data[0].get_current_task()
 
     if restart_point == "restart_prev":
-        pos[-1] = pos[-1] - 1
+        pos[-1] -= 1
         wfe.setPosition(wfe.db_obj.current_object, pos)
     elif restart_point == "continue_next":
-        pos[-1] = pos[-1] + 1
+        pos[-1] += 1
         wfe.setPosition(wfe.db_obj.current_object, pos)
     else:
         # restart_task

@@ -79,10 +79,10 @@ def get_workflow_definition(name):
 
     from .loader import workflows
 
-    try:
-        return workflows[name]
-    except:
-        raise InvenioWorkflowDefinitionError("Cannot find workflow %s" % (name,))
+    #try:
+    return workflows[name]
+    #except:
+    #    raise InvenioWorkflowDefinitionError("Cannot find workflow %s" % (name,))
 
 
 def determineDataType(data):
