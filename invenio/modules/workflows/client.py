@@ -71,6 +71,7 @@ def run_workflow(wfe, data, stop_on_halt=False, stop_on_error=False,
                                     id_object=wfe.getCurrObjId())
 
 
+
 def continue_execution(wfe, data, restart_point="restart_task",
                        stop_on_halt=False, stop_on_error=False, **kwargs):
     """

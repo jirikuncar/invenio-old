@@ -444,3 +444,4 @@ BibWorkflowEngine
         for key, value in kwargs.iteritems():
             tmp[key] = value
         self.set_extra_data(tmp)
+
