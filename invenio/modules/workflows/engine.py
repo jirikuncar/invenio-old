@@ -356,7 +356,6 @@ BibWorkflowEngine
                 except HaltProcessing:
                     self.increase_counter_halted()
                     extra_data = obj.get_extra_data()
-                    extra_data['redis_search']['halt_processing'] = self.getCurrTaskName()
                     obj.set_extra_data(extra_data)
 
                     if DEBUG:
@@ -366,13 +365,12 @@ BibWorkflowEngine
                         # stopped
                         obj.log.info("Object proccesing is halted")
                     raise
-                except Exception,e:
+                except Exception, e:
                     self.log.error("Unexpected error: %s", sys.exc_info()[0])
                     self.log.error(e.message)
                     obj.log.error("Something terribly wrong"
                                   " happend to this object")
                     extra_data = obj.get_extra_data()
-                    extra_data['redis_search']['error'] = self.getCurrTaskName()
                     obj.set_extra_data(extra_data)
                     raise
             # We save the object once it is fully run through
@@ -381,9 +379,6 @@ BibWorkflowEngine
             self.increase_counter_finished()
             self.log.info("Done saving object: %i" % (obj.id, ))
         self.after_processing(objects, self)
-
-    def getCurrTaskName(self):
-        return self._callbacks['*'][0][self.getCurrTaskId()[-1]].func_name
 
     def execute_callback(self, callback, obj):
         """Executes the callback - override this method to implement logging"""
@@ -396,6 +391,23 @@ BibWorkflowEngine
             self.set_extra_data(self.extra_data)
             obj.set_data(obj.data)
             obj.set_extra_data(obj.extra_data)
+
+    def get_current_taskname(self):
+        """
+        Will attempt to return name of current task/step.
+        Otherwise returns None.
+        """
+        callback_list = self.getCallbacks()
+        if callback_list:
+            try:
+                current_tasks = callback_list[0]
+                current_task_idx = self.getCurrTaskId()[-1]
+            except IndexError:
+                # We hit an IndexError which probably means callbacks
+                # or task id was empty
+                return None
+            func = current_tasks[current_task_idx]
+            return func.func_name
 
     def halt(self, msg):
         """Halt the workflow (stop also any parent wfe)"""
@@ -431,5 +443,3 @@ BibWorkflowEngine
         for key, value in kwargs.iteritems():
             tmp[key] = value
         self.set_extra_data(tmp)
-
-
