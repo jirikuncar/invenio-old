@@ -43,7 +43,7 @@ from .config import (CFG_WORKFLOW_STATUS,
                      CFG_OBJECT_VERSION)
 from .logger import (get_logger,
                      BibWorkflowLogHandler)
-
+from .errors import WorkflowHalt
 
 DEBUG = CFG_DEVEL_SITE > 0
 
@@ -353,7 +353,7 @@ BibWorkflowEngine
                         obj.log.debug("Object preempted")
                     i[1] = [0]  # reset the callbacks pointer
                     continue
-                except HaltProcessing:
+                except HaltProcessing, e:
                     self.increase_counter_halted()
                     extra_data = obj.get_extra_data()
                     obj.set_extra_data(extra_data)
@@ -364,7 +364,7 @@ BibWorkflowEngine
                         #this is the only case when a WFE can be completely
                         # stopped
                         obj.log.info("Object proccesing is halted")
-                    raise
+                    raise WorkflowHalt(e)
                 except Exception, e:
                     self.log.error("Unexpected error: %s", sys.exc_info()[0])
                     self.log.error(e.message)
@@ -409,12 +409,11 @@ BibWorkflowEngine
             func = current_tasks[current_task_idx]
             return func.func_name
 
-    def halt(self, msg):
+    def halt(self, msg, widget=None):
         """Halt the workflow (stop also any parent wfe)"""
-        self.log.debug("Processing halted at task %s with message: %s" %
-                      (self.getCurrTaskId(), msg, ))
-        raise HaltProcessing("Processing halted at task %s with message: %s" %
-                             (self.getCurrTaskId(), msg, ))
+        message = "Workflow '%s' halted at task %s with message: %s" % \
+                  (self.name, self.get_current_taskname() or "Unknown", msg)
+        raise WorkflowHalt(message=message)
 
     def set_counter_initial(self, obj_count):
         self.db_obj.counter_initial = obj_count

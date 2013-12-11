@@ -62,7 +62,7 @@ from invenio.ext.email import send_email
 from invenio.modules.workflows.models import (BibWorkflowEngineLog,
                                               BibWorkflowObjectLog)
 from invenio.modules.workflows.api import start
-from invenio.modules.workflows.utils import InvenioWorkflowError
+from invenio.modules.workflows.errors import WorkflowError
 
 import invenio.legacy.template
 
@@ -80,7 +80,7 @@ def task_run_core():
     try:
         workflow = start(workflow_name, data=[123], stop_on_error=True, options=task_get_option(None))
 
-    except InvenioWorkflowError as e:
+    except WorkflowError as e:
 
         write_message("ERROR HAPPEN")
         write_message("____________Workflow log output____________")

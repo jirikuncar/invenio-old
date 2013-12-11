@@ -44,7 +44,7 @@ from invenio.legacy.bibsched.bibtask import (task_sleep_now_if_required,
                                              )
 from invenio.modules.oai_harvest.models import OaiHARVEST
 from invenio.legacy.bibfield.bibfield_jsonreader import JsonReader
-from invenio.modules.workflows.utils import InvenioWorkflowError
+from invenio.modules.workflows.errors import WorkflowError
 from invenio.legacy.refextract.api import extract_references_from_file_xml
 from invenio.legacy.bibrecord import (create_records,
                                       record_xml_output
@@ -201,12 +201,15 @@ def harvest_records(obj, eng):
 
     # Harvest phase
     try:
-        harvested_files_list = harvest_step(obj.data, harvestpath, obj.extra_data["options"]["identifiers"],
+        harvested_files_list = harvest_step(obj.data,
+                                            harvestpath,
+                                            obj.extra_data["options"]["identifiers"],
                                             obj.extra_data["options"]["dates"])
     except Exception:
         eng.log.error("Error while harvesting %s. Skipping." % (obj.data,))
 
-        raise InvenioWorkflowError(str("Error while harvesting %s. Skipping." % (obj.data,)), eng.uuid)
+        raise WorkflowError("Error while harvesting %r. Skipping." % (obj.data,),
+                            id_workflow=eng.uuid)
 
     if len(harvested_files_list) == 0:
         eng.log.error("No records harvested for %s" % (obj.data.name,))
@@ -217,11 +220,11 @@ def harvest_records(obj, eng):
 
     if len(harvested_files_list) != len(harvested_identifier_list[0]):
         # Harvested files and its identifiers are 'out of sync', abort harvest
-        eng.log.info("Harvested files miss identifiers for %s" % (obj.data.arguments,))
-        raise InvenioWorkflowError(str("Harvested files miss identifiers ... failure !"), eng.uuid)
-    eng.log.info(str(len(harvested_files_list)) + " files harvested and processed")
+        msg = "Harvested files miss identifiers for %s" % (obj.data.arguments,)
+        eng.log.info(msg)
+        raise WorkflowError(msg, id_workflow=eng.uuid)
+    eng.log.info("%d files harvested and processed" % (len(harvested_files_list),))
     eng.log.info("End harvest records task")
-
 
 harvest_records.__id__ = "h"
 
@@ -285,7 +288,8 @@ def convert_record(stylesheet="oaidc2marcxml.xsl"):
         except:
             obj.extra_data["error_msg"] = 'Could not convert record'
             eng.log.error("Error: %s" % (obj.extra_data["error_msg"],))
-            raise InvenioWorkflowError(str("Error: %s" % (obj.extra_data["error_msg"])), eng.uuid)
+            raise WorkflowError("Error: %s" % (obj.extra_data["error_msg"],),
+                                id_workflow=eng.uuid)
 
     return _convert_record
 
@@ -295,14 +299,13 @@ def fulltext_download(obj, eng):
     Performs the fulltext download step.
     Only for arXiv
     """
-
     eng.log.info("full-text attachment step started")
     task_sleep_now_if_required()
 
     if "pdf" not in obj.extra_data["options"]["identifiers"]:
-
         extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
-        tarball, pdf = harvest_single(obj.data["system_control_number"]["value"], extract_path, ["pdf"])
+        tarball, pdf = harvest_single(obj.data["system_control_number"]["value"],
+                                      extract_path, ["pdf"])
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
 
         if not obj.extra_data["repository"].arguments['t_doctype'] == '':
@@ -315,8 +318,8 @@ def fulltext_download(obj, eng):
                             "    <subfield code=\"a\">%(url)s</subfield>\n"
                             "    <subfield code=\"t\">%(doctype)s</subfield>\n"
                             "    </datafield>"
-                           ) % {'url': obj.extra_data["options"]["identifiers"]["pdf"],
-                                'doctype': doctype}
+                            ) % {'url': obj.extra_data["options"]["identifiers"]["pdf"],
+                                 'doctype': doctype}
 
             updated_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<collection>\n<record>\n' + fulltext_xml + \
                           '</record>\n</collection>'
@@ -408,9 +411,9 @@ def plot_extract(plotextractor_types):
                 time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
 
                 if tarball is None:
-                    raise InvenioWorkflowError(str("Error harvesting tarball from id: %s %s" %
-                                                   (obj.data["system_control_number"]["value"], extract_path)),
-                                               eng.uuid)
+                    raise WorkflowError("Error harvesting tarball from id: %s %s" %
+                                        (obj.data["system_control_number"]["value"], extract_path),
+                                        id_workflow=eng.uuid)
                 obj.extra_data["options"]["identifiers"]["tarball"] = tarball
             else:
                 tarball = obj.extra_data["options"]["identifiers"]["tarball"]
@@ -523,8 +526,9 @@ def author_list(obj, eng):
         tarball = str(tarball)
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         if tarball is None:
-            raise InvenioWorkflowError(str("Error harvesting tarball from id: %s %s" % (identifiers, extract_path)),
-                                       eng.uuid)
+            raise WorkflowError("Error harvesting tarball from id: %s %s" %
+                                (identifiers, extract_path),
+                                id_workflow=eng.uuid)
         obj.extra_data["options"]["identifiers"]["tarball"] = tarball
 
     sub_dir, dummy = get_defaults(obj.extra_data["options"]["identifiers"]["tarball"], CFG_TMPDIR, "")

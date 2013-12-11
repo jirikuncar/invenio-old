@@ -3,7 +3,7 @@ from invenio.modules.workflows.models import (BibWorkflowObject,
                                               BibWorkflowEngineLog)
 from invenio.modules.workflows.api import (start_delayed)
 
-from invenio.modules.workflows.utils import InvenioWorkflowError
+from invenio.modules.workflows.errors import WorkflowError
 
 from time import sleep
 
@@ -44,7 +44,8 @@ def start_workflow(workflow_to_run="default", data=None, copy=True, **kwargs):
         eng.log.info("Workflow object ready")
 
         myobject.save()
-        workflow_id = start_delayed(workflow_to_run, data=[myobject], **kwargs)
+        workflow_id = start_delayed(workflow_to_run, data=[myobject],
+                                    stop_on_error=True, **kwargs)
 
         eng.log.info("Workflow launched")
         try:
@@ -76,12 +77,11 @@ def wait_for_workflows_to_complete(obj, eng):
             try:
                 workflow_id.get()
                 eng.extra_data["nb_workflow_finish"] += 1
-            except InvenioWorkflowError as e:
-
-                eng.log.error("___________________\n_______ALERT_______\n___________________\n_______WORKFLOW " +
-                              e.id_workflow + " FAILED_______\n_______ERROR MESSAGE IS :_______\n" + repr(e))
-
-                workflowlog = BibWorkflowEngineLog.query.filter(BibWorkflowEngineLog.id_object == e.id_workflow).all()
+            except WorkflowError as e:
+                eng.log.error("Error: Workflow failed %s" % (e,))
+                workflowlog = BibWorkflowEngineLog.query.filter(
+                    BibWorkflowEngineLog.id_object == e.id_workflow
+                ).all()
 
                 for log in workflowlog:
                     eng.log.error(log.message)
@@ -89,8 +89,7 @@ def wait_for_workflows_to_complete(obj, eng):
                 eng.extra_data["nb_workflow_failed"] += 1
                 eng.extra_data["nb_workflow_finish"] += 1
             except Exception as e:
-                eng.log.error("_______ALERT_______")
-                eng.log.error(str(e))
+                eng.log.error("Error: Workflow failed %s" % (e,))
                 eng.extra_data["nb_workflow_failed"] += 1
                 eng.extra_data["nb_workflow_finish"] += 1
     else:
@@ -114,11 +113,11 @@ def wait_for_a_workflow_to_complete_obj(obj, eng):
     try:
         obj.data.get()
         eng.extra_data["nb_workflow_finish"] += 1
-    except InvenioWorkflowError as e:
-        eng.log.error("___________________\n_______ALERT_______\n___________________\n_______WORKFLOW " +
-                      e.id_workflow + " FAILED_______\n_______ERROR MESSAGE IS :_______\n" + repr(e))
-
-        workflowlog = BibWorkflowEngineLog.query.filter(BibWorkflowEngineLog.id_object == e.id_workflow).all()
+    except WorkflowError as e:
+        eng.log.error("Error: Workflow failed %s" % (e,))
+        workflowlog = BibWorkflowEngineLog.query.filter(
+            BibWorkflowEngineLog.id_object == e.id_workflow
+        ).all()
 
         for log in workflowlog:
             eng.log.error(log.message)
@@ -126,8 +125,7 @@ def wait_for_a_workflow_to_complete_obj(obj, eng):
         eng.extra_data["nb_workflow_failed"] += 1
         eng.extra_data["nb_workflow_finish"] += 1
     except Exception as e:
-        eng.log.error("_______ALERT_______")
-        eng.log.error(str(e))
+        eng.log.error("Error: Workflow failed %s" % (e,))
         eng.extra_data["nb_workflow_failed"] += 1
         eng.extra_data["nb_workflow_finish"] += 1
 
@@ -156,11 +154,11 @@ def wait_for_a_workflow_to_complete(obj, eng):
             to_wait.wait()
             eng.extra_data["nb_workflow_finish"] += 1
 
-        except InvenioWorkflowError as e:
-            eng.log.error("___________________\n_______ALERT_______\n___________________\n_______WORKFLOW " +
-                          e.id_workflow + " FAILED_______\n_______ERROR MESSAGE IS :_______\n" + repr(e))
-
-            workflowlog = BibWorkflowEngineLog.query.filter(BibWorkflowEngineLog.id_object == e.id_workflow).all()
+        except WorkflowError as e:
+            eng.log.error("Error: Workflow failed %s" % (e,))
+            workflowlog = BibWorkflowEngineLog.query.filter(
+                BibWorkflowEngineLog.id_object == e.id_workflow
+            ).all()
 
             for log in workflowlog:
                 eng.log.error(log.message)
@@ -168,8 +166,7 @@ def wait_for_a_workflow_to_complete(obj, eng):
             eng.extra_data["nb_workflow_failed"] += 1
             eng.extra_data["nb_workflow_finish"] += 1
         except Exception as e:
-            eng.log.error("_______ALERT_______")
-            eng.log.error(str(e))
+            eng.log.error("Error: Workflow failed %s" % (e,))
             eng.extra_data["nb_workflow_failed"] += 1
             eng.extra_data["nb_workflow_finish"] += 1
 
