@@ -52,7 +52,7 @@ class generic_harvesting_workflow(object):
                     [
                         foreach(get_records_from_file()),
                         [
-                            start_workflow("full_doc_process", None, stop_on_error=True),
+                            start_workflow("full_doc_process", None),
                             write_something_bibsched(["Workflow started : ", get_nb_workflow_created, " "]),
                         ],
                         end_for

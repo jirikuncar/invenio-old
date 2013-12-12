@@ -58,7 +58,7 @@ class generic_harvesting_workflow_with_bibsched(object):
                     [
                         foreach(get_records_from_file()),
                         [
-                            start_workflow("full_doc_process", None, stop_on_error=True),
+                            start_workflow("full_doc_process", None),
                             write_something_bibsched(["Workflow started : ", get_nb_workflow_created, " "]),
                         ],
                         end_for
@@ -71,8 +71,8 @@ class generic_harvesting_workflow_with_bibsched(object):
                 simple_for(0, get_nb_workflow_created, 1),
                 [
                     wait_for_a_workflow_to_complete,
-                    write_something_bibsched([get_workflows_progress, " % Complete"]),
-                    write_something_generic([get_workflows_progress, " % Complete"], task_update_progress),
+                    write_something_bibsched([get_workflows_progress, "%% Complete"]),
+                    write_something_generic([get_workflows_progress, "%% Complete"], task_update_progress),
                 ],
                 end_for,
                 write_something_bibsched("the end"),

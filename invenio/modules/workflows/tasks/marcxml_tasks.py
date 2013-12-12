@@ -20,6 +20,7 @@ import random
 import time
 import glob
 import re
+import traceback
 
 from invenio.legacy.bibupload.engine import (find_record_from_recid,
                                              find_record_from_sysno,
@@ -69,6 +70,7 @@ import invenio.legacy.template
 from invenio.utils.plotextractor.converter import (untar,
                                                    convert_images
                                                    )
+from invenio.utils.serializers import deserialize_via_marshal
 
 oaiharvest_templates = invenio.legacy.template.load('oaiharvest')
 
@@ -182,8 +184,8 @@ def harvest_records(obj, eng):
 
     harvestpath = "%s_%d_%s_" % ("%s/oaiharvest_%s" % (CFG_TMPSHAREDDIR, eng.uuid),
                                  1, time.strftime("%Y%m%d%H%M%S"))
-    # ## go ahead: check if user requested from-until harvesting
 
+    # ## go ahead: check if user requested from-until harvesting
     try:
         if "dates" not in obj.extra_data["options"]:
             obj.extra_data["options"]["dates"] = {}
@@ -194,10 +196,9 @@ def harvest_records(obj, eng):
 
     task_sleep_now_if_required()
 
-    if obj.data.arguments:
-        eng.log.info(str(obj.data.arguments))
-        # obj.data.arguments = deserialize_via_marshal(obj.data.arguments)
-        eng.log.info("running with post-processes: %s" % (obj.data.arguments,))
+    arguments = obj.extra_data["repository"].get_arguments()
+    if arguments:
+        eng.log.info("running with post-processes: %r" % (arguments,))
 
     # Harvest phase
     try:
@@ -220,7 +221,7 @@ def harvest_records(obj, eng):
 
     if len(harvested_files_list) != len(harvested_identifier_list[0]):
         # Harvested files and its identifiers are 'out of sync', abort harvest
-        msg = "Harvested files miss identifiers for %s" % (obj.data.arguments,)
+        msg = "Harvested files miss identifiers for %s" % (arguments,)
         eng.log.info(msg)
         raise WorkflowError(msg, id_workflow=eng.uuid)
     eng.log.info("%d files harvested and processed" % (len(harvested_files_list),))
@@ -285,10 +286,12 @@ def convert_record(stylesheet="oaidc2marcxml.xsl"):
 
         try:
             obj.data = convert(obj.data, stylesheet)
-        except:
-            obj.extra_data["error_msg"] = 'Could not convert record'
-            eng.log.error("Error: %s" % (obj.extra_data["error_msg"],))
-            raise WorkflowError("Error: %s" % (obj.extra_data["error_msg"],),
+        except Exception as e:
+            msg = "Could not convert record: %s\n%s" % \
+                  (str(e), traceback.format_exc())
+            obj.extra_data["error_msg"] = msg
+            eng.log.error("Error: %s" % (msg,))
+            raise WorkflowError("Error: %s" % (msg,),
                                 id_workflow=eng.uuid)
 
     return _convert_record
@@ -307,9 +310,9 @@ def fulltext_download(obj, eng):
         tarball, pdf = harvest_single(obj.data["system_control_number"]["value"],
                                       extract_path, ["pdf"])
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
-
-        if not obj.extra_data["repository"].arguments['t_doctype'] == '':
-            doctype = obj.extra_data["repository"].arguments['t_doctype']
+        arguments = obj.extra_data["repository"].get_arguments()
+        if not arguments['t_doctype'] == '':
+            doctype = arguments['t_doctype']
         else:
             doctype = 'arXiv'
         if pdf:
@@ -619,15 +622,17 @@ def upload_step(obj, eng):
     file_fd.close()
     mode = ["-r", "-i"]
 
+    arguments = obj.extra_data["repository"].get_arguments()
+
     if os.path.exists(filepath):
         try:
             args = mode
             if sequence_id:
                 args.extend(['-I', str(sequence_id)])
-            if obj.extra_data["repository"].arguments.get('u_name', ""):
-                args.extend(['-N', obj.extra_data["repository"].arguments.get('u_name', "")])
-            if obj.extra_data["repository"].arguments.get('u_priority', 5):
-                args.extend(['-P', str(obj.extra_data["repository"].arguments.get('u_priority', 5))])
+            if arguments.get('u_name', ""):
+                args.extend(['-N', arguments.get('u_name', "")])
+            if arguments.get('u_priority', 5):
+                args.extend(['-P', str(arguments.get('u_priority', 5))])
             args.append(filepath)
             task_id = task_low_level_submission("bibupload", "oaiharvest", *tuple(args))
             create_oaiharvest_log(task_id, obj.extra_data["repository"].id, filepath)

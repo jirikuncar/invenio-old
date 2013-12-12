@@ -178,7 +178,7 @@ distances from it.
         from invenio.modules.workflows.models import BibWorkflowObject
         from invenio.modules.workflows.api import start
 
-        initial_data = {'data': self.recxml, 'type': "text/xml"}
+        initial_data = self.recxml
         workflow = start(workflow_name="marcxml_workflow",
                          data=[initial_data], module_name="unit_tests")
         # Keep id for cleanup after
@@ -357,7 +357,7 @@ distances from it.
         given object from prev, current and next task"""
         from invenio.modules.workflows.models import BibWorkflowObject
         from invenio.modules.workflows.api import (start,
-                                             continue_oid)
+                                                   continue_oid)
         initial_data = {'data': 1}
         final_data_prev = {'data': 3}
         final_data_curr = {'data': 2}

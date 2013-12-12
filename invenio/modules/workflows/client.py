@@ -53,8 +53,8 @@ def run_workflow(wfe, data, stop_on_halt=False, stop_on_error=False,
         except Exception as e:
             # We print the stacktrace, save the object and continue
             # unless instructed otherwise.
-            wfe.log.error("Processing error! %r\n%s" %
-                          (e, traceback.format_exc()))
+            msg = "Error: %r\n%s" % (e, traceback.format_exc())
+            wfe.log.error(msg)
 
             # Changing counter should be moved to wfe object
             # together with default exception handling
@@ -66,8 +66,9 @@ def run_workflow(wfe, data, stop_on_halt=False, stop_on_error=False,
             wfe.setPosition(wfe.getCurrObjId() + 1, [0, 0])
 
             if stop_on_halt or stop_on_error:
-                e = WorkflowError(str(e), wfe.uuid, wfe.getCurrObjId())
-                raise e
+                raise WorkflowError(message=msg,
+                                    id_workflow=wfe.uuid,
+                                    id_object=wfe.getCurrObjId())
 
 
 def continue_execution(wfe, data, restart_point="restart_task",
@@ -97,6 +98,6 @@ def continue_execution(wfe, data, restart_point="restart_task",
     else:
         # restart_task
         wfe.setPosition(wfe.db_obj.current_object, pos)
-
+    wfe._objects = data
     run_workflow(wfe, data, stop_on_halt, stop_on_error,
                  initial_run=False, **kwargs)
