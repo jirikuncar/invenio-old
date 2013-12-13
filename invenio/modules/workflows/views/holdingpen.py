@@ -427,8 +427,11 @@ def extract_data(bwobject):
     """
     extracted_data = {}
 
-    extracted_data['bwparent'] = \
-        BibWorkflowObject.query.get(bwobject.id_parent)
+    if bwobject.id_parent is not None:
+        extracted_data['bwparent'] = \
+            BibWorkflowObject.query.get(bwobject.id_parent)
+    else:
+        extracted_data['bwparent'] = None
 
     # TODO: read the logstuff from the db
     extracted_data['loginfo'] = ""
