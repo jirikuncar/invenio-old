@@ -76,7 +76,6 @@ class Workflow(db.Model):
     counter_finished = db.Column(db.Integer, default=0, nullable=False)
     module_name = db.Column(db.String(64), nullable=False)
 
-
     def __repr__(self):
         return "<Workflow(name: %s, module: %s, cre: %s, mod: %s," \
                "id_user: %s, status: %s)>" % \
