@@ -17,7 +17,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 """Holding Pen web interface"""
 
-from flask import render_template, Blueprint, redirect, url_for, flash, request, current_app
+from flask import render_template, Blueprint, redirect, url_for, flash, request, current_app, jsonify
 from flask.ext.login import login_required
 
 from ..models import BibWorkflowObject, Workflow
@@ -192,42 +192,45 @@ def load_table():
         "aaData": []
     }
 
+    table_data['sEcho'] = int(request.args.get('sEcho')) + 1
+    table_data['iTotalRecords'] = len(bwolist)
+    table_data['iTotalDisplayRecords'] = len(bwolist)
+    #This will be simplified once Redis is utilized.
+    
+    rendered_rows = []
+
     for bwo in bwolist[i_display_start:i_display_start+i_display_length]:
         try:
             widgetname = widgets[bwo.get_extra_data()['widget']].__title__
+            widget = widgets[bwo.get_extra_data()['widget']]
         except KeyError:
-            widgetname = 'None'
+            widgetname = None
+            widget = None
 
-        table_data['sEcho'] = int(request.args.get('sEcho')) + 1
-        table_data['iTotalRecords'] = len(bwolist)
-        table_data['iTotalDisplayRecords'] = len(bwolist)
-        #This will be simplified once Redis is utilized.
-        if 'title' in bwo.get_extra_data()['redis_search']:
-            title = bwo.get_extra_data()['redis_search']['title']
-        else:
-            title = None
-        if 'source' in bwo.get_extra_data()['redis_search']:
-            source = bwo.get_extra_data()['redis_search']['source']
-        else:
-            source = None
-        if 'category' in bwo.get_extra_data()['redis_search']:
-            category = bwo.get_extra_data()['redis_search']['category']
-        else:
-            category = None
-        if not bwo.get_extra_data()['owner']:
-            owner = "None"
+        mini_widget = getattr(widget, "mini_widget", None)
+        row = render_template('workflows/row_formatter.html', record=bwo,
+                               widget=widget, mini_widget=mini_widget,
+                               pretty_date=pretty_date)
+
+        list1 = [r.split('$') for r in row.split('#')]
+        d = {}
+        list1.pop(0)
+        for key, value in list1:
+            d[key] = value
+
         table_data['aaData'].append(
-            [str(bwo.id),
-             title,
-             source,
-             category,
-             str(bwo.id_workflow),
-             owner,
-             str(pretty_date(bwo.created))+'#'+str(bwo.created),
-             bwo.version,
-             str(bwo.id),
-             str(bwo.get_extra_data()['widget'])+'#'+widgetname,
-             ])
+            [d['checkbox'],
+             d['id'],
+             d['title'],
+             d['source'],
+             d['category'],
+             d['workflow_id'],
+             d['owner'],
+             d['pretty_date'],
+             d['version'],
+             d['details'],
+             d['widget']
+            ])
     return table_data
 
 
@@ -307,15 +310,14 @@ def delete_from_db(bwobject_id):
     # import invenio.modules.workflows.containers
     _delete_from_db(bwobject_id)
     # reload invenio.modules.workflows.containers
-    flash('Record Deleted')
     return 'Record Deleted'
-    # return redirect(url_for('holdingpen.index'))
 
 
 def _delete_from_db(bwobject_id):
     from invenio.ext.sqlalchemy import db
     # delete every BibWorkflowObject version from the db
     # TODO: THIS NEEDS FIXING
+    print bwobject_id
     BibWorkflowObject.query.filter(BibWorkflowObject.id == bwobject_id).delete()
     db.session.commit()
 
@@ -326,8 +328,9 @@ def _delete_from_db(bwobject_id):
 def delete_multi(bwolist):
     from ..utils import parse_bwids
     bwolist = parse_bwids(bwolist)
-
+    print 'bwolist:', bwolist
     for bwobject_id in bwolist:
+        print 'bwobject_id:', bwobject_id
         _delete_from_db(bwobject_id)
     return 'Records Deleted'
 
@@ -342,11 +345,8 @@ def show_widget(bwobject_id, widget):
     Renders the widget assigned to a specific record
     """
     bwobject = BibWorkflowObject.query.get(bwobject_id)
-
     widget_form = widgets[widget]
-
     extracted_data = extract_data(bwobject)
-
     result = widget_form().render([bwobject],
                                   [extracted_data['bwparent']],
                                   [extracted_data['info']],
