@@ -1324,14 +1324,14 @@ class WebSearchSearchEnginePythonAPITest(InvenioTestCase):
 
     def test_search_engine_python_api_for_intersect_results_with_one_collrec(self):
         """websearch - search engine Python API for intersect results with one collrec"""
-        from invenio.intbitset import intbitset
+        from intbitset import intbitset
         from invenio.legacy.search_engine import intersect_results_with_collrecs
         self.assertEqual({'Books & Reports': intbitset([19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34])},
                          intersect_results_with_collrecs(None, intbitset(range(0,110)), ['Books & Reports'], 0, 'id', 0, 'en', False))
 
     def test_search_engine_python_api_for_intersect_results_with_several_collrecs(self):
         """websearch - search engine Python API for intersect results with several collrecs"""
-        from invenio.intbitset import intbitset
+        from intbitset import intbitset
         from invenio.legacy.search_engine import intersect_results_with_collrecs
         self.assertEqual({'Books': intbitset([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]),
                           'Reports': intbitset([19, 20]),
@@ -4356,7 +4356,7 @@ class WebSearchDateQueryTest(InvenioTestCase):
 
     def setUp(self):
         """Establish variables we plan to re-use"""
-        from invenio.intbitset import intbitset
+        from intbitset import intbitset
         self.empty = intbitset()
 
     def test_search_unit_hits_for_datecreated_previous_millenia(self):

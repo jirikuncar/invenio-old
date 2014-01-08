@@ -39,7 +39,6 @@ po/*.sed
 *.sse2f
 *.lib
 *.x86f
-invenio/intbitset.so
 invenio/base/translations/*/LC_MESSAGES/messages.mo
 modules/webauthorprofile/bin/webauthorprofile
 modules/bibauthorid/bin/bibauthorid
