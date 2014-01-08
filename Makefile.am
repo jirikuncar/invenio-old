@@ -431,7 +431,7 @@ install-plupload-plugin:
 	rm -rf /tmp/plupload-plugin
 	mkdir /tmp/plupload-plugin
 	(cd /tmp/plupload-plugin && \
-	wget -O plupload-plugin.zip 'http://plupload.com/downloads/plupload_1_5_5.zip' && \
+	wget -O plupload-plugin.zip 'http://invenio-software.org/download/plupload-1.5.5.zip' && \
 	unzip -u plupload-plugin.zip && \
 	mkdir -p ${prefix}/var/www/js/plupload/i18n/ && \
 	cp -R plupload/js/jquery.plupload.queue ${prefix}/var/www/js/plupload/ && \
