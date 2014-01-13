@@ -66,6 +66,18 @@
         </div>
         <div id="multi-approval" class="span3 pull-left">
         </div>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Records Showing <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><input id="version_halted" class="version_selection" type="checkbox"> <span class="label label-warning">Halted</span></li>
+                <li><input id="version_final" class="version_selection" type="checkbox"> <span class="label label-success">Final</span></li>
+                <li><input id="version_running" class="version_selection" type="checkbox"> <span class="label label-info">Running</span></li>
+            </ul>
+        </div>
+
         <div class="span1 pull-right">
             <button id="refresh_button" class="btn btn-primary">Refresh!</button>
         </div>
@@ -74,8 +86,8 @@
         </div>        
     </div>
     <div class="tag-area row">
-    </div> 
-    
+    </div>
+
     <div class="container">
         <div class="row-fluid">
             <table id="example" cellpadding="0" cellspacing="0" border="0" class="table table-bordered">

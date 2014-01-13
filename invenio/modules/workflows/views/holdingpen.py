@@ -31,6 +31,7 @@ from invenio.utils.date import pretty_date
 from ..utils import (get_workflow_definition,
                      sort_bwolist)
 from ..api import continue_oid_delayed, start
+from ..config import CFG_OBJECT_VERSION
 
 
 blueprint = Blueprint('holdingpen', __name__, url_prefix="/admin/holdingpen",
@@ -59,9 +60,10 @@ def index():
         widget_list[widget] = [0, []]
 
     for bwo in bwolist:
+        print bwo.get_extra_data()['widget']
         if ('widget' in bwo.get_extra_data()) and \
            (bwo.get_extra_data()['widget'] is not None) \
-                and (bwo.version == 2):
+                and (bwo.version == CFG_OBJECT_VERSION.HALTED):
             widget_list[bwo.get_extra_data()['widget']][1].append(bwo)
     for key in widget_list:
         widget_list[key][0] = len(widget_list[key][1])
@@ -87,7 +89,7 @@ def maintable():
     for bwo in bwolist:
         if ('widget' in bwo.get_extra_data()) and \
            (bwo.get_extra_data()['widget'] is not None) \
-                and (bwo.version != 1):
+                and (bwo.version != CFG_OBJECT_VERSION.FINAL):
             widget_list[bwo.get_extra_data()['widget']][1].append(bwo)
     for key in widget_list:
         widget_list[key][0] = len(widget_list[key][1])
@@ -104,6 +106,7 @@ def refresh():
     """
     # FIXME: Temp hack until redis is hooked up
     import invenio.modules.workflows.containers
+
     reload(invenio.modules.workflows.containers)
     return 'Records Refreshed'
 
@@ -156,26 +159,58 @@ def batch_widget(bwolist):
 
 @blueprint.route('/load_table', methods=['GET', 'POST'])
 @login_required
+@wash_arguments({'version_showing': (unicode, "default")})
 @templated('workflows/hp_maintable.html')
-def load_table():
+def load_table(version_showing):
     """
     Function used for the passing of JSON data to the DataTable
     """
     from ..containers import bwolist
 
+    try:
+        version_showing = request.get_json()
+        VERSION_SHOWING = []
+
+        if version_showing['final'] == True:
+            VERSION_SHOWING.append(CFG_OBJECT_VERSION.FINAL)
+        if version_showing['halted'] == True:
+            VERSION_SHOWING.append(CFG_OBJECT_VERSION.HALTED)
+        if version_showing['running'] == True:
+            VERSION_SHOWING.append(CFG_OBJECT_VERSION.RUNNING)
+        print 'NEW STUFF'
+        current_app.config['VERSION_SHOWING'] = VERSION_SHOWING
+        rebuild_containers = True
+    except:
+        print 'OLD STUFFS'
+        try:
+            VERSION_SHOWING = current_app.config['VERSION_SHOWING']
+        except:
+            VERSION_SHOWING = [CFG_OBJECT_VERSION.HALTED, CFG_OBJECT_VERSION.FINAL]
+        rebuild_containers = False
+
     # sSearch will be used for searching later
     a_search = request.args.get('sSearch')
 
-    i_sortcol_0 = request.args.get('iSortCol_0')
-    s_sortdir_0 = request.args.get('sSortDir_0')
+    try:
+        i_sortcol_0 = request.args.get('iSortCol_0')
+        s_sortdir_0 = request.args.get('sSortDir_0')
 
-    i_display_start = int(request.args.get('iDisplayStart'))
-    i_display_length = int(request.args.get('iDisplayLength'))
+        i_display_start = int(request.args.get('iDisplayStart'))
+        i_display_length = int(request.args.get('iDisplayLength'))
+        sEcho = int(request.args.get('sEcho')) + 1
+    except:
+        i_sortcol_0 = current_app.config['iSortCol_0']
+        s_sortdir_0 = current_app.config['sSortDir_0']
 
-    if a_search:
+        i_display_start = current_app.config['iDisplayStart']
+        i_display_length = current_app.config['iDisplayLength']
+        sEcho = current_app.config['sEcho'] + 1
+
+    print 'ARE WE GONNA REBUILD?', rebuild_containers, a_search
+    if a_search or rebuild_containers:
         # FIXME: Temp measure until Redis is hooked up
         from ..containers import create_hp_containers
-        bwolist = create_hp_containers(sSearch=a_search)
+        bwolist = create_hp_containers(sSearch=a_search, version_showing=VERSION_SHOWING)
 
     if 'iSortCol_0' in current_app.config:
         i_sortcol_0 = int(i_sortcol_0)
@@ -187,17 +222,18 @@ def load_table():
     current_app.config['iDisplayLength'] = i_display_length
     current_app.config['iSortCol_0'] = i_sortcol_0
     current_app.config['sSortDir_0'] = s_sortdir_0
+    current_app.config['sEcho'] = sEcho
 
     table_data = {
         "aaData": []
     }
 
-    table_data['sEcho'] = int(request.args.get('sEcho')) + 1
     table_data['iTotalRecords'] = len(bwolist)
     table_data['iTotalDisplayRecords'] = len(bwolist)
     #This will be simplified once Redis is utilized.
     
     rendered_rows = []
+    records_showing = 0
 
     for bwo in bwolist[i_display_start:i_display_start+i_display_length]:
         try:
@@ -206,6 +242,9 @@ def load_table():
         except KeyError:
             widgetname = None
             widget = None
+
+        # if widget != None and bwo.version in VERSION_SHOWING:
+        records_showing += 1
 
         mini_widget = getattr(widget, "mini_widget", None)
         row = render_template('workflows/row_formatter.html', record=bwo,
@@ -231,6 +270,11 @@ def load_table():
              d['details'],
              d['widget']
             ])
+
+    table_data['sEcho'] = sEcho
+    table_data['iTotalRecords'] = len(bwolist)
+    table_data['iTotalDisplayRecords'] = len(bwolist)
+
     return table_data
 
 

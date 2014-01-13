@@ -343,6 +343,29 @@ function fnGetSelected( oTableLocal ){
     return aReturn;
 }
 
+$('.version_selection').on('click', function(){
+    var version_final = $('#version_final')[0];
+    var version_running = $('#version_running')[0];
+    var version_halted = $('#version_halted')[0];
+
+    var version_showing = new Object;
+    version_showing['final'] = (version_final.checked) ? true : false;
+    version_showing['halted'] = (version_halted.checked) ? true : false;
+    version_showing['running'] = (version_running.checked) ? true : false;
+    console.log(version_showing);
+
+    $.ajax({
+        type : "POST",
+        url : url.load_table,
+        data: JSON.stringify(version_showing),
+        contentType: 'application/json;charset=UTF-8',
+        traditional: true,
+        success: function(result) {
+            // $('#refresh_button').click();
+        }
+    });    
+});
+
 function isInt(n) {
    return typeof n === 'number' && n % 1 === 0;
 }

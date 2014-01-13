@@ -16,9 +16,11 @@
 ## along with Invenio; if not, write to the Free Software Foundation, Inc.,
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
+from .config import CFG_OBJECT_VERSION
+
 
 def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
-                         sSearch=None):
+                         sSearch=None, version_showing=[CFG_OBJECT_VERSION.HALTED]):
     """
     Looks for related HPItems and groups them together in HPContainers
 
@@ -30,8 +32,17 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
     if iSortCol_0:
         iSortCol_0 = int(iSortCol_0)
 
+
+    print '************************\nversion_showing', version_showing
+
     bwobject_list = BibWorkflowObject.query.filter(
-        BibWorkflowObject.id_parent != 0).all()
+        BibWorkflowObject.id_parent != 0 and \
+        BibWorkflowObject.version.in_(version_showing)).all()
+
+    for bwo in bwobject_list:
+        print bwo.version
+        print bwo.get_extra_data()['widget']
+    print len(bwobject_list)
 
     if sSearch:
         if len(sSearch) < 4:
@@ -62,10 +73,9 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
             bwobject_list = bwobject_list_tmp
 
     if iSortCol_0 == -6:
-        column = 'created'
         if sSortDir_0 == 'desc':
             bwobject_list.reverse()
-
+    
     return bwobject_list
 
 
