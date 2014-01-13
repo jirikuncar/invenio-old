@@ -17,12 +17,13 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from invenio.modules.workflows.tasks.sample_tasks import add_data, print_data
+from invenio.modules.workflows.tasks.logic_tasks import execute_if
 
 
 class sample_workflow(object):
     """
     This is a sample workflow.
     """
-    workflow = [add_data(1),
+    workflow = [execute_if(add_data(1), lambda obj, eng: False),
                 print_data]
     title = "Sample workflow"
