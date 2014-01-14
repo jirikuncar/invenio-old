@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##
 ## This file is part of Invenio.
-## Copyright (C) 2009, 2010, 2011 CERN.
+## Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014 CERN.
 ##
 ## Invenio is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -79,26 +79,24 @@ def task_run_core():
     start_time = time.time()
     oaiharvest_instances = []
     repository = task_get_option("repository")
+
     if not repository:
         workflow_name = task_get_option("workflow")
     else:
-        if isinstance(repository, list):
+        if task_get_option("workflow"):
+            oaiharvest_instances.append(task_get_option("workflow"))
+        elif isinstance(repository, list):
             for name_repository in repository:
                 oaiharvest_instances.append(OaiHARVEST.get(OaiHARVEST.name == name_repository).one().workflows)
         else:
             oaiharvest_instances.append(OaiHARVEST.get(OaiHARVEST.name == repository).one().workflows)
-
     try:
-
         if oaiharvest_instances:
-
-            for repository in oaiharvest_instances:
+            for workflow_to_launch in oaiharvest_instances:
                 options = task_get_option(None)
-                options["name"] = repository
-                write_message(options)
-                workflow = start(repository, data=[123], stop_on_error=True, options=options)
+                workflow = start(workflow_to_launch, data=[""], stop_on_error=True, options=options)
         else:
-            workflow = start(workflow_name, data=[123], stop_on_error=True, options=task_get_option(None))
+            workflow = start(workflow_name, data=[""], stop_on_error=True, options=task_get_option(None))
 
     except WorkflowError as e:
 
@@ -127,9 +125,7 @@ def task_run_core():
 
     for log in workflowlog:
         write_message(log.message)
-
     execution_time = round(time.time() - start_time, 2)
-
     write_message("Execution time :" + str(execution_time))
 
     #For each File

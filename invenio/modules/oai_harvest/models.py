@@ -57,7 +57,10 @@ class OaiHARVEST(db.Model):
     def to_dict(self):
         dict_representation = self.__dict__
         del dict_representation["_sa_instance_state"]
-        dict_representation["arguments"] = deserialize_via_marshal( dict_representation["arguments"])
+        try:
+            dict_representation["arguments"] = deserialize_via_marshal( dict_representation["arguments"])
+        except TypeError:
+            dict_representation["arguments"] = {}
         return dict_representation
 
     @classmethod

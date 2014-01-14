@@ -71,7 +71,6 @@ import invenio.legacy.template
 from invenio.utils.plotextractor.converter import (untar,
                                                    convert_images
                                                    )
-from invenio.utils.serializers import deserialize_via_marshal
 
 oaiharvest_templates = invenio.legacy.template.load('oaiharvest')
 
@@ -129,8 +128,10 @@ def convert_record_to_bibfield(obj, eng):
     from invenio.base.records.api import create_record
 
     eng.log.info("last task name: convert_record_to_bibfield")
-    obj.data = create_record(obj.data).dumps()
+    obj.extra_data["last_task_name"] = "last task name: convert_record_to_bibfield"
+    obj.data = create_record(obj.data).rec_json
     eng.log.info("Conversion succeed")
+    eng.halt(widget="approval_widget", msg="omg")
 
 
 def init_harvesting(obj, eng):
@@ -173,7 +174,7 @@ def get_repositories_list(repositories):
         if true_repo_list:
             return true_repo_list
         else:
-            eng.halt("No Repository named %s. Impossible to harvest non-existing things." % reposname)
+            eng.halt("No Repository named %s. Impossible to harvest non-existing things." % repositories_to_harvest)
 
     return _get_repositories_list
 
@@ -204,10 +205,10 @@ def harvest_records(obj, eng):
     task_sleep_now_if_required()
 
     arguments = obj.extra_data["repository"]["arguments"]
-    #from invenio.legacy.bibsched.bibtask import write_message
-    #write_message(arguments)
     if arguments:
         eng.log.info("running with post-processes: %r" % (arguments,))
+    else:
+        eng.log.error("No arguments found... It can be causing major error after this point.")
 
     # Harvest phase
     try:
@@ -314,11 +315,16 @@ def convert_record_with_repository(stylesheet="oaidc2marcxml.xsl"):
         Will convert the object data, if XML, using the stylesheet
         in the OAIrepository stored in the object extra_data.
         """
-
-        if not obj.extra_data["repository"]["arguments"]['c_stylesheet']:
+        try:
+            if not obj.extra_data["repository"]["arguments"]['c_stylesheet']:
+                stylesheet_to_use = stylesheet
+            else:
+                stylesheet_to_use = obj.extra_data["repository"]["arguments"]['c_stylesheet']
+        except KeyError:
+            eng.log.error("WARNING: HASARDOUS BEHAVIOUR EXPECTED, "
+                          "You didn't specified style_sheet in argument for conversion,"
+                          "try to recover by using the default one!")
             stylesheet_to_use = stylesheet
-        else:
-            stylesheet_to_use = obj.extra_data["repository"]["arguments"]['c_stylesheet']
         convert_record(stylesheet_to_use)(obj, eng)
 
     return _convert_record
@@ -334,16 +340,23 @@ def fulltext_download(obj, eng):
     task_sleep_now_if_required()
 
     if "pdf" not in obj.extra_data["options"]:
-
+        eng.log.error(str(obj.data))
         extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
         tarball, pdf = harvest_single(obj.data["system_control_number"]["value"],
                                       extract_path, ["pdf"])
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         arguments = obj.extra_data["repository"]["arguments"]
-        if not arguments['t_doctype'] == '':
-            doctype = arguments['t_doctype']
-        else:
+        try:
+            if not arguments['t_doctype'] == '':
+                doctype = arguments['t_doctype']
+            else:
+                doctype = 'arXiv'
+        except KeyError:
+            eng.log.error("WARNING: HASARDOUS BEHAVIOUR EXPECTED, "
+                          "You didn't specified t_doctype in argument for fulltext_download,"
+                          "try to recover by using the default one!")
             doctype = 'arXiv'
+
         if pdf:
             obj.extra_data["options"]["pdf"] = pdf
             fulltext_xml = ("  <datafield tag=\"FFT\" ind1=\" \" ind2=\" \">\n"
@@ -362,6 +375,9 @@ def fulltext_download(obj, eng):
                 obj.data['fft'].append(new_dict_representation["fft"])
             except:
                 obj.data['fft'] = [new_dict_representation['fft']]
+    else:
+        eng.log.info("There was already a pdf register for this record,"
+                     "perhaps a duplicate task in you workflow.")
 
 
 def quick_match_record(obj, eng):
@@ -421,8 +437,6 @@ def plot_extract(plotextractor_types):
         """
         Performs the plotextraction step.
         """
-
-
         obj.extra_data["last_task_name"] = 'plot_extract'
         # Download tarball for each harvested/converted record, then run plotextrator.
         # Update converted xml files with generated xml or add it for upload
@@ -493,7 +507,6 @@ def plot_extract(plotextractor_types):
                         obj.data['fft'].append(new_dict_representation["fft"])
                     except KeyError:
                         obj.data['fft'] = [new_dict_representation['fft']]
-
     return _plot_extract
 
 
