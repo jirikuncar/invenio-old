@@ -23,13 +23,13 @@
 {%- endblock javascript %}
 
 {% block hpbody %}
-    <div class"row-fluid">
-        <div class="span3 pull-left"><a href="{{url_for('holdingpen.maintable')}}"><i class="icon-hand-left"></i> Back to Main Table</a></div>
-        <div class="span4"><h1>Approval Widget</h1></div>
+    <div class"row">
+        <div class="col-md-3 col-md-pull-left"><a href="{{url_for('holdingpen.maintable')}}"><i class="icon-hand-left"></i> Back to Main Table</a></div>
+        <div class="col-md-4"><h1>Approval Widget</h1></div>
     </div>
 
-    <div class="container-fluid">
-        <div id="goodbye-msg" class="span12 text-center">
+    <div class="container">
+        <div id="goodbye-msg" class="col-md-12 text-center">
         </div>
         {% for i in range(obj_number) %}
         {% set bwobject = bwobject_list[i] %}
@@ -39,8 +39,8 @@
         {% set workflow_func = workflow_func_list[i] %}
         {% set info = info_list[i] %}
         {% set log = logtext_list[i] %}
-            <div id="row_fluid{{i}}" class="row-fluid">
-                <div class="span9">
+            <div id="row_fluid{{i}}" class="row">
+                <div class="col-md-9">
                     <div class="btn-group" name="object_preview_btn" data-toggle="buttons-radio">
                         <button class="btn btn-mini btn-primary active" name="hd" onclick="setDataPreview('hd', {{bwobject.id}})">HTML</button>
                         <button class="btn btn-mini btn-primary" name="marcxml" onclick="setDataPreview('xm', {{bwobject.id}})">MARCXML</button>
@@ -63,7 +63,7 @@
                         {{ data_preview|safe }}
                     </div>
                 </div>
-                <div class="span3">
+                <div class="col-md-3">
                     <div class="details_link">
                         <a href="/admin/holdingpen/details?bwobject_id={{bwobject.id}}"><button class="btn btn-primary" type="button"><i class="icon-eye-open icon-white"></i> Record Details</button></a>
                     </div>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <div id="decision-btns{{i}}" class="row-fluid decision-btns">
+            <div id="decision-btns{{i}}" class="row decision-btns">
                 <form id="form{{i}}" class="theform" method="POST" name="{{ url_for('holdingpen.resolve_widget', bwobject_id=bwobject.id, widget='approval_widget') }}">
                     {% for field in widget %}
                         {{ field }}
