@@ -183,8 +183,6 @@ def harvest_records(obj, eng):
     Return 1 in case of success and 0 in case of failure.
     """
     obj.extra_data["last_task_name"] = 'harvest_records'
-    eng.log.error(str(obj.data))
-    eng.log.error(str(obj.extra_data))
     harvested_identifier_list = []
 
     harvestpath = "%s_%d_%s_" % ("%s/oaiharvest_%s" % (CFG_TMPSHAREDDIR, eng.uuid),
@@ -220,7 +218,7 @@ def harvest_records(obj, eng):
                             id_workflow=eng.uuid)
 
     if len(harvested_files_list) == 0:
-        eng.log.error("No records harvested for %s" % (obj.data["name"],))
+        eng.log.info("No records harvested for %s" % (obj.data["name"],))
         # Retrieve all OAI IDs and set active list
 
     harvested_identifier_list.append(collect_identifiers(harvested_files_list))
@@ -337,9 +335,8 @@ def fulltext_download(obj, eng):
     task_sleep_now_if_required()
 
     if "pdf" not in obj.extra_data["options"]:
-        eng.log.error(str(obj.data))
         extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
-        tarball, pdf = harvest_single(obj.data["system_control_number"]["value"],
+        tarball, pdf = harvest_single(obj.data["system_number_external"]["value"],
                                       extract_path, ["pdf"])
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         arguments = obj.extra_data["repository"]["arguments"]
@@ -385,9 +382,8 @@ def quick_match_record(obj, eng):
     001 fields even in the insert mode
     """
     obj.extra_data["last_task_name"] = 'Quick Match Record'
-
     function_dictionnary = {'recid': find_record_from_recid, 'system_number': find_record_from_sysno,
-                            'oaiid': find_record_from_oaiid, 'system_control_number': find_records_from_extoaiid,
+                            'oaiid': find_record_from_oaiid, 'system_number_external': find_records_from_extoaiid,
                             'doi': find_record_from_doi}
 
     my_json_reader = Record(obj.data)
@@ -445,13 +441,13 @@ def plot_extract(plotextractor_types):
                 # turn oaiharvest_23_1_20110214161632_converted -> oaiharvest_23_1_material
                 # to let harvested material in same folder structure
                 extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
-                tarball, pdf = harvest_single(obj.data["system_control_number"]["value"], extract_path, ["tarball"])
+                tarball, pdf = harvest_single(obj.data["system_number_external"]["value"], extract_path, ["tarball"])
                 tarball = str(tarball)
                 time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
 
                 if tarball is None:
                     raise WorkflowError(str("Error harvesting tarball from id: %s %s" %
-                                                   (obj.data["system_control_number"]["value"], extract_path)),
+                                                   (obj.data["system_number_external"]["value"], extract_path)),
                                                eng.uuid)
 
 
@@ -517,14 +513,14 @@ def refextract(obj, eng):
 
     if "pdf" not in obj.extra_data["options"]:
         extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
-        tarball, pdf = harvest_single(obj.data["system_control_number"]["value"], extract_path, ["pdf"])
+        tarball, pdf = harvest_single(obj.data["system_number_external"]["value"], extract_path, ["pdf"])
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         if pdf is not None:
             obj.extra_data["options"]["pdf"] = pdf
 
     elif not os.path.isfile(obj.extra_data["options"]["pdf"]):
         extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
-        tarball, pdf = harvest_single(obj.data["system_control_number"]["value"], extract_path, ["pdf"])
+        tarball, pdf = harvest_single(obj.data["system_number_external"]["value"], extract_path, ["pdf"])
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         if pdf is not None:
             obj.extra_data["options"]["pdf"] = pdf
@@ -556,12 +552,12 @@ def author_list(obj, eng):
     """
     obj.extra_data["last_task_name"] = "last task name: author_list"
 
-    identifiers = obj.data["system_control_number"]["value"]
+    identifiers = obj.data["system_number_external"]["value"]
     task_sleep_now_if_required()
 
     if "tarball" not in obj.extra_data["options"]:
         extract_path = make_single_directory(CFG_TMPSHAREDDIR, eng.uuid)
-        tarball, pdf = harvest_single(obj.data["system_control_number"]["value"], extract_path, ["tarball"])
+        tarball, pdf = harvest_single(obj.data["system_number_external"]["value"], extract_path, ["tarball"])
         tarball = str(tarball)
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         if tarball is None:
