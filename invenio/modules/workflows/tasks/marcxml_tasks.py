@@ -22,7 +22,6 @@ import glob
 import re
 import traceback
 
-
 from invenio.legacy.bibupload.engine import (find_record_from_recid,
                                              find_record_from_sysno,
                                              find_records_from_extoaiid,
@@ -71,6 +70,7 @@ import invenio.legacy.template
 from invenio.utils.plotextractor.converter import (untar,
                                                    convert_images
                                                    )
+from invenio.modules.workflows.utils import WorkflowsTaskResult
 
 oaiharvest_templates = invenio.legacy.template.load('oaiharvest')
 
@@ -118,6 +118,39 @@ approve_record.__title__ = "Record Approval"
 approve_record.__description__ = "This task assigns the approval widget to a record."
 
 
+def inspire_filter_category(category_accepted=[], category_refused=[], category_widgeted=[], widget=None):
+    def _inspire_filter_category(obj, eng):
+        category = None
+        obj.extra_data["tasks_results"] = WorkflowsTaskResult("arXiv categorie filter", category)
+        try:
+            category = obj.data["report_number"]["arxiv_category"]
+        except KeyError:
+            eng.log.error("Category not find in the record. Human intervention needed")
+            eng.halt("Category not find in the record. Human intervention needed", widget=widget)
+
+        #We want this record to pass to next step
+        if category in category_accepted:
+            return None
+        #We want this record to  not pass to next step
+        elif category in category_refused:
+            eng.stopProcessing()
+        #We think that this record needs a human intervention
+        elif category in category_widgeted:
+            eng.halt("Category filtering need a human intervention", widget=widget)
+
+        else:
+            #We allow the * option which means at final case
+            if '*' in category_accepted:
+                return None
+            elif '*' in category_refused:
+                eng.stopProcessing()
+            else:
+                #We don't know what we should do, in doubt query human... they are nice!
+                eng.halt("Category out of task definition. Human intervention needed", widget=widget)
+
+    return _inspire_filter_category
+
+
 def convert_record_to_bibfield(obj, eng):
     """
     Convert a record in data into a 'dictionary'
@@ -151,6 +184,7 @@ def get_repositories_list(repositories):
     Here we are retrieving the oaiharvest configuration for the task.
     It will allows in the future to do all the correct operations.
     """
+
     def _get_repositories_list(obj, eng):
 
         obj.extra_data["last_task_name"] = "last task name: _get_repositories_list"
@@ -206,6 +240,7 @@ def harvest_records(obj, eng):
         eng.log.error("No arguments found... It can be causing major error after this point.")
 
     # Harvest phase
+
     try:
         harvested_files_list = harvest_step(obj.data,
                                             harvestpath,
@@ -232,6 +267,7 @@ def harvest_records(obj, eng):
     eng.log.info("%d files harvested and processed" % (len(harvested_files_list),))
     eng.log.info("End harvest records task")
 
+
 harvest_records.__id__ = "h"
 
 
@@ -241,11 +277,17 @@ def get_records_from_file(path=None):
         if not "LoopData" in eng.extra_data:
             eng.extra_data["LoopData"] = {}
         if "get_records_from_file" not in eng.extra_data["LoopData"]:
+            eng.extra_data["LoopData"]["get_records_from_file"] = {}
             if path:
-                eng.extra_data["LoopData"].update({"get_records_from_file": record_extraction_from_file(path)})
+                eng.extra_data["LoopData"]["get_records_from_file"].update({"data": record_extraction_from_file(path)})
             else:
-                eng.extra_data["LoopData"].update({"get_records_from_file": record_extraction_from_file(obj.data)})
-        return eng.extra_data["LoopData"]["get_records_from_file"]
+                eng.extra_data["LoopData"]["get_records_from_file"].update(
+                    {"data": record_extraction_from_file(obj.data)})
+                eng.extra_data["LoopData"]["get_records_from_file"]["path"] = obj.data
+
+        elif os.path.isfile(obj.data) and obj.data != eng.extra_data["LoopData"]["get_records_from_file"]["path"]:
+            eng.extra_data["LoopData"]["get_records_from_file"].update({"data": record_extraction_from_file(obj.data)})
+        return eng.extra_data["LoopData"]["get_records_from_file"]["data"]
 
     return _get_records_from_file
 
@@ -277,6 +319,7 @@ def get_files_list(path, parameter):
 def get_extra_data(name):
     def _get_files_list(obj, eng):
         return obj.extra_data[name]
+
     return _get_files_list
 
 
@@ -369,6 +412,9 @@ def fulltext_download(obj, eng):
                 obj.data['fft'].append(new_dict_representation["fft"])
             except:
                 obj.data['fft'] = [new_dict_representation['fft']]
+
+            obj.extra_data["tasks_results"] = WorkflowsTaskResult("fulltext download",
+                                                                  {"filesfft": new_dict_representation["fft"]})
     else:
         eng.log.info("There was already a pdf register for this record,"
                      "perhaps a duplicate task in you workflow.")
@@ -447,9 +493,8 @@ def plot_extract(plotextractor_types):
 
                 if tarball is None:
                     raise WorkflowError(str("Error harvesting tarball from id: %s %s" %
-                                                   (obj.data["system_number_external"]["value"], extract_path)),
-                                               eng.uuid)
-
+                                            (obj.data["system_number_external"]["value"], extract_path)),
+                                        eng.uuid)
 
                 obj.extra_data["options"]["tarball"] = tarball
             else:
@@ -500,6 +545,12 @@ def plot_extract(plotextractor_types):
                         obj.data['fft'].append(new_dict_representation["fft"])
                     except KeyError:
                         obj.data['fft'] = [new_dict_representation['fft']]
+                    obj.extra_data["tasks_results"] = WorkflowsTaskResult("Plot extraction download",
+                                                                          {"filesfft": new_dict_representation["fft"],
+                                                                           "number_picture_converted": len(
+                                                                               converted_image_list),
+                                                                           "number_of_picture_total": len(image_list)})
+
     return _plot_extract
 
 
@@ -542,6 +593,9 @@ def refextract(obj, eng):
             except KeyError:
                 if 'reference' in new_dict_representation:
                     obj.data['reference'] = [new_dict_representation['reference']]
+
+            obj.extra_data["tasks_results"] = WorkflowsTaskResult("Plot extraction download",
+                        {"reference": new_dict_representation['reference']})
     else:
         obj.log.error("Not able to download and process the PDF ")
 
@@ -562,7 +616,7 @@ def author_list(obj, eng):
         time.sleep(CFG_PLOTEXTRACTOR_DOWNLOAD_TIMEOUT)
         if tarball is None:
             raise WorkflowError(str("Error harvesting tarball from id: %s %s" % (identifiers, extract_path)),
-                                       eng.uuid)
+                                eng.uuid)
         obj.extra_data["options"]["tarball"] = tarball
 
     sub_dir, dummy = get_defaults(obj.extra_data["options"]["tarball"], CFG_TMPDIR, "")
@@ -620,6 +674,10 @@ def author_list(obj, eng):
             new_dict_representation = create_record(updated_xml).dumps()
             obj.data['authors'] = new_dict_representation["authors"]
             obj.data['number_of_authors'] = new_dict_representation["number_of_authors"]
+
+            obj.extra_data["tasks_results"] = WorkflowsTaskResult("Plot extraction download",
+                {"authors": new_dict_representation["authors"],
+                 "number_of_authors": new_dict_representation["number_of_authors"]})
 
 
 author_list.__id__ = "u"
