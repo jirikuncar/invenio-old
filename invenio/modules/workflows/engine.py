@@ -414,9 +414,7 @@ BibWorkflowEngine
 
     def halt(self, msg, widget=None):
         """Halt the workflow (stop also any parent wfe)"""
-        message = "Workflow '%s' halted at task %s with message: %s" % \
-                  (self.name, self.get_current_taskname() or "Unknown", msg)
-        raise WorkflowHalt(message="test",
+        raise WorkflowHalt(message=msg,
                            widget=widget,
                            id_workflow=self.uuid)
 

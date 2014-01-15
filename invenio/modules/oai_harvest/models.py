@@ -44,7 +44,6 @@ class OaiHARVEST(db.Model):
     arguments = db.Column(db.LargeBinary, nullable=True)
     comment = db.Column(db.Text, nullable=True)
     name = db.Column(db.String(255), nullable=False)
-    #repository = db.Column(db.String(255), nullable=False)
     lastrun = db.Column(db.DateTime, nullable=True)
     postprocess = db.Column(db.String(20), nullable=False,
                             server_default='h')
@@ -58,7 +57,9 @@ class OaiHARVEST(db.Model):
         dict_representation = self.__dict__
         del dict_representation["_sa_instance_state"]
         try:
-            dict_representation["arguments"] = deserialize_via_marshal( dict_representation["arguments"])
+            dict_representation["arguments"] = deserialize_via_marshal(
+                dict_representation["arguments"]
+            )
         except TypeError:
             dict_representation["arguments"] = {}
         return dict_representation
