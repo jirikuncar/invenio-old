@@ -35,11 +35,11 @@
 
 {% block hpbody %}
     <div class="row">
-        <div class="col-md-3 col-md-pull-left"><a href="{{url_for('holdingpen.maintable')}}"><i class="icon-hand-left"></i> Back to Main Table</a></div>
+        <div class="col-md-4 pull-left"><a href="{{url_for('holdingpen.maintable')}}"><span class="glyphicon glyphicon-hand-left"></span> Back to Main Table</a></div>
         <div class="col-md-4"><h1>Record Details</h1></div>
     </div>
 
-    <div id="alert_placeholder"></div>
+    <!-- <div id="alert_placeholder"></div> -->
 
     <div class="container">
         <div class="row">
@@ -65,9 +65,9 @@
 
                 {% if 'message' in bwobject.get_extra_data() and 
                     bwobject.get_extra_data()['widget'] != None %}
-                    <div id="usermessage" class="alert">
+                    <div id="usermessage" class="alert alert-warning alert-dismissable">
                         {{bwobject.get_extra_data()['message']}}
-                        <a class="close" data-dismiss="alert">×</a>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     </div>
                 {% endif %}
 
@@ -84,7 +84,7 @@
             </div>
             
             <div class="col-md-3">
-                <div id="action-area" class="alert">
+                <div id="action-area" class="well warning">
                     <b>Actions</b>
                     <div class="row">
                         <div class="col-md-6">
@@ -154,23 +154,28 @@
                 </div>
 
                 <div class="well">
-                    <div class="muted"><b>Record Metadata:</b></div></br>
-                    <table class="table table-striped">
-                        <tbody>
-                            {% for key, value in info.iteritems() %}
-                                <b>{{ key }}</b> = {{ value }}
-                                <hr>
-                            {% endfor %}
+                    <div class="muted"><b>Record Metadata</b>
+                        <span type="button" data-toggle="collapse" data-target="#record-metadata-table" class="glyphicon glyphicon-chevron-down pull-right"></span>
+                    </div>
+                </br>
+                    <div id="record-metadata-table" class="collapse">
+                        <table class="table table-striped">
+                            <tbody>
+                                {% for key, value in info.iteritems() %}
+                                    <b>{{ key }}</b> = {{ value }}
+                                    <hr>
+                                {% endfor %}
 
-                            {% if bwobject.version == 1 %}
-                                <span class="badge badge-success">Final</span>
-                            {% elif bwobject.version == 2 %}
-                                <span class="badge badge-warning">Halted</span>
-                            {% else %}
-                                <span class="badge badge-info">Initial</span>
-                            {% endif %}
-                        </tbody>
-                    </table>
+                                {% if bwobject.version == 1 %}
+                                    <span class="badge badge-success">Final</span>
+                                {% elif bwobject.version == 2 %}
+                                    <span class="badge badge-warning">Halted</span>
+                                {% else %}
+                                    <span class="badge badge-info">Initial</span>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

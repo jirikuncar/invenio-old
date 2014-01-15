@@ -56,14 +56,14 @@ function action_buttons (url_restart_record, url_restart_record_prev, url_contin
     });
 }
 
-function bootstrap_alert(message) {
-    $('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
-}
+// function bootstrap_alert(message) {
+//     $('#alert_placeholder').html('<div class="alert"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
+// }
 
-window.setTimeout(function() {
-    $("#alert_placeholder").fadeTo(500, 0).slideUp(500, function(){
-    });
-}, 2000);
+// window.setTimeout(function() {
+//     $("#alert_placeholder").fadeTo(500, 0).slideUp(500, function(){
+//     });
+// }, 2000);
 
 if ( window.addEventListener ) {
     $("div.btn-group[name='data_version']").bind('click', function(event){
