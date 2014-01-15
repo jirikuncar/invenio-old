@@ -340,6 +340,12 @@ BibWorkflowObject
         extra_data["message"] = message
         self.set_extra_data(extra_data)
 
+    def remove_widget(self):
+        extra_data = self.get_extra_data()
+        extra_data["widget"] = None
+        extra_data["message"] = ""
+        self.set_extra_data(extra_data)
+
     def change_status(self, message):
         self.status = message
 
