@@ -334,6 +334,12 @@ BibWorkflowObject
         extra_data["tasks_results"][task_name] = result
         self.set_extra_data(extra_data)
 
+    def add_widget(self, widget, message):
+        extra_data = self.get_extra_data()
+        extra_data["widget"] = widget
+        extra_data["message"] = message
+        self.set_extra_data(extra_data)
+
     def change_status(self, message):
         self.status = message
 

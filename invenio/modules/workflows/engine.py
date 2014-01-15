@@ -412,6 +412,16 @@ BibWorkflowEngine
             func = current_tasks[current_task_idx]
             return func.func_name
 
+    def get_current_object(self):
+        """
+        Returns the currently active BibWorkflowObject or
+        None if no object is active.
+        """
+        obj_id = self.getCurrObjId()
+        if obj_id < 0:
+            return None
+        return self._objects[obj_id]
+
     def halt(self, msg, widget=None):
         """Halt the workflow (stop also any parent wfe)"""
         raise WorkflowHalt(message=msg,

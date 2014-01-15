@@ -43,12 +43,15 @@ def run_workflow(wfe, data, stop_on_halt=False, stop_on_error=False,
             # Processing was halted. Lets save current object and continue.
 
             # Save current object progress
-            current_obj = wfe._objects[wfe.getCurrObjId()]
-            if e.widget:
-                current_obj.extra_data["widget"] = e.widget
-            current_obj.save(version=CFG_OBJECT_VERSION.HALTED,
-                             task_counter=wfe.getCurrTaskId(),
-                             id_workflow=wfe.uuid)
+            current_obj = wfe.get_current_object()
+            if current_obj:
+                if e.widget:
+                    current_obj.add_widget(e.widget, e.message)
+                current_obj.save(version=CFG_OBJECT_VERSION.HALTED,
+                                 task_counter=wfe.getCurrTaskId(),
+                                 id_workflow=wfe.uuid)
+            else:
+                wfe.log.warning("No active object found!")
 
             # Save workflow progress
             wfe.save(status=CFG_WORKFLOW_STATUS.HALTED)
