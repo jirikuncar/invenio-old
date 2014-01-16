@@ -37,11 +37,42 @@
 {% block hpbody %}
     <div id="alert-message"></div>
 
-    <h1 id="mainheader"></h1>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
 
-    <div class="row">
-        <div class="col-md-5 col-md-pull-left">
-            <ul class="nav nav-pills">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="#">Home</a>
+            </li>
+           <!--  <li><a href="#">Assigned to me</a></li> -->
+            <p class="navbar-text" style="margin-right:0px; color:light gray;">Show Records by:</p>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Actions<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                {% set i = 0 %}
+                {% for task in widget_list.iterkeys() %}
+                    <li><a id="task{{i}}" class="task-btn" tabindex="-1" name="{{task}}">{{task}}: {{widget_list[task][0]}}</a></li>
+                    {% set i = i+1 %}
+                {% endfor %}
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Status<b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><input id="version_halted" class="version_selection" type="checkbox" checked> <span class="label label-warning">Halted</span></li>
+                    <li><input id="version_final" class="version_selection" type="checkbox"> <span class="label label-success">Final</span></li>
+                    <li><input id="version_running" class="version_selection" type="checkbox"> <span class="label label-info">Running</span></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><button id="refresh_button" type="button" class="btn btn-default navbar-btn">Refresh!</button></li>    
+        </ul>
+      </div>
+    </nav>
+      <!-- <ul class="nav nav-pills">
                 <li class="active">
                     <a href="#">Home</a>
                 </li>
@@ -77,14 +108,14 @@
             </ul>
         </div>
 
-        <div class="col-md-1 col-md-pull-right">
+        <div class="col-md-1 pull-right">
             <button id="refresh_button" class="btn btn-primary">Refresh!</button>
-        </div>
+        </div> -->
         <!-- <div class="col-md-1 col-md-pull-right">
             <a id="batch_btn" class="btn btn-info col-md-pull-right" href="#"><i class="icon-wrenchwhite icon-wrench"></i>Group Widget</a>
         </div>        --> 
-    </div>
-    <div class="tag-area row">
+    <!-- </div> -->
+    <div id="tag-area" class="row">
     </div>
 
     <div class="container">
@@ -92,7 +123,7 @@
             <table id="example" cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Select</th>
+                        <th><input id="select-all" type="checkbox"></th>
                         <th>Id</th>
                         <th>Title</th>
                         <th>Source</th>

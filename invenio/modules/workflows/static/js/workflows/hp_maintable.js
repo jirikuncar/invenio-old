@@ -42,7 +42,7 @@ function init_urls(url_) {
 
 function init_datatable(){
     oTable = $('#example').dataTable({
-        "sDom": 'lfC<"clear">rtip',
+        "sDom": 'lf<"clear">rtip',
         "bJQueryUI": true,
         "bProcessing": true,
         "bServerSide": true,
@@ -54,6 +54,7 @@ function init_datatable(){
             "sAlign": "left",
             "iOverlayFade": 1
         },
+        "aoColumnDefs":[{'bSortable': false, 'aTargets': [0]}],
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
             rememberSelected(nRow);
             oSettings = oTable.fnSettings();
@@ -87,6 +88,10 @@ $('#refresh_button').on('click', function() {
 
 // DataTables row selection functions
 //***********************************
+$("#select-all").on("click", function(){
+    selectAll();
+})
+
 function hoverRow(row) {
     row.style.background = "#FFFFEE";
 }
@@ -126,7 +131,7 @@ function selectRange(row){
                     rowIndexList.push(i);
                     rowList.push(selectCellByTitle(oSettings.aoData[oSettings.aiDisplay[j]].nTr, 'Id').innerText);
                     oSettings.aoData[oSettings.aiDisplay[j]].nTr.style.background = "#ffa";
-                    checkbox = selectCellByTitle(oSettings.aoData[oSettings.aiDisplay[j]].nTr, "Select").childNodes[1];
+                    checkbox = selectCellByTitle(oSettings.aoData[oSettings.aiDisplay[j]].nTr, "").childNodes[1];
                     checkbox.checked = true;
                 }
             }
@@ -136,11 +141,12 @@ function selectRange(row){
         for (i=fromPos; i>=toPos; i--){
             j = i % 10;
             if($.inArray(i, rowIndexList) <= -1){
+                console.log(oSettings.aoData[oSettings.aiDisplay[j]].nTr);
                 if (selectCellByTitle(oSettings.aoData[oSettings.aiDisplay[j]].nTr, 'Actions').innerText != 'N/A'){
                     rowIndexList.push(i);
                     rowList.push(selectCellByTitle(oSettings.aoData[oSettings.aiDisplay[j]].nTr, 'Id').innerText);
                     oSettings.aoData[oSettings.aiDisplay[j]].nTr.style.background = "#ffa";
-                    checkbox = selectCellByTitle(oSettings.aiDisplay[j].nTr, "Select").childNodes[1];
+                    checkbox = selectCellByTitle(oSettings.aiDisplay[j].nTr, "").childNodes[1];
                     checkbox.checked = false;
                 }
             }
@@ -150,7 +156,8 @@ function selectRange(row){
 }
 
 function selectAll(){
-    var toPos = oSettings._iDisplayLength - 1;
+    console.log("selecting all");
+    var toPos = oSettings._iDisplayEnd - 1;
     var fromPos = 0;
 
     for (var i=fromPos; i<=toPos; i++){
@@ -166,8 +173,9 @@ function selectAll(){
 
 function rememberSelected(row) {
     selectedRow = row;
-    if($.inArray(selectCellByTitle(row, 'Id').innerText, rowList) > -1){
+    if($.inArray($.trim(selectCellByTitle(row, 'Id').innerText), rowList) > -1){
         selectedRow.style.background = "#ffa";
+        selectedRow.cells[0].childNodes[1].checked = true;
     }
 }
 
@@ -268,7 +276,7 @@ function selectRow(row, e, oSettings) {
                 if(widget_name === 'Approve Record'){
                     recordsToApprove.push(selectCellByTitle(row, 'Id').innerText);
                 }
-                checkbox = selectCellByTitle(row, "Select").childNodes[1];
+                checkbox = selectCellByTitle(row, "").childNodes[1];
                 console.log(checkbox);
                 checkbox.checked = true;
             }
@@ -281,7 +289,7 @@ function selectRow(row, e, oSettings) {
             if(widget_name === 'Approve Record'){
                 recordsToApprove.splice(recordsToApprove.indexOf(selectCellByTitle(row, 'Id').innerText), 1);
             }
-            checkbox = selectCellByTitle(row, "Select").childNodes[1];
+            checkbox = selectCellByTitle(row, "").childNodes[1];
             checkbox.checked = false;
         }
     }
@@ -311,18 +319,20 @@ $(document).keyup(function(e){
 $('.task-btn').on('click', function(){
     if($.inArray($(this)[0].name, tagList) <= -1){
         var widget_name = $(this)[0].name;
-        $('.tag-area').html('');
-        $('.tag-area').append('<div class="alert alert-info tag-alert span1">'+widget_name+'<a class="close-btn" data-dismiss="alert" name='+widget_name+' onclick="closeTag(this)">&times;</a></div>');
+        console.log($(this));
+        $('#tag-area').html('');
+        $('#tag-area').append('<div class="alert alert-info tag-alert span1">'+widget_name+'<a class="close-btn" data-dismiss="alert" name='+widget_name+' onclick="closeTag(this)">&times;</a></div>');
         tagList = [];
 
         tagList.push($(this)[0].name);
     }
+    console.log($(this));
     oTable.fnFilter($(this)[0].name);
 });
 
 function closeTag(obj){
     tagList = [];
-    $('.tag-area').html('');
+    $('#tag-area').html('');
     oTable.fnFilter('');
     // tagList.splice(tagList.indexOf(obj.name), 1);
     console.log(tagList);
@@ -352,7 +362,6 @@ $('.version_selection').on('click', function(){
     version_showing['final'] = (version_final.checked) ? true : false;
     version_showing['halted'] = (version_halted.checked) ? true : false;
     version_showing['running'] = (version_running.checked) ? true : false;
-    console.log(version_showing);
 
     $.ajax({
         type : "POST",
@@ -361,7 +370,7 @@ $('.version_selection').on('click', function(){
         contentType: 'application/json;charset=UTF-8',
         traditional: true,
         success: function(result) {
-            // $('#refresh_button').click();
+            $('#refresh_button').click();
         }
     });    
 });

@@ -26,13 +26,16 @@
 {% else %}<span class="label label-info">Running</span>
 {% endif %}
 #details$
-<a href="{{url_for('holdingpen.details', bwobject_id=record.id)}}">Details</a>
+{% if widget == None %}
+	<a href="{{url_for('holdingpen.details', bwobject_id=record.id)}}">Details</a>
+{% else %}
+{% set widget_instance = widget() %}
+	<a href="{{url_for('holdingpen.show_widget', bwobject_id=record.id, widget=widget_instance.__class__.__name__)}}">Details</a>
+{% endif %}
 #widget$
 {% if widget != None %}
 	{% set widget = widget() %}
-	<a href="{{url_for('holdingpen.show_widget', bwobject_id=record.id, widget=widget.__class__.__name__)}}">{{widget.__title__}}</a>
 	{% if mini_widget != None %}
-		</br>
 		{% set mini_widget = mini_widget() %}
 		{% for field in mini_widget %}
 	    	{{ field }}

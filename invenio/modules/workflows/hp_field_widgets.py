@@ -23,7 +23,7 @@ from wtforms.widgets import html_params, HTMLString
 def bootstrap_submit(field):
     html = u'<input %s >' \
            % html_params(id="submitButton",
-                         class_="btn btn-primary btn-large",
+                         class_="btn btn-primary btn-lg",
                          name="submitButton",
                          type="submit",
                          value=field.label.text,)
@@ -48,7 +48,7 @@ def bootstrap_accept_mini(field):
     """
     html = u'<input %s >' \
            % html_params(id="submitButtonMini",
-                         class_="btn btn-success btn-mini",
+                         class_="btn btn-success btn-xs",
                          name="submitButton",
                          type="submit",
                          value=field.label.text,
@@ -73,7 +73,7 @@ def bootstrap_reject_mini(field):
     """
     html = u'<input %s >' \
            % html_params(id="submitButtonMini",
-                         class_="btn btn-danger btn-mini",
+                         class_="btn btn-danger btn-xs",
                          name="submitButton",
                          type="submit",
                          value=field.label.text,

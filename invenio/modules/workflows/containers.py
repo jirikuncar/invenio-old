@@ -17,6 +17,7 @@
 ## 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
 from .config import CFG_OBJECT_VERSION
+from .loader import widgets
 
 
 def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
@@ -32,17 +33,11 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
     if iSortCol_0:
         iSortCol_0 = int(iSortCol_0)
 
-
-    print '************************\nversion_showing', version_showing
+    print '************************version_showing', version_showing
 
     bwobject_list = BibWorkflowObject.query.filter(
         BibWorkflowObject.id_parent != 0 and \
         BibWorkflowObject.version.in_(version_showing)).all()
-
-    for bwo in bwobject_list:
-        print bwo.version
-        print bwo.get_extra_data()['widget']
-    print len(bwobject_list)
 
     if sSearch:
         if len(sSearch) < 4:
@@ -57,10 +52,15 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
                     bwobject_list_tmp.append(bwo)
                 elif bwo.id_workflow == sSearch:
                     bwobject_list_tmp.append(bwo)
-                elif extra_data['widget'] == sSearch:
-                    bwobject_list_tmp.append(bwo)
                 elif extra_data['last_task_name'] == sSearch:
                     bwobject_list_tmp.append(bwo)
+                else:
+                    try:
+                        widget = widgets[extra_data['widget']]
+                        if sSearch in widget.__title__ or sSearch in extra_data['widget']:
+                            bwobject_list_tmp.append(bwo)
+                    except:
+                        pass
                 try:
                     if sSearch in extra_data['redis_search']['category']:
                         bwobject_list_tmp.append(bwo)
@@ -78,5 +78,9 @@ def create_hp_containers(iSortCol_0=None, sSortDir_0=None,
     
     return bwobject_list
 
-
-bwolist = create_hp_containers()
+try:
+    bwolist = create_hp_containers(version_showing=current_app.config['VERSION_SHOWING'])
+    print "try succeded"
+except:    
+    print "try failed"
+    bwolist = create_hp_containers()

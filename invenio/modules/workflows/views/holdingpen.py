@@ -84,13 +84,17 @@ def maintable():
     # FIXME: need to autodiscover widgets properly
     widget_list = {}
     for widget in widgets:
-        widget_list[widget] = [0, []]
+        import IPython
+        # IPython.embed()
+        print widget
+        widget_list[widgets[widget].__title__] = [0, []]
 
     for bwo in bwolist:
         if ('widget' in bwo.get_extra_data()) and \
            (bwo.get_extra_data()['widget'] is not None) \
                 and (bwo.version != CFG_OBJECT_VERSION.FINAL):
-            widget_list[bwo.get_extra_data()['widget']][1].append(bwo)
+            widget = bwo.get_extra_data()['widget']
+            widget_list[widgets[widget].__title__][1].append(bwo)
     for key in widget_list:
         widget_list[key][0] = len(widget_list[key][1])
 
@@ -105,9 +109,13 @@ def refresh():
     thus rebuilding the BWObject list.
     """
     # FIXME: Temp hack until redis is hooked up
-    import invenio.modules.workflows.containers
-
-    reload(invenio.modules.workflows.containers)
+    try:
+        version_showing=current_app.config['VERSION_SHOWING']
+        load_table(version_showing)
+    except:
+        pass
+        # import invenio.modules.workflows.containers
+        # reload(invenio.modules.workflows.containers)
     return 'Records Refreshed'
 
 
@@ -182,11 +190,13 @@ def load_table(version_showing):
         rebuild_containers = True
     except:
         print 'OLD STUFFS'
+        version_showing = request.get_json()
         try:
             VERSION_SHOWING = current_app.config['VERSION_SHOWING']
+            rebuild_containers = True
         except:
-            VERSION_SHOWING = [CFG_OBJECT_VERSION.HALTED, CFG_OBJECT_VERSION.FINAL]
-        rebuild_containers = False
+            VERSION_SHOWING = [CFG_OBJECT_VERSION.HALTED]
+            rebuild_containers = False
 
     # sSearch will be used for searching later
     a_search = request.args.get('sSearch')
@@ -194,19 +204,16 @@ def load_table(version_showing):
     try:
         i_sortcol_0 = request.args.get('iSortCol_0')
         s_sortdir_0 = request.args.get('sSortDir_0')
-
         i_display_start = int(request.args.get('iDisplayStart'))
         i_display_length = int(request.args.get('iDisplayLength'))
         sEcho = int(request.args.get('sEcho')) + 1
     except:
         i_sortcol_0 = current_app.config['iSortCol_0']
         s_sortdir_0 = current_app.config['sSortDir_0']
-
         i_display_start = current_app.config['iDisplayStart']
         i_display_length = current_app.config['iDisplayLength']
         sEcho = current_app.config['sEcho'] + 1
 
-    print 'ARE WE GONNA REBUILD?', rebuild_containers, a_search
     if a_search or rebuild_containers:
         # FIXME: Temp measure until Redis is hooked up
         from ..containers import create_hp_containers
@@ -275,6 +282,7 @@ def load_table(version_showing):
     table_data['iTotalRecords'] = len(bwolist)
     table_data['iTotalDisplayRecords'] = len(bwolist)
 
+    print 'LOAD TABLE RETURNING THAT MANY RECORDS:', len(bwolist)
     return table_data
 
 
